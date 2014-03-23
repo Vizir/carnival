@@ -7,6 +7,8 @@ module Carnival
         rake 'carnival_engine:install:migrations'
         copy_file "../../../config/locales/carnival.en.yml", "config/locales/carnival.en.yml"
         copy_file "../../../config/locales/carnival.pt.yml", "config/locales/carnival.pt.yml"
+        copy_file "../../../config/locales/devise.pt.yml", "config/locales/devise.pt.yml"
+        copy_file "../../../config/locales/devise.en.yml", "config/locales/devise.en.yml"
         copy_file "../../../lib/initializers/carnival/carnival_initializer.rb", "config/initializers/carnival_initializer.rb"
       end
     end
