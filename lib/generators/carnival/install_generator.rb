@@ -7,6 +7,7 @@ module Carnival
       def install
         route "mount_my_engine_at 'admin'"
         rake 'carnival_engine:install:migrations'
+        puts Rails.root
         copy_file "../../../../config/locales/carnival.en.yml", "config/locales/carnival.en.yml"
         copy_file "../../../../config/locales/carnival.pt.yml", "config/locales/carnival.pt.yml"
         copy_file "../../../../config/locales/devise.pt.yml", "config/locales/devise.pt.yml"
