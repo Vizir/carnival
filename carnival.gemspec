@@ -17,6 +17,15 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 4.0.4"
+  s.add_dependency "devise"
+  s.add_dependency "simple_form"
+  s.add_dependency "inherited_resources"
+  s.add_dependency "will_paginate"
+  s.add_dependency "omniauth-facebook"
+  s.add_dependency "omniauth-google-oauth2"
 
   s.add_development_dependency "sqlite3"
+  s.add_development_dependency "better_errors"
+  s.add_development_dependency "bullet"
+  s.add_development_dependency "binding_of_caller"
 end
