@@ -1,0 +1,6 @@
+- if can? :manage,permission
+  %td{:class => 'td-editar'}= link_to t('edit'), edit_path, :class => 'editar'
+  %td{:class => 'td-apagar'}= link_to t('destroy'), delete_obj, :confirm => t('are_you_sure'), :method => :delete, :class => 'apagar'
+- else
+  %td
+  %td

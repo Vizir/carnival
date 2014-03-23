@@ -1,0 +1,3 @@
+- presenter.listagem_botoes_extras.each do |botao|
+  %td{:class => 'td-editar'}
+    = render '/layouts/shared/extra_item', :botao=> botao, :item=>item, :presenter=>presenter

@@ -1,0 +1,27 @@
+.baloon_arrow
+.notifications_container
+  .circle
+    = link_to current_admin_user.unread_notifications.size, "#", :class => "notifications_counter #{current_admin_user.unread_notifications.size > 0 ? 'unread' : 'read'}"
+  :javascript
+    $(document).ready(function() {
+      $('.circle').click(function () {
+        $('.notification-content').fadeToggle('fast');
+      });
+    });
+  .notification-content
+    %span.up-not
+    .notifications_list
+      #notification-scroll
+        %ul
+          - current_admin_user.admin_user_notifications.order('created_at desc').each do |n|
+            %li{:class => "#{(n.read)? 'read' : 'unread'}"}
+              %span.title="#{n.notification.title}:"
+              %br
+              %span.message= link_to n.notification.message.html_safe, admin_read_admin_user_notification_path(n)
+    .view-all
+      %span.message= link_to "Ver todas notificações", admin_admin_user_notifications_path
+
+:javascript
+  $(document).ready(function(){
+    $('.notifications_list').perfectScrollbar();
+  })

@@ -1,0 +1,5 @@
+%meta{:content => "text/html; charset=utf-8", "http-equiv" => "content-type"}/
+= wicked_pdf_stylesheet_link_tag 'relatorios_pdf'
+
+= render '/admin/shared/header'
+= render '/admin/shared/report', :items => @datatable.as_pdf.all, :presenter => @datatable.presenter

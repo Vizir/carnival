@@ -1,0 +1,20 @@
+!!!
+%html
+  %head
+    %title Intranet › Login
+    = stylesheet_link_tag    "application", :media => "all"
+    = stylesheet_link_tag    controller_name if Intranet::Application.assets.find_asset("#{controller_name}.css")
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body
+    #login_main
+      #header_wrapper
+        #header
+          .logo_intranet
+      #login_wrapper
+        #login_content
+          #main_column_wrapper
+            :javascript
+              #{show_messages}
+            = yield
+  = javascript_include_tag controller_name if Intranet::Application.assets.find_asset("#{controller_name}.js")

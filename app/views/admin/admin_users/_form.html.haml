@@ -1,0 +1,21 @@
+.action_back
+  = link_to t('back'), admin_admin_users_path, :class => 'back_link'
+
+= simple_form_for @admin_user, html: {id: 'formframe'} do |f|
+  - if @admin_user.errors.any?
+    #error_explanation
+      %ul
+        - @admin_user.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = f.input :name
+  .field
+    = f.input :email
+  .field
+    = f.input :password
+  .field
+    = f.input :password_confirmation
+
+  .submit_button
+    - submit_label = action_name
+    = f.submit t(submit_label), :disable_with => I18n.t('please_wait'), :class => 'submit'

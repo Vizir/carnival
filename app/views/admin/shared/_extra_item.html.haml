@@ -1,0 +1,21 @@
+- class_name = ""
+- if botao[:campo].present?
+  - class_name = presenter.classes_css(botao[:campo], item)
+- if botao[:remote].present? and botao[:remote]
+  - id_name = "#{item.class.name}_#{item.id}"
+  - link = send("#{botao[:link]}_path", item)
+  - if !botao[:success].present?
+    - botao[:success] = "\'\'"
+  - if !botao[:error].present?
+    - botao[:error] = "\'\'"
+  %a{href:"#", :class => "editar #{class_name}", onclick: "vizirApplication.remoteFunction('#{link}', #{botao[:success]}, #{botao[:error]}, '#{botao[:method]}')", :id => id_name}
+    = botao[:nome]
+
+- else
+  - link = send("#{botao[:link]}_path", item)
+  - if botao[:link] == "historico"
+    - class_name = "popup"
+    - link = send("#{botao[:link]}_path", "#{item.class.to_s.downcase}_#{item.id}")
+
+  = link_to botao[:nome], link, :class => "editar #{class_name}"
+

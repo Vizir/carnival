@@ -1,0 +1,13 @@
+= simple_form_for(model_object, {:html => {:class => 'formframe container-fluid'}}) do |f|
+  - if model_object.errors.any?
+    #error_explanation
+      %ul
+        - model_object.errors.full_messages.each do |msg|
+          %li= msg
+  - @model_presenter.form_for(action).lines.each do |line|
+    .row
+      - line.each do |field|
+        = render "/admin/shared/form/field", f: f, field: field
+
+  .submit_button
+    = f.submit button, disable_with: t('please_wait'), class: 'submit'

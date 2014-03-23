@@ -1,0 +1,13 @@
+.pdf-index
+  #filters
+    -@used_filters ||= []
+    -@used_filters.each do |item|
+      %b= item[0]
+      = item[1]
+    %br/
+
+  #current_date
+    %b= "Data:"
+    = Date.today.to_s(:human)
+
+  %div{:style=>"clear:both"}

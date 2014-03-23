@@ -1,0 +1,12 @@
+#application-popup
+  .close-popup{:onclick => 'closePopup()'}
+    = 'Fechar'
+  #application-popup-content
+
+:javascript
+  function showPopup(){
+    $('#application-popup').show();
+  }
+  function closePopup(){
+    $('#application-popup').hide();
+  }

@@ -1,0 +1,9 @@
+- result = field_to_show(presenter, field, record, only_render_fields)
+- if only_render_fields.present? and only_render_fields
+  = result
+- else
+  %td{:class => "first-td"}
+    - if presenter.classes_css(field, record).present?
+      %span{class: "#{presenter.classes_css(field, record)}"}= result
+    - else
+      = result

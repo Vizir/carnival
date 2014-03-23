@@ -1,0 +1,131 @@
+thead tr.filters{display: none;}
+.dataTables_wrapper{
+  float:left;
+  width:99%;
+  overflow-x:auto;
+  position: relative;
+  top:-37px;
+}
+.dataTables_empty{
+  display:none;
+}
+.dataTables_paginate{
+  margin-left:-3px;
+  margin-top:3px;
+  position:relative;
+  margin-top:20px;
+  float:right;
+}
+.dataTables_info{
+  margin-top:26px;
+  margin-left:20px;
+  float:right;
+}
+
+.dataTables_processing{
+  position: absolute;
+  top: 95px;
+  width: 250px;
+  height: 30px;
+  margin-top: -51px;
+  padding: 14px 0 2px 0;
+  border: 1px solid #e3e9ec;
+  text-align: center;
+  color: #000;
+  font-size: 14px;
+  background-color: #000;
+  opacity: 0.6;
+  z-index:999;
+}
+
+.dataTables_paginate a.paginate_active{
+    background: url('novo.png') left top;
+  border: 1px solid
+  #3079ED;
+  color: #fff !important;
+  font-size:13px;
+  color:#fff !important;
+  cursor:pointer !important;
+    border:1px solid #2A6198;
+}
+.dataTables_paginate a{
+  margin:3px;
+  padding:3px 8px 5px 8px;
+  cursor: default !important;
+  display: inline-block;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none !important;
+  background: url('novo.png') left bottom;
+  border: 1px solid
+  #ccc;
+  font-size:13px;
+  box-shadow: 0 -1px 0px 0 #fff;
+  cursor:pointer;
+  -webkit-border-radius: 1px;
+  border-radius: 1px;
+  -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
+  color:#333 !important;
+  font-weight:normal;
+}
+.dataTables_paginate a:hover{
+  background: url('novo.png') left top;
+  color: #fff !important;
+  font-size:13px;
+  color:#fff !important;
+  cursor:pointer !important;
+    border:1px solid #2A6198;
+}
+.dataTables_filter{
+  float:left;
+  display: block;
+  position: relative;
+  z-index: 10;
+}
+
+.dataTables_filter label{
+  color:#fff;
+}
+
+.dataTables_filter input{
+  border:1px solid #dfe4e7;
+  padding:4px;
+  background:none;
+  -webkit-border-radius: 1px;
+  border-radius: 1px;
+  background:#fff;
+  -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
+  padding:6px 6px 5px 30px;
+  width:208px;
+  border-top:1px solid #ccc;
+  background: #ededed; /* Old browsers */
+  background: -moz-linear-gradient(top,  #ededed 0%, #ffffff 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ededed), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #ededed 0%,#ffffff 100%);
+  background: -o-linear-gradient(top,  #ededed 0%,#ffffff 100%);
+  background: -ms-linear-gradient(top,  #ededed 0%,#ffffff 100%);
+  background: linear-gradient(to bottom,  #ededed 0%,#ffffff 100%);
+  background:url('search.png') repeat 2px -8px;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+}
+
+.dataTables_filter input:focus{
+  outline:none;
+}
+
+.dataTables_length{
+  float:left;
+  display:none;
+}
+
+.datatables-loading{
+  margin-top: 22px;
+  color: #fff;
+  font-size: 25px;
+  background-image: url(datatables-loading.gif);
+  background-size: 50px;
+  background-repeat: no-repeat;
+  background-position-x: 41%;
+  padding-top: 15px;
+  height: 50px;
+}

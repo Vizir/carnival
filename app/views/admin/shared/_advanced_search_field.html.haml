@@ -1,0 +1,10 @@
+- if presenter.model_class.reflect_on_association(field.name.to_sym)
+  - presenter.model_class.reflect_on_association(field.name.to_sym)
+  = select_tag field.name.to_sym, options_for_select(presenter.model_class.reflect_on_association(field.name.to_sym).klass.list_for_select(reverse: true, add_empty_option: true))
+- else
+  - if presenter.model_class.columns_hash[field.name.to_s].type == :boolean
+    = select_tag field.name, options_for_select([['',''],['true', 'true'],['false', 'false']])
+  - elsif presenter.model_class.columns_hash[field.name.to_s].type == :datetime
+    = text_field_tag field.name, "", "data-operator" => field.advanced_search_operator, :class => "datepicker"
+  - else
+    = text_field_tag field.name, "", "data-operator" => field.advanced_search_operator

@@ -1,0 +1,6 @@
+- index_path = caminho_modelo(:index)
+.gray_border.with_margin_bottom
+  %h1= t("#{@model_presenter.model_name}.editar")
+.action_back
+  = link_to t('back'), index_path, class: 'back_link'
+= render '/admin/shared/form/form', button: t('update'), model_object: @model, action: :edit
