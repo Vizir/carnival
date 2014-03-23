@@ -1,9 +1,9 @@
 module Carnival
   class Action
     include Rails.application.routes.url_helpers
-    PARTIAL_DEFAULT = "/admin/shared/action_default"
-    PARTIAL_DELETE = "/admin/shared/action_delete"
-    PARTIAL_REMOTE = "/admin/shared/action_remote"
+    PARTIAL_DEFAULT = "/carnival/shared/action_default"
+    PARTIAL_DELETE = "/carnival/shared/action_delete"
+    PARTIAL_REMOTE = "/carnival/shared/action_remote"
 
     def initialize(presenter, name, params={})
       @presenter = presenter
@@ -15,7 +15,7 @@ module Carnival
 
     def path(extra_params={})
       if @path.nil?
-        params = {controller: "admin/#{@presenter.controller_name}", action: @name}
+        params = {controller: "carnival/#{@presenter.controller_name}", action: @name}
         params = params.merge(extra_params) if extra_params.present?
         params = params.merge(:only_path => true)
         url_for(params)

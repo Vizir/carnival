@@ -1,0 +1,93 @@
+= javascript_include_tag "carnival/data_tables_functions"
+- special_scope =  params[:special_scope]
+- modelo = @datatable.model
+- items = []
+- presenter = @datatable.presenter
+- params = {:class => 'table'}
+
+- date_filter_field = presenter.date_filter_field
+- if date_filter_field.present?
+  - params["data-from"] = date_filter_field.date_filter_periods[date_filter_field.default_date_filter][0]
+  - params["data-to"] = date_filter_field.date_filter_periods[date_filter_field.default_date_filter][1]
+
+- params["data-source"] = presenter.model_path("index", {format: :json})
+
+- params["data-search"] = presenter.searchable_fields.size > 0
+
+- if special_scope.present?
+  - params["data-special_scope"] = special_scope
+
+.table-tools
+  .advanced_search
+    = render '/carnival/shared/advanced_search', :params => params, presenter: presenter
+  = render '/carnival/shared/scope', :params => params, presenter: presenter
+  .actions
+    - presenter.actions_for_page.each do |key, action|
+      = render '/carnival/shared/action_default', :label=>t("#{presenter.model_name}.#{action.name}"), :path=> action.path
+  = render '/carnival/shared/period_filter', :params => params, presenter: presenter
+
+%table{params}
+  %thead
+    %tr
+      -presenter.fields_for_action(:index).each do |key, field|
+        %th{"data-sortable" => "#{field.sortable?}"}= t("#{presenter.model_name}.#{field.name}")
+      %th.buttons
+  %tbody
+
+.table-tools.table-download-links
+  = link_to t('download_as_csv'), "javascript:exportTable('csv');"
+  = link_to t('download_as_pdf'), presenter.model_path(:index, {:format => 'pdf'})
+:javascript
+  function exportTable(format){
+    var url = generateDataSource($("table").first()).replace("json", format);
+    window.open(url,'_blank');
+  }
+
+  var dataTablesTranslation = {
+    'oPaginate': {
+      'sFirst': '#{t('data_tables.first')}',
+      'sLast': '#{t('data_tables.last')}',
+      'sNext': '#{t('data_tables.next')} &raquo;',
+      'sPrevious': '&laquo; #{t('data_tables.previous')}',
+    },
+    'sInfo': '#{t('data_tables.row_counter')}',
+    'sInfoEmpty': '#{t('data_tables.row_counter_empty')}',
+    'sEmptyTable': '#{t('data_tables.table_empty')}',
+    'sInfoFiltered': '#{t('data_tables.rows_filtered')}',
+    'sInfoPostFix': '',
+    'sLengthMenu': '#{t('data_tables.rows_per_page')}',
+    'sProcessing': '#{t('data_tables.processing')}',
+    'sSearch': '',
+    'sZeroRecords': '#{t('data_tables.zero_records')}'
+  };
+
+  var vizirApplication = {};
+  vizirApplication.remoteFunction = function(url, successCallback, errorCallback, method, data){
+    if(!data)
+      data = {};
+    $.ajax({
+      url: url,
+      type: method,
+      data: data,
+      success: function(data, status, jqXHR){
+        if(successCallback)
+          successCallback(data, status, jqXHR);
+        else{
+          if(console && console.warn)
+            console.warn('Não foi implementada uma função de success Callback')
+        }
+      },
+      error: function(jqXHR, status, error){
+        if(errorCallback)
+          errorCallback(jqXHR, status, error);
+        else{
+          if(console && console.warn)
+            console.warn('Não foi implementada uma função de error Callback')
+        }
+      }
+    })
+  }
+
+  $(document).ready(function(){
+    datatable_list('table', []);
+  });

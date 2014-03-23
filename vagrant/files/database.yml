@@ -1,0 +1,19 @@
+# -*- encoding : utf-8 -*-
+development: &development
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: maisasas_dev
+  pool: 5
+  username: root
+  password:
+
+
+test:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: maisasas_test
+  pool: 5
+  username: root
+  password:

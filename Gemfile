@@ -12,3 +12,26 @@ gemspec
 
 # To use debugger
 # gem 'debugger'
+gem 'rails', '~> 4.0'
+gem 'haml'
+gem 'haml-rails'
+gem 'coffee-rails'
+gem 'jquery-rails'
+gem 'unicode'
+gem 'simple_form'
+gem 'inherited_resources'
+gem 'devise'
+gem 'cancan'
+gem 'will_paginate'
+gem 'wicked_pdf'
+gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
+
+group :development do
+  gem 'better_errors', '0.9.0'
+  gem 'bullet', '4.6.0'
+  gem 'binding_of_caller'
+end
+
+group :development, :test do
+end
