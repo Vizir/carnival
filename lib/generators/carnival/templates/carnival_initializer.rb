@@ -1,4 +1,4 @@
-Admin::Config.menu = {
+Carnival::Config.menu = {
                         :admin => {
                               :label => "aaa",
                               :class => "ssss",
