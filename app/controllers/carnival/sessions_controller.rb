@@ -1,12 +1,13 @@
 module Carnival
   class SessionsController < Devise::SessionsController
-     def create
+    layout "carnival/admin"
+    def create
       resource = warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#new")
       set_flash_message(:success, :signed_in) if is_navigational_format?
       redirect_to admin_root_url
-     end
+    end
 
-     def destroy
+    def destroy
       redirect_path = after_sign_out_path_for(resource_name)
       signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
       set_flash_message :success, :signed_out if signed_out && is_navigational_format?

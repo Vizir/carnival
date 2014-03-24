@@ -1,0 +1,13 @@
+.login-container
+  = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+    %h2 Efetuar login
+    %div
+      = f.email_field :email, :autofocus => true, :placeholder => "E-mail"
+    %div
+      = f.password_field :password, :placeholder => "Senha"
+    %div= f.submit "Fazer login", :class => "button"
+    - if devise_mapping.rememberable?
+      %div
+        = f.check_box :remember_me
+        = f.label "Continuar conectado"
+    = render "admin_users/shared/links"
