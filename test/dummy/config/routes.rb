@@ -11,6 +11,4 @@ Rails.application.routes.draw do
     resources :jobs
     resources :professional_experiences
   end
-
-  mount_my_engine_at "admin"
 end
