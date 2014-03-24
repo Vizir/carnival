@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    carnival (0.0.2)
+    carnival (0.0.10)
       devise
       haml
       inherited_resources

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount_my_engine_at 'admin'
   #mount Carnival::Engine => "/carnival"
   namespace :admin do
     resources :testes
