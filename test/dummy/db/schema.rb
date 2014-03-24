@@ -46,6 +46,47 @@ ActiveRecord::Schema.define(version: 20140323020645) do
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
 
+  create_table "cities", force: true do |t|
+    t.string   "name"
+    t.integer  "country_id"
+    t.integer  "state_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "cities", ["country_id"], name: "index_cities_on_country_id"
+  add_index "cities", ["state_id"], name: "index_cities_on_state_id"
+
+  create_table "companies", force: true do |t|
+    t.string   "name"
+    t.integer  "country_id"
+    t.integer  "state_id"
+    t.integer  "city_id"
+    t.string   "address"
+    t.string   "address_complement"
+    t.string   "number"
+    t.integer  "zipcode"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "companies", ["city_id"], name: "index_companies_on_city_id"
+  add_index "companies", ["country_id"], name: "index_companies_on_country_id"
+  add_index "companies", ["state_id"], name: "index_companies_on_state_id"
+
+  create_table "countries", force: true do |t|
+    t.string   "name"
+    t.string   "code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "jobs", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "notifications", force: true do |t|
     t.string   "title"
     t.string   "message"
@@ -53,5 +94,50 @@ ActiveRecord::Schema.define(version: 20140323020645) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "people", force: true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.datetime "dob"
+    t.integer  "country_id"
+    t.integer  "state_id"
+    t.integer  "city_id"
+    t.string   "address"
+    t.string   "address_complement"
+    t.string   "number"
+    t.integer  "zipcode"
+    t.boolean  "employed"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "people", ["city_id"], name: "index_people_on_city_id"
+  add_index "people", ["country_id"], name: "index_people_on_country_id"
+  add_index "people", ["state_id"], name: "index_people_on_state_id"
+
+  create_table "professional_experiences", force: true do |t|
+    t.integer  "people_id"
+    t.integer  "company_id"
+    t.integer  "job_id"
+    t.datetime "started_at"
+    t.datetime "finished_at"
+    t.integer  "finished_status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "professional_experiences", ["company_id"], name: "index_professional_experiences_on_company_id"
+  add_index "professional_experiences", ["job_id"], name: "index_professional_experiences_on_job_id"
+  add_index "professional_experiences", ["people_id"], name: "index_professional_experiences_on_people_id"
+
+  create_table "states", force: true do |t|
+    t.string   "name"
+    t.string   "code"
+    t.integer  "country_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "states", ["country_id"], name: "index_states_on_country_id"
 
 end

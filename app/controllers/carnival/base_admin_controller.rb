@@ -4,8 +4,8 @@ module Carnival
     before_filter :authenticate_admin_user!
 
     def generate_datatable
-      modelo_presenter = "Carnival::#{controller_name.classify}Presenter".constantize.send(:new, :controller => self)
-      Carnival::GenericDatatable.new(view_context, "Carnival::#{controller_name.classify}".constantize, self, modelo_presenter)
+      modelo_presenter = instantiate_presenter
+      Carnival::GenericDatatable.new(view_context, instantiate_model, self, modelo_presenter)
     end
 
     def index
@@ -34,14 +34,14 @@ module Carnival
     end
 
     def show
-      @model_presenter = "Carnival::#{controller_name.classify}Presenter".constantize.send(:new, :controller => self)
+      @model_presenter = instantiate_presenter
       show! do |format|
         format.html{render '/carnival/shared/form/show'}
       end
     end
 
     def new
-      @model_presenter = "Carnival::#{controller_name.classify}Presenter".constantize.send(:new, :controller => self)
+      @model_presenter = instantiate_presenter
       new! do |format|
         @model = instance_variable_get("@#{controller_name.classify.underscore}")
         format.html{render '/carnival/shared/form/new'}
@@ -49,7 +49,7 @@ module Carnival
     end
 
     def edit
-      @model_presenter = "Carnival::#{controller_name.classify}Presenter".constantize.send(:new, :controller => self.class)
+      @model_presenter = instantiate_presenter
       edit! do |format|
         @model = instance_variable_get("@#{controller_name.classify.underscore}")
         format.html{render '/carnival/shared/form/edit'}
@@ -71,6 +71,33 @@ module Carnival
 
     def current_user
       current_admin_user
+    end
+
+    private
+
+    def instantiate_model
+      namespace = extract_namespace
+      if namespace.present?
+        "#{extract_namespace}::#{controller_name.classify}".constantize
+      else
+        "#{controller_name.classify}".constantize
+      end
+    end
+
+    def instantiate_presenter
+      namespace = extract_namespace
+      if namespace.present?
+        "#{extract_namespace}::#{controller_name.classify}Presenter".constantize.send(:new, :controller => self)
+      else
+        "#{controller_name.classify}Presenter".constantize.send(:new, :controller => self)
+      end
+    end
+
+    def extract_namespace
+      namespace = ""
+      arr = self.class.to_s.split("::")
+      namespace = arr[0] if arr.size > 1
+      namespace
     end
   end
 end

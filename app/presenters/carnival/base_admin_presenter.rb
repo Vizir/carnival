@@ -107,7 +107,12 @@ module Carnival
     end
 
     def controller_name
-      @@controller.controller_name
+      namespace = extract_namespace
+      if namespace.present?
+        "#{extract_namespace.downcase}/#{@@controller.controller_name}"
+      else
+        @@controller.controller_name
+      end
     end
 
     def table_name
@@ -319,5 +324,13 @@ module Carnival
       container[presenter_class_name] = {} if container[presenter_class_name].nil?
       container[presenter_class_name][name] = klass.new(name, params)
     end
+
+    def extract_namespace
+      namespace = ""
+      arr = self.class.to_s.split("::")
+      namespace = arr[0] if arr.size > 1
+      namespace
+    end
+
   end
 end

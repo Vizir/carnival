@@ -1,4 +1,5 @@
 Carnival::Engine.routes.draw do
+  mount_my_engine_at 'admin'
   # resources :admin_user_notifications, controller: "carnival/admin_user_notifications", :as => :admin_admin_user_notifications
   # resources :admin_users, controller: "carnival/admin_users", :as => :admin_admin_users
   # devise_for :admin_users, :class_name => "Carnival::AdminUser", :path => "carnival/sessions", :controllers => { :sessions => "carnival/sessions", :omniauth_callbacks => "carnival/omniauth_callbacks" }

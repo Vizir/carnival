@@ -15,7 +15,7 @@ module Carnival
 
     def path(extra_params={})
       if @path.nil?
-        params = {controller: "carnival/#{@presenter.controller_name}", action: @name}
+        params = {controller: @presenter.controller_name, action: @name}
         params = params.merge(extra_params) if extra_params.present?
         params = params.merge(:only_path => true)
         url_for(params)

@@ -1,0 +1,17 @@
+.action_back
+  = link_to t('back'), admin_testes_path, :class => 'back_link'
+
+= simple_form_for @teste, html: {id: 'formframe'} do |f|
+  - if @teste.errors.any?
+    #error_explanation
+      %ul
+        - @teste.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = f.input :campo1
+  .field
+    = f.input :campo2
+
+  .submit_button
+    - submit_label = action_name
+    = f.submit t(submit_label), :disable_with => I18n.t('please_wait'), :class => 'submit'
