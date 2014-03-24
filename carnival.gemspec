@@ -7,11 +7,11 @@ require "carnival/version"
 Gem::Specification.new do |s|
   s.name        = "carnival"
   s.version     = Carnival::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Carnival."
-  s.description = "TODO: Description of Carnival."
+  s.authors     = ["Vizir Software Studio"]
+  s.email       = ["contato@vizir.com.br"]
+  s.homepage    = "https://github.com/Vizir/carnival"
+  s.summary     = "Carnival is an easy-to-use and extensible Rails Engine to speed the development of data management interfaces."
+  s.description = "Carnival is an easy-to-use and extensible Rails Engine to speed the development of data management interfaces. When you use Carnival you can benefit from made features that are already done. If you need to change anything, you can write your own version of the method, using real Ruby code without worrying about the syntax of the engine."
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
