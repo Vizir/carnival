@@ -59,7 +59,7 @@ module Carnival
       CSV.generate(:col_sep => "\t") do |csv|
         csv_line = []
         @presenter.fields_for_action(:csv).each do |key, field|
-          csv_line << I18n.t("#{@presenter.model_name}.#{field.name}")
+          csv_line << I18n.t("activerecord.attributes.#{@presenter.full_model_name}.#{field.name}")
         end
         csv << csv_line
 

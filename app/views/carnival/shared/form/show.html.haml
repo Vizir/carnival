@@ -1,5 +1,5 @@
 - index_path = caminho_modelo(:index)
-- item = instance_variable_get("@#{controller_name.classify.downcase}")
+- item = instance_variable_get("@#{@model_presenter.model_name}")
 .gray_border.with_margin_bottom
   %h1= t("#{@model_presenter.model_name}.exibir")
 .action_back
@@ -10,7 +10,7 @@
     .row
       - line.each do |field|
         .wrapper_show{class: "col-md-#{field.size}"}
-          %label="#{t("#{controller_name.classify.downcase}.#{field.name}")}:"
+          %label="#{t("activerecord.attributes.#{@model_presenter.full_model_name}.#{field.name}")}:"
           .value
             = field_to_show @model_presenter,field.name,item
 

@@ -39,3 +39,4 @@ Carnival::Config.menu = {
                           ]
                         }
                       }
+

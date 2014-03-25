@@ -17,9 +17,9 @@
             %li{:class => "#{(n.read)? 'read' : 'unread'}"}
               %span.title="#{n.notification.title}:"
               %br
-              %span.message= link_to n.notification.message.html_safe, admin_read_admin_user_notification_path(n)
+              %span.message= link_to n.notification.message.html_safe, carnival_read_admin_user_notification_path(n)
     .view-all
-      %span.message= link_to "Ver todas notificações", admin_admin_user_notifications_path
+      %span.message= link_to "Ver todas notificações", carnival_admin_user_notifications_path
 
 :javascript
   $(document).ready(function(){

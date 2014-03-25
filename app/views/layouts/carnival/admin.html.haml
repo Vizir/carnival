@@ -26,7 +26,7 @@
           %div.safe-guard-notification
             = render '/layouts/carnival/notifications_list'
           %div.salute
-            = link_to edit_admin_admin_user_path(:id => current_admin_user.id) do
+            = link_to edit_carnival_admin_user_path(:id => current_admin_user.id) do
               .email
                 = current_admin_user.email
               %figure

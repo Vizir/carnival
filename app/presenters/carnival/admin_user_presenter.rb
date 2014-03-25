@@ -24,30 +24,8 @@ module Carnival
     action :edit
     action :destroy
     action :new
-    action :teste1, :target => :record, :path=>"http://www.google.com.br"
-    action :teste2, :target => :page, :path=>"http://www.google.com.br"
 
-    def listagem_botoes
-      {:novo => true, :editar=> true, :apagar => true}
-    end
-
-    def listagem_botoes_extras
-      [
-        {
-          :link => 'admin_admin_user',
-          :nome => I18n.t('details')
-        }
-      ]
-    end
-
-    def filtro_data
-
-    end
-
-
-    def escopo
-      []
-    end
+    model_name "carnival/admin_user"
 
   end
 end

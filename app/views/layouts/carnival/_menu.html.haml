@@ -11,7 +11,7 @@
             = link_to t("menu.admin"), "#", {:class => " btn_usuario sublevel"}
             %ul.dropdown_main_menu_sublevel
               %li
-                = link_to t('menu.admin_user'), admin_admin_users_path, {:class => "#{set_resource_actived_if_current(admin_admin_users_path)}"}
+                = link_to t('menu.admin_user'), carnival_admin_users_path, {:class => "#{set_resource_actived_if_current(carnival_admin_users_path)}"}
               - menus[:admin][:subs].each do |sub|
                 %li
                   = link_to t(sub[:label]), sub[:link], {:class => "#{set_resource_actived_if_current(sub[:link])} #{sub[:class]}"}

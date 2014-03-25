@@ -184,12 +184,13 @@ pt:
     id: ID
 
   admin_user:
+    name: Nome
     edit: Editando usuário administrador
     new: Novo usuário administrador
     lista: Usuários administradores
     email: E-mail
     admin: Administrador
-    account_name: Conta
+    account_name: Contaform
     notification: Notificação
     current_sign_in_at: Acesso atual em
     last_sign_in_at: Último acesso em

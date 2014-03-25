@@ -36,21 +36,10 @@ module Carnival
       @@actions[presenter_class_name].present? && @@actions[presenter_class_name][action].present?
     end
 
+    @@model_names = {}
     @@fields = {}
     @@scopes = {}
     @@forms = {}
-
-    def self.scope(name, params = {})
-      self.instantiate_element(@@scopes, Carnival::Scope, name, params)
-    end
-
-    def self.field(name, params = {})
-      self.instantiate_element(@@fields, Carnival::Field, name, params)
-    end
-
-    def self.form(action, params = {})
-      self.instantiate_element(@@forms, Carnival::Form, name, params)
-    end
 
     def scopes
       @@scopes[presenter_class_name]
@@ -91,8 +80,17 @@ module Carnival
       form
     end
 
+
     def model_name
-      self.class.to_s.split("::").last().gsub("Presenter", "").underscore
+      if @@model_names[presenter_class_name].nil?
+        self.class.to_s.split("::").last().gsub("Presenter", "").underscore
+      else
+        if @@model_names[presenter_class_name].include?("/")
+          @@model_names[presenter_class_name].split("/").last
+        else
+          @@model_names[presenter_class_name]
+        end
+      end
     end
 
     def model_path(action, extra_params=nil)
@@ -103,7 +101,11 @@ module Carnival
     end
 
     def full_model_name
-      self.class.to_s.gsub("Presenter", "").underscore
+      if @@model_names[presenter_class_name].nil?
+        self.class.to_s.gsub("Presenter", "").underscore
+      else
+        @@model_names[presenter_class_name]
+      end
     end
 
     def controller_name
@@ -179,7 +181,7 @@ module Carnival
     end
 
     def model_class
-      self.class.to_s.gsub("Presenter", "").constantize
+      full_model_name.classify.constantize
     end
 
     def relation_field?(field)
@@ -195,7 +197,7 @@ module Carnival
         if model_class.reflect_on_association(field).macro == :belongs_to
           return record.send(field)
         else
-          return I18n.t("#{model_name}.#{field}")
+          return I18n.t("activerecord.attibutes.#{full_model_name}.#{field}")
         end
       end
       raise
@@ -249,14 +251,6 @@ module Carnival
         end
       end
       actions
-    end
-
-    def self.presenter_class_name
-      if self.class.name == "Class"
-        self.to_s
-      else
-        self.class.name
-      end
     end
 
     def presenter_class_name
@@ -320,11 +314,6 @@ module Carnival
       end
     end
 
-    def self.instantiate_element(container, klass, name, params)
-      container[presenter_class_name] = {} if container[presenter_class_name].nil?
-      container[presenter_class_name][name] = klass.new(name, params)
-    end
-
     def extract_namespace
       namespace = ""
       arr = self.class.to_s.split("::")
@@ -332,5 +321,33 @@ module Carnival
       namespace
     end
 
+    def self.instantiate_element(container, klass, name, params)
+      container[presenter_class_name] = {} if container[presenter_class_name].nil?
+      container[presenter_class_name][name] = klass.new(name, params)
+    end
+
+    def self.scope(name, params = {})
+      self.instantiate_element(@@scopes, Carnival::Scope, name, params)
+    end
+
+    def self.field(name, params = {})
+      self.instantiate_element(@@fields, Carnival::Field, name, params)
+    end
+
+    def self.form(action, params = {})
+      self.instantiate_element(@@forms, Carnival::Form, name, params)
+    end
+
+    def self.model_name(name)
+      @@model_names[presenter_class_name] = name
+    end
+
+    def self.presenter_class_name
+      if self.class.name == "Class"
+        self.to_s
+      else
+        self.class.name
+      end
+    end
   end
 end
