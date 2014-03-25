@@ -5,7 +5,7 @@ module Carnival
       source_root File.expand_path("../templates", __FILE__)
 
       def install
-        route "mount_my_engine_at 'admin'"
+        route "mount_carnival_at 'admin'"
         rake 'carnival_engine:install:migrations'
         template "../../../../config/locales/carnival.en.yml", "config/locales/carnival.en.yml"
         template "../../../../config/locales/carnival.pt.yml", "config/locales/carnival.pt.yml"

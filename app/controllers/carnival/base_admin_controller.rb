@@ -4,8 +4,8 @@ module Carnival
     before_filter :authenticate_admin_user!
 
     def generate_datatable
-      modelo_presenter = instantiate_presenter
-      Carnival::GenericDatatable.new(view_context, instantiate_model, self, modelo_presenter)
+      model_presenter = instantiate_presenter
+      Carnival::GenericDatatable.new(view_context, instantiate_model(model_presenter), self, model_presenter)
     end
 
     def index
@@ -75,13 +75,8 @@ module Carnival
 
     private
 
-    def instantiate_model
-      namespace = extract_namespace
-      if namespace.present?
-        "#{extract_namespace}::#{controller_name.classify}".constantize
-      else
-        "#{controller_name.classify}".constantize
-      end
+    def instantiate_model(presenter)
+      presenter.full_model_name.constantize
     end
 
     def instantiate_presenter
