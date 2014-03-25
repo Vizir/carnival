@@ -76,7 +76,7 @@ module Carnival
     private
 
     def instantiate_model(presenter)
-      presenter.full_model_name.constantize
+      presenter.full_model_name.classify.constantize
     end
 
     def instantiate_presenter
