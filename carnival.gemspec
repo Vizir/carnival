@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", "~> 4.0.4"
+  s.add_dependency "rails", "~> 4.0"
   s.add_dependency "haml"
   s.add_dependency "devise"
   s.add_dependency "simple_form"
@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
   s.add_dependency "will_paginate"
   s.add_dependency "omniauth-facebook"
   s.add_dependency "omniauth-google-oauth2"
+  s.add_dependency "haml-rails"
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "better_errors"
