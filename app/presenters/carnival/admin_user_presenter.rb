@@ -24,8 +24,6 @@ module Carnival
     action :edit
     action :destroy
     action :new
-
-    model_name "carnival/admin_user"
-
-  end
+    # action :teste1, :target => :record, :path=>"http://www.google.com.br"
+    # action :teste2, :target => :page, :path=>"http://www.google.com.br"
 end
