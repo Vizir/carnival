@@ -1,13 +1,14 @@
 PATH
   remote: .
   specs:
-    carnival (0.0.10)
+    carnival (0.0.11)
       devise
       haml
+      haml-rails
       inherited_resources
       omniauth-facebook
       omniauth-google-oauth2
-      rails (~> 4.0.4)
+      rails (~> 4.0)
       simple_form
       will_paginate
 

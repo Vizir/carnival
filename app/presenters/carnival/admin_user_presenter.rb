@@ -26,4 +26,5 @@ module Carnival
     action :new
     # action :teste1, :target => :record, :path=>"http://www.google.com.br"
     # action :teste2, :target => :page, :path=>"http://www.google.com.br"
+  end
 end

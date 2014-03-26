@@ -19,7 +19,11 @@ module Carnival
 
       respond_to do |format|
         format.html do |render|
-          render '/carnival/index'
+          begin
+            render 'index'
+          rescue
+            render '/carnival/index'
+          end
         end
         format.json do |render|
           render(json: @datatable)
@@ -36,7 +40,13 @@ module Carnival
     def show
       @model_presenter = instantiate_presenter
       show! do |format|
-        format.html{render '/carnival/shared/form/show'}
+        format.html do |render|
+          begin
+            render 'show'
+          rescue
+            render '/carnival/shared/form/show'
+          end
+        end
       end
     end
 
@@ -44,7 +54,13 @@ module Carnival
       @model_presenter = instantiate_presenter
       new! do |format|
         @model = instance_variable_get("@#{controller_name.classify.underscore}")
-        format.html{render '/carnival/shared/form/new'}
+        format.html do |render|
+          begin
+            render 'new'
+          rescue
+            render '/carnival/shared/form/new'
+          end
+        end
       end
     end
 
@@ -52,7 +68,13 @@ module Carnival
       @model_presenter = instantiate_presenter
       edit! do |format|
         @model = instance_variable_get("@#{controller_name.classify.underscore}")
-        format.html{render '/carnival/shared/form/edit'}
+        format.html do |render|
+          begin
+            render 'edit'
+          rescue
+            render '/carnival/shared/form/edit'
+          end
+        end
       end
     end
 
