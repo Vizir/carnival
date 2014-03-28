@@ -1,6 +1,6 @@
 module Admin
   class Job < ActiveRecord::Base
-    include AssociationCommon
+    include Carnival::ModelHelper
     self.table_name = "jobs"
 
     has_many :professional_experiences

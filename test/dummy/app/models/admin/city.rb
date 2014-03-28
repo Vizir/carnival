@@ -1,6 +1,6 @@
 module Admin
   class City < ActiveRecord::Base
-    include AssociationCommon
+    include Carnival::ModelHelper
     self.table_name = "cities"
     belongs_to :country
     belongs_to :state

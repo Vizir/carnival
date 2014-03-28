@@ -1,4 +1,4 @@
-module Admin::AssociationCommon
+module Carnival::ModelHelper
 
   def to_s
     self.name
