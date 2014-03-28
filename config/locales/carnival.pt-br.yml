@@ -1,4 +1,4 @@
-pt:
+pt-BR:
   menu:
     dashboard: Dashboard
     admin_user: Usuários administradores
@@ -184,9 +184,18 @@ pt:
     id: ID
 
   admin_user:
+    name: Nome
     edit: Editando usuário administrador
     new: Novo usuário administrador
     lista: Usuários administradores
+    email: E-mail
+    admin: Administrador
+    account_name: Contaform
+    notification: Notificação
+    current_sign_in_at: Acesso atual em
+    last_sign_in_at: Último acesso em
+    sign_in_count: Total de acessos
+    <<: *default_columns
 
   # Active Record
   activerecord:
@@ -218,15 +227,3 @@ pt:
         even: "precisa ser par"
     models:
       admin_user: Usuário Administrador
-    attributes:
-      carnival/admin_user:
-        name: Nome
-        email: E-mail
-        admin: Administrador
-        account_name: Conta
-        notification: Notificação
-        current_sign_in_at: Acesso atual em
-        last_sign_in_at: Último acesso em
-        sign_in_count: Total de acessos
-        <<: *default_columns
-

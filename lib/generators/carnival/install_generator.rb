@@ -8,8 +8,8 @@ module Carnival
         route "mount_carnival_at 'admin'"
         rake 'carnival_engine:install:migrations'
         template "../../../../config/locales/carnival.en.yml", "config/locales/carnival.en.yml"
-        template "../../../../config/locales/carnival.pt.yml", "config/locales/carnival.pt.yml"
-        template "../../../../config/locales/devise.pt.yml", "config/locales/devise.pt.yml"
+        template "../../../../config/locales/carnival.pt-br.yml", "config/locales/carnival.pt-br.yml"
+        template "../../../../config/locales/devise.pt-br.yml", "config/locales/devise.pt-br.yml"
         template "../../../../config/locales/devise.en.yml", "config/locales/devise.en.yml"
         template "carnival_initializer.rb", "config/initializers/carnival_initializer.rb"
       end
