@@ -206,7 +206,11 @@ module Carnival
 
     def relation_path(field, record)
       if relation_field?(field)
-        related_class = model_class.reflect_on_association(field).klass.name.pluralize.underscore
+        if is_namespaced?
+          related_class = "#{extract_namespace}/#{model_class.reflect_on_association(field).klass.name.pluralize.underscore}"
+        else
+          related_class = model_class.reflect_on_association(field).klass.name.pluralize.underscore
+        end
         if model_class.reflect_on_association(field).macro == :belongs_to
           params = {:controller => related_class, :action => :show, :id => record.send(model_class.reflect_on_association(field).foreign_key)}
         else
@@ -312,6 +316,10 @@ module Carnival
       else
         '#{value}'
       end
+    end
+
+    def is_namespaced?
+      self.class.to_s.split("::").size > 0
     end
 
     def extract_namespace
