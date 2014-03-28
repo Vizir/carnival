@@ -6,7 +6,7 @@ module ActionDispatch::Routing
         resources :admin_user_notifications, controller: "carnival/admin_user_notifications", :as => :carnival_admin_user_notifications
         resources :admin_users, controller: "carnival/admin_users", :as => :carnival_admin_users
         devise_for :admin_users, :class_name => "Carnival::AdminUser", :path => "sessions", :controllers => { :sessions => "carnival/sessions", :omniauth_callbacks => "omniauth_callbacks" }
-        root to: "admin_users#index", :as => :admin_root
+        root to: "carnival/admin_users#index", :as => :admin_root
       end
     end
   end
