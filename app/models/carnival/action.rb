@@ -16,12 +16,12 @@ module Carnival
     def path(extra_params={})
       if @path.nil?
         params = {controller: @presenter.controller_name, action: @name}
-        params = params.merge(extra_params) if extra_params.present?
-        params = params.merge(:only_path => true)
-        url_for(params)
       else
-        @path
+        params = {path: @path}
       end
+      params = params.merge(extra_params) if extra_params.present?
+      params = params.merge(:only_path => true)
+      url_for(params)
     end
 
     def partial
