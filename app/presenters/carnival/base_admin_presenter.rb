@@ -207,7 +207,11 @@ module Carnival
     def relation_path(field, record)
       if relation_field?(field)
         if is_namespaced?
-          related_class = "#{extract_namespace.downcase}/#{model_class.reflect_on_association(field).klass.name.pluralize.underscore}"
+          if model_class.reflect_on_association(field).klass.name.pluralize.underscore.include?("/")
+            related_class = model_class.reflect_on_association(field).klass.name.pluralize.underscore
+          else
+            related_class = "#{extract_namespace.downcase}/#{model_class.reflect_on_association(field).klass.name.pluralize.underscore}"
+          end
         else
           related_class = model_class.reflect_on_association(field).klass.name.pluralize.underscore
         end
