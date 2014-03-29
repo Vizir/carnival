@@ -7,4 +7,5 @@
 //= require carnival/external/chosen.jquery
 //= require carnival/external/perfect-scrollbar-0.4.6.min
 //= require carnival/external/perfect-scrollbar-0.4.6.with-mousewheel.min
+//= require carnival/external/jquery.fancybox
 //= require carnival/vizir_admin
