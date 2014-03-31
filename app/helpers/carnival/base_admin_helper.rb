@@ -65,7 +65,13 @@ module Carnival
         end
       else
         result = record.send(field.to_s)
-        return result.strftime("%d/%m/%y %H:%M:%S") if current_type == :date
+        if current_type == :date
+          if current_type.nil?
+            return result
+          else
+            return result.strftime("%d/%m/%y %H:%M:%S")
+          end
+        end
         return number_with_precision(result, :precision => 2, :separator => ",") if current_type == :number
         return record.class.const_get(field.to_s.upcase)[result] if current_type == :enum
         result
