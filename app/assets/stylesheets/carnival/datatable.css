@@ -1,8 +1,8 @@
 thead tr.filters{display: none;}
 .dataTables_wrapper{
   float:left;
-  width:99%;
-  overflow-x:auto;
+  /* width:99%; */
+  overflow: hidden;
   position: relative;
   top:-37px;
 }

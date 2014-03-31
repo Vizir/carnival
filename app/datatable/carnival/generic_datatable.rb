@@ -129,7 +129,9 @@ module Carnival
       end
 
       records = records.order("#{@presenter.table_name}.#{sort_column} #{sort_direction}")
-      records = records.page(page).per_page(per_page)
+      if params['format'] == 'json'
+        records = records.page(page).per_page(per_page)
+      end
       filtros = []
       if params[:advancedquery].present?
         records = @presenter.parse_advanced_search(records, params[:advancedquery])

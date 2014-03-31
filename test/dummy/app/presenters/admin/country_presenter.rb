@@ -2,7 +2,7 @@
 module Admin
   class CountryPresenter < Carnival::BaseAdminPresenter
     field :id,
-          :actions => [:index, :show], :sortable => false,
+          :actions => [:index, :show, :csv, :pdf], :sortable => false,
           :searchable => true,
           :advanced_search => {:operator => :equal}
     field :name,

@@ -3,7 +3,7 @@
   = result
 - else
   %td{:class => "first-td"}
-    - if presenter.classes_css(field, record).present?
-      %span{class: "#{presenter.classes_css(field, record)}"}= result
+    - if presenter.fields[field].css_class.present?
+      %span{class: "#{presenter.fields[field].css_class}"}= result
     - else
       = result

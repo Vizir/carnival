@@ -22,8 +22,8 @@ Gem::Specification.new do |s|
   s.add_dependency "simple_form"
   s.add_dependency "inherited_resources"
   s.add_dependency "will_paginate"
-  s.add_dependency "omniauth-facebook"
-  s.add_dependency "omniauth-google-oauth2"
+  # s.add_dependency "omniauth-facebook"
+  # s.add_dependency "omniauth-google-oauth2"
   s.add_dependency "haml-rails"
 
   s.add_development_dependency "sqlite3"
