@@ -66,7 +66,7 @@ module Carnival
       else
         result = record.send(field.to_s)
         if current_type == :date
-          if current_type.nil?
+          if result.nil?
             return result
           else
             return result.strftime("%d/%m/%y %H:%M:%S")
