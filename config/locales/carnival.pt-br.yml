@@ -199,6 +199,13 @@ pt-BR:
 
   # Active Record
   activerecord:
+    attributes:
+      carnival/admin_user:
+        email: E-mail
+        name: Nome
+        id: Código
+        last_sign_in_at: Último login
+        sign_in_count: Número de conexões
     errors:
       template:
         header:
@@ -227,3 +234,4 @@ pt-BR:
         even: "precisa ser par"
     models:
       admin_user: Usuário Administrador
+
