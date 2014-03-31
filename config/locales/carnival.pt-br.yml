@@ -190,13 +190,9 @@ pt-BR:
     edit: Editando usuário administrador
     new: Novo usuário administrador
     lista: Usuários administradores
-    email: E-mail
     admin: Administrador
     account_name: Contaform
     notification: Notificação
-    current_sign_in_at: Acesso atual em
-    last_sign_in_at: Último acesso em
-    sign_in_count: Total de acessos
     <<: *default_columns
 
   # Active Record
@@ -206,8 +202,9 @@ pt-BR:
         email: E-mail
         name: Nome
         id: Código
-        last_sign_in_at: Último login
-        sign_in_count: Número de conexões
+        current_sign_in_at: Acesso atual em
+        last_sign_in_at: Último acesso em
+        sign_in_count: Total de acessos
     errors:
       template:
         header:

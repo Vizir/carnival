@@ -30,7 +30,7 @@
   %thead
     %tr
       -presenter.fields_for_action(:index).each do |key, field|
-        %th{"data-sortable" => "#{field.sortable?}"}= t("#{presenter.model_name}.#{field.name}")
+        %th{"data-sortable" => "#{field.sortable?}"}= t("activerecord.attributes.#{presenter.full_model_name}.#{field.name}")
       %th.buttons
   %tbody
 
