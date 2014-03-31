@@ -64,7 +64,7 @@ module Carnival
           return link_to presenter.relation_label(field.to_sym, record), presenter.relation_path(field.to_sym, record)
         end
       else
-        result = record.send(field)
+        result = record.send(field.to_s).to_s
         return result.strftime("%d/%m/%y %H:%M:%S") if current_type == :date
         return number_with_precision(result, :precision => 2, :separator => ",") if current_type == :number
         return record.class.const_get(field.to_s.upcase)[result] if current_type == :enum
