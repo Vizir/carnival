@@ -185,6 +185,8 @@ pt-BR:
 
   admin_user:
     name: Nome
+    show: Visualizar
+    destroy: Apagar
     edit: Editando usuário administrador
     new: Novo usuário administrador
     lista: Usuários administradores
