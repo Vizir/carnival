@@ -4,4 +4,4 @@
 .action_back
   - # TODO add buttons to the form in presenter
   = link_to t('back'), index_path, class: 'back_link' if @model_presenter
-= render '/carnival/shared/form/form', button: t('create'), model_object: @model, action: :new
+= render '/carnival/shared/form/form', button: t('create'), model_object: @model, :url => @model_presenter.model_path, action: :new
