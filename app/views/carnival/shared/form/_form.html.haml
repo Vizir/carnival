@@ -1,4 +1,4 @@
-= simple_form_for(model_object, :url => url, {:html => {:class => 'formframe container-fluid'}}) do |f|
+= simple_form_for(model_object, :url => url, :html => {:class => 'formframe container-fluid'}) do |f|
   - if model_object.errors.any?
     #error_explanation
       %ul

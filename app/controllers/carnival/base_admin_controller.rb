@@ -69,11 +69,11 @@ module Carnival
       edit! do |format|
         @model = instance_variable_get("@#{controller_name.classify.underscore}")
         format.html do |render|
-          begin
-            render 'edit'
-          rescue
+          #begin
+          #  render 'edit'
+          #rescue
             render '/carnival/shared/form/edit'
-          end
+          #end
         end
       end
     end
