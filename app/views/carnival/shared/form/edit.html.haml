@@ -3,4 +3,4 @@
   %h1= t("#{@model_presenter.model_name}.editar")
 .action_back
   = link_to t('back'), index_path, class: 'back_link'
-= render '/carnival/shared/form/form', button: t('update'), model_object: @model, :url => @model_presenter.model_path(:edit)
+= render '/carnival/shared/form/form', button: t('update'), model_object: @model, :url => @model_presenter.model_path(:edit), :action => :edit
