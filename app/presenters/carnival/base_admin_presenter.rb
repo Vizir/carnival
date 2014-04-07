@@ -212,7 +212,9 @@ module Carnival
           related_class = model_class.reflect_on_association(field).klass.name.pluralize.underscore
         end
         if model_class.reflect_on_association(field).macro == :belongs_to
-          params = {:controller => related_class, :action => :show, :id => record.send(model_class.reflect_on_association(field).foreign_key)}
+          id = -1
+          id = record.send(model_class.reflect_on_association(field).foreign_key) if record.send(model_class.reflect_on_association(field).foreign_key).present?
+          params = {:controller => related_class, :action => :show, :id => id}
         else
           params = {:controller => related_class, :action => :index, :advanced_search => make_relation_advanced_query_url_options(field, record)}
         end

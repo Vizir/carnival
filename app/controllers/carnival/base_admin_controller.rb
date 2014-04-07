@@ -116,5 +116,16 @@ module Carnival
       namespace = arr[0] if arr.size > 1
       namespace
     end
+
+    def after_sign_in_path_for(user)
+      session[:admin_user_id] = user.id
+      raise
+      admin_root_path
+    end
+
+    def after_sign_out_path_for(user)
+      session[:admin_user_id] = nil
+      root_path
+    end
   end
 end
