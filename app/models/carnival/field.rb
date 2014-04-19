@@ -61,6 +61,14 @@ module Carnival
       return :asc
     end
 
+    def nested_form?
+      @params[:nested_form]
+    end
+
+    def nested_form_allow_destroy?
+      @params[:nested_form_allow_destroy]
+    end
+
     def sortable?
       @params[:sortable]
     end

@@ -19,11 +19,11 @@ module Carnival
 
       respond_to do |format|
         format.html do |render|
-          begin
-            render 'index'
-          rescue
+          # begin
+          #   render 'index'
+          # rescue
             render '/carnival/index'
-          end
+          # end
         end
         format.json do |render|
           render(json: @datatable)
@@ -41,11 +41,11 @@ module Carnival
       @model_presenter = instantiate_presenter
       show! do |format|
         format.html do |render|
-          begin
-            render 'show'
-          rescue
+          # begin
+          #   render 'show'
+          # rescue
             render '/carnival/shared/form/show'
-          end
+          # end
         end
       end
     end
@@ -55,11 +55,11 @@ module Carnival
       new! do |format|
         @model = instance_variable_get("@#{controller_name.classify.underscore}")
         format.html do |render|
-          begin
-            render 'new'
-          rescue
+          # begin
+          #   render 'new'
+          # rescue
             render '/carnival/shared/form/new'
-          end
+          # end
         end
       end
     end
@@ -79,11 +79,33 @@ module Carnival
     end
 
     def create
-      create!(:notice => I18n.t("messages.created"))
+      @model_presenter = instantiate_presenter
+      create! do |success, failure|
+        success.html{ redirect_to @model_presenter.model_path(:index), :notice => I18n.t("messages.created") }
+        failure.html do |render|
+          @model = instance_variable_get("@#{controller_name.classify.underscore}")
+          #begin
+          #  render 'edit'
+          #rescue
+            render '/carnival/shared/form/new'
+          #end
+        end
+      end
     end
 
     def update
-      update!(:notice => I18n.t("messages.updated"))
+      @model_presenter = instantiate_presenter
+      update! do |success, failure|
+        success.html{ redirect_to @model_presenter.model_path(:index), :notice => I18n.t("messages.updated") }
+        failure.html do |render|
+          @model = instance_variable_get("@#{controller_name.classify.underscore}")
+          #begin
+          #  render 'edit'
+          #rescue
+            render '/carnival/shared/form/edit'
+          #end
+        end
+      end
     end
 
     def render_popup partial

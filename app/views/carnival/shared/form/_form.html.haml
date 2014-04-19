@@ -1,13 +1,48 @@
 = simple_form_for(model_object, :url => url, :html => {:class => 'formframe container-fluid'}) do |f|
-  - if model_object.errors.any?
-    #error_explanation
-      %ul
-        - model_object.errors.full_messages.each do |msg|
-          %li= msg
-  - @model_presenter.form_for(action).lines.each do |line|
-    .row
-      - line.each do |field|
-        = render "/carnival/shared/form/field", f: f, field: field
+  = render "carnival/shared/form/inner_form", button: button, model_object: model_object, model_presenter: model_presenter, :url => url, :action => action, :f => f
 
   .submit_button
     = f.submit button, disable_with: t('please_wait'), class: 'submit'
+
+:javascript
+  var nestedForms = {};
+  $(document).ready(function(){
+    nestedForm = $(".nested-form-list .form-new-association").each(function(index, element){
+      nestedForms[getFormName(element)] = element;
+      element.remove();
+    });
+
+  });
+
+  function createNewForm(selector, form){
+    newForm = $(nestedForms[form]).clone().wrap("<div>").parent();
+    $(newForm).find("select").show();
+    $(newForm).find(".chosen-container").remove();
+
+    newForm = $(newForm).html()
+    var last_index = $(selector + " li").length
+    newForm = newForm.replace(/([_a-zA-Z]+_attributes_)\d+(_[a-zA-Z]+)/g, "$1" + last_index + "$2");
+    newForm = newForm.replace(/([_a-zA-Z]+\[[_a-zA-Z]+_attributes\]\[)\d+(\]\[[_a-zA-Z]+\])/g, "$1" + last_index + "$2");
+    $(selector).append(newForm);
+    $(selector).find("select").chosen();
+    $(selector).find(".chosen-container").css({width:$(".chosen-container").parent().css("width")})
+  }
+
+  function getFormName(element){
+    var classes = $(element).parent().attr("class").split(" ");
+    classes.splice(classes.indexOf("nested-form-list"), 1);
+    return classes[0];
+  }
+
+  function removeNestedFormElement(element){
+    $(element).parent().parent().hide();
+    $(element).parent().parent().find(".destroy").val(true);
+  }
+
+  function toggleNestedForm(element){
+    $(element).parent().parent().find("ul.nested-form-list").toggle();
+    if($(element).text() == "#{t('close')}")
+      $(element).text("#{t('open')}");
+    else
+      $(element).text("#{t('close')}");
+  }

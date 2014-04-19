@@ -1,4 +1,6 @@
 pt-BR:
+  open: Abrir
+  close: Fechar
   menu:
     dashboard: Dashboard
     admin_user: Usuários administradores

@@ -14,9 +14,11 @@ module Admin
           :searchable => true,
           :advanced_search => {:operator => :like}
     field :states,
-          :actions => [:index, :show]
+          :actions => [:index, :show, :edit, :new],
+          :nested_form => true, :nested_form_allow_destroy => true
     field :cities,
-          :actions => [:index, :show]
+          :actions => [:index, :show, :edit, :new],
+          :nested_form => true, :nested_form_allow_destroy => true
     field :created_at, :actions => [:index, :show]
     field :updated_at, :actions => [:index, :show]
 

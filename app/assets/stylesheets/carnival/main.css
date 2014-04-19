@@ -2294,3 +2294,28 @@ table input{
   border: 1px solid #2A6198;
   background-color: #2D66A0;
 }
+
+.nested-form-title{
+  float: left;
+  margin-left: 20px;
+}
+
+.nested-form-actions{
+  float: right;
+  margin-top: 17px;
+}
+
+.nested-form-list{
+  clear: both;
+}
+
+.nested-form-list-item{
+  border-bottom: 1px solid #ccc;
+  float: left;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  width: 95%;
+}
+.nested-form-list-item-actions{
+  float: right;
+}

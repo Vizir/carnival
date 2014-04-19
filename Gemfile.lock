@@ -1,13 +1,13 @@
 PATH
   remote: .
   specs:
-    carnival (0.0.31)
+    carnival (0.0.38)
       devise
-      haml
       haml-rails
       inherited_resources
       rails (~> 4.0)
       simple_form
+      wicked_pdf
       will_paginate
 
 GEM

@@ -1,5 +1,5 @@
 - options = {wrapper_html: {class: "col-md-#{field.size}"}}
-- current_type = field_type(@model_presenter,field.name)
+- current_type = field_type(model_presenter,field.name)
 - options[:as] = :admin_enum if current_type == :enum
 - options[:as] = :admin_relationship_select if current_type == :relation
 - options[:as] = :admin_date if current_type == :date

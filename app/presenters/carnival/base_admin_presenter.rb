@@ -40,6 +40,7 @@ module Carnival
     @@fields = {}
     @@scopes = {}
     @@forms = {}
+    @@presenters = []
 
     def scopes
       @@scopes[presenter_class_name]
@@ -118,7 +119,7 @@ module Carnival
     end
 
     def table_name
-      model_name.pluralize
+      model_class.send("table_name")
     end
 
     def searchable_fields
@@ -127,6 +128,18 @@ module Carnival
         searchable_fields[key] = field if field.searchable?
       end
       searchable_fields
+    end
+
+    def must_render_field?(nested_in, field, model_object)
+      must_render = true
+      if nested_in.present?
+        if nested_in.class == model_object.send(field.name).class
+          must_render = false
+        elsif nested_in.class.name.underscore.split("/").last == field.name
+          must_render = false
+        end
+      end
+      return must_render
     end
 
     def default_scope
@@ -239,6 +252,10 @@ module Carnival
       records
     end
 
+    def presenter_to_field field, record
+      "#{extract_namespace}::#{field.name.singularize.classify}Presenter".constantize.send("new", :controller => @@controller)
+    end
+
     protected
     def make_relation_advanced_query_url_options(field, record)
       relation_model = model_class.reflect_on_association(field).klass.name.pluralize.underscore.split("/").last
@@ -332,6 +349,8 @@ module Carnival
     end
 
     def self.instantiate_element(container, klass, name, params)
+      @@presenters << presenter_class_name unless @@presenters.include?(presenter_class_name)
+
       container[presenter_class_name] = {} if container[presenter_class_name].nil?
       container[presenter_class_name][name] = klass.new(name, params)
     end

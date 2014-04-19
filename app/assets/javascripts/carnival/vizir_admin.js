@@ -129,6 +129,7 @@ var formLoad = function(){
     dateFormat: 'yy-mm-dd'
   });
   $('select').chosen();
+  $(".chosen-container").css({width:$(".chosen-container").parent().css("width")})
 }
 
 $(document).ready(function(){
