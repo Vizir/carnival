@@ -333,7 +333,7 @@ module Carnival
       elsif "false" == value.downcase
         return "'f'"
       else
-        '#{value}'
+        "#{value}"
       end
     end
 
