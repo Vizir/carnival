@@ -69,6 +69,10 @@ module Carnival
       @params[:nested_form_allow_destroy]
     end
 
+    def nested_form_modes? (mode)
+      @params[:nested_form_modes].include?(mode)
+    end
+
     def sortable?
       @params[:sortable]
     end

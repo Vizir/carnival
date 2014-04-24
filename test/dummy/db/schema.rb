@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140323020645) do
+ActiveRecord::Schema.define(version: 20140424142835) do
 
   create_table "admin_user_notifications", force: true do |t|
     t.boolean  "read",            default: false
@@ -80,6 +80,28 @@ ActiveRecord::Schema.define(version: 20140323020645) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "credit_cards", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "installments", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "installments_credit_cads", force: true do |t|
+    t.integer  "installment_id"
+    t.integer  "credit_card_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "installments_credit_cads", ["credit_card_id"], name: "index_installments_credit_cads_on_credit_card_id"
+  add_index "installments_credit_cads", ["installment_id"], name: "index_installments_credit_cads_on_installment_id"
 
   create_table "jobs", force: true do |t|
     t.string   "name"

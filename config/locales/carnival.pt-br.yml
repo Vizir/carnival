@@ -1,6 +1,12 @@
 pt-BR:
-  open: Abrir
-  close: Fechar
+  nested_form:
+    open: Abrir
+    close: Fechar
+    new: Criar
+    new_subtitle: Novos
+    existing_option: Opções Existentes
+    existing_option_title: Opções
+
   menu:
     dashboard: Dashboard
     admin_user: Usuários administradores

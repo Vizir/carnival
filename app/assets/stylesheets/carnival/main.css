@@ -2319,3 +2319,13 @@ table input{
 .nested-form-list-item-actions{
   float: right;
 }
+
+.existing-options{
+  clear: both;
+  padding-bottom: 10px;
+  width: 95%;
+}
+
+.checkbox{
+  float: left;
+}

@@ -11,10 +11,14 @@
       nestedForms[getFormName(element)] = element;
       element.remove();
     });
-
+    
+    $(".existing-options").hide();
+    $(".nested-form-subtitle").hide();
   });
 
   function createNewForm(selector, form){
+    $(".nested-form-subtitle").show();
+
     newForm = $(nestedForms[form]).clone().wrap("<div>").parent();
     $(newForm).find("select").show();
     $(newForm).find(".chosen-container").remove();
@@ -41,8 +45,13 @@
 
   function toggleNestedForm(element){
     $(element).parent().parent().find("ul.nested-form-list").toggle();
-    if($(element).text() == "#{t('close')}")
-      $(element).text("#{t('open')}");
+    if($(element).text() == "#{t('nested_form.close')}")
+      $(element).text("#{t('nested_form.open')}");
     else
-      $(element).text("#{t('close')}");
+      $(element).text("#{t('nested_form.close')}");
+    $(".existing-options").toggle();
+  }
+
+  function renderSelectOptions(){
+    $(".existing-options").show();
   }

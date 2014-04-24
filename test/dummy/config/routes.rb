@@ -10,5 +10,7 @@ Rails.application.routes.draw do
     resources :companies
     resources :jobs
     resources :professional_experiences
+    resources :installments
+    resources :credit_cards
   end
 end
