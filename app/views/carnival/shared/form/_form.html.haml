@@ -11,7 +11,7 @@
       nestedForms[getFormName(element)] = element;
       element.remove();
     });
-    
+
     $(".existing-options").hide();
     $(".nested-form-subtitle").hide();
   });
@@ -52,6 +52,6 @@
     $(".existing-options").toggle();
   }
 
-  function renderSelectOptions(){
-    $(".existing-options").show();
+  function renderSelectOptions(selector){
+    $(selector).show();
   }
