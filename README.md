@@ -36,15 +36,23 @@ Carnival works with Rails 4.0 onwards. You can add it to your Gemfile with:
 
 ```ruby
 gem 'carnival'
-
 ```
 
 Run bundle install
 
 
-Execute the command below to copy migrations and generate the initializer
+Execute the command below to copy migrations and generate the initializer, after you install Carnival.
 
 > rails generate carnival:install
+
+## Usage
+
+### Model
+
+### Controller
+
+### Presenter
+
 
 ##TODO
 * create has many association input data
