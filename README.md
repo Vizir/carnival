@@ -35,7 +35,6 @@ In some words, Carnival provides a managing infra-structure for your application
 Carnival works with Rails 4.0 onwards. You can add it to your Gemfile with:
 
 ```ruby
-
 gem 'carnival'
 
 ```
@@ -45,11 +44,10 @@ Run bundle install
 
 Execute the command below to copy migrations and generate the initializer
 
-```ruby
-
+`
 rails generate carnival:install
 
-```
+`
 
 ##TODO
 * create has many association input data
