@@ -44,10 +44,7 @@ Run bundle install
 
 Execute the command below to copy migrations and generate the initializer
 
-`
-rails generate carnival:install
-
-`
+> rails generate carnival:install
 
 ##TODO
 * create has many association input data
