@@ -27,7 +27,7 @@
             %h4.existing-options-title
               = t("nested_form.existing_option_title")
             - field_presenter = model_presenter.presenter_to_field(field, nil)
-            = f.collection_check_boxes field.name.to_sym, field_presenter.model_class.send("all"), :id, field_presenter.model_class.to_label_options
+            = f.collection_check_boxes "#{field.name.singularize.to_sym}_ids".to_sym, field_presenter.model_class.send("all"), :id, field_presenter.model_class.to_label_options
 
           %ul.nested-form-list{:class => field.name}
             %h4.nested-form-subtitle
