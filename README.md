@@ -30,14 +30,26 @@ When you use Carnival you can benefit from made features that are already done. 
 In some words, Carnival provides a managing infra-structure for your application. All the data related to Carnival will be located under the /admin namespace.
 
 
-## Installation
+## Getting started
 
-Add gem "carnival" to your gemfile
+Carnival works with Rails 4.0 onwards. You can add it to your Gemfile with:
+
+```ruby
+
+gem 'carnival'
+
+```
 
 Run bundle install
 
 
-Execute rails generate carnival:install to copy migrations and generate the initializer
+Execute the command below to copy migrations and generate the initializer
+
+```ruby
+
+rails generate carnival:install
+
+```
 
 ##TODO
 * create has many association input data
