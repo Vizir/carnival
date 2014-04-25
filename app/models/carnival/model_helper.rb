@@ -19,5 +19,10 @@ module Carnival::ModelHelper
       end
       select
     end
+
+     def to_label_options
+      label = column_names.select { |column| column.eql?("name")}
+      label.empty? ?  column_names.fetch(1).to_sym : label.first.to_sym
+    end
   end
 end
