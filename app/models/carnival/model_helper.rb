@@ -1,7 +1,7 @@
 module Carnival::ModelHelper
 
-  def to_s
-    self.name
+  def to_label
+    self.respond_to? :name ? self.name : self.to_s
   end
 
   def self.included mod
@@ -20,9 +20,10 @@ module Carnival::ModelHelper
       select
     end
 
-     def to_label_options
-      label = column_names.select { |column| column.eql?("name")}
-      label.empty? ?  column_names.fetch(1).to_sym : label.first.to_sym
+    def list_for_checkbox
+      list = []
+      all.each {|object| list << [object.id, object.to_label] }
+      list
     end
   end
 end

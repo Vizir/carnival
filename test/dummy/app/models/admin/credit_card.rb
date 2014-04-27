@@ -5,5 +5,9 @@ module Admin
     
     has_many :installments_credit_cads
     has_many :installments, through: :installments_credit_cads
+
+    def to_label
+      name      
+    end
   end
 end

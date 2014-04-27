@@ -3,7 +3,7 @@ By [Vizir](http://vizir.com.br/).
 
 ![Vizir Logo](http://vizir.com.br/wp-content/themes/vizir/images/logo.png)
 
-Carnival is an easy-to-use and extensible Rails Engine to speed the development of data management interfaces.
+Carnival is an easy-to-use and extensible Rails Engine to speed up the development of data management interfaces.
 
 When you use Carnival you can benefit from made features that are already done. If you need to change anything, you can write your own version of the method, using real Ruby code without worrying about the syntax of the engine.
 
@@ -11,7 +11,7 @@ When you use Carnival you can benefit from made features that are already done. 
 
 * Easy way to CRUD any data;
 * Search data easily;
-* Advanced Searches in a minute. You can specify which fields you want to search for;
+* Advanced searches in a minute. You can specify which fields you want to search for;
 * Fancy time filter, based on Toggl design;
 * Authentication and CRUD of users based on Devise;
 * Facebook and Google authentication;
@@ -30,14 +30,30 @@ When you use Carnival you can benefit from made features that are already done. 
 In some words, Carnival provides a managing infra-structure for your application. All the data related to Carnival will be located under the /admin namespace.
 
 
-## Installation
+## Getting started
 
-Add gem "carnival" to your gemfile
+Carnival works with Rails 4.0 onwards. You can add it to your Gemfile with:
 
-Run bundle install
+```ruby
+gem 'carnival'
+```
+
+Run `bundle install`
 
 
-Execute rails generate carnival:install to copy migrations and generate the initializer
+Execute `rails generate carnival:install` after you install Carnival to copy migrations and generate the initializer.
+
+If you already have created your database with `rake db:create`, just run `rake db:migrate` to execute the Carnival migrations.
+
+
+## Usage
+
+### Model
+
+### Controller
+
+### Presenter
+
 
 ##TODO
 * create has many association input data
