@@ -49,9 +49,61 @@ Execute the command below to copy migrations and generate the initializer, after
 
 ### Model
 
+```ruby
+
+module Admin
+  class Company < ActiveRecord::Base
+
+    include Carnival::ModelHelper
+    self.table_name = "companies"
+
+  end
+end
+
+```
+
 ### Controller
 
+```ruby
+
+module Admin
+  class CompaniesController < Carnival::BaseAdminController
+    layout "carnival/admin"
+
+    def permitted_params
+      params.permit(admin_company: [:name])
+    end
+  end
+end
+
+```
+
 ### Presenter
+
+```ruby
+
+module Admin
+  class CompanyPresenter < Carnival::BaseAdminPresenter
+    field :id,
+          :actions => [:index, :show], :sortable => false,
+          :searchable => true,
+          :advanced_search => {:operator => :equal}
+    field :name,
+          :actions => [:index, :new, :edit, :show],
+          :searchable => true,
+          :advanced_search => {:operator => :like}
+    field :created_at, :actions => [:index, :show]
+
+    action :show
+    action :edit
+    action :destroy
+    action :new
+
+  end
+end
+
+
+```
 
 
 ##TODO
