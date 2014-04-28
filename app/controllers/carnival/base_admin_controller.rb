@@ -19,11 +19,7 @@ module Carnival
 
       respond_to do |format|
         format.html do |render|
-          # begin
-          #   render 'index'
-          # rescue
-            render '/carnival/index'
-          # end
+          render 'index'
         end
         format.json do |render|
           render(json: @datatable)
@@ -41,11 +37,7 @@ module Carnival
       @model_presenter = instantiate_presenter
       show! do |format|
         format.html do |render|
-          # begin
-          #   render 'show'
-          # rescue
-            render '/carnival/shared/form/show'
-          # end
+          render 'show'
         end
       end
     end
@@ -55,11 +47,7 @@ module Carnival
       new! do |format|
         @model = instance_variable_get("@#{controller_name.classify.underscore}")
         format.html do |render|
-          # begin
-          #   render 'new'
-          # rescue
-            render '/carnival/shared/form/new'
-          # end
+          render 'new'
         end
       end
     end
@@ -69,11 +57,7 @@ module Carnival
       edit! do |format|
         @model = instance_variable_get("@#{controller_name.classify.underscore}")
         format.html do |render|
-          #begin
-          #  render 'edit'
-          #rescue
-            render '/carnival/shared/form/edit'
-          #end
+          render 'edit'
         end
       end
     end
@@ -84,11 +68,7 @@ module Carnival
         success.html{ redirect_to @model_presenter.model_path(:index), :notice => I18n.t("messages.created") }
         failure.html do |render|
           @model = instance_variable_get("@#{controller_name.classify.underscore}")
-          #begin
-          #  render 'edit'
-          #rescue
-            render '/carnival/shared/form/new'
-          #end
+          render 'new'
         end
       end
     end
@@ -99,11 +79,7 @@ module Carnival
         success.html{ redirect_to @model_presenter.model_path(:index), :notice => I18n.t("messages.updated") }
         failure.html do |render|
           @model = instance_variable_get("@#{controller_name.classify.underscore}")
-          #begin
-          #  render 'edit'
-          #rescue
-            render '/carnival/shared/form/edit'
-          #end
+          render 'edit'
         end
       end
     end

@@ -9,7 +9,7 @@
       - nested_in = nil unless nested_in
       - if field.nested_form?
         .nested-form{:class => field.name}
-           
+
           %h3.nested-form-title
             = t("activerecord.attributes.#{@model_presenter.full_model_name}.#{field.name}")
           .nested-form-actions
@@ -18,7 +18,7 @@
             - if field.nested_form_modes?(:new)
               = " | "
               = link_to_function t("nested_form.new"), "createNewForm('.nested-form-list.#{field.name}', '#{field.name}')"
-            
+
             - if field.nested_form_modes?(:associate)
               = " | "
               = link_to_function t("nested_form.existing_option"), "renderSelectOptions('.existing-options.#{field.name}')"

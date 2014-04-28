@@ -70,7 +70,8 @@ module Carnival
     end
 
     def nested_form_modes? (mode)
-      @params[:nested_form_modes].include?(mode)
+      return @params[:nested_form_modes].include?(mode) unless @params[:nested_form_modes].nil?
+      return false
     end
 
     def sortable?

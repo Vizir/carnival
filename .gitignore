@@ -9,3 +9,4 @@ test/dummy/.sass-cache
 .vagrant
 .rvmrc
 /public/system
+**.gem

@@ -124,7 +124,7 @@ module Carnival
 
       date_filter_field = @presenter.date_filter_field
       if(date_filter_field.present? && params[:from].present? && params[:from] != "" && params[:to].present? && params[:to] != "")
-        @model = @model.where("#{@presenter.table_name}.#{date_filter_field.name} between ? and ?", "#{params[:from]} 00:00:00", "#{params[:to]} 23:59:59")
+        records = records.where("#{@presenter.table_name}.#{date_filter_field.name} between ? and ?", "#{params[:from]} 00:00:00", "#{params[:to]} 23:59:59")
         add_filter 'Período',"#{params[:from]} - #{params[:to]}"
       end
 
