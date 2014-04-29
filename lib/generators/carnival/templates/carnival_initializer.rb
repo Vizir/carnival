@@ -39,3 +39,10 @@ Carnival::Config.menu = {
                           ]
                         }
                       }
+Carnival::Config.devise_config = :registerable, :recoverable, :rememberable, :trackable, :validatable,
+                                 :omniauthable
+
+Carnival::Config.omniauth_providers = [:facebook, :google_oauth2]
+
+Carnival::Config.omniauth = {facebook: ["324810390938005", "3c16625e74189a3708cc586dc050a6b2"],
+                            google_oauth2: ['431077382019-mumumjahr5cn6cooubtskc6ohael7923.apps.googleusercontent.com', 'ilH4B-KXN3tqG6qF9gGN1F_J']}

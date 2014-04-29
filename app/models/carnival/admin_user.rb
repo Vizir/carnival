@@ -1,10 +1,19 @@
 module Carnival
 
   class AdminUser < ActiveRecord::Base
+    include Carnival::ModelHelper
+    devise_flags = *Carnival::Config.devise_config
+    devise_flags << :recoverable
+    devise_flags << :rememberable
 
-    devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
+    if devise_flags.include?(:omniauthable)
+      devise :database_authenticatable, *devise_flags.uniq, omniauth_providers: Carnival::Config.omniauth_providers
+    else
+      devise :database_authenticatable, *devise_flags.uniq
+    end
 
     has_many :admin_user_notifications
+    has_many :notifications, through: :admin_user_notifications
 
     def unread_notifications
       self.admin_user_notifications.where(:read => false).to_a
@@ -23,7 +32,7 @@ module Carnival
         user.provider = auth.provider
         user.uid = auth.uid
         user
-      else
+      elsif Carnival::Config.devise_config.include?(:registerable)
         where(auth.slice(:provider, :uid)).first_or_create do |user|
           user.provider = auth.provider
           user.uid = auth.uid
@@ -35,5 +44,4 @@ module Carnival
       end
     end
   end
-
 end

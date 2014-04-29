@@ -251,4 +251,17 @@ Devise.setup do |config|
   # When using omniauth, Devise cannot automatically set Omniauth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
+
+  if Carnival::Config.omniauth.present?
+    puts "=" * 100
+    puts Carnival::Config.omniauth.inspect
+    if Carnival::Config.omniauth[:facebook].present?
+      require "omniauth-facebook"
+      config.omniauth :facebook, Carnival::Config.omniauth[:facebook][0], Carnival::Config.omniauth[:facebook][1]
+    end
+    if Carnival::Config.omniauth[:google_oauth2].present?
+      require "omniauth-google-oauth2"
+      config.omniauth :google_oauth2, Carnival::Config.omniauth[:google_oauth2][0], Carnival::Config.omniauth[:google_oauth2][1]
+    end
+  end
 end

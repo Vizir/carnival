@@ -59,7 +59,7 @@ module Carnival
       current_type = field_type(presenter,field)
       if current_type == :relation
         if show_only_value
-          record.send(field.to_s).to_s
+          record.send(field.to_s).to_label
         else
           return link_to presenter.relation_label(field.to_sym, record), presenter.relation_path(field.to_sym, record)
         end

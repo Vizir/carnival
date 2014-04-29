@@ -23,8 +23,8 @@ gem 'inherited_resources'
 gem 'devise'
 gem 'will_paginate'
 gem 'wicked_pdf'
-# gem 'omniauth-facebook'
-# gem 'omniauth-google-oauth2'
+gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
 
 group :development do
   gem 'better_errors', '0.9.0'

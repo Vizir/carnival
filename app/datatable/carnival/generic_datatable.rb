@@ -88,20 +88,20 @@ module Carnival
 
         if render_type == RENDER_CSV
           @presenter.fields_for_action(:csv).each do |key, field|
-            data_item[i.to_label] = ac.render_to_string :formats => [:html] , :partial => '/carnival/shared/list_cel', :locals => {:presenter => @presenter,:field=> key, :record=> record, :only_render_fields => true}
+            data_item[i.to_s] = ac.render_to_string :formats => [:html] , :partial => '/carnival/shared/list_cel', :locals => {:presenter => @presenter,:field=> key, :record=> record, :only_render_fields => true}
             i = i + 1
           end
         elsif render_type == RENDER_PDF
           @presenter.fields_for_action(:pdf).each do |key, field|
-            data_item[i.to_label] = ac.render_to_string :formats => [:html] , :partial => '/carnival/shared/list_cel', :locals => {:presenter => @presenter,:field=> key, :record=> record, :only_render_fields => true}
+            data_item[i.to_s] = ac.render_to_string :formats => [:html] , :partial => '/carnival/shared/list_cel', :locals => {:presenter => @presenter,:field=> key, :record=> record, :only_render_fields => true}
             i = i + 1
           end
         else render_type == RENDER_TABLE
           @presenter.fields_for_action(:index).each do |key, field|
-            data_item[i.to_label] = ac.render_to_string :formats => [:html] , :partial => '/carnival/shared/list_cel', :locals => {:presenter => @presenter,:field=> key, :record=> record, :only_render_fields => false}
+            data_item[i.to_s] = ac.render_to_string :formats => [:html] , :partial => '/carnival/shared/list_cel', :locals => {:presenter => @presenter,:field=> key, :record=> record, :only_render_fields => false}
             i = i + 1
           end
-          data_item[i.to_label] = ac.render_to_string :formats => [:html], :partial => '/carnival/shared/item_buttons', :locals => {:record=>record, :presenter => @presenter}
+          data_item[i.to_s] = ac.render_to_string :formats => [:html], :partial => '/carnival/shared/item_buttons', :locals => {:record=>record, :presenter => @presenter}
           i = i + 1
         end
         data << data_item

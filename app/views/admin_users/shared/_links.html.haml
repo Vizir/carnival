@@ -11,4 +11,4 @@
   .oauth
     - resource_class.omniauth_providers.each do |provider|
       %div{class: provider}
-        = link_to "Login com #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider)
+        = link_to "Login com #{provider.to_s.titleize}", admin_user_omniauth_authorize_path(provider: provider)

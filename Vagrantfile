@@ -6,8 +6,8 @@ Vagrant.configure("2") do |config|
   config.vm.provider :virtualbox do |vb|
     vb.customize ["modifyvm", :id, "--memory", 512]
   end
-  config.vm.network :private_network, ip: "192.168.33.10"
-  config.vm.network :forwarded_port, guest: 3000, host: 3020
+  config.vm.network :private_network, ip: "192.168.33.11"
+  config.vm.network :forwarded_port, guest: 3000, host: 3021
   config.vm.provision :puppet do |puppet|
     puppet.module_path = "vagrant/modules"
     puppet.manifests_path = "vagrant/manifests"

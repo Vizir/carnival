@@ -1,6 +1,8 @@
 module Carnival
   class AdminUserNotification < ActiveRecord::Base
     include ActionView::Helpers::UrlHelper
+    include Carnival::ModelHelper
+
     belongs_to :admin_user
     belongs_to :notification
 
@@ -16,5 +18,8 @@ module Carnival
       self.notification.link
     end
 
+    def to_label
+      self.notification.title
+    end
   end
 end
