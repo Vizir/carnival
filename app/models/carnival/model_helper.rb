@@ -13,9 +13,9 @@ module Carnival::ModelHelper
       select = []
       select << ['', ''] if params[:add_empty_option]
       if params[:reverse]
-        select.concat all.collect{|c|[c.to_s, c.id]}
+        select.concat all.collect{|c|[c.to_label, c.id]}
       else
-        select.concat all.collect{|c|[c.id, c.to_s]}
+        select.concat all.collect{|c|[c.id, c.to_label]}
       end
       select
     end
