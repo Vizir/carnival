@@ -3,6 +3,7 @@ module Carnival
     respond_to :html, :json
     before_filter :authenticate_admin_user!
 
+
     def generate_datatable
       model_presenter = instantiate_presenter
       Carnival::GenericDatatable.new(view_context, instantiate_model(model_presenter), self, model_presenter)
@@ -89,10 +90,6 @@ module Carnival
       render 'layouts/shared/render_popup' and return
     end
 
-    def current_user
-      current_admin_user
-    end
-
     private
 
     def instantiate_model(presenter)
@@ -117,7 +114,6 @@ module Carnival
 
     def after_sign_in_path_for(user)
       session[:admin_user_id] = user.id
-      raise
       admin_root_path
     end
 
@@ -125,5 +121,9 @@ module Carnival
       session[:admin_user_id] = nil
       root_path
     end
+  end
+
+  def authenticate_admin_user!
+    redirect_to admin_root_path if current_admin_user.nil?
   end
 end
