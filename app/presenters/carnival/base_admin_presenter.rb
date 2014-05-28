@@ -198,22 +198,19 @@ module Carnival
     end
 
     def relation_field?(field)
-      if model_class.reflect_on_association(field)
-        true
-      else
-        false
-      end
+      model_class.reflect_on_association(field)
     end
+
 
     def relation_label(field, record)
       if relation_field?(field)
         if model_class.reflect_on_association(field).macro == :belongs_to
-          return record.send(field)
+          value = record.send(field.to_s)
+          return value.to_label if value.present?
         else
           return I18n.t("activerecord.attibutes.#{full_model_name}.#{field}")
         end
       end
-      raise
       return ""
     end
 
