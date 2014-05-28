@@ -17,6 +17,12 @@ module Carnival
           :searchable => true,
           :advanced_search => {:operator => :like},
           position: {line: 1, column: 2, size: 5}
+    field :password,
+          :actions => [:new, :edit],
+          position: {line: 2, column: 1, size: 5}
+    field :password_confirmation,
+          :actions => [:new, :edit],
+          position: {line: 2, column: 2, size: 5}
     field :last_sign_in_at, :actions => [:index, :show]
     field :sign_in_count, :actions => [:index, :show]
 
