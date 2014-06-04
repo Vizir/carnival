@@ -10,7 +10,7 @@ module ActionDispatch::Routing
         else
           devise_for :admin_users, :class_name => "Carnival::AdminUser", :path => "sessions", :controllers => { :sessions => "carnival/sessions"}
         end
-        root to: "carnival/admin_users#index", :as => :admin_root
+        root to: Carnival::Config.root_action, :as => :admin_root
       end
     end
   end

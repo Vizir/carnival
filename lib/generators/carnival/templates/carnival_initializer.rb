@@ -56,3 +56,6 @@ Carnival::Config.omniauth = {facebook: ["324810390938005", "3c16625e74189a3708cc
 # Determine the super class of AdminUser
 #Carnival::Config.ar_admin_user_class = ActiveRecord::Base
 
+# Determine root action
+#Carnival::Config.root_action = 'carnival/admin_users#index'
+

@@ -118,5 +118,10 @@ Carnival::Config.ar_admin_user_class = MyAdminClass
 
 - Your class need to inheritance from ActiveRecord::Base
 
+### Custom Root Action
+
+``` ruby
+Carnival::Config.root_action = 'my_controller#my_action'
+```
 ##TODO
 * create has many association input data
