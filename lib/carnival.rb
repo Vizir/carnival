@@ -10,4 +10,8 @@ require "carnival/config"
 require "carnival/routes"
 require "carnival/version"
 module Carnival
+
+  def self.configure
+    yield(Carnival::Config)       
+  end
 end
