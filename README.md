@@ -104,6 +104,37 @@ module Admin
 end
 ```
 
+## Menu
+
+The menu of the carnival can be configured in the carnival\_initializers.rb file
+
+Ex:
+
+``` ruby
+config.menu = 
+{
+  :city => {
+    :label => "city",
+    :class => "",
+    :link => 'admin_cities_path', #You can use the route name as String to define the link
+    :subs => [
+      {
+      :label => "custom_city",
+      :class => "",
+      :link => 'admin/custom/cities', #Or you can use the full path
+      },
+      {
+        :label => 'google',
+        :class => "",
+        :link => 'http://www.google.com'
+      }
+    ]
+  },
+  ...
+}
+  
+```
+
 ## Configurations
 
 ### Custom AdminUser

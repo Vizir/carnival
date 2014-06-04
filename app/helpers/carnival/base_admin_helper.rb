@@ -55,6 +55,17 @@ module Carnival
       :other
     end
 
+    def menu_link link
+      link.strip!
+      if link.to_s.end_with?('_path') or link.to_s.end_with?('_url')
+        return eval link 
+      elsif link.index(/_path.+/) #path with arguments
+        return eval link 
+      end
+
+      link
+    end
+
     def field_to_show(presenter, field, record, show_only_value=false)
       current_type = field_type(presenter,field)
       if current_type == :relation

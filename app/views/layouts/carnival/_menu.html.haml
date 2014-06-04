@@ -18,12 +18,12 @@
           - menus.delete :admin
           - menus.each do |key, menu|
             %li{:class =>menu[:class]}
-              = link_to t(menu[:label]), menu[:link], {:class => " btn_usuario sublevel"}
+              = link_to t(menu[:label]), menu_link(menu[:link]), {:class => " btn_usuario sublevel"}
               - if menu[:subs].present?
                 %ul.dropdown_main_menu_sublevel
                   - menu[:subs].each do |sub|
                     %li
-                      = link_to t(sub[:label]), sub[:link], {:class => "#{set_resource_actived_if_current(sub[:link])} #{sub[:class]}"}
+                      = link_to t(sub[:label]), menu_link(sub[:link]), {:class => "#{set_resource_actived_if_current(sub[:link])} #{sub[:class]}"}
 
           %li.minify
             %span="Minimizar"
