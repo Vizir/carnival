@@ -1,6 +1,7 @@
 module Carnival
 
-  class AdminUser < ActiveRecord::Base
+  class AdminUser < Carnival::Config.ar_admin_user_class
+
     include Carnival::ModelHelper
     devise_flags = *Carnival::Config.devise_config
     devise_flags << :recoverable

@@ -51,6 +51,9 @@ Carnival::Config.custom_css_files = ["samplefile.css"]
 
 Carnival::Config.custom_javascript_files = ["samplefile.js"]
 
+# Determine the super class of AdminUser
+#Carnival::Config.ar_admin_user_class = ActiveRecord::Base
+
 
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.

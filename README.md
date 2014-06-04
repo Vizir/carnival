@@ -102,10 +102,21 @@ module Admin
 
   end
 end
-
-
 ```
 
+## Configurations
+
+### Custom AdminUser
+
+If you want to have your own AdminUser class or need to add methods to that class, you need to do the following steps:
+
+- Configure the ar\_admin\_user\_class in the carnival\_initializers.rb file
+
+``` ruby
+Carnival::Config.ar_admin_user_class = MyAdminClass
+```
+
+- Your class need to inheritance from ActiveRecord::Base
 
 ##TODO
 * create has many association input data

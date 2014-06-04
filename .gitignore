@@ -10,3 +10,4 @@ test/dummy/.sass-cache
 .rvmrc
 /public/system
 **.gem
+*.swp
