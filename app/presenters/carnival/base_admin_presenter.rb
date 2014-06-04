@@ -102,6 +102,8 @@ module Carnival
     end
 
     def full_model_name
+      return model_name if Carnival::Config.use_full_model_name == false
+
       if @@model_names[presenter_class_name].nil?
         self.class.to_s.gsub("Presenter", "").underscore
       else
