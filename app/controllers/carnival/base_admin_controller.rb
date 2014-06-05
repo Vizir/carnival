@@ -10,7 +10,7 @@ module Carnival
     end
 
     def table_items
-      []
+      nil
     end
 
     def index
