@@ -217,23 +217,22 @@ module Carnival
     end
 
     def relation_path(field, record)
-      if relation_field?(field)
-        if is_namespaced? and !model_class.reflect_on_association(field).klass.name.pluralize.underscore.include?("/")
-          related_class = "#{extract_namespace.downcase}/#{model_class.reflect_on_association(field).klass.name.pluralize.underscore}"
-        else
-          related_class = model_class.reflect_on_association(field).klass.name.pluralize.underscore
-        end
-        if model_class.reflect_on_association(field).macro == :belongs_to
-          id = -1
-          id = record.send(model_class.reflect_on_association(field).foreign_key) if record.send(model_class.reflect_on_association(field).foreign_key).present?
-          params = {:controller => related_class, :action => :show, :id => id}
-        else
-          params = {:controller => related_class, :action => :index, :advanced_search => make_relation_advanced_query_url_options(field, record)}
-        end
-        params = params.merge(:only_path => true)
-        return url_for(params)
+      return nil if !relation_field?(field)
+
+      if is_namespaced? and !model_class.reflect_on_association(field).klass.name.pluralize.underscore.include?("/")
+        related_class = "#{extract_namespace.downcase}/#{model_class.reflect_on_association(field).klass.name.pluralize.underscore}"
+      else
+        related_class = model_class.reflect_on_association(field).klass.name.pluralize.underscore
       end
-      return nil
+      if model_class.reflect_on_association(field).macro == :belongs_to
+        id = -1
+        id = record.send(model_class.reflect_on_association(field).foreign_key) if record.send(model_class.reflect_on_association(field).foreign_key).present?
+        params = {:controller => related_class, :action => :show, :id => id}
+      else
+        params = {:controller => related_class, :action => :index, :advanced_search => make_relation_advanced_query_url_options(field, record)}
+      end
+      params = params.merge(:only_path => true)
+      return generate_route_path params
     end
 
     def parse_advanced_search records, search_syntax
@@ -368,6 +367,16 @@ module Carnival
 
     def self.model_name(name)
       @@model_names[presenter_class_name] = name
+    end
+
+    def generate_route_path params
+      path = nil
+      begin
+        path = url_for params
+      rescue
+        
+      end
+      path
     end
 
     def self.presenter_class_name
