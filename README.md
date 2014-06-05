@@ -135,6 +135,34 @@ config.menu =
   
 ```
 
+## Specific
+
+## Table items
+
+If you want to determine a specific list of items that will appear in the table you have to define the table\_items method in your controller returning a Array or ActiveRelation
+
+Ex:
+
+```ruby
+
+module Admin
+  class CompaniesController < Carnival::BaseAdminController
+    layout "carnival/admin"
+
+    def table_items
+      Company.where(:country => 'Brazil')
+    end
+
+    def permitted_params
+      params.permit(admin_company: [:name])
+    end
+  end
+end
+
+```
+
+
+
 ## Configurations
 
 ### Custom AdminUser
