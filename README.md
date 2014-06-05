@@ -157,7 +157,7 @@ config.root_action = 'my_controller#my_action'
 
 ### Application Name
 ``` ruby
-config.application_name = 'Application Name'
+config.app_name = 'Application Name'
 ```
 
 ##TODO

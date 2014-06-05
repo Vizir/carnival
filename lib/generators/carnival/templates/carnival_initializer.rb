@@ -50,7 +50,7 @@ Carnival.configure |config| do
                               google_oauth2: ['431077382019-mumumjahr5cn6cooubtskc6ohael7923.apps.googleusercontent.com', 'ilH4B-KXN3tqG6qF9gGN1F_J']}
 
   # Determine application name
-  #config.application_name = "Name of my App"
+  #config.app_name = "Name of my App"
   
   # Custom CSS Files
   # config.custom_css_files = ["samplefile.css"]
