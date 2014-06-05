@@ -46,7 +46,7 @@ Execute `rails generate carnival:install` after you install Carnival to copy mig
 If you already have created your database with `rake db:create`, just run `rake db:migrate` to execute the Carnival migrations.
 
 
-## Usage
+## Basic Usage
 
 ### Model
 
@@ -103,7 +103,6 @@ module Admin
   end
 end
 ```
-
 ## Menu
 
 The menu of the carnival can be configured in the carnival\_initializers.rb file
@@ -135,6 +134,61 @@ config.menu =
   
 ```
 
+## Presenter Properties
+
+### field
+
+### scope
+  
+Create a scope in the view.
+
+Ex:
+
+
+Presenter:
+
+```ruby
+
+module Admin
+  class CompanyPresenter < Carnival::BaseAdminPresenter
+    field :id,
+          :actions => [:index, :show], :sortable => false,
+          :searchable => true,
+          :advanced_search => {:operator => :equal}
+    field :name,
+          :actions => [:index, :new, :edit, :show],
+          :searchable => true,
+          :advanced_search => {:operator => :like}
+    field :created_at, :actions => [:index, :show]
+
+    action :show
+    action :edit
+    action :destroy
+    action :new
+
+    scope :all
+    scope :brazilian_companies
+
+  end
+end
+```
+
+Model:
+
+```ruby
+
+module Admin
+  class Company < ActiveRecord::Base
+
+    include Carnival::ModelHelper
+    self.table_name = "companies"
+      
+    scope :brazilian_companies, -> {includes(:country).where("countries.code = ?", "BR")}
+
+  end
+end
+
+```
 ## Specific
 
 ## Table items
@@ -160,8 +214,6 @@ module Admin
 end
 
 ```
-
-
 
 ## Configurations
 
