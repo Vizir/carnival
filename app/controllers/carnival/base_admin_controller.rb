@@ -6,7 +6,11 @@ module Carnival
 
     def generate_datatable
       model_presenter = instantiate_presenter
-      Carnival::GenericDatatable.new(view_context, instantiate_model(model_presenter), self, model_presenter)
+      Carnival::GenericDatatable.new(view_context, instantiate_model(model_presenter), self, model_presenter, table_items)
+    end
+
+    def table_items
+      []
     end
 
     def index
