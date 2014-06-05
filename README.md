@@ -144,7 +144,7 @@ If you want to have your own AdminUser class or need to add methods to that clas
 - Configure the ar\_admin\_user\_class in the carnival\_initializers.rb file
 
 ``` ruby
-Carnival::Config.ar_admin_user_class = MyAdminClass
+config.ar_admin_user_class = MyAdminClass
 ```
 
 - Your class need to inheritance from ActiveRecord::Base
@@ -152,7 +152,13 @@ Carnival::Config.ar_admin_user_class = MyAdminClass
 ### Custom Root Action
 
 ``` ruby
-Carnival::Config.root_action = 'my_controller#my_action'
+config.root_action = 'my_controller#my_action'
 ```
+
+### Application Name
+``` ruby
+config.application_name = 'Application Name'
+```
+
 ##TODO
 * create has many association input data
