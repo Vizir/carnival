@@ -33,6 +33,7 @@ module Carnival
     end
 
     def target
+      return :record if @params[:target].nil?
       @params[:target]
     end
 
