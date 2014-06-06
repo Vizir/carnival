@@ -6,7 +6,7 @@
 
 ```
 
-## options
+## Parameters
 
 - :actions
   - Actions that the field will appear
