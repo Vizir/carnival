@@ -1,0 +1,10 @@
+- success_callback = "#{name}_success_callback" 
+- if params[:success]
+  - success_callback = params[:success]
+
+- error_callback = "#{name}_error_callback" 
+- if params[:error]
+  - error_callback = params[:error]
+
+%a{href:"#", :class => "editar", onclick: "Carnival.remoteFunction('#{path}', '#{success_callback}', '#{error_callback}', '#{params[:method]}')", :id => name}
+  = label

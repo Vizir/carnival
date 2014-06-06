@@ -1,3 +1,6 @@
 - presenter.actions_for_record.each do |key, action|
-  = render action.partial, :path => action.path(:id => record.id), :label => t("#{presenter.model_name}.#{action.name}")
+  - if action.remote?
+    = render action.partial, :path => action.path(:id => record.id), :name => action.name, :params => action.params, :label => t("#{presenter.model_name}.#{action.name}")
+  - else
+    = render action.partial, :path => action.path(:id => record.id), :name => action.name,:label => t("#{presenter.model_name}.#{action.name}")
 

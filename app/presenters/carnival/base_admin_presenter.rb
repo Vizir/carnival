@@ -25,11 +25,11 @@ module Carnival
     end
 
     def actions_for_record
-      filter_actions([:show, :edit, :destroy], :record)
+      filter_actions(:record)
     end
 
     def actions_for_page
-      filter_actions([:new], :page)
+      filter_actions(:page)
     end
 
     def has_action?(action)
@@ -262,13 +262,12 @@ module Carnival
       {"#{relation_model}.#{relation_field}" => relation_value}
     end
 
-    def filter_actions(default_actions, target)
+    def filter_actions(target)
+      return {} if !@@actions[presenter_class_name]
       actions = {}
-      if @@actions[presenter_class_name]
-        @@actions[presenter_class_name].each do |key, action|
-          if default_actions.include?(key) || action.target == target
-            actions[key] = action
-          end
+      @@actions[presenter_class_name].each do |key, action|
+        if action.target == target
+          actions[key] = action
         end
       end
       actions

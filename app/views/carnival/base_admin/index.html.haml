@@ -61,8 +61,8 @@
     'sZeroRecords': '#{t('data_tables.zero_records')}'
   };
 
-  var vizirApplication = {};
-  vizirApplication.remoteFunction = function(url, successCallback, errorCallback, method, data){
+  var Carnival = {};
+  Carnival.remoteFunction = function(url, successCallback, errorCallback, method, data){
     if(!data)
       data = {};
     $.ajax({
@@ -70,22 +70,68 @@
       type: method,
       data: data,
       success: function(data, status, jqXHR){
-        if(successCallback)
-          successCallback(data, status, jqXHR);
-        else{
-          if(console && console.warn)
-            console.warn('Não foi implementada uma função de success Callback')
-        }
+        Carnival.callFunc(successCallback, data);
       },
       error: function(jqXHR, status, error){
-        if(errorCallback)
-          errorCallback(jqXHR, status, error);
-        else{
-          if(console && console.warn)
-            console.warn('Não foi implementada uma função de error Callback')
-        }
+        Carnival.callFunc(errorCallback, data);
       }
     })
+  }
+
+  Carnival.callFunc = function(functionName, data){
+    var func = window[functionName];
+    if(func)
+    {
+      if(typeof func === 'function')
+      {
+        func(data);
+      }
+    }else{
+      if(console && console.warn)
+        console.warn('The funcion ' + functionName + ' was not implemented')
+    }
+  }
+
+  Carnival.increaseScope = function(scopeName){
+    Carnival.updateScopeNumber(true, scopeName);
+  }
+
+  Carnival.decreaseScope = function(scopeName){
+    Carnival.updateScopeNumber(false, scopeName);
+  }
+
+  Carnival.updateScopeNumber = function(increase, scopeName){
+    var scopeLocNumbers = Carnival.getScopeNumber(scopeName);
+    if(!scopeLocNumbers)
+      return;
+
+    if(increase)
+      scopeLocNumbers++;
+    else
+      scopeLocNumbers--;
+
+    Carnival.setScopeNumber(scopeName, scopeLocNumbers);
+  }
+
+  Carnival.setScopeNumber = function(scopeName, val){
+    $('.datatables-scope[data-scope='+scopeName+'] .count').html('('+val+')');
+  }
+
+  Carnival.getSelectedScope = function(){
+    return $('.scope.selected .datatables-scope').attr('data-scope');
+  }
+
+  Carnival.getScopeNumber = function(scope){
+    var locNumber = $('.datatables-scope[data-scope='+scope+'] .count').html();
+    if(!locNumber)
+      return '';
+    locNumber = locNumber.replace('(', '').replace(')','');
+    return parseInt(locNumber);
+  }
+
+  Carnival.reloadTable = function(){
+    var dataTable = $(".table").dataTable();
+    dataTable.fnReloadAjax(generateDataSource($(".table")));
   }
 
   $(document).ready(function(){

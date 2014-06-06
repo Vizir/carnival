@@ -28,9 +28,18 @@ module Carnival
       @partial
     end
 
+    def params
+      @params
+    end
+
     def name
       @name
     end
+
+    def remote?
+      @params[:remote]
+    end
+
 
     def target
       return :record if @params[:target].nil?
@@ -42,7 +51,7 @@ module Carnival
         PARTIAL_DEFAULT
       elsif @name == :destroy
         PARTIAL_DELETE
-      elsif @params[:remote]
+      elsif remote?
         PARTIAL_REMOTE
       else
         PARTIAL_DEFAULT

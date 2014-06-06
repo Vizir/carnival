@@ -36,7 +36,7 @@ module Carnival
       count = @model.count
 
       return_data = {}
-      return_data[:data] = data
+      return_data[:data] = get_data
       {
         sEcho: params[:sEcho].to_i,
         iTotalRecords: count,
@@ -75,7 +75,7 @@ module Carnival
       end
     end
 
-    def data(render_type = RENDER_TABLE)
+    def get_data(render_type = RENDER_TABLE)
       data = []
       records.each do |record|
         data_item = {
