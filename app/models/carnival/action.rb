@@ -24,6 +24,12 @@ module Carnival
       url_for(params)
     end
 
+    def show(record)
+      return true if !params[:show_func]
+      return true if !record.respond_to? params[:show_func]
+      record.send params[:show_func]
+    end
+
     def partial
       @partial
     end

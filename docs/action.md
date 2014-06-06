@@ -9,6 +9,9 @@
     - default\_value: :record
     - Define where the action will be rendered
 
+  - show_func
+    - Define the function to be used to decide if the action wil be rendered or not
+
   - remote
     - boolean
 
