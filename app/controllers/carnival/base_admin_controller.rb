@@ -101,11 +101,15 @@ module Carnival
     end
 
     def instantiate_presenter
+      carnival_presenter_class.new controller: self
+    end
+
+    def carnival_presenter_class
       namespace = extract_namespace
       if namespace.present?
-        "#{extract_namespace}::#{controller_name.classify}Presenter".constantize.send(:new, :controller => self)
+        "#{extract_namespace}::#{controller_name.classify}Presenter".constantize
       else
-        "#{controller_name.classify}Presenter".constantize.send(:new, :controller => self)
+        "#{controller_name.classify}Presenter".constantize
       end
     end
 
