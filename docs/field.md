@@ -16,6 +16,7 @@
 
 - :searchable
   - Define if the field will be searchable
+  - Default Value: false
   ```ruby
     :searchable => true
   ```
@@ -29,4 +30,10 @@
   - If the field is a relation, you need to define a to\_label method in the relation Model for the Carnival build the select options
 
 
+- :sortable
+  - Define if the field will be sortable
+  - Default Value: true
+  ```ruby
+    :sortable => true
+  ```
 

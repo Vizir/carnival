@@ -75,6 +75,7 @@ module Carnival
     end
 
     def sortable?
+      return true if @params[:sortable].nil?
       @params[:sortable]
     end
 
