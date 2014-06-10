@@ -78,12 +78,12 @@ module Carnival
     def get_data(render_type = RENDER_TABLE)
       data = []
       records.each do |record|
-        data << build_table_row render_type
+        data << build_table_row(record, render_type)
       end
       data
     end
 
-    def build_table_row render_type
+    def build_table_row record, render_type
       data_item = {
         "DT_RowId" => "item#{record.id}",
         "DT_RowClass" => "more-click"

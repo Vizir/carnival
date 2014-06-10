@@ -7,6 +7,7 @@ module Carnival
     def initialize(params)
       @@controller = params[:controller]
       @special_scopes_to_exec = nil
+      @klass_service = KlassService.new model_class
     end
 
     def base_query
@@ -200,13 +201,12 @@ module Carnival
     end
 
     def relation_field?(field)
-      model_class.reflect_on_association(field)
+      @klass_service.relation? field
     end
-
 
     def relation_label(field, record)
       if relation_field?(field)
-        if model_class.reflect_on_association(field).macro == :belongs_to
+        if @klass_service.is_a_belongs_to_relation?(field)
           value = record.send(field.to_s)
           return value.to_label if value.present?
         else
@@ -218,13 +218,10 @@ module Carnival
 
     def relation_path(field, record)
       return nil if !relation_field?(field)
+      
+      related_class = get_related_class field
 
-      if is_namespaced? and !model_class.reflect_on_association(field).klass.name.pluralize.underscore.include?("/")
-        related_class = "#{extract_namespace.downcase}/#{model_class.reflect_on_association(field).klass.name.pluralize.underscore}"
-      else
-        related_class = model_class.reflect_on_association(field).klass.name.pluralize.underscore
-      end
-      if model_class.reflect_on_association(field).macro == :belongs_to
+      if @klass_service.is_a_belongs_to_relation?(field)
         id = -1
         id = record.send(model_class.reflect_on_association(field).foreign_key) if record.send(model_class.reflect_on_association(field).foreign_key).present?
         params = {:controller => related_class, :action => :show, :id => id}
@@ -233,6 +230,14 @@ module Carnival
       end
       params = params.merge(:only_path => true)
       return generate_route_path params
+    end
+
+    def get_related_class field
+      if is_namespaced? and !model_class.reflect_on_association(field).klass.name.pluralize.underscore.include?("/")
+        related_class = "#{extract_namespace.downcase}/#{model_class.reflect_on_association(field).klass.name.pluralize.underscore}"
+      else
+        related_class = model_class.reflect_on_association(field).klass.name.pluralize.underscore
+      end
     end
 
     def parse_advanced_search records, search_syntax
@@ -288,7 +293,7 @@ module Carnival
       if relation_field?(search_field.to_sym)
         related_model = model_class.reflect_on_association(search_field.to_sym).klass.name.underscore
         foreign_key = model_class.reflect_on_association(search_field.to_sym).foreign_key
-        if model_class.reflect_on_association(search_field.to_sym).macro == :belongs_to
+        if @klass_service.is_a_belongs_to_relation?(search_field.to_sym)
           records = records.joins(related_model.split("/").last.to_sym)
         else
           records = records.joins(related_model.split("/").last.pluralize)
@@ -334,9 +339,6 @@ module Carnival
       end
     end
 
-    def is_namespaced?
-      self.class.to_s.split("::").size > 0
-    end
 
     def extract_namespace
       namespace = ""

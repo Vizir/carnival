@@ -8,5 +8,9 @@ module Admin
 
     accepts_nested_attributes_for :states, :reject_if => :all_blank, :allow_destroy => true
     accepts_nested_attributes_for :cities, :reject_if => :all_blank, :allow_destroy => true
+
+    def to_label
+      name
+    end
   end
 end
