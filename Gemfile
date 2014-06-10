@@ -27,10 +27,14 @@ gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 
 group :development do
-  gem 'better_errors', '0.9.0'
   gem 'bullet', '4.6.0'
   gem 'binding_of_caller'
 end
 
 group :development, :test do
+  gem 'rspec-rails', '2.14.0'
+  gem 'factory_girl_rails', '4.2.1'
+  gem 'database_cleaner', '1.2.0'
+  gem 'better_errors', '0.9.0'
+  gem 'ci_reporter'
 end
