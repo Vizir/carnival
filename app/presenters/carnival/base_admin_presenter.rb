@@ -102,9 +102,15 @@ module Carnival
       url_for(params)
     end
 
-    def full_model_name
-      return model_name if Carnival::Config.use_full_model_name == false
+    def is_from_carnival?
+      self.class.to_s.include? 'Carnival::'
+    end
 
+    def full_model_name
+      if Carnival::Config.use_full_model_name == false and !is_from_carnival?
+        return model_name 
+      end
+    
       if @@model_names[presenter_class_name].nil?
         self.class.to_s.gsub("Presenter", "").underscore
       else
