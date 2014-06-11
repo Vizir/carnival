@@ -42,7 +42,7 @@ module Carnival
       @model_presenter = instantiate_presenter
       show! do |format|
         format.html do |render|
-          render 'show'
+          render 'show' and return
         end
       end
     end
@@ -52,7 +52,7 @@ module Carnival
       new! do |format|
         @model = instance_variable_get("@#{controller_name.classify.underscore}")
         format.html do |render|
-          render 'new'
+          render 'new' and return
         end
       end
     end
@@ -62,7 +62,7 @@ module Carnival
       edit! do |format|
         @model = instance_variable_get("@#{controller_name.classify.underscore}")
         format.html do |render|
-          render 'edit'
+          render 'edit' and return
         end
       end
     end
@@ -70,10 +70,10 @@ module Carnival
     def create
       @model_presenter = instantiate_presenter
       create! do |success, failure|
-        success.html{ redirect_to @model_presenter.model_path(:index), :notice => I18n.t("messages.created") }
+        success.html{ redirect_to @model_presenter.model_path(:index), :notice => I18n.t("messages.created") and return}
         failure.html do |render|
           @model = instance_variable_get("@#{controller_name.classify.underscore}")
-          render 'new'
+          render 'new' and return
         end
       end
     end
@@ -81,10 +81,10 @@ module Carnival
     def update
       @model_presenter = instantiate_presenter
       update! do |success, failure|
-        success.html{ redirect_to @model_presenter.model_path(:index), :notice => I18n.t("messages.updated") }
+        success.html{ redirect_to @model_presenter.model_path(:index), :notice => I18n.t("messages.updated") and return}
         failure.html do |render|
           @model = instance_variable_get("@#{controller_name.classify.underscore}")
-          render 'edit'
+          render 'edit' and return
         end
       end
     end
