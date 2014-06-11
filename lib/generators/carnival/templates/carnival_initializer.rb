@@ -1,4 +1,6 @@
-Carnival.configure |config| do
+Carnival.configure do |config|
+
+  Rails.application.config.assets.precompile += %w( carnival/* )
   config.menu = 
   {
     :admin => {
