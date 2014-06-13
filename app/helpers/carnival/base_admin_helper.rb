@@ -44,6 +44,29 @@ module Carnival
         false
       end
     end
+    
+    def carnival_render_if_exist partial_path
+      if partial_exist?(partial_path)
+        return render partial_path
+      end
+    end
+
+    def partial_exist? partial_path
+      File.exists?(get_partial_path(partial_path))
+    end
+
+    def get_partial_path partial_path
+      path = Rails.root.join('app', 'views')
+      partial_path_array = partial_path.split('/')
+      partial_path_array.each do |pp|
+        if pp == partial_path_array.last
+          path = path.join "_#{pp}.html.haml"
+        else
+          path = path.join pp
+        end
+      end
+      path
+    end
 
     def field_type(presenter,field)
       return :relation if presenter.relation_field?(field.to_sym)

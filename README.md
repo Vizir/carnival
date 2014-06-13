@@ -133,7 +133,7 @@ config.menu =
 }
 
 ```
-[Presenter Properties](docs/presenter.md)
+## [Presenter Properties](docs/presenter.md)
 
 
 ## Specific
@@ -207,6 +207,22 @@ Ex:
   end
 
 ```
+
+### Custom Views
+
+The Carnival permits that you specify some partials for your page, you just need just add your partial in the app/views/carnival/extra\_header.html.haml
+
+Possible Partials:
+
+- extra\_header
+  - Extra html to render in page header
+
+- app\_logo
+  - Define a specific partial for your app logo
+  - Default Value: link\_to App Name, root\_path
+
+- extra\_footer
+  - Extra html to render in page footer
 
 
 ## Configurations

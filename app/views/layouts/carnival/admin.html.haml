@@ -18,6 +18,8 @@
     #main
       - if current_admin_user.present?
         .right_menu
+          = carnival_render_if_exist 'carnival/extra_header'
+
           %div.sign_out= link_to t('logout'), destroy_admin_user_session_path, :method => :delete
           %div.safe-guard-notification
             = render '/layouts/carnival/notifications_list'
@@ -30,7 +32,12 @@
 
       #header_wrapper
         #header
-          .logo_intranet= link_to "#{Carnival::Config.app_name}", admin_root_url
+          .logo_intranet
+            - if partial_exist? 'carnival/app_logo' 
+              = render 'carnival/app_logo'
+            -else
+              = link_to "#{Carnival::Config.app_name}", admin_root_url
+
       #content_wrapper
         = render '/layouts/carnival/menu'
         #content
@@ -42,6 +49,7 @@
               = render '/carnival/shared/application_popup_partial'
             .clearfix
       #footer_wrapper_app
+        = carnival_render_if_exist 'carnival/extra_footer'
         #footer_app
           #footer_title_app
           #footer_logo_app
