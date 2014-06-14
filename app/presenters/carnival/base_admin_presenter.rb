@@ -239,11 +239,7 @@ module Carnival
     end
 
     def get_related_class field
-      if is_namespaced? and !model_class.reflect_on_association(field).klass.name.pluralize.underscore.include?("/")
-        related_class = "#{extract_namespace.downcase}/#{model_class.reflect_on_association(field).klass.name.pluralize.underscore}"
-      else
-        related_class = model_class.reflect_on_association(field).klass.name.pluralize.underscore
-      end
+      @klass_service.related_class_file_name field
     end
 
     def parse_advanced_search records, search_syntax

@@ -13,15 +13,15 @@
           %h3.nested-form-title
             = t("activerecord.attributes.#{@model_presenter.full_model_name}.#{field.name}")
           .nested-form-actions
-            = link_to_function t("nested_form.close"), "toggleNestedForm(this);"
+            = link_to t("nested_form.close"), '#', onclick: "toggleNestedForm(this); return false;"
 
             - if field.nested_form_modes?(:new)
               = " | "
-              = link_to_function t("nested_form.new"), "createNewForm('.nested-form-list.#{field.name}', '#{field.name}')"
+              = link_to t("nested_form.new"), '#', onclick: "createNewForm('.nested-form-list.#{field.name}', '#{field.name}'); return false;"
 
             - if field.nested_form_modes?(:associate)
               = " | "
-              = link_to_function t("nested_form.existing_option"), "renderSelectOptions('.existing-options.#{field.name}')"
+              = link_to t("nested_form.existing_option"), "#", onclick: "renderSelectOptions('.existing-options.#{field.name}'); return false;"
 
           .existing-options{:class => field.name}
             %h4.existing-options-title
@@ -36,7 +36,7 @@
             = f.simple_fields_for field.name.to_sym do |inner_form|
               %li.nested-form-list-item{:class => "#{inner_form.object.id.nil? and inner_form.object.errors.size == 0 ? 'form-new-association' : 'form-existent-association'}" }
                 .nested-form-list-item-actions
-                  = link_to_function t("remove"), "removeNestedFormElement(this);" if field.nested_form_allow_destroy?
+                  = link_to t("remove"), "#", onclick: "removeNestedFormElement(this); return false;" if field.nested_form_allow_destroy?
                 = inner_form.input :id, :as => :hidden
                 = inner_form.input :_destroy, :as => :hidden, :input_html => {:class => "destroy"} if field.nested_form_allow_destroy?
                 - nested_presenter = model_presenter.presenter_to_field(field, inner_form.object)

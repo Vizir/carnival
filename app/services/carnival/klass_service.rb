@@ -1,8 +1,8 @@
 module Carnival
   class KlassService
-       
+
     def initialize(klass)
-      @klass = klass 
+      @klass = klass
     end
 
     def relation? sym
@@ -10,7 +10,7 @@ module Carnival
     end
 
     def relation_type sym
-      return nil if !relation?(sym) 
+      return nil if !relation?(sym)
     end
 
     def is_a_belongs_to_relation?(sym)
@@ -18,8 +18,8 @@ module Carnival
     end
 
     def related_class_file_name sym
-      return nil if !relation?(sym) 
-      if is_namespaced? and !model_class.reflect_on_association(sym).klass.name.pluralize.underscore.include?("/")
+      return nil if !relation?(sym)
+      if is_namespaced? and !@klass.reflect_on_association(sym).klass.name.pluralize.underscore.include?("/")
         return "#{extract_namespace.downcase}/#{get_related_class(sym).name.pluralize.underscore}"
       else
         return get_related_class(sym).name.pluralize.underscore
