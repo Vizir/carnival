@@ -26,6 +26,13 @@ module Carnival
       end
     end
 
+    def extract_namespace
+      namespace = ""
+      arr = @klass.to_s.split("::")
+      namespace = arr[0] if arr.size > 1
+      namespace
+    end
+
     def is_namespaced?
       @klass.to_s.split("::").size > 0
     end
