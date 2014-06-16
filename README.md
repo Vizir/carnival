@@ -234,10 +234,10 @@ If you want to have your own AdminUser class or need to add methods to that clas
 - Configure the ar\_admin\_user\_class in the carnival\_initializers.rb file
 
 ``` ruby
-config.ar_admin_user_class = MyAdminClass
+config.devise_class_name = 'MyAdminClass'
 ```
 
-- Your class need to inheritance from ActiveRecord::Base
+- Your class need to inheritance from Carnival::AdminUser
 
 ### Custom Root Action
 
