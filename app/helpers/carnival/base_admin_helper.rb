@@ -69,7 +69,10 @@ module Carnival
     end
 
     def field_type(presenter,field)
-      return :relation if presenter.relation_field?(field.to_sym)
+      if presenter.relation_field?(field.to_sym)
+        relation =  presenter.relation_type field.to_sym 
+        return ("#{relation.to_s}_relation").to_sym
+      end
       field_type = nil
       field_type = presenter.model_class.columns_hash[field.to_s].type if presenter.model_class.columns_hash[field.to_s].present?
       return :date if field_type == :datetime or field_type == :date
@@ -91,7 +94,7 @@ module Carnival
 
     def field_to_show(presenter, field, record, show_only_value=false)
       current_type = field_type(presenter,field)
-      if current_type == :relation
+      if current_type == :has_one_relation || current_type == :belongs_to_relation
         if show_only_value
           record.send(field.to_s).to_label unless record.send(field.to_s).nil?
         else

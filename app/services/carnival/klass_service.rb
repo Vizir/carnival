@@ -13,8 +13,16 @@ module Carnival
       return nil if !relation?(sym)
     end
 
-    def is_a_belongs_to_relation?(sym)
-      get_association(sym).macro == :belongs_to
+    def relation_type sym
+       get_association(sym).macro 
+    end
+
+    def method_missing(method, *args)
+      if method.to_s.index(/^is_a_(.*)_relation\?$/)
+        result =  method.to_s.match(/^is_a_(.*)_relation\?$/)
+        relation = result[1]
+        return get_association(args[0]).macro == relation.to_sym
+      end
     end
 
     def related_class_file_name sym

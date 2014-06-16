@@ -20,6 +20,10 @@ module Admin
           :actions => [:index, :csv, :pdf, :new, :edit, :show], :as => :admin_relationship_select,
           :advanced_search => {:operator => :equal},
           :position => {line: 2, size: 3}
+
+    field :person_history,
+          :actions => [:index, :csv, :pdf, :new, :edit, :show]
+
     field :state,
           :actions => [:index, :csv, :pdf, :new, :edit, :show],
           :advanced_search => {:operator => :equal},
@@ -50,7 +54,7 @@ module Admin
     action :show
     action :edit
     action :destroy
-    action :new
+    action :new, target: :page
 
     scope :all, :default => true
     scope :employed

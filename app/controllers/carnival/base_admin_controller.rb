@@ -21,7 +21,7 @@ module Carnival
         presenter = @datatable.presenter
         presenter.parse_special_scope params[:special_scope]
       end
-
+    
       respond_to do |format|
         format.html do |render|
           render 'index' and return

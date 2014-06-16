@@ -6,6 +6,7 @@ module Admin
     belongs_to :country
     belongs_to :state
     belongs_to :city
+    has_one :person_history
     has_many :professional_experiences
     has_many :companies, :through => :professional_experiences
     has_many :jobs, :through => :professional_experiences

@@ -27,7 +27,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 
 group :development do
-  gem 'bullet', '4.6.0'
+  gem 'bullet', '4.9.0'
   gem 'binding_of_caller'
 end
 

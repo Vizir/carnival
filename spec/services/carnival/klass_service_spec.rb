@@ -4,14 +4,14 @@ require 'spec_helper'
 describe Carnival::KlassService do
 
   describe "#relation?" do
-    
+
     context "state and cities" do
       it "should return true" do
         klass_service = Carnival::KlassService.new Admin::State
         klass_service.relation?(:cities).should be_true
       end
     end
-    
+
     context "city and state" do
       it "should return true" do
         klass_service = Carnival::KlassService.new Admin::City
@@ -30,7 +30,7 @@ describe Carnival::KlassService do
 
 
   describe "#is_a_belongs_to_relation?" do
-  
+
     context "state and cities" do
       it "should return false" do
         klass_service = Carnival::KlassService.new Admin::State
@@ -46,4 +46,20 @@ describe Carnival::KlassService do
     end
   end
 
+  describe "#is_a_has_one_relation?" do
+
+    context "state and cities" do
+      it "should return false" do
+        klass_service = Carnival::KlassService.new Admin::State
+        klass_service.is_a_has_one_relation?(:cities).should be_false
+      end
+    end
+
+    context "person and person_history" do
+      it "should return true" do
+        klass_service = Carnival::KlassService.new Admin::Person
+        klass_service.is_a_has_one_relation?(:person_history).should be_true
+      end
+    end
+  end
 end

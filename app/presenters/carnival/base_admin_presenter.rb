@@ -210,6 +210,10 @@ module Carnival
       @klass_service.relation? field
     end
 
+    def relation_type sym
+      @klass_service.relation_type sym      
+    end
+
     def relation_label(field, record)
       if relation_field?(field)
         if @klass_service.is_a_belongs_to_relation?(field)
