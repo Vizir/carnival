@@ -1,7 +1,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require carnival/external/jquery.dataTables.min
-//= require carnival/external/jquery.noty
+//= require carnival/external/noty/jquery.noty
+//= require carnival/external/noty/layouts/bottom
+//= require carnival/external/noty/themes/default
 //= require carnival/external/jquery.colorbox-min
 //= require carnival/external/jquery-ui-1.9.1.custom.min
 //= require carnival/external/chosen.jquery

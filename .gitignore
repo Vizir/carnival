@@ -11,3 +11,4 @@ test/dummy/.sass-cache
 /public/system
 **.gem
 *.swp
+*.orig
