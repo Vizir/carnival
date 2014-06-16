@@ -6,9 +6,9 @@ module ActionDispatch::Routing
         resources :admin_user_notifications, controller: "carnival/admin_user_notifications", :as => :carnival_admin_user_notifications
         resources :admin_users, controller: "carnival/admin_users", :as => :carnival_admin_users
         if Carnival::Config.devise_config.include?(:omniauthable) and Carnival::Config.omniauth.present?
-          devise_for :admin_users, :class_name => "Carnival::AdminUser", :path => "sessions", :controllers => { :sessions => "carnival/sessions", :omniauth_callbacks => "carnival/omniauth_callbacks" }
+          devise_for :admin_users, :class_name => Carnival::Config.devise_class_name, :path => "sessions", :controllers => { :sessions => "carnival/sessions", :omniauth_callbacks => "carnival/omniauth_callbacks" }
         else
-          devise_for :admin_users, :class_name => "Carnival::AdminUser", :path => "sessions", :controllers => { :sessions => "carnival/sessions"}
+          devise_for :admin_users, :class_name => Carnival::Config.devise_class_name, :path => "sessions", :controllers => { :sessions => "carnival/sessions"}
         end
         root to: Carnival::Config.root_action, :as => :admin_root
       end
