@@ -250,5 +250,15 @@ config.root_action = 'my_controller#my_action'
 config.app_name = 'Application Name'
 ```
 
+## Custom Translations
+
+You can add custom translations for the actions [:new, :show, :edit, :destroy]
+
+```ruby
+  company:
+    new: Create New company
+    show: Show company
+```
+
 ##TODO
 * create has many association input data

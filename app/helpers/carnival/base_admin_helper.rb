@@ -11,9 +11,9 @@ module Carnival
         @type = type
       end
       javascript = "noty({'text':'#{@messages}',
-            'layout':'bottom','type':'#{@type}','animateOpen':{'height':'toggle'},
-            'animateClose':{'height':'toggle'},'speed':500,'timeout':4000,
-            'closeButton':false,'closeOnSelfClick':true,'closeOnSelfOver':true});"
+            'layout':'bottom','type':'#{@type}',
+            'animation': {'close':{'height':'toggle'}, 'open':{'height':'toggle'},'speed':500},'timeout':4000,
+            'closeWith':['click', 'hover']});"
       return javascript if defined?(@type)
       ''
     end

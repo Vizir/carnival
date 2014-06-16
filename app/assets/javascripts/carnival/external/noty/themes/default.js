@@ -1,4 +1,4 @@
-;(function($) {
+(function($) {
 
 	$.noty.themes.defaultTheme = {
 		name: 'defaultTheme',
@@ -77,7 +77,7 @@
 				marginLeft: 0
 			});
 
-			this.$bar.bind({
+			this.$bar.on({
 				mouseenter: function() { $(this).find('.noty_close').stop().fadeTo('normal',1); },
 				mouseleave: function() { $(this).find('.noty_close').stop().fadeTo('normal',0); }
 			});
