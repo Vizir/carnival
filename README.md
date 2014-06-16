@@ -154,5 +154,17 @@ Carnival::Config.ar_admin_user_class = MyAdminClass
 ``` ruby
 Carnival::Config.root_action = 'my_controller#my_action'
 ```
+
+## Custom Translations
+
+You can add custom translations for the actions [:new, :show, :edit, :destroy]
+
+```ruby
+  company:
+    new: Create New company
+    show: Show company
+```
+
+
 ##TODO
 * create has many association input data

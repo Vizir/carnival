@@ -1,3 +1,3 @@
 - presenter.actions_for_record.each do |key, action|
-  = render action.partial, :path => action.path(:id => record.id), :label => t("#{presenter.model_name}.#{action.name}")
+  = render action.partial, :path => action.path(:id => record.id), :label => t("#{presenter.model_name}.#{action.name}", default: t("carnival.#{action.name}"))
 

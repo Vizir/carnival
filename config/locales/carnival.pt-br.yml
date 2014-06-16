@@ -1,4 +1,11 @@
 pt-BR:
+  
+  carnival:
+    show: Visualizar
+    new: Novo
+    edit: Editar
+    destroy: Apagar
+
   nested_form:
     open: Abrir
     close: Fechar
@@ -81,8 +88,7 @@ pt-BR:
     last_month: Mês passado
     this_year: Este ano
     last_year: Ano passado
-
-
+  
 
   # formatos de data e hora
   date:
@@ -193,10 +199,6 @@ pt-BR:
 
   admin_user:
     name: Nome
-    show: Visualizar
-    destroy: Apagar
-    edit: Editando usuário administrador
-    new: Novo usuário administrador
     lista: Usuários administradores
     admin: Administrador
     account_name: Contaform
