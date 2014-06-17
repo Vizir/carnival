@@ -34,11 +34,15 @@
             %ul.nested-form-list{:class => field.name}
               %h4.nested-form-subtitle
                 = t("nested_form.new_subtitle")
-              - model_object.send(field.name).build
+              - current_type = field_type(@model_presenter, field.name.to_sym)
+              - if current_type == :has_one_relation || current_type == :belongs_to_relation
+                - model_object.send("build_#{field.name}")
+              - else
+                - model_object.send(field.name).build
               = f.simple_fields_for field.name.to_sym do |inner_form|
                 %li.nested-form-list-item{:class => "#{inner_form.object.id.nil? and inner_form.object.errors.size == 0 ? 'form-new-association' : 'form-existent-association'}" }
                   .nested-form-list-item-actions
-                    = link_to_function t("remove"), "removeNestedFormElement(this);" if field.nested_form_allow_destroy?
+                    = link_to t("remove"), "#", onclick: "removeNestedFormElement(this); return false;" if field.nested_form_allow_destroy?
                   = inner_form.input :id, :as => :hidden
                   = inner_form.input :_destroy, :as => :hidden, :input_html => {:class => "destroy"} if field.nested_form_allow_destroy?
                   - nested_presenter = model_presenter.presenter_to_field(field, inner_form.object)
