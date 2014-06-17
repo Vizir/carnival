@@ -1,7 +1,7 @@
 module Admin
   class ProfessionalExperience < ActiveRecord::Base
     include Carnival::ModelHelper
-    self.table_name = "professions"
+    self.table_name = "professional_experiences"
 
     belongs_to :people
     belongs_to :company

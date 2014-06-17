@@ -22,6 +22,7 @@ module Admin
           :position => {line: 2, size: 3}
 
     field :person_history,
+          :nested_form => true, :nested_form_allow_destroy => true, :nested_form_modes => [:new],
           :actions => [:index, :csv, :pdf, :new, :edit, :show]
 
     field :state,

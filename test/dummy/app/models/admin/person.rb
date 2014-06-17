@@ -11,6 +11,8 @@ module Admin
     has_many :companies, :through => :professional_experiences
     has_many :jobs, :through => :professional_experiences
 
+    accepts_nested_attributes_for :person_history, :reject_if => :all_blank, :allow_destroy => true
+    accepts_nested_attributes_for :state, :reject_if => :all_blank, :allow_destroy => true
     scope :employed, -> {where("employed = ?", true)}
     scope :unemployed, -> {where("employed = ?", false)}
 
