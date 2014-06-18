@@ -1,7 +1,7 @@
 module Carnival::ModelHelper
 
   def to_label
-    self.respond_to? :name ? self.name : self.to_s
+    self.respond_to?(:name) ? self.name : self.to_s
   end
 
   def self.included mod
