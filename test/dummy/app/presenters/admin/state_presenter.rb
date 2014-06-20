@@ -14,7 +14,10 @@ module Admin
           :searchable => true,
           :advanced_search => {:operator => :like}
     field :cities,
-          :actions => [:index, :show]
+          :actions => [:index, :show, :edit, :new],
+          :nested_form => true, 
+          :nested_form_allow_destroy => true,
+          :nested_form_modes => [:associate, :new]
     field :country,
           :actions => [:index, :new, :edit, :show],
           :advanced_search => {:operator => :equal}
