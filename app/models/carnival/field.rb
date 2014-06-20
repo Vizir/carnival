@@ -70,8 +70,16 @@ module Carnival
     end
 
     def nested_form_modes? (mode)
+      associate = get_associate_nested_form_mode
+      return true if associate.present?
       return @params[:nested_form_modes].include?(mode) unless @params[:nested_form_modes].nil?
       return false
+    end
+
+    def nested_form_scope
+      return nil if !nested_form_modes? :associate
+      associate_mode =  get_associate_nested_form_mode
+      return associate_mode[:scope] if associate_mode[:scope].present? 
     end
 
     def sortable?
@@ -110,6 +118,15 @@ module Carnival
         @column =  @params[:position][:column]
         @size = @params[:position][:size]
       end
+    end
+
+    def get_associate_nested_form_mode
+      @params[:nested_form_modes].each do |mode|
+        if mode.is_a? Hash
+          return mode[:associate] if mode[:associate].present?
+        end
+      end
+      nil
     end
   end
 end

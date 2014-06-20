@@ -11,6 +11,10 @@ module Carnival
       @model_fields_ids = []
       init
     end
+    
+    def field
+      @field
+    end
 
     def field_name
       @field.name 
@@ -71,7 +75,22 @@ module Carnival
       end
       options
     end
-      
+    
+
+    def scope_html_id
+      scope = @field.nested_form_scope
+      return null if !model.reflections[scope]
+      fkey = model.reflections[scope].foreign_key
+      return make_html_field_for fkey
+    end
+
+    def make_html_id_for(elem)
+      first = model.class.name.gsub(/::/, '_').
+      gsub(/([a-z\d])([A-Z])/,'\1_\2').
+      tr("-", "_").
+      downcase 
+      "#{first}_#{elem}"
+    end
 
     private
     def init
@@ -86,6 +105,7 @@ module Carnival
 
     def populate_available_options
       scopes = []
+      scopes << @field.nested_form_scope if @field.nested_form_scope.present?
       carnival_scope = {carnival_scope: {scopes: scopes, model_object: @model}}
       field_presenter = @presenter.presenter_to_field(@field, nil)
       model_class = field_presenter.model_class

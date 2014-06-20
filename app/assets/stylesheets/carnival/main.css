@@ -2344,9 +2344,15 @@ table input{
 .carnival-select-tag{
   width: 50%;
   float: left;
+  position: relative;
   margin-right: 10px;
 }
 
+.carnival-select-action{
+  width: 50%;
+  float: left;
+  position: relative;
+}
 .carnival-form-options{
   margin-left: 20px;
   float: left;

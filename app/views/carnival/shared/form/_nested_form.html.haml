@@ -2,8 +2,6 @@
   %h3.nested-form-title
     = t("activerecord.attributes.#{@model_presenter.full_model_name}.#{field.name}")
   
-  - field_presenter = model_presenter.presenter_to_field(field, nil)
-  - scopes = []
   - opt = Carnival::NestedFormOptions.new model_object, model_presenter, field
   = render '/carnival/shared/form/nested_form_options', opt_obj: opt
 
