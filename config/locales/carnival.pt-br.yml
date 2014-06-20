@@ -9,7 +9,8 @@ pt-BR:
   nested_form:
     open: Abrir
     close: Fechar
-    new: Criar
+    new: Criar Novo
+    add_option: Adicionar
     new_subtitle: Novos
     existing_option: Opções Existentes
     existing_option_title: Opções

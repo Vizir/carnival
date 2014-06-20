@@ -39,8 +39,7 @@
   }
 
   function removeNestedFormElement(element){
-    $(element).parent().parent().hide();
-    $(element).parent().parent().find(".destroy").val(true);
+    $(element).parent().parent().remove();
   }
 
   function toggleNestedForm(element){
@@ -55,3 +54,17 @@
   function renderSelectOptions(selector){
     $(selector).show();
   }
+  function removeRelationOption(id, selectId){
+    $('#'+id+'_options').hide();
+    $('#'+id+'_select_option').prop('disabled', false);
+    $('#'+selectId).trigger("chosen:updated");
+  }
+
+  function addOption(selectId){
+    var option = $('#'+selectId).val();
+    $('#'+option+'_options').show();
+    $('#'+option).prop('checked', true);
+    $('#'+option+'_select_option').prop('disabled', true);
+    $('#'+selectId).trigger("chosen:updated");
+  }
+
