@@ -1,7 +1,10 @@
 .carnival-select-options
   - if opt_obj.field.nested_form_modes?(:associate)
-    :javascript
-      $('##{value}').change(function(){getNestedFormOptions('#{url}', #{params.to_json}, '#{model_object.class.name}', '#{model_object.id}', '#{field.name}' );});
+    - scope_html_id = opt_obj.scope_html_id
+    - if scope_html_id.present?
+      :javascript
+        $('##{opt_obj.scope_html_id}').change(function(){#{opt_obj.scopeJSFunction}});
+
     .carnival-select-tag
       = select_tag opt_obj.select_tag_id, options_for_select(opt_obj.select_options)
     .carnival-select-action

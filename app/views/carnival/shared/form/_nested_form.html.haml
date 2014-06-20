@@ -3,7 +3,8 @@
     = t("activerecord.attributes.#{@model_presenter.full_model_name}.#{field.name}")
   
   - opt = Carnival::NestedFormOptions.new model_object, model_presenter, field
-  = render '/carnival/shared/form/nested_form_options', opt_obj: opt
+  .nested_form_options_div{id: "nested_form_options_#{field.name}"}
+    = render '/carnival/shared/form/nested_form_options', opt_obj: opt
 
   - if field.nested_form_modes?(:new)
     %ul.nested-form-list{:class => field.name}

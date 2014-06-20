@@ -109,6 +109,10 @@ module Carnival
       end
     end
 
+    def controller_class_name
+      @@controller.class.name
+    end
+
     def controller_name
       namespace = extract_namespace
       if namespace.present?

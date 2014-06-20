@@ -1,35 +1,37 @@
 module Carnival
-  
+
   class NestedFormOptions
     include Rails.application.routes.url_helpers
 
-    def initialize(model, presenter, field)
+
+    def initialize(model, presenter, field, items = nil)
       @model = model
       @presenter = presenter
       @field = field
-      @available_options = []
+      @available_options = items
       @model_fields_ids = []
-      init
+      populate_model_items
+      populate_available_options if items.nil?
     end
-    
+
     def field
       @field
     end
 
     def field_name
-      @field.name 
+      @field.name
     end
 
     def available_options
-      @available_options 
+      @available_options
     end
 
     def has_new_action?
-      @field.nested_form_modes?(:new) 
+      @field.nested_form_modes?(:new)
     end
 
     def model_has_this_item? id
-      @model_fields_ids.include? id 
+      @model_fields_ids.include? id
     end
 
     def model_class_name_underscore
@@ -59,9 +61,9 @@ module Carnival
     def select_tag_id
       "carnival-options-select-#{self.field_name_identifier}"
     end
-    
+
     def check_box_html
-       
+
     end
 
     def select_options
@@ -75,32 +77,46 @@ module Carnival
       end
       options
     end
-    
 
     def scope_html_id
+      make_html_id_for scope_column_name
+    end
+
+    def scope_column_name
       scope = @field.nested_form_scope
-      return null if !model.reflections[scope]
-      fkey = model.reflections[scope].foreign_key
-      return make_html_field_for fkey
+      return nil if !@model.reflections[scope]
+      fkey = @model.reflections[scope].foreign_key
+    end
+
+    def scopeJSFunction
+      url = "#{@presenter.model_path(:index)}.json"
+      function_params = {}
+      function_params[:url] = url
+      function_params[:list_scope] = true
+      function_params[:model_class_name] = @model.class.name
+      function_params[:model_id] = @model.id
+      function_params[:field_name] = @field.name
+      function_params[:scope_name] = scope_column_name
+      function_params[:scope_html_id] = scope_html_id
+      function_params[:presenter_name] = @presenter.class.name
+      function_params[:controller_name] = @presenter.controller_class_name
+
+      "getNestedFormOptions(#{function_params.to_json});"
     end
 
     def make_html_id_for(elem)
-      first = model.class.name.gsub(/::/, '_').
+      first = @model.class.name.gsub(/::/, '_').
       gsub(/([a-z\d])([A-Z])/,'\1_\2').
       tr("-", "_").
-      downcase 
+      downcase
       "#{first}_#{elem}"
     end
 
     private
-    def init
-      populate_available_options
-      populate_model_items
-    end
 
     def populate_model_items
       list = @model.send(self.field_name)
-      @model_fields_ids = list.map {|i| i.id} 
+      @model_fields_ids = list.map {|i| i.id}
     end
 
     def populate_available_options

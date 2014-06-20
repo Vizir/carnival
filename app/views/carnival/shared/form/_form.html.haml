@@ -69,6 +69,22 @@
   }
 
   function getNestedFormOptions(params){
-    var elemId = params['elemId']; 
+    $('#nested_form_options_'+params['field_name']).html();
+    var elemId = params['scope_html_id']; 
+    var scopeValue = $('#'+elemId).val();
+    
+    var key = params['scope_name'];
+    params['carnival_list_scope'] = {};
+    params['carnival_list_scope'][key] = scopeValue;
+
+    $.ajax({
+      url: params['url'],
+      data: params,
+      success: function(data){
+        $('#nested_form_options_'+params['field_name']).html(data.template);
+        $('select').chosen();
+      }
+    });
+
   }
 
