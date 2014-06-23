@@ -1,5 +1,5 @@
 .nested-form{:class => field.name}
-  %h3.nested-form-title
+  %label.nested-form-title
     = t("activerecord.attributes.#{@model_presenter.full_model_name}.#{field.name}")
   
   - opt = Carnival::NestedFormOptions.new model_object, model_presenter, field

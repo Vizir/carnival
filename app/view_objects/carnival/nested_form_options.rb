@@ -68,6 +68,7 @@ module Carnival
 
     def select_options
       options = []
+      options << [I18n.t('nested_form.choose_an_option'), -1]
       @available_options.each do |item|
         props = {}
         id = self.option_id(item)
@@ -100,6 +101,7 @@ module Carnival
       function_params[:scope_html_id] = scope_html_id
       function_params[:presenter_name] = @presenter.class.name
       function_params[:controller_name] = @presenter.controller_class_name
+      function_params[:has_new_action] = self.has_new_action?
 
       "getNestedFormOptions(#{function_params.to_json});"
     end

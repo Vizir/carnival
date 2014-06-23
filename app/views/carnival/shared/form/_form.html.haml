@@ -29,7 +29,6 @@
     newForm = newForm.replace(/([_a-zA-Z]+\[[_a-zA-Z]+_attributes\]\[)\d+(\]\[[_a-zA-Z]+\])/g, "$1" + last_index + "$2");
     $(selector).append(newForm);
     $(selector).find("select").chosen();
-    $(selector).find(".chosen-container").css({width:$(".chosen-container").parent().css("width")})
   }
 
   function getFormName(element){
@@ -62,9 +61,12 @@
 
   function addOption(selectId){
     var option = $('#'+selectId).val();
+    if(option == -1)
+      return;
     $('#'+option+'_options').show();
     $('#'+option).prop('checked', true);
     $('#'+option+'_select_option').prop('disabled', true);
+    $('#'+selectId).val(-1);
     $('#'+selectId).trigger("chosen:updated");
   }
 
@@ -82,9 +84,20 @@
       data: params,
       success: function(data){
         $('#nested_form_options_'+params['field_name']).html(data.template);
-        $('select').chosen();
+        var $select = $('#nested_form_options_'+params['field_name']).find('select');
+        updateNestedFormSelectHtml($select, params['has_new_action']);
       }
     });
+  }
 
+  function updateNestedFormSelectHtml($select, hasNewAction){
+    $select.css({width: $select.parent().css("width")})
+    if(!hasNewAction)
+      return;
+    $select.chosen(
+    {
+      create_option_text: 'Criar',
+      create_option: function(){createNewForm('.nested-form-list.'+params['field_name'], params['field_name'])}
+    });
   }
 

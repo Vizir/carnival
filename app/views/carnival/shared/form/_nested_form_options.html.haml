@@ -1,17 +1,20 @@
 .carnival-select-options
   - if opt_obj.field.nested_form_modes?(:associate)
     - scope_html_id = opt_obj.scope_html_id
+
+    .carnival-select-tag
+      = select_tag opt_obj.select_tag_id, options_for_select(opt_obj.select_options), {:onchange => 'addOption("'+opt_obj.select_tag_id+'")'}
+    .carnival-select-action
+      - if opt_obj.has_new_action?
+        = link_to_function t("nested_form.new"), "createNewForm('.nested-form-list.#{opt_obj.field_name}', '#{opt_obj.field_name}')"
+
     - if scope_html_id.present?
       :javascript
         $('##{opt_obj.scope_html_id}').change(function(){#{opt_obj.scopeJSFunction}});
+        $(document).ready(function(){
+          updateNestedFormSelectHtml($('##{opt_obj.select_tag_id}'), #{opt_obj.has_new_action?});
+        });
 
-    .carnival-select-tag
-      = select_tag opt_obj.select_tag_id, options_for_select(opt_obj.select_options)
-    .carnival-select-action
-      = link_to_function t("nested_form.add_option"), 'addOption("'+opt_obj.select_tag_id+'")'
-      - if opt_obj.has_new_action?
-        = '|'
-        = link_to_function t("nested_form.new"), "createNewForm('.nested-form-list.#{opt_obj.field_name}', '#{opt_obj.field_name}')"
   - else
     = link_to_function t("nested_form.new"), "createNewForm('.nested-form-list.#{opt_obj.field_name}', '#{opt_obj.field_name}')"
 
