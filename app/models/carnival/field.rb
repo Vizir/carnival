@@ -79,6 +79,7 @@ module Carnival
     def nested_form_scope
       return nil if !nested_form_modes? :associate
       associate_mode =  get_associate_nested_form_mode
+      return nil if associate_mode.is_a? Symbol
       return associate_mode[:scope] if associate_mode[:scope].present? 
     end
 
@@ -125,6 +126,8 @@ module Carnival
       @params[:nested_form_modes].each do |mode|
         if mode.is_a? Hash
           return mode[:associate] if mode[:associate].present?
+        elsif mode.is_a? Symbol
+          return mode if mode == :associate
         end
       end
       nil
