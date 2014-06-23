@@ -20,16 +20,20 @@ module Carnival
 
       respond_to do |format|
         format.html do |render|
-          render 'index'
+          render 'index' and return
         end
         format.json do |render|
-          render(json: @datatable)
+          if params[:list_scope]
+            render(json: @datatable.as_list) and return
+          else
+            render(json: @datatable) and return
+          end
         end
         format.csv do
-          render text: @datatable.as_csv.encode("utf-16le")
+          render text: @datatable.as_csv.encode("utf-16le") and return
         end
         format.pdf do
-          render :pdf => t("#{@datatable.model.to_s.underscore}.lista") , :template => 'carnival/index.pdf.haml',  :show_as_html => params[:debug].present?
+          render :pdf => t("#{@datatable.model.to_s.underscore}.lista") , :template => 'carnival/index.pdf.haml',  :show_as_html => params[:debug].present? and return
         end
       end
     end

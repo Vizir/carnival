@@ -1,0 +1,27 @@
+.carnival-select-options
+  - if opt_obj.field.nested_form_modes?(:associate)
+    - scope_html_id = opt_obj.scope_html_id
+
+    .carnival-select-tag
+      = select_tag opt_obj.select_tag_id, options_for_select(opt_obj.select_options), {:onchange => 'addOption("'+opt_obj.select_tag_id+'")'}
+    .carnival-select-action
+      - if opt_obj.has_new_action?
+        = link_to_function t("nested_form.new"), "createNewForm('.nested-form-list.#{opt_obj.field_name}', '#{opt_obj.field_name}')"
+
+    - if scope_html_id.present?
+      :javascript
+        $('##{opt_obj.scope_html_id}').change(function(){#{opt_obj.scopeJSFunction}});
+        $(document).ready(function(){
+          updateNestedFormSelectHtml($('##{opt_obj.select_tag_id}'), #{opt_obj.has_new_action?});
+        });
+
+  - else
+    = link_to_function t("nested_form.new"), "createNewForm('.nested-form-list.#{opt_obj.field_name}', '#{opt_obj.field_name}')"
+
+.carnival-form-options
+  - opt_obj.available_options.each do |item|
+    - checkbox_id = opt_obj.option_id item
+    .carnival-form-options{id: "#{checkbox_id}_options", class: opt_obj.option_css_class(item) }
+      %span
+        = check_box_tag opt_obj.option_name, item.id, opt_obj.model_has_this_item?(item.id), id: checkbox_id, onclick: 'removeRelationOption("'+checkbox_id+'", "'+opt_obj.select_tag_id+'")'
+        = item.to_label

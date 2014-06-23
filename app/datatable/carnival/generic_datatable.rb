@@ -49,6 +49,27 @@ module Carnival
       fetch_records
     end
 
+    def as_list(options = {})
+      items = []
+      model_object = params[:model_class_name].classify.constantize.send(:new)
+      if !params[:model_id].empty?
+        model_object = params[:model_class_name].classify.constantize.send(:find, params[:model_id])
+      end
+      if params[:carnival_list_scope]
+        items = @model.where(params[:carnival_list_scope])
+      else
+        items = @model.all
+      end
+
+      just_class_name = params[:model_class_name].demodulize.classify.underscore
+      controller = params[:controller_name].constantize.new
+      model_presenter = params[:presenter_name].constantize.new controller: controller
+      field = model_presenter.fields[params[:field_name].to_sym]
+      opt = Carnival::NestedFormOptions.new model_object, model_presenter, field, items
+      html = render_to_string :partial => 'carnival/shared/form/nested_form_options.html.haml', :locals => { opt_obj: opt }
+      return :template => html.to_s, :items => items
+    end
+
     def filters
       @filters
     end
