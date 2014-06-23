@@ -258,7 +258,7 @@ module Carnival
     end
 
     def controller_to_field field
-      "#{extract_namespace}::#{field.name.pluralize.capitalize}Controller".constantize.send("new")
+      "#{extract_namespace}::#{field.name.classify.pluralize}Controller".constantize.send("new")
     end
 
     protected
