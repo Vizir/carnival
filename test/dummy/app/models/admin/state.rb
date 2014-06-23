@@ -11,7 +11,7 @@ module Admin
     validates_uniqueness_of :code
 
     accepts_nested_attributes_for :cities, :reject_if => :all_blank, :allow_destroy => true
-    scope :national, -> {includes(:country).where("countries.code = ?", "BR")}
-    scope :international, -> {includes(:country).where("countries.code <> ?", "BR")}
+    scope :national, -> {joins(:country).where("countries.code = ?", "BR")}
+    scope :international, -> {joins(:country).where("countries.code <> ?", "BR")}
   end
 end

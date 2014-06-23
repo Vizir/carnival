@@ -13,7 +13,7 @@
         - if inner_form.object.id.nil? and inner_form.object.errors.size == 0
           %li.nested-form-list-item{:class => "#{inner_form.object.id.nil? and inner_form.object.errors.size == 0 ? 'form-new-association' : 'form-existent-association'}" }
             .nested-form-list-item-actions
-              = link_to_function t("remove"), "removeNestedFormElement(this);" if field.nested_form_allow_destroy?
+              = link_to t("remove"), "#", onclick: "removeNestedFormElement(this); return false;" if field.nested_form_allow_destroy?
             = inner_form.input :id, :as => :hidden
             = inner_form.input :_destroy, :as => :hidden, :input_html => {:class => "destroy"} if field.nested_form_allow_destroy?
             - nested_presenter = model_presenter.presenter_to_field(field, inner_form.object)
