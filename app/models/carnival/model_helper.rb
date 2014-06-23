@@ -1,7 +1,7 @@
 module Carnival::ModelHelper
 
   def to_label
-    self.respond_to? :name ? self.name : self.to_s
+    self.respond_to?(:name) ? self.name : self.to_s
   end
 
   def self.included mod
@@ -24,6 +24,20 @@ module Carnival::ModelHelper
       list = []
       all.each {|object| list << [object.id, object.to_label] }
       list
+    end
+
+    def get_elements_for_select(params = {})
+      return all if params[:carnival_scope].nil?
+      scopes = params[:carnival_scope][:scopes]
+      return all if scopes.empty?
+      model_object = params[:carnival_scope][:model_object]
+      conditions = {}
+      scopes.each do |scp|
+        value = model_object.send scp
+        conditions[scp] = value if !value.nil?
+      end
+      return where(conditions) if !conditions.empty?
+      []
     end
   end
 end

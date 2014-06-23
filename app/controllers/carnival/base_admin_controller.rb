@@ -21,13 +21,17 @@ module Carnival
         presenter = @datatable.presenter
         presenter.parse_special_scope params[:special_scope]
       end
-    
+
       respond_to do |format|
         format.html do |render|
           render 'index' and return
         end
         format.json do |render|
-          render(json: @datatable) and return
+          if params[:list_scope]
+            render(json: @datatable.as_list) and return
+          else
+            render(json: @datatable) and return
+          end
         end
         format.csv do
           render text: @datatable.as_csv.encode("utf-16le") and return

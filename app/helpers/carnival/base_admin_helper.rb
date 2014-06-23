@@ -94,7 +94,7 @@ module Carnival
 
     def field_to_show(presenter, field, record, show_only_value=false)
       current_type = field_type(presenter,field)
-      if current_type == :has_one_relation || current_type == :belongs_to_relation
+      if current_type.to_s.include?'_relation'
         if show_only_value
           record.send(field.to_s).to_label unless record.send(field.to_s).nil?
         else

@@ -13,11 +13,17 @@ module Admin
           :actions => [:index, :new, :edit, :show],
           :searchable => true,
           :advanced_search => {:operator => :like}
-    field :cities,
-          :actions => [:index, :show]
+
     field :country,
           :actions => [:index, :new, :edit, :show],
           :advanced_search => {:operator => :equal}
+
+    field :cities,
+          :actions => [:index, :show, :edit, :new],
+          :nested_form => true, 
+          :nested_form_allow_destroy => true, 
+          nested_form_modes: [:new, :associate => {scope: :country}]
+
     field :created_at, :actions => [:index, :show],
           :date_filter => true
     field :updated_at, :actions => [:index, :show]
