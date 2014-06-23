@@ -46,6 +46,30 @@ Execute `rails generate carnival:install` after you install Carnival to copy mig
 If you already have created your database with `rake db:create`, just run `rake db:migrate` to execute the Carnival migrations.
 
 
+## What does Carnival include?
+
+After you install Carnival, you will have:
+
+### Carnival Admin Application
+
+Under the '/admin' namespace will you find the Carnival application.
+This application has some features already implemented. To use it, it will be necessary to:
+
+* Create an administrator user, executem the following Rake Task
+
+```
+rake carnival:users:add_admin["email@username.com","at_least_8_digit_password"]
+```
+
+* Start your Rails web server and acess the `/admin` page.
+
+`http://server-name/admin`
+
+* You will be redirected for the login page, please type the email and password recently added.
+
+
+
+
 ## Basic Usage
 
 ### Model
@@ -199,7 +223,7 @@ Ex:
     action :edit
     action :destroy
     action :new
-    
+
     def full_model_name
       'Company'
     end
