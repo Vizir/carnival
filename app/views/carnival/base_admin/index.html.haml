@@ -35,7 +35,7 @@
   %tbody
 
 .table-tools.table-download-links
-  = link_to t('download_as_csv'), "javascript:exportTable('csv');"
+  = link_to t('download_as_csv'), "javascript:exportTable('csv');"  if presenter.has_action?(:csv)
   = link_to t('download_as_pdf'), presenter.model_path(:index, {:format => 'pdf'}) if presenter.has_action?(:pdf)
 :javascript
   function exportTable(format){
