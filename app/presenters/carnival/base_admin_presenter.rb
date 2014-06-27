@@ -212,7 +212,7 @@ module Carnival
           value = record.send(field.to_s)
           return value.to_label if value.present?
         else
-          return I18n.t("activerecord.attibutes.#{full_model_name}.#{field}")
+          return I18n.t("activerecord.attributes.#{full_model_name}.#{field}")
         end
       end
       return ""
