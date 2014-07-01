@@ -25,36 +25,6 @@ function openPopUp(url){
   $.colorbox({href:url, opacity:0.5, width:"90%"});
 }
 
-function notyError(msg){
-  noty({
-    'text': msg,
-    'layout': 'bottom',
-    'type': 'error',
-    'animateOpen': {'height': 'toggle'},
-    'animateClose': {'height': 'toggle'},
-    'speed': 500,
-    'timeout': 5000,
-    'closeButton': false,
-    'closeOnSelfClick': true,
-    'closeOnSelfOver': true
-  });
-}
-
-function notySuccess(msg){
-  noty({
-    'text': msg,
-    'layout': 'bottom',
-    'type': 'success',
-    'animateOpen': {'height': 'toggle'},
-    'animateClose': {'height': 'toggle'},
-    'speed': 500,
-    'timeout': 5000,
-    'closeButton': false,
-    'closeOnSelfClick': true,
-    'closeOnSelfOver': true
-  });
-}
-
 function markActive(){
   $('.dropdown_main_menu_sublevel a.actived').closest('.dropdown_main_menu_sublevel').show();
 }
