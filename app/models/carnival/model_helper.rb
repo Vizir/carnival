@@ -4,6 +4,10 @@ module Carnival::ModelHelper
     self.respond_to?(:name) ? self.name : self.to_s
   end
 
+  def as_option_html
+    nil 
+  end
+
   def self.included mod
     mod.extend ClassMethods
   end
