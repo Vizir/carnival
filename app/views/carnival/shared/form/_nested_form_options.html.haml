@@ -27,4 +27,4 @@
         - if item.as_option_html.nil?
           = item.to_label
         - else
-          = render item.as_option_html
+          = item.as_option_html.html_safe
