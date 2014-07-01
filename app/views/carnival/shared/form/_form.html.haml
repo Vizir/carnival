@@ -55,6 +55,7 @@
   }
   function removeRelationOption(id, selectId){
     $('#'+id+'_options').hide();
+    $('#'+id).prop('checked', false);
     $('#'+id+'_select_option').prop('disabled', false);
     $('#'+selectId).trigger("chosen:updated");
   }
