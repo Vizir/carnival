@@ -95,6 +95,10 @@ module Carnival
       @params[:advanced_search]
     end
 
+    def show_as_list
+      @params[:show_as_list] 
+    end
+
     def advanced_search_operator
       return @params[:advanced_search][:operator] if advanced_searchable? and @params[:advanced_search][:operator].present?
       :like

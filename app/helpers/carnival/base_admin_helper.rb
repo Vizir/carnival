@@ -66,6 +66,12 @@ module Carnival
       link
     end
 
+    def show_as_list(presenter, field)
+      current_type = field_type(presenter,field)
+      return false if current_type != :relation
+      return presenter.fields[field.to_sym].show_as_list
+    end
+
     def field_to_show(presenter, field, record, show_only_value=false)
       current_type = field_type(presenter,field)
       if current_type == :relation

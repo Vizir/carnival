@@ -20,6 +20,7 @@ module Admin
 
     field :cities,
           :actions => [:index, :show, :edit, :new],
+          :show_as_list => true,
           :nested_form => true, 
           :nested_form_allow_destroy => true, 
           nested_form_modes: [:new, :associate => {scope: :country}]
