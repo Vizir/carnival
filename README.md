@@ -46,9 +46,38 @@ Execute `rails generate carnival:install` after you install Carnival to copy mig
 If you already have created your database with `rake db:create`, just run `rake db:migrate` to execute the Carnival migrations.
 
 
+## What does Carnival include?
+
+After you install Carnival, you will have a running CRUD application which is ready to manage the currently register useres. The real power of Carnival is that you easily extend to manage your data. Let's start to use it.
+
+### Carnival Admin Application
+
+The Carnival application will be under the '/admin' namespace.
+Some features are already implemented. To use it, do the following:
+
+* Create an administrator user, execute the following Rake Task
+
+```
+rake carnival:users:add_admin["email@username.com","at_least_8_digit_password"]
+```
+
+* Start your Rails web server and acess the `/admin` page.
+
+`http://server-name/admin`
+
+* You will be redirected for the login page, please type the email and password recently added.
+* After logging in, you will see the main page with the menu bar on the right. On this menu bar you can find the users lists where is possible to mange the administrators users of the system
+
 ## Basic Usage
 
+Carnival started relying only on MVC model. As we developed it, we saw that it would be good to have a Presenter to better describe our models. We used the presenter to avoid the fat models emerge on our systems.
+
 ### Model
+
+It is a commom Active Record model.
+We only have to include the Carnival Helper.
+
+`include Carnival::ModelHelper`
 
 ```ruby
 
@@ -65,6 +94,11 @@ end
 
 ### Controller
 
+It is also a commom Controller, with some things to note:
+* Inherits from `Carnival::BaseAdminController`
+* Uses the default admin layout: `layout "carnival/admin"`
+* When creating or editing data, you should configure the Rails 4 permitted params.
+
 ```ruby
 
 module Admin
@@ -80,6 +114,8 @@ end
 ```
 
 ### Presenter
+
+All the "magic" of Carnival happens at Presenter. Each model managed under Carnival Admin will have a presenter associated to it. The presenter describes each model attributed that will be acessible in any of Carnival's CRUD interfaces.
 
 ```ruby
 
@@ -105,7 +141,7 @@ end
 ```
 ## Menu
 
-The menu of the carnival can be configured in the carnival\_initializers.rb file
+The menu of the carnival can be configured in the 'config\initializers\carnival_initializers.rb' file
 
 Ex:
 
@@ -199,7 +235,7 @@ Ex:
     action :edit
     action :destroy
     action :new
-    
+
     def full_model_name
       'Company'
     end
