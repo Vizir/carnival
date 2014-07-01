@@ -24,7 +24,4 @@
     .carnival-form-options{id: "#{checkbox_id}_options", class: opt_obj.option_css_class(item) }
       %span
         = check_box_tag opt_obj.option_name, item.id, opt_obj.model_has_this_item?(item.id), id: checkbox_id, onclick: 'removeRelationOption("'+checkbox_id+'", "'+opt_obj.select_tag_id+'")'
-        - if item.as_option_html.nil?
-          = item.to_label
-        - else
-          = item.as_option_html.html_safe
+        = item.to_label
