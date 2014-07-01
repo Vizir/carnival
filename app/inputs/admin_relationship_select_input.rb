@@ -1,7 +1,6 @@
 class AdminRelationshipSelectInput < SimpleForm::Inputs::CollectionSelectInput
   def input
     super
-    raise
     @builder.collection_select(
       "#{@builder.object.class.name.constantize.reflections[attribute_name.to_sym].foreign_key}",
       @builder.object.class.name.constantize.reflect_on_association(attribute_name.to_sym).klass.name.constantize.list_for_select,
