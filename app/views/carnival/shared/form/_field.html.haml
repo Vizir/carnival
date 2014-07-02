@@ -1,7 +1,7 @@
 - options = {wrapper_html: {class: "col-md-#{field.size}"}}
 - current_type = field_type(model_presenter,field.name)
 - if current_type == :has_one_relation
-  = ""
+  = ''
 - else
   - options[:as] = :admin_enum if current_type == :enum
   - if current_type == :belongs_to_relation

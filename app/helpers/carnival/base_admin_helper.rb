@@ -55,6 +55,11 @@ module Carnival
       File.exists?(get_partial_path(partial_path))
     end
 
+    def has_many_relation? model, field
+      klass = Carnival::KlassService.new model.class 
+      klass.is_a_has_many_relation?(field.to_sym)
+    end
+
     def get_partial_path partial_path
       path = Rails.root.join('app', 'views')
       partial_path_array = partial_path.split('/')

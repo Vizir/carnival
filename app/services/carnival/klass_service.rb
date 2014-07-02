@@ -11,9 +11,6 @@ module Carnival
 
     def relation_type sym
       return nil if !relation?(sym)
-    end
-
-    def relation_type sym
        get_association(sym).macro 
     end
 
