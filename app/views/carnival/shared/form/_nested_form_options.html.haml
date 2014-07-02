@@ -19,6 +19,8 @@
     = link_to t("nested_form.new"), "#", onclick: "createNewForm('.nested-form-list.#{opt_obj.field_name}', '#{opt_obj.field_name}'); return false;"
 
 .carnival-form-options
+  - checkbox_id = opt_obj.option_id OpenStruct.new(id: '')
+  = check_box_tag opt_obj.option_name, '',true, id: checkbox_id, style: "display: none;"
   - opt_obj.available_options.each do |item|
     - checkbox_id = opt_obj.option_id item
     .carnival-form-options{id: "#{checkbox_id}_options", class: opt_obj.option_css_class(item) }
