@@ -9,7 +9,7 @@ module Carnival::ModelHelper
   end
 
   module ClassMethods
-    def  (params = {})
+    def list_for_select(params = {})
       select = []
       select << ['', ''] if params[:add_empty_option]
       if params[:reverse]
