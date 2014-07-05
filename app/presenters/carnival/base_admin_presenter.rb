@@ -134,6 +134,14 @@ module Carnival
       searchable_fields
     end
 
+    def build_relation_field(field)
+      if is_relation_belongs_to?(field.name)
+        model_object.send("#{field.name}_build")
+      else
+        model_object.send(field.name).build
+      end
+    end
+
     def must_render_field?(nested_in, field, model_object)
       must_render = true
       if nested_in.present?
@@ -205,10 +213,12 @@ module Carnival
       model_class.reflect_on_association(field)
     end
 
-
+    def is_relation_belongs_to?(field)
+      model_class.reflect_on_association(field).macro == :belongs_to
+    end
     def relation_label(field, record)
       if relation_field?(field)
-        if model_class.reflect_on_association(field).macro == :belongs_to
+        if is_relation_belongs_to?(field)
           value = record.send(field.to_s)
           return value.to_label if value.present?
         else
@@ -225,7 +235,7 @@ module Carnival
         else
           related_class = model_class.reflect_on_association(field).klass.name.pluralize.underscore
         end
-        if model_class.reflect_on_association(field).macro == :belongs_to
+        if is_relation_belongs_to?(field)
           id = -1
           id = record.send(model_class.reflect_on_association(field).foreign_key) if record.send(model_class.reflect_on_association(field).foreign_key).present?
           params = {:controller => related_class, :action => :show, :id => id}
