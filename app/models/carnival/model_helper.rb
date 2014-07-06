@@ -12,10 +12,12 @@ module Carnival::ModelHelper
     def list_for_select(params = {})
       select = []
       select << ['', ''] if params[:add_empty_option]
+      query = all
+      query = query.where(params[:query]) if params[:query].present?
       if params[:reverse]
-        select.concat all.collect{|c|[c.to_label, c.id]}
+        select.concat query.collect{|c|[c.to_label, c.id]}
       else
-        select.concat all.collect{|c|[c.id, c.to_label]}
+        select.concat query.collect{|c|[c.id, c.to_label]}
       end
       select
     end

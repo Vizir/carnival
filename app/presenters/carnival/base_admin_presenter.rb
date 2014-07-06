@@ -216,6 +216,7 @@ module Carnival
     def is_relation_belongs_to?(field)
       model_class.reflect_on_association(field).macro == :belongs_to
     end
+
     def relation_label(field, record)
       if relation_field?(field)
         if is_relation_belongs_to?(field)
@@ -226,6 +227,12 @@ module Carnival
         end
       end
       return ""
+    end
+
+    def relation_model(field)
+      if is_relation_belongs_to?(field)
+        model_class.reflect_on_association(:city).klass.name.constantize
+      end
     end
 
     def relation_path(field, record)
@@ -269,6 +276,10 @@ module Carnival
 
     def controller_to_field field
       "#{extract_namespace}::#{field.name.classify.pluralize}Controller".constantize.send("new")
+    end
+
+    def load_dependent_select_options_path
+      "/#{extract_namespace.downcase}/carnival-base/load_dependent_select_options"
     end
 
     protected

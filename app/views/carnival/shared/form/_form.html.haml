@@ -73,9 +73,9 @@
 
   function getNestedFormOptions(params){
     $('#nested_form_options_'+params['field_name']).html();
-    var elemId = params['scope_html_id']; 
+    var elemId = params['scope_html_id'];
     var scopeValue = $('#'+elemId).val();
-    
+
     var key = params['scope_name'];
     params['carnival_list_scope'] = {};
     params['carnival_list_scope'][key] = scopeValue;
@@ -89,6 +89,20 @@
         updateNestedFormSelectHtml($select, params['has_new_action']);
       }
     });
+  }
+
+  function updateDependentFormSelectHtml(value, field, dependentField){
+    if(value != ""){
+      $.ajax("#{model_presenter.load_dependent_select_options_path}/#{model_presenter.full_model_name.classify}/" + dependentField + "/" + field + "/" + value)
+        .done(function(data){
+          var selector = ".field-" + dependentField.replace("_id", "");
+          $(selector).html(data);
+          $(selector).trigger("chosen:updated");
+        })
+        .error(function(err, data){
+          console.log("updateDependentFormSelectHtml ajax error " + err);
+        });
+    }
   }
 
   function updateNestedFormSelectHtml($select, hasNewAction){
