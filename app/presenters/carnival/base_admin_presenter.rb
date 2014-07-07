@@ -234,7 +234,7 @@ module Carnival
 
     def relation_model(field)
       if is_relation_belongs_to?(field)
-        model_class.reflect_on_association(:city).klass.name.constantize
+        model_class.reflect_on_association(field).klass.name.constantize
       end
     end
 
