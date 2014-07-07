@@ -93,7 +93,7 @@
 
   function updateDependentFormSelectHtml(value, field, dependentField){
     if(value != ""){
-      $.ajax("#{model_presenter.load_dependent_select_options_path}/#{model_presenter.full_model_name.classify}/" + dependentField + "/" + field + "/" + value)
+      $.ajax("#{model_presenter.load_dependent_select_options_path}/#{model_presenter.presenter_name}/" + dependentField + "/" + field + "/" + value)
         .done(function(data){
           var selector = ".field-" + dependentField.replace("_id", "");
           $(selector).html(data);

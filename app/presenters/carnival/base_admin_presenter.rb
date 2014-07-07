@@ -13,7 +13,10 @@ module Carnival
       @base_query
     end
 
-    #New implementation starts here
+    def presenter_name
+      self.class.to_s
+    end
+
     @@actions = {}
     def self.action(name, params = {})
       @@actions[presenter_class_name] = {} if @@actions[presenter_class_name].nil?

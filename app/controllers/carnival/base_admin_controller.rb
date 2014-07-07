@@ -95,7 +95,7 @@ module Carnival
     end
 
     def load_dependent_select_options
-      presenter = "#{params[:model]}Presenter".constantize.send(:new, :controller => self)
+      presenter = params[:presenter].constantize.send(:new, :controller => self)
       model = presenter.relation_model(params[:field].gsub("_id", "").to_sym)
       @options = model.list_for_select(add_empty_option: true, query: ["#{params[:dependency_field]} = ?", params[:dependency_value]])
       render layout: nil
