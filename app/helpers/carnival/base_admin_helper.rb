@@ -74,10 +74,7 @@ module Carnival
     end
 
     def field_type(presenter,field)
-      if presenter.relation_field?(field.to_sym)
-        relation =  presenter.relation_type field.to_sym 
-        return ("#{relation.to_s}_relation").to_sym
-      end
+      return :relation if presenter.relation_field?(field.to_sym)
       field_type = nil
       field_type = presenter.model_class.columns_hash[field.to_s].type if presenter.model_class.columns_hash[field.to_s].present?
       return :date if field_type == :datetime or field_type == :date
