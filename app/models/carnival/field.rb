@@ -71,7 +71,7 @@ module Carnival
 
     def nested_form_modes? (mode)
       associate = get_associate_nested_form_mode
-      return true if associate.present?
+      return true if associate.present? && mode == :associate
       return @params[:nested_form_modes].include?(mode) unless @params[:nested_form_modes].nil?
       return false
     end
