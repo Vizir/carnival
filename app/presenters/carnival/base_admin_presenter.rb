@@ -134,7 +134,7 @@ module Carnival
       searchable_fields
     end
 
-    def build_relation_field(field)
+    def build_relation_field(field, model_object)
       if is_relation_belongs_to?(field.name)
         model_object.send("#{field.name}_build")
       else
