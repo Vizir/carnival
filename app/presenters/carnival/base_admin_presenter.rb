@@ -217,7 +217,7 @@ module Carnival
     end
 
     def is_relation_belongs_to?(field)
-      model_class.reflect_on_association(field).macro == :belongs_to
+      model_class.reflect_on_association(field.to_sym).macro == :belongs_to
     end
 
     def relation_label(field, record)
