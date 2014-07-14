@@ -39,7 +39,7 @@ module Carnival
 
     def constant_exists?(item, field)
       begin
-        item.class.const_get(field.to_s.upcase).present?
+        item.const_get(field.to_s.upcase).present?
       rescue
         false
       end

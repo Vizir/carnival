@@ -4,7 +4,7 @@
   = ''
 - else
   - options[:as] = :admin_enum if current_type == :enum
-  - if current_type == :belongs_to_relation
+  - if current_type == :relation
     - options[:as] = :admin_relationship_select
   - options[:as] = :admin_date if current_type == :date
   - options[:as] = field.as if field.as.present?
