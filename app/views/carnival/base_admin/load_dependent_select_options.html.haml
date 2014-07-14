@@ -1,0 +1,5 @@
+- @options.each do |option|
+  - if option[0].to_s.empty? and option[1].to_s.empty?
+    %option= I18n.t("messages.select")
+  - else
+    %option{value: option[0]}= option[1]

@@ -1,5 +1,5 @@
 pt-BR:
-  
+
   carnival:
     show: Visualizar
     new: Novo
@@ -90,7 +90,7 @@ pt-BR:
     last_month: Mês passado
     this_year: Este ano
     last_year: Ano passado
-  
+
 
   # formatos de data e hora
   date:

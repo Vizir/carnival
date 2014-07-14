@@ -94,6 +94,13 @@ module Carnival
       render 'layouts/shared/render_popup' and return
     end
 
+    def load_dependent_select_options
+      presenter = params[:presenter].constantize.send(:new, :controller => self)
+      model = presenter.relation_model(params[:field].gsub("_id", "").to_sym)
+      @options = model.list_for_select(add_empty_option: true, query: ["#{params[:dependency_field]} = ?", params[:dependency_value]])
+      render layout: nil
+    end
+
     private
 
     def instantiate_model(presenter)

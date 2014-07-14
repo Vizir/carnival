@@ -13,7 +13,10 @@ module Carnival
       @base_query
     end
 
-    #New implementation starts here
+    def presenter_name
+      self.class.to_s
+    end
+
     @@actions = {}
     def self.action(name, params = {})
       @@actions[presenter_class_name] = {} if @@actions[presenter_class_name].nil?
@@ -216,6 +219,7 @@ module Carnival
     def is_relation_belongs_to?(field)
       model_class.reflect_on_association(field.to_sym).macro == :belongs_to
     end
+
     def relation_label(field, record)
       if relation_field?(field)
         if is_relation_belongs_to?(field)
@@ -226,6 +230,12 @@ module Carnival
         end
       end
       return ""
+    end
+
+    def relation_model(field)
+      if is_relation_belongs_to?(field)
+        model_class.reflect_on_association(field).klass.name.constantize
+      end
     end
 
     def relation_path(field, record)
@@ -269,6 +279,10 @@ module Carnival
 
     def controller_to_field field
       "#{extract_namespace}::#{field.name.classify.pluralize}Controller".constantize.send("new")
+    end
+
+    def load_dependent_select_options_path
+      "/#{extract_namespace.downcase}/carnival-base/load_dependent_select_options"
     end
 
     protected

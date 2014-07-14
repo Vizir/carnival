@@ -23,11 +23,13 @@ module Admin
     field :state,
           :actions => [:index, :csv, :pdf, :new, :edit, :show],
           :advanced_search => {:operator => :equal},
-          :position => {line: 2, size: 3}
+          :position => {line: 2, size: 3},
+          :depends_on => :country
     field :city,
           :actions => [:index, :csv, :pdf, :new, :edit, :show],
           :advanced_search => {:operator => :equal},
-          :position => {line: 2, size: 3}
+          :position => {line: 2, size: 3},
+          :depends_on => :state
     field :zipcode,
           :actions => [:new, :csv, :pdf, :edit, :show],
           :position => {line: 2, size: 3}
