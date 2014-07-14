@@ -84,8 +84,9 @@ module Carnival
     end
 
     def scope_column_name
+
       scope = @field.nested_form_scope
-      return nil if !@model.reflections[scope]
+      return nil if scope.blank? or !@model.reflections[scope]
       fkey = @model.reflections[scope].foreign_key
     end
 

@@ -2,7 +2,7 @@
 
 ```ruby
 
-  field :fiel_name, {options}
+  field :field_name, {options}
 
 ```
 

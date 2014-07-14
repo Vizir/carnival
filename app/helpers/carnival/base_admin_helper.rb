@@ -44,7 +44,7 @@ module Carnival
         false
       end
     end
-    
+
     def carnival_render_if_exist partial_path
       if partial_exist?(partial_path)
         return render partial_path
@@ -56,8 +56,13 @@ module Carnival
     end
 
     def has_many_relation? model, field
-      klass = Carnival::KlassService.new model.class 
+      klass = Carnival::KlassService.new model.class
       klass.is_a_has_many_relation?(field.to_sym)
+    end
+
+    def has_one_relation? model, field
+      klass = Carnival::KlassService.new model.class
+      klass.is_a_has_one_relation?(field.to_sym)
     end
 
     def get_partial_path partial_path
@@ -86,9 +91,9 @@ module Carnival
     def menu_link link
       link.strip!
       if link.to_s.end_with?('_path') or link.to_s.end_with?('_url')
-        return eval link 
+        return eval link
       elsif link.index(/_path.+/) #path with arguments
-        return eval link 
+        return eval link
       end
 
       link
