@@ -213,7 +213,7 @@ module Carnival
     end
 
     def relation_field?(field)
-      model_class.reflect_on_association(field)
+      model_class.reflect_on_association(field.to_sym)
     end
 
     def is_relation_belongs_to?(field)

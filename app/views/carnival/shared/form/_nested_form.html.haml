@@ -8,7 +8,7 @@
 
   - if field.nested_form_modes?(:new)
     %ul.nested-form-list{:class => field.name}
-      - model_presenter.build_relation_field(field, f.object)
+      - model_presenter.build_relation_field(field, model_object)
       = f.simple_fields_for field.name.to_sym do |inner_form|
         - if inner_form.object.id.nil? and inner_form.object.errors.size == 0
           %li.nested-form-list-item{:class => "#{inner_form.object.id.nil? and inner_form.object.errors.size == 0 ? 'form-new-association' : 'form-existent-association'}" }
