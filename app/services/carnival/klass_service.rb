@@ -11,7 +11,7 @@ module Carnival
 
     def relation_type sym
       return nil if !relation?(sym)
-       get_association(sym).macro 
+       get_association(sym).macro
     end
 
     def method_missing(method, *args)
@@ -24,11 +24,7 @@ module Carnival
 
     def related_class_file_name sym
       return nil if !relation?(sym)
-      if is_namespaced? and !@klass.reflect_on_association(sym).klass.name.pluralize.underscore.include?("/")
-        return "#{extract_namespace.downcase}/#{get_related_class(sym).name.pluralize.underscore}"
-      else
-        return get_related_class(sym).name.pluralize.underscore
-      end
+      get_related_class(sym).name.pluralize.underscore
     end
 
     def extract_namespace
@@ -39,7 +35,7 @@ module Carnival
     end
 
     def is_namespaced?
-      @klass.to_s.split("::").size > 0
+      @klass.to_s.split("::").size > 1
     end
 
 private

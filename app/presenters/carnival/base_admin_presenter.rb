@@ -108,9 +108,9 @@ module Carnival
 
     def full_model_name
       if Carnival::Config.use_full_model_name == false and !is_from_carnival?
-        return model_name 
+        return model_name
       end
-    
+
       if @@model_names[presenter_class_name].nil?
         self.class.to_s.gsub("Presenter", "").underscore
       else
@@ -215,7 +215,7 @@ module Carnival
     end
 
     def relation_type sym
-      @klass_service.relation_type sym      
+      @klass_service.relation_type sym
     end
 
     def relation_label(field, record)
@@ -232,16 +232,16 @@ module Carnival
 
     def relation_path(field, record)
       return nil if !relation_field?(field)
-      
-      related_class = get_related_class field
 
+      related_class = get_related_class field
       if @klass_service.is_a_belongs_to_relation?(field)
         id = -1
         id = record.send(model_class.reflect_on_association(field).foreign_key) if record.send(model_class.reflect_on_association(field).foreign_key).present?
-        params = {:controller => related_class, :action => :show, :id => id}
+        params = {:controller => "#{extract_namespace.downcase}/#{related_class}", :action => :show, :id => id}
       else
-        params = {:controller => related_class, :action => :index, :advanced_search => make_relation_advanced_query_url_options(field, record)}
+        params = {:controller => "#{extract_namespace.downcase}/#{related_class}", :action => :index, :advanced_search => make_relation_advanced_query_url_options(field, record)}
       end
+
       params = params.merge(:only_path => true)
       return generate_route_path params
     end
@@ -389,7 +389,7 @@ module Carnival
       begin
         path = url_for params
       rescue
-        
+
       end
       path
     end
