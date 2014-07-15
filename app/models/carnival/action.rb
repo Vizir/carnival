@@ -1,9 +1,9 @@
 module Carnival
   class Action
     include Rails.application.routes.url_helpers
-    PARTIAL_DEFAULT = "/carnival/shared/action_default"
-    PARTIAL_DELETE = "/carnival/shared/action_delete"
-    PARTIAL_REMOTE = "/carnival/shared/action_remote"
+    PARTIAL_DEFAULT = :default
+    PARTIAL_DELETE = :delete
+    PARTIAL_REMOTE = :remote
 
     def initialize(presenter, name, params={})
       @presenter = presenter

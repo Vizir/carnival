@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Carnival
   class GenericDatatable
-    delegate :params, :caminho_modelo, :h, :link_to, :number_to_currency, :number_with_precision, to: :@view
+    delegate :params, :caminho_modelo, :h, :link_to, :number_to_currency, :number_with_precision, :list_cel, :list_buttons, to: :@view
     delegate :current_usuario, :render_to_string, to: :@controller
     attr_accessor :model, :presenter
     require 'csv'
@@ -114,26 +114,26 @@ module Carnival
 
       if render_type == RENDER_CSV
         @presenter.fields_for_action(:csv).each do |key, field|
-          data_item[i.to_s] = @controller.render_to_string :formats => [:html] , :partial => '/carnival/shared/list_cel', :locals => {:presenter => @presenter,:field=> key, :record=> record, :only_render_fields => true}
+          data_item[i.to_s] = list_cel(@presenter, key,record, true)
           i = i + 1
         end
       elsif render_type == RENDER_PDF
         @presenter.fields_for_action(:pdf).each do |key, field|
-          data_item[i.to_s] = @controller.render_to_string :formats => [:html] , :partial => '/carnival/shared/list_cel', :locals => {:presenter => @presenter,:field=> key, :record=> record, :only_render_fields => true}
+          data_item[i.to_s] = list_cel(@presenter, key,record, true)
           i = i + 1
         end
       else render_type == RENDER_TABLE
         @presenter.fields_for_action(:index).each do |key, field|
-          data_item[i.to_s] = @controller.render_to_string :formats => [:html] , :partial => '/carnival/shared/list_cel', :locals => {:presenter => @presenter,:field=> key, :record=> record, :only_render_fields => false}
+          data_item[i.to_s] = list_cel(@presenter, key,record, false)
           i = i + 1
         end
-        data_item[i.to_s] = @controller.render_to_string :formats => [:html], :partial => '/carnival/shared/item_buttons', :locals => {:record=>record, :presenter => @presenter}
+        data_item[i.to_s] = list_buttons(@presenter, record)
+        #data_item[i.to_s] = @controller.render_to_string :formats => [:html], :partial => '/carnival/shared/item_buttons', :locals => {:record=>record, :presenter => @presenter}
         i = i + 1
       end
 
       data_item
     end
-
 
     def records
       @records ||= fetch_records
@@ -165,7 +165,14 @@ module Carnival
         @presenter.searchable_fields.each do |key, field|
           filtros << "#{key.to_s} like :search"
         end
+        @presenter.join_tables.each do |relation_name|
+          records = records.joins(relation_name)
+        end
+        #records = records.where(filtros.join(" or "), search: "%#{params[:sSearch]}%")
         records = records.where(filtros.join(" or "), search: "%#{params[:sSearch]}%")
+      end
+      @presenter.join_tables.each do |relation_name|
+        records = records.includes(relation_name)
       end
       records
     end

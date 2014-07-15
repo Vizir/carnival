@@ -138,10 +138,24 @@ module Carnival
     def searchable_fields
       searchable_fields = {}
       @@fields[presenter_class_name].each do |key, field|
-        searchable_fields[key] = field if field.searchable?
+        if relation_field? key
+          field_name = "#{field.name.pluralize}.name"
+        else
+          field_name = "#{self.table_name}.#{field.name}"
+        end
+        searchable_fields[field_name] = field if field.searchable?
       end
       searchable_fields
     end
+
+    def join_tables
+      joins = []
+      @@fields[presenter_class_name].each do |key, field|
+        joins << key if relation_field? key.to_sym     
+      end
+      joins
+    end
+
 
     def must_render_field?(nested_in, field, model_object)
       must_render = true

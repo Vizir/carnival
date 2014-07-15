@@ -127,5 +127,59 @@ module Carnival
         result
       end
     end
+
+    def list_cel(presenter, field, record, only_render_fields)
+      result = field_to_show(presenter, field, record, only_render_fields)
+      return result if only_render_fields
+      td = "<td class='first-td'>"
+      return "#{td}<span class='#{presenter.fields[field].css_class}'>#{result}</span></td>" if presenter.fields[field].css_class.present?
+      "#{td}#{result}</td>"
+    end
+
+    def list_buttons(presenter, record)
+      result = ""
+      presenter.actions_for_record.each do |key, action|
+        if action.show(record)
+          if action.remote?
+            result << button_action_remote(action, presenter, record)
+          else
+            result << button_action(action, presenter, record)
+          end
+        end
+      end
+      result
+    end
+
+    def button_action(action, presenter, record)
+      label =  t("#{presenter.model_name}.#{action.name}", default: t("carnival.#{action.name}"))
+      path = action.path(:id => record.id)
+      if action.default_partial == :default
+        "<a class='action editar' href='#{path}'>#{label}</a>"
+      elsif action.default_partial == :delete
+        confirm = I18n.t("are_you_sure")
+        "<a class='action apagar' data-confirm='#{confirm}' data-method='delete' href='#{path}' rel='nofollow'>#{label}</a>"
+      end
+    end
+
+    def button_action_remote(action, presenter, record)
+      name = action.name
+      label =  t("#{presenter.model_name}.#{action.name}", default: t("carnival.#{action.name}"))
+      path = action.path(:id => record.id)
+
+      success_callback = "#{name}_success_callback" 
+      if params[:success]
+        success_callback = params[:success]
+      end
+
+      error_callback = "#{name}_error_callback" 
+      if params[:error]
+        error_callback = params[:error]
+      end
+
+      remote_function = Carnival.remoteFunction(path, success_callback, error_callback, params[:method])
+
+      "<a class='editar' href='#' onclick='#{remote_function}'>#{label}</a>"
+    end
+
   end
 end
