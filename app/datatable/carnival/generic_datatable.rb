@@ -197,17 +197,8 @@ module Carnival
     end
 
     def sort_direction
-      sort_dir = @presenter.default_sort_direction
-      if params[:sSortDir_0].present?
-        sort_dir = params[:sSortDir_0]
-        sort_dir == "desc" ? "desc" : "asc"
-      end
-
-      if sort_dir == 'desc'
-        return 'desc'
-      else
-        return 'asc'
-      end
+      return 'desc' if params[:sSortDir_0] == 'desc'
+      'asc'
     end
   end
 end

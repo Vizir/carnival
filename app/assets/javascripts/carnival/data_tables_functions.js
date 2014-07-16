@@ -26,7 +26,7 @@ function datatable_list(table, ordered_columns, sorting, filter){
       notSortableColumns.push(index);
   });
 
-  var oTable = $(table).dataTable({
+  var tableConfiguration = {
    "aoColumnDefs": [
         {
          bSortable: false,
@@ -46,7 +46,11 @@ function datatable_list(table, ordered_columns, sorting, filter){
       $(".dataTables_processing").html("<div class='datatables-loading'>Processando</div>")
     },
     'oLanguage': dataTablesTranslation
-  });
+  }
+  
+  tableConfiguration.aaSorting = getSorting(table);
+
+  var oTable = $(table).dataTable(tableConfiguration);
 
   if(!search)
     $(".dataTables_filter").hide();
@@ -60,6 +64,18 @@ function generateDataSource(table){
   url = addUrlParam(url, "to", table);
   url = addUrlParam(url, "advancedquery", table);
   return url;
+}
+
+function getSorting(table){
+  var sortConfig = []
+  $(table).find('th').each(function(index, elem){
+    var sortableObj = $(elem).data('sortable');
+    if(sortableObj && sortableObj.default){
+      var direction = sortableObj.direction;
+      sortConfig.push([ index, direction ]);
+    }
+  });
+  return sortConfig;
 }
 
 function addUrlParam(url, param, table){

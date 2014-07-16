@@ -88,8 +88,16 @@ module Carnival
     end
 
     def sortable?
-      return true if @params[:sortable].nil?
-      @params[:sortable]
+	return true if @params[:sortable].nil?
+      return true if @params[:sortable]
+      return true if @params[:sortable].class == Hash
+      return false
+    end
+
+    def sortable_params
+      return false if !sortable?
+      return @params[:sortable].to_json if @params[:sortable].class == Hash
+      return true
     end
 
     def searchable?
