@@ -9,4 +9,14 @@
   - options[:as] = :admin_date if current_type == :date
   - options[:as] = field.as if field.as.present?
 
-  = f.input field.name, options
+- options[:input_html] = {}
+- options[:input_html][:class] = "field-#{field.name}"
+- options[:input_html][:data] = {}
+- if field.depends_on.present?
+  - options[:input_html][:data][:depends_on] = field.depends_on
+  :javascript
+    $(".field-#{field.depends_on}").change(function(event, element){
+      updateDependentFormSelectHtml(element.selected, $(this).attr("name").match( /\[(.*)\]/)[1], $($(".field-#{field.name}").first()).attr("name").match( /\[(.*)\]/)[1]);
+    });
+
+= f.input field.name, options

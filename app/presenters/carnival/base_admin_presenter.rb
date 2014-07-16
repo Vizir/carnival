@@ -14,7 +14,10 @@ module Carnival
       @base_query
     end
 
-    #New implementation starts here
+    def presenter_name
+      self.class.to_s
+    end
+
     @@actions = {}
     def self.action(name, params = {})
       @@actions[presenter_class_name] = {} if @@actions[presenter_class_name].nil?
@@ -26,11 +29,11 @@ module Carnival
     end
 
     def actions_for_record
-      filter_actions(:record)
+      filter_actions([:show, :edit, :destroy], :record)
     end
 
     def actions_for_page
-      filter_actions(:page)
+      filter_actions([:new], :page)
     end
 
     def has_action?(action)
@@ -156,6 +159,13 @@ module Carnival
       joins
     end
 
+    def build_relation_field(field, model_object)
+      if is_relation_belongs_to?(field.name)
+        model_object.send("#{field.name}_build")
+      else
+        model_object.send(field.name).build
+      end
+    end
 
     def must_render_field?(nested_in, field, model_object)
       must_render = true
@@ -232,6 +242,10 @@ module Carnival
       @klass_service.relation_type sym
     end
 
+    def is_relation_belongs_to?(field)
+      model_class.reflect_on_association(field.to_sym).macro == :belongs_to
+    end
+
     def relation_label(field, record)
       if relation_field?(field)
         if @klass_service.is_a_belongs_to_relation?(field)
@@ -242,6 +256,12 @@ module Carnival
         end
       end
       return ""
+    end
+
+    def relation_model(field)
+      if is_relation_belongs_to?(field)
+        model_class.reflect_on_association(field).klass.name.constantize
+      end
     end
 
     def relation_path(field, record)
@@ -287,6 +307,10 @@ module Carnival
       "#{extract_namespace}::#{field.name.classify.pluralize}Controller".constantize.send("new")
     end
 
+    def load_dependent_select_options_path
+      "/#{extract_namespace.downcase}/carnival-base/load_dependent_select_options"
+    end
+
     protected
     def make_relation_advanced_query_url_options(field, record)
       relation_model = model_class.reflect_on_association(field).klass.name.pluralize.underscore.split("/").last
@@ -295,11 +319,12 @@ module Carnival
       {"#{relation_model}.#{relation_field}" => relation_value}
     end
 
-    def filter_actions(target)
-      return {} if !@@actions[presenter_class_name]
+    def filter_actions(default_actions, target)
       actions = {}
+      return actions if !@@actions[presenter_class_name]
+
       @@actions[presenter_class_name].each do |key, action|
-        if action.target == target
+        if default_actions.include?(key) || (action.target == target && key != :new)
           actions[key] = action
         end
       end
@@ -367,6 +392,9 @@ module Carnival
       end
     end
 
+    def is_namespaced?
+      self.class.to_s.split("::").size > 0
+    end
 
     def extract_namespace
       namespace = ""

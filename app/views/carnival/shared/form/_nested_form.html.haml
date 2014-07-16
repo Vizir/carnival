@@ -2,9 +2,7 @@
   %label.nested-form-title
     = t("activerecord.attributes.#{@model_presenter.full_model_name}.#{field.name}")
 
-
   - if not has_one_relation? model_object, field.name
-
     .nested_form_options_div{id: "nested_form_options_#{field.name}"}
       - opt = Carnival::NestedFormOptions.new model_object, model_presenter, field
       = render '/carnival/shared/form/nested_form_options', opt_obj: opt
@@ -22,7 +20,7 @@
               - nested_presenter = model_presenter.presenter_to_field(field, inner_form.object)
               = render '/carnival/shared/form/inner_form', button: t('update'), model_object: inner_form.object, model_presenter: nested_presenter, :nested_in => model_object, :f => inner_form, :action => action
   - else
-    - model_object.send("#{field.name}").send("build")
+    - model_object.send("build_#{field.name}")
     = f.simple_fields_for field.name.to_sym do |inner_form|
       - if inner_form.object.id.nil? and inner_form.object.errors.size == 0
         %li.nested-form-list-item{:class => "#{inner_form.object.id.nil? and inner_form.object.errors.size == 0 ? 'form-new-association' : 'form-existent-association'}" }

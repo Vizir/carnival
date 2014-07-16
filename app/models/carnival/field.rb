@@ -61,6 +61,10 @@ module Carnival
       return :asc
     end
 
+    def depends_on
+      @params[:depends_on]
+    end
+
     def nested_form?
       @params[:nested_form]
     end
@@ -80,7 +84,7 @@ module Carnival
       return nil if !nested_form_modes? :associate
       associate_mode =  get_associate_nested_form_mode
       return nil if associate_mode.is_a? Symbol
-      return associate_mode[:scope] if associate_mode[:scope].present? 
+      return associate_mode[:scope] if associate_mode[:scope].present?
     end
 
     def sortable?
@@ -97,7 +101,7 @@ module Carnival
     end
 
     def show_as_list
-      @params[:show_as_list] 
+      @params[:show_as_list]
     end
 
     def advanced_search_operator
@@ -127,6 +131,7 @@ module Carnival
     end
 
     def get_associate_nested_form_mode
+      return nil if @params[:nested_form_modes].nil?
       @params[:nested_form_modes].each do |mode|
         if mode.is_a? Hash
           return mode[:associate] if mode[:associate].present?

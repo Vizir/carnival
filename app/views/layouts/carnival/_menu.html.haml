@@ -19,7 +19,7 @@
             - menus.delete :admin
           - menus.each do |key, menu|
             %li{:class =>menu[:class]}
-              = link_to t(menu[:label]), menu_link(menu[:link]), {:class => " btn_usuario sublevel"}
+              = link_to t(menu[:label]), menu_link(menu[:link]), {:class => " btn_usuario sublevel"} unless menu[:link].nil?
               - if menu[:subs].present?
                 %ul.dropdown_main_menu_sublevel
                   - menu[:subs].each do |sub|
