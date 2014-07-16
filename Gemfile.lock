@@ -50,6 +50,9 @@ GEM
     builder (3.1.4)
     bullet (4.6.0)
       uniform_notifier
+    byebug (3.1.2)
+      columnize (~> 0.8)
+      debugger-linecache (~> 1.2)
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -58,7 +61,9 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
+    columnize (0.8.9)
     debug_inspector (0.0.2)
+    debugger-linecache (1.2.0)
     devise (3.2.4)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -174,6 +179,7 @@ DEPENDENCIES
   better_errors (= 0.9.0)
   binding_of_caller
   bullet (= 4.6.0)
+  byebug
   carnival!
   coffee-rails
   devise
