@@ -190,9 +190,11 @@ module Carnival
     end
 
     def sort_column
-      if @presenter.fields.size > 0
-        columns =  @presenter.fields.map {|k, v| k.to_s}
-      end 
+      fields = @presenter.fields_for_action(:index)
+      if fields.size > 0
+        columns =  fields.map {|k, v| k.to_s}
+      end
+
       column = columns[params[:iSortCol_0].to_i]
       if @presenter.relation_field? column.to_sym
         "#{column.pluralize}.name"
