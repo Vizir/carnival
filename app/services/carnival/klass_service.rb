@@ -38,6 +38,10 @@ module Carnival
       @klass.to_s.split("::").size > 1
     end
 
+    def table_name
+      @klass.table_name 
+    end
+
 private
 
     def get_association sym

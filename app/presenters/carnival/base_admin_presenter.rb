@@ -8,6 +8,7 @@ module Carnival
       @@controller = params[:controller]
       @special_scopes_to_exec = nil
       @klass_service = KlassService.new model_class
+      @advanced_search_parser = Presenters::AdvancedSearchParser.new(@klass_service)
     end
 
     def base_query
@@ -212,11 +213,8 @@ module Carnival
     end
 
     def advanced_search_fields
-      advanced_search_fields = {}
-      @@fields[presenter_class_name].each do |key, field|
-        advanced_search_fields[key] = field if field.advanced_searchable?
-      end
-      advanced_search_fields
+      fields = @@fields[presenter_class_name]
+      @advanced_search_parser.get_advanced_search_fields fields
     end
 
     def date_filter_field
@@ -285,18 +283,7 @@ module Carnival
     end
 
     def parse_advanced_search records, search_syntax
-      search = JSON.parse(search_syntax)
-      search.keys.each do |key|
-        search_field = key
-        search_field = key.split(".").last if key.include?(".")
-        search_field = search_field.gsub("_id", "") if search_field.ends_with?("_id")
-        if @@fields[presenter_class_name].keys.include? search_field.to_sym
-          if @@fields[presenter_class_name][search_field.to_sym].advanced_searchable?
-            records =  parse_advanced_search_field(search_field, search[key], records)
-          end
-        end
-      end
-      records
+      @advanced_search_parser.parse_advanced_search @@fields[presenter_class_name], records, search_syntax
     end
 
     def presenter_to_field field, record
@@ -339,58 +326,6 @@ module Carnival
       end
     end
 
-    def parse_advanced_search_field search_field, field_param, records
-      return records if not field_param["value"].present?
-      return records if field_param["value"] == ""
-
-      if relation_field?(search_field.to_sym)
-        related_model = model_class.reflect_on_association(search_field.to_sym).klass.name.underscore
-        foreign_key = model_class.reflect_on_association(search_field.to_sym).foreign_key
-        if @klass_service.is_a_belongs_to_relation?(search_field.to_sym)
-          records = records.joins(related_model.split("/").last.to_sym)
-        else
-          records = records.joins(related_model.split("/").last.pluralize)
-        end
-        table = related_model.split("/").last.pluralize
-        column = "id"
-      else
-        table = table_name
-        column = search_field
-      end
-      full_column_query = "#{table}.#{column}"
-      where_clause = nil
-
-      case field_param["operator"]
-        when "equal"
-          if field_param["value"] == "nil"
-            where_clause = "#{full_column_query} is null"
-          else
-            where_clause = "#{full_column_query} = #{advanced_search_field_value_for_query(field_param["value"])}"
-          end
-        when "like"
-          where_clause = "#{full_column_query} like '%#{field_param["value"]}%'"
-        when "greater_than"
-          where_clause = "#{full_column_query} >= '#{field_param["value"]}'"
-        when "less_than"
-          where_clause = "#{full_column_query} <= '#{field_param["value"]}'"
-        when "between"
-          where_clause = "#{full_column_query} between '#{field_param["value"]}' and '#{field_param["value2"]}'"
-        else
-          where_clause = "#{full_column_query} = #{advanced_search_field_value_for_query(field_param["value"])}"
-      end
-      records = records.where(where_clause) if where_clause.present?
-      records
-    end
-
-    def advanced_search_field_value_for_query(value)
-      if "true" == value.downcase
-        return "'t'"
-      elsif "false" == value.downcase
-        return "'f'"
-      else
-        "#{value}"
-      end
-    end
 
     def is_namespaced?
       self.class.to_s.split("::").size > 0

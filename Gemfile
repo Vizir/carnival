@@ -29,7 +29,7 @@ gem 'omniauth-google-oauth2'
 group :development do
   gem 'byebug'
   gem 'better_errors', '0.9.0'
-  gem 'bullet', '4.6.0'
+  gem 'bullet', '4.10.0'
   gem 'binding_of_caller'
   gem 'byebug'
 end
