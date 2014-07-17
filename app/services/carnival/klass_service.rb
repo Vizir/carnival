@@ -42,6 +42,10 @@ module Carnival
       @klass.table_name 
     end
 
+    def klass
+      @klass 
+    end
+
 private
 
     def get_association sym

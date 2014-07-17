@@ -264,14 +264,13 @@ module Carnival
 
     def relation_path(field, record)
       return nil if !relation_field?(field)
-
-      related_class = get_related_class field
+      controller_path = "#{extract_namespace.downcase}/#{field.to_s.pluralize}"
       if @klass_service.is_a_belongs_to_relation?(field)
         id = -1
         id = record.send(model_class.reflect_on_association(field).foreign_key) if record.send(model_class.reflect_on_association(field).foreign_key).present?
-        params = {:controller => "#{extract_namespace.downcase}/#{related_class}", :action => :show, :id => id}
+        params = {:controller => controller_path, :action => :show, :id => id}
       else
-        params = {:controller => "#{extract_namespace.downcase}/#{related_class}", :action => :index, :advanced_search => make_relation_advanced_query_url_options(field, record)}
+        params = {:controller => controller_path, :action => :index, :advanced_search => make_relation_advanced_query_url_options(field, record)}
       end
 
       params = params.merge(:only_path => true)

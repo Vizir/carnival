@@ -33,8 +33,8 @@ module Carnival
           return records if field_param["value"] == ""
 
           if @klass_service.relation? search_field.to_sym
-            related_model = model_class.reflect_on_association(search_field.to_sym).klass.name.underscore
-            foreign_key = model_class.reflect_on_association(search_field.to_sym).foreign_key
+            related_model = @klass_service.klass.reflect_on_association(search_field.to_sym).klass.name.underscore
+            foreign_key = @klass_service.klass.reflect_on_association(search_field.to_sym).foreign_key
             if @klass_service.is_a_belongs_to_relation?(search_field.to_sym)
               records = records.joins(related_model.split("/").last.to_sym)
             else
