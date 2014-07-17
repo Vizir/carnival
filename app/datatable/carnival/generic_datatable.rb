@@ -153,7 +153,7 @@ module Carnival
         add_filter 'Período',"#{params[:from]} - #{params[:to]}"
       end
 
-      records = records.order("#{@presenter.table_name}.#{sort_column} #{sort_direction}")
+      records = records.order("#{sort_column} #{sort_direction}")
       if params['format'] == 'json'
         records = records.page(page).per_page(per_page)
       end
@@ -192,8 +192,13 @@ module Carnival
     def sort_column
       if @presenter.fields.size > 0
         columns =  @presenter.fields.map {|k, v| k.to_s}
+      end 
+      column = columns[params[:iSortCol_0].to_i]
+      if @presenter.relation_field? column.to_sym
+        "#{column.pluralize}.name"
+      else
+        "#{@presenter.table_name}.#{column}"
       end
-      columns[params[:iSortCol_0].to_i]
     end
 
     def sort_direction
