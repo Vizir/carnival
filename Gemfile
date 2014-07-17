@@ -39,5 +39,6 @@ group :development, :test do
   gem 'factory_girl_rails', '4.2.1'
   gem 'database_cleaner', '1.2.0'
   gem 'better_errors', '0.9.0'
+  gem 'simplecov'
   gem 'ci_reporter'
 end

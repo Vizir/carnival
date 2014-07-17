@@ -3,8 +3,6 @@ require 'spec_helper'
 
 describe Carnival::BaseAdminHelper do
 
-  describe "#field_to_show" do
-
-  end
+  pending "add some examples to (or delete) #{__FILE__}"
 
 end
