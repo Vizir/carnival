@@ -10,10 +10,13 @@
     .row
       - line.each do |field|
         .wrapper_show{class: "col-md-#{field.size}"}
-          %label="#{t("activerecord.attributes.#{@model_presenter.full_model_name}.#{field.name}")}:"
-          .value
-            - if show_as_list @model_presenter,field.name
-              = render 'carnival/shared/show/show_as_list', items: item.send(field.name.to_s)
-            - else
-              = field_to_show @model_presenter,field.name,item
+          - if show_view(@model_presenter, field.name)
+            = render show_view(@model_presenter, field.name), model: item
+          - else
+            %label="#{t("activerecord.attributes.#{@model_presenter.full_model_name}.#{field.name}")}:"
+            .value
+              - if show_as_list @model_presenter,field.name
+                = render 'carnival/shared/show/show_as_list', items: item.send(field.name.to_s)
+              - else
+                = field_to_show @model_presenter,field.name,item
 

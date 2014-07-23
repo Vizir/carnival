@@ -129,6 +129,10 @@ module Carnival
       @params[:widget].present? ? @params[:widget] : :input
     end
 
+    def show_view
+      @params[:show_view]
+    end
+
   private
     def set_position_by_params
       if @params[:position].present?
