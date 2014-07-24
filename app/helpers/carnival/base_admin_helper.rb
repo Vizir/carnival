@@ -163,6 +163,7 @@ module Carnival
 
     def button_action_remote(action, presenter, record)
       name = action.name
+      params = action.params
       label =  t("#{presenter.model_name}.#{action.name}", default: t("carnival.#{action.name}"))
       path = action.path(:id => record.id)
 
@@ -176,7 +177,7 @@ module Carnival
         error_callback = params[:error]
       end
 
-      remote_function = Carnival.remoteFunction(path, success_callback, error_callback, params[:method])
+      remote_function = "Carnival.remoteFunction(\"#{path}\", \"#{success_callback}\", \"#{error_callback}\", \"#{params[:method]}\")"
 
       "<a class='editar' href='#' onclick='#{remote_function}'>#{label}</a>"
     end
