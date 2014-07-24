@@ -95,7 +95,7 @@ module Carnival
 
     def render_popup partial
       @application_popup = partial
-      render 'layouts/shared/render_popup' and return
+      render '/carnival/shared/render_popup' and return
     end
 
     def load_dependent_select_options
