@@ -1,4 +1,5 @@
 // add/remove dynamic fields
+var Carnival = {}
 String.prototype.unescapeHtml = function () {
     var temp = document.createElement("div");
     temp.innerHTML = this;

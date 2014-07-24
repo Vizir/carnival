@@ -123,6 +123,10 @@ module Carnival
           i = i + 1
         end
       else render_type == RENDER_TABLE
+        if @presenter.has_batch_actions?
+          data_item[i.to_s] = @controller.render_to_string :formats => [:html] , :partial => 'carnival/shared/batch_action_checkbox', :locals => {:modelo_presenter => @presenter,:item=> record, :only_render_fields => (render_type != RENDER_TABLE )}
+          i = i + 1
+        end
         @presenter.fields_for_action(:index).each do |key, field|
           data_item[i.to_s] = list_cel(@presenter, key,record, false)
           i = i + 1
@@ -194,8 +198,11 @@ module Carnival
       if fields.size > 0
         columns =  fields.map {|k, v| k.to_s}
       end
+        
+      column_index = params[:iSortCol_0].to_i
+      column_index = column_index - 1 if @presenter.has_batch_actions?
 
-      column = columns[params[:iSortCol_0].to_i]
+      column = columns[column_index]
       if @presenter.relation_field? column.to_sym
         "#{column.pluralize}.name"
       else
