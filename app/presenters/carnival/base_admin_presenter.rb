@@ -32,6 +32,7 @@ module Carnival
     end
 
     def has_batch_actions?
+      return false if @@batch_actions[presenter_class_name].nil?
       @@batch_actions[presenter_class_name].keys.size > 0
     end
 
