@@ -46,7 +46,6 @@ module Carnival
       @params[:remote]
     end
 
-
     def target
       return :record if @params[:target].nil?
       @params[:target]

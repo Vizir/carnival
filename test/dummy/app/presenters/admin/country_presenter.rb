@@ -15,7 +15,7 @@ module Admin
           :advanced_search => {:operator => :like}
     field :states,
           :actions => [:index, :show, :edit, :new],
-          :nested_form => true, :nested_form_allow_destroy => true
+          :nested_form => true, :nested_form_allow_destroy => true, :nested_form_modes => [:new]
     field :cities,
           :actions => [:index, :show, :edit, :new],
           :nested_form => true, :nested_form_allow_destroy => true
