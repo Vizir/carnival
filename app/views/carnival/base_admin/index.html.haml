@@ -120,7 +120,7 @@
 
   Carnival.updateScopeNumber = function(increase, scopeName){
     var scopeLocNumbers = Carnival.getScopeNumber(scopeName);
-    if(!scopeLocNumbers)
+    if(!scopeLocNumbers && scopeLocNumbers != 0)
       return;
 
     if(increase)
