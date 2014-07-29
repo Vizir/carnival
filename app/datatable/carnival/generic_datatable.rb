@@ -20,7 +20,7 @@ module Carnival
     end
 
     def as_csv(options = {})
-      data_to_csv(data(RENDER_CSV))
+      data_to_csv(get_data(RENDER_CSV))
     end
 
     def as_json(options = {})
@@ -88,7 +88,13 @@ module Carnival
           i = 0
           csv_line = []
           line.each do |field|
-            csv_line << field[1].gsub(/\n$/, "") if i > 1
+            if i > 1
+              if field[1].respond_to? :gsub
+                csv_line << field[1].gsub(/\n$/, "") 
+              else
+                csv_line << field[1]
+              end
+            end
             i = i + 1
           end
           csv << csv_line

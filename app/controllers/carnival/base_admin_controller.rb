@@ -37,7 +37,7 @@ module Carnival
           render text: @datatable.as_csv.encode("utf-16le") and return
         end
         format.pdf do
-          render :pdf => t("#{@datatable.model.to_s.underscore}.lista") , :template => 'carnival/index.pdf.haml',  :show_as_html => params[:debug].present? and return
+          render :pdf => t("#{@datatable.model.to_s.underscore}.lista") , :template => 'carnival/base_admin/index.pdf.haml',  :show_as_html => params[:debug].present? and return
         end
       end
     end
