@@ -13,3 +13,4 @@ test/dummy/.sass-cache
 **.gem
 *.swp
 *.orig
+coverage
