@@ -1,3 +1,4 @@
-Factory.define :city, :class => Admin::City do |f|
-
+FactoryGirl.define do
+  factory :city, :class => Admin::City do |f|
+  end
 end

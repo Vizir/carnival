@@ -8,7 +8,8 @@ module Admin
     field :name,
           :actions => [:index, :new, :edit, :show],
           :searchable => true,
-          :advanced_search => {:operator => :like}
+          :advanced_search => {:operator => :like},
+          :show_view => 'name'
     field :code,
           :actions => [:index, :new, :edit, :show],
           :searchable => true,
