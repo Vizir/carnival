@@ -10,7 +10,7 @@
   - params["data-from"] = date_filter_field.date_filter_periods[date_filter_field.default_date_filter][0]
   - params["data-to"] = date_filter_field.date_filter_periods[date_filter_field.default_date_filter][1]
 
-- params["data-source"] = presenter.model_path("index", {format: :json})
+- params["data-source"] = presenter.model_path("index", presenter.model_params(request.params).merge( {format: :json} ))
 
 - params["data-search"] = presenter.searchable_fields.size > 0
 

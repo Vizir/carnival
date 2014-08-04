@@ -114,6 +114,10 @@ module Carnival
       end
     end
 
+    def model_params(params)
+      params.select{|key, value| key != "action" && key != "controller"}
+    end
+
     def model_path(action, extra_params=nil)
       params = {controller: controller_name, action: action}
       params = params.merge(extra_params) if extra_params.present?
