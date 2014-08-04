@@ -25,8 +25,23 @@ module Carnival
       @@actions[presenter_class_name][name] = Carnival::Action.new(self.new({}), name, params)
     end
 
+    @@batch_actions = {}
+    def self.batch_action(name, params = {})
+      @@batch_actions[presenter_class_name] = {} if @@batch_actions[presenter_class_name].nil?
+      @@batch_actions[presenter_class_name][name] = Carnival::BatchAction.new(self.new({}), name, params)
+    end
+
+    def has_batch_actions?
+      return false if @@batch_actions[presenter_class_name].nil?
+      @@batch_actions[presenter_class_name].keys.size > 0
+    end
+
     def actions
       @@actions[presenter_class_name]
+    end
+
+    def batch_actions
+      @@batch_actions[presenter_class_name]
     end
 
     def actions_for_record
@@ -310,7 +325,7 @@ module Carnival
       return actions if !@@actions[presenter_class_name]
 
       @@actions[presenter_class_name].each do |key, action|
-        if default_actions.include?(key) || (action.target == target && key != :new)
+        if default_actions.include?(key) || (action.target == target && key != :new && key != :csv && key != :pdf)
           actions[key] = action
         end
       end

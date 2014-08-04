@@ -9,11 +9,9 @@ module Carnival
       redirect_to link
     end
 
-    def generate_datatable
+    def table_list
       query = Carnival::AdminUserNotification.where('admin_user_id =  ? ', current_admin_user.id)
-      modelo_presenter = Carnival::AdminUserNotificationPresenter.new(query)
-      @admin_user_notifications = []
-      GenericDatatable.new(view_context, AdminUserNotification, self, modelo_presenter, query)
+      query
     end
   end
 end

@@ -136,8 +136,16 @@ module Carnival
       result = field_to_show(presenter, field, record, only_render_fields)
       return result if only_render_fields
       td = "<td class='first-td'>"
-      return "#{td}<span class='#{presenter.fields[field].css_class}'>#{result}</span></td>" if presenter.fields[field].css_class.present?
+      return "#{td}<span class='#{get_css_class(presenter, field, record)}'>#{result}</span></td>" if presenter.fields[field].css_class.present?
       "#{td}#{result}</td>"
+    end
+
+    def get_css_class presenter, field, record
+      css_class = presenter.fields[field].css_class
+      return '' if !css_class
+      return record.send(css_class[:method]) if css_class.is_a? Hash 
+      return css_class if css_class.is_a? String
+      return ''
     end
 
     def list_buttons(presenter, record)

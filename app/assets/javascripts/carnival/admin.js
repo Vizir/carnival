@@ -11,3 +11,4 @@
 //= require carnival/external/perfect-scrollbar-0.4.6.with-mousewheel.min
 //= require carnival/external/jquery.fancybox
 //= require carnival/vizir_admin
+//= require carnival/batch_action

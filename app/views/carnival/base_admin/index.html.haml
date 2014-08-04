@@ -17,6 +17,22 @@
 - if special_scope.present?
   - params["data-special_scope"] = special_scope
 
+
+- if presenter.has_batch_actions?
+  .batch-operations
+    - batch_operation_actions = []
+    - presenter.batch_actions.each do |key, item|
+      - batch_operation_actions.push([item.to_label, item.path]);
+    = select_tag :batch_actions_select, options_for_select(batch_operation_actions), :prompt => I18n.t('batch_actions')
+  :javascript
+    $(document).ready(function(){
+      $('#batch_actions_select').change(function(){
+        if($('#batch_actions_select').val()){
+          Carnival.remoteFunction($('#batch_actions_select').val(), 'Carnival.batchActionSuccessCallback', 'Carnival.batchActionErrorCallback', 'POST', {batch_action_items: Carnival.batch_action_items})
+        }
+      });
+    });
+
 .table-tools
   .advanced_search
     = render '/carnival/shared/advanced_search', :params => params, presenter: presenter
@@ -29,6 +45,9 @@
 %table{params}
   %thead
     %tr
+      -if presenter.has_batch_actions?
+        %th
+          %input{id: 'toggle-all-batch-actions-items',type: 'checkbox',disabled: 'disabled'}
       -presenter.fields_for_action(:index).each do |key, field|
         %th{"data-sortable" => "#{field.sortable_params}"}= t("activerecord.attributes.#{presenter.full_model_name}.#{field.name}")
       %th.buttons
@@ -61,7 +80,6 @@
     'sZeroRecords': '#{t('data_tables.zero_records')}'
   };
 
-  var Carnival = {};
   Carnival.remoteFunction = function(url, successCallback, errorCallback, method, data){
     if(!data)
       data = {};
@@ -102,7 +120,7 @@
 
   Carnival.updateScopeNumber = function(increase, scopeName){
     var scopeLocNumbers = Carnival.getScopeNumber(scopeName);
-    if(!scopeLocNumbers)
+    if(!scopeLocNumbers && scopeLocNumbers != 0)
       return;
 
     if(increase)
