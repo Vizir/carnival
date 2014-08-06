@@ -21,6 +21,7 @@ function datatable_list(table, ordered_columns, sorting, filter){
 
   var notSortableColumns = []
   var columnIndex = 0;
+
   $(table).find("th").each(function(index, item){
     if(!$(item).data("sortable"))
       notSortableColumns.push(index);
@@ -37,6 +38,9 @@ function datatable_list(table, ordered_columns, sorting, filter){
     "bProcessing": remote,
     "bServerSide": remote,
     'sAjaxSource': generateDataSource(table),
+    'fnDrawCallback': function(oSettings){
+      Carnival.batchActionSelected();
+    },
     "sPaginationType": "full_numbers",
     "iDisplayLength": length,
     "bRetrieve": true,

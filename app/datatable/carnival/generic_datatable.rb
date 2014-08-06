@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Carnival
   class GenericDatatable
-    delegate :params, :caminho_modelo, :h, :link_to, :number_to_currency, :number_with_precision, to: :@view
+    delegate :params, :caminho_modelo, :h, :link_to, :number_to_currency, :number_with_precision, :list_cel, :list_buttons, to: :@view
     delegate :current_usuario, :render_to_string, to: :@controller
     attr_accessor :model, :presenter
     require 'csv'
@@ -20,7 +20,7 @@ module Carnival
     end
 
     def as_csv(options = {})
-      data_to_csv(data(RENDER_CSV))
+      data_to_csv(get_data(RENDER_CSV))
     end
 
     def as_json(options = {})
@@ -36,7 +36,7 @@ module Carnival
       count = @model.count
 
       return_data = {}
-      return_data[:data] = data
+      return_data[:data] = get_data
       {
         sEcho: params[:sEcho].to_i,
         iTotalRecords: count,
@@ -88,7 +88,13 @@ module Carnival
           i = 0
           csv_line = []
           line.each do |field|
-            csv_line << field[1].gsub(/\n$/, "") if i > 1
+            if i > 1
+              if field[1].respond_to? :gsub
+                csv_line << field[1].gsub(/\n$/, "") 
+              else
+                csv_line << field[1]
+              end
+            end
             i = i + 1
           end
           csv << csv_line
@@ -96,40 +102,48 @@ module Carnival
       end
     end
 
-    def data(render_type = RENDER_TABLE)
+    def get_data(render_type = RENDER_TABLE)
       data = []
       records.each do |record|
-        data_item = {
-          "DT_RowId" => "item#{record.id}",
-          "DT_RowClass" => "more-click"
-        }
-
-        ac = @controller
-        i = 0
-
-        if render_type == RENDER_CSV
-          @presenter.fields_for_action(:csv).each do |key, field|
-            data_item[i.to_s] = ac.render_to_string :formats => [:html] , :partial => '/carnival/shared/list_cel', :locals => {:presenter => @presenter,:field=> key, :record=> record, :only_render_fields => true}
-            i = i + 1
-          end
-        elsif render_type == RENDER_PDF
-          @presenter.fields_for_action(:pdf).each do |key, field|
-            data_item[i.to_s] = ac.render_to_string :formats => [:html] , :partial => '/carnival/shared/list_cel', :locals => {:presenter => @presenter,:field=> key, :record=> record, :only_render_fields => true}
-            i = i + 1
-          end
-        else render_type == RENDER_TABLE
-          @presenter.fields_for_action(:index).each do |key, field|
-            data_item[i.to_s] = ac.render_to_string :formats => [:html] , :partial => '/carnival/shared/list_cel', :locals => {:presenter => @presenter,:field=> key, :record=> record, :only_render_fields => false}
-            i = i + 1
-          end
-          data_item[i.to_s] = ac.render_to_string :formats => [:html], :partial => '/carnival/shared/item_buttons', :locals => {:record=>record, :presenter => @presenter}
-          i = i + 1
-        end
-        data << data_item
+        data << build_table_row(record, render_type)
       end
       data
     end
 
+    def build_table_row record, render_type
+      data_item = {
+        "DT_RowId" => "item#{record.id}",
+        "DT_RowClass" => "more-click"
+      }
+
+      i = 0
+
+      if render_type == RENDER_CSV
+        @presenter.fields_for_action(:csv).each do |key, field|
+          data_item[i.to_s] = list_cel(@presenter, key,record, true)
+          i = i + 1
+        end
+      elsif render_type == RENDER_PDF
+        @presenter.fields_for_action(:pdf).each do |key, field|
+          data_item[i.to_s] = list_cel(@presenter, key,record, true)
+          i = i + 1
+        end
+      else render_type == RENDER_TABLE
+        if @presenter.has_batch_actions?
+          data_item[i.to_s] = @controller.render_to_string :formats => [:html] , :partial => 'carnival/shared/batch_action_checkbox', :locals => {:modelo_presenter => @presenter,:item=> record, :only_render_fields => (render_type != RENDER_TABLE )}
+          i = i + 1
+        end
+        @presenter.fields_for_action(:index).each do |key, field|
+          data_item[i.to_s] = list_cel(@presenter, key,record, false)
+          i = i + 1
+        end
+        data_item[i.to_s] = list_buttons(@presenter, record)
+        #data_item[i.to_s] = @controller.render_to_string :formats => [:html], :partial => '/carnival/shared/item_buttons', :locals => {:record=>record, :presenter => @presenter}
+        i = i + 1
+      end
+
+      data_item
+    end
 
     def records
       @records ||= fetch_records
@@ -149,7 +163,7 @@ module Carnival
         add_filter 'Período',"#{params[:from]} - #{params[:to]}"
       end
 
-      records = records.order("#{@presenter.table_name}.#{sort_column} #{sort_direction}")
+      records = records.order("#{sort_column} #{sort_direction}")
       if params['format'] == 'json'
         records = records.page(page).per_page(per_page)
       end
@@ -163,6 +177,7 @@ module Carnival
         end
         records = records.where(filtros.join(" or "), search: "%#{params[:sSearch]}%")
       end
+      records = records.joins(@presenter.join_tables)
       records
     end
 
@@ -179,10 +194,20 @@ module Carnival
     end
 
     def sort_column
-      if @presenter.fields.size > 0
-        columns =  @presenter.fields.map {|k, v| k.to_s}
+      fields = @presenter.fields_for_action(:index)
+      if fields.size > 0
+        columns =  fields.map {|k, v| k.to_s}
       end
-      columns[params[:iSortCol_0].to_i]
+        
+      column_index = params[:iSortCol_0].to_i
+      column_index = column_index - 1 if @presenter.has_batch_actions?
+
+      column = columns[column_index]
+      if @presenter.relation_field? column.to_sym
+        "#{column.pluralize}.name"
+      else
+        "#{@presenter.table_name}.#{column}"
+      end
     end
 
     def sort_direction

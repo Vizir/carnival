@@ -1,1 +1,17 @@
 en:
+
+  carnival:
+    show: View
+    new: New
+    edit: Edit
+    destroy: Delete
+
+  nested_form:
+    open: Open
+    close: Close
+    new: Create New
+    add_option: Add
+    new_subtitle: New
+    existing_option: Existing Options
+    existing_option_title: Options
+    choose_an_option: Choose an option

@@ -652,6 +652,7 @@ h1.title{
   font-size:14px !important;
   padding:3px 5px 0px 22px;
   border-radius: 2px;
+  z-index:99;
 }
 
 .action_back a:hover{
@@ -762,10 +763,6 @@ tbody tr.more-click.even{
   background:#d63e30;
   color:#fff !important;
   text-decoration:none !important;
-}
-
-a.action.editar, a.action.apagar{
-  float: right;
 }
 
 .editar{
@@ -1286,7 +1283,7 @@ margin-bottom: -25px;
 .salute{
   float: right;
   margin-right: 50px;
-  width: 380px;
+  width: 300px;
 }
 
 
@@ -1571,7 +1568,7 @@ li.scope{
   line-height: 14px;
   cursor:pointer;
   text-decoration: none !important;
-  z-index: 999;
+  z-index: 10;
 }
 
 .table-tools li a:hover {

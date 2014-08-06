@@ -7,15 +7,16 @@
         %ul.dropdown_main_menu
           %li.dashboard
             = link_to t("menu.dashboard"), admin_root_url, {:class => " btn_usuario sublevel"}
-          %li.administracao
-            = link_to t("menu.admin"), "#", {:class => " btn_usuario sublevel"}
-            %ul.dropdown_main_menu_sublevel
-              %li
-                = link_to t('menu.admin_user'), carnival_admin_users_path, {:class => "#{set_resource_actived_if_current(carnival_admin_users_path)}"}
-              - menus[:admin][:subs].each do |sub|
+          - if menus[:admin].present?
+            %li.administracao
+              = link_to t("menu.admin"), "#", {:class => " btn_usuario sublevel"}
+              %ul.dropdown_main_menu_sublevel
                 %li
-                  = link_to t(sub[:label]), sub[:link], {:class => "#{set_resource_actived_if_current(sub[:link])} #{sub[:class]}"}
-          - menus.delete :admin
+                  = link_to t('menu.admin_user'), carnival_admin_users_path, {:class => "#{set_resource_actived_if_current(carnival_admin_users_path)}"}
+                - menus[:admin][:subs].each do |sub|
+                  %li
+                    = link_to t(sub[:label]), sub[:link], {:class => "#{set_resource_actived_if_current(sub[:link])} #{sub[:class]}"}
+            - menus.delete :admin
           - menus.each do |key, menu|
             %li{:class =>menu[:class]}
               = link_to t(menu[:label]), menu_link(menu[:link]), {:class => " btn_usuario sublevel"} unless menu[:link].nil?

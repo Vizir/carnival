@@ -1,9 +1,9 @@
 module Carnival
   class Action
     include Rails.application.routes.url_helpers
-    PARTIAL_DEFAULT = "/carnival/shared/action_default"
-    PARTIAL_DELETE = "/carnival/shared/action_delete"
-    PARTIAL_REMOTE = "/carnival/shared/action_remote"
+    PARTIAL_DEFAULT = :default
+    PARTIAL_DELETE = :delete
+    PARTIAL_REMOTE = :remote
 
     def initialize(presenter, name, params={})
       @presenter = presenter
@@ -16,6 +16,8 @@ module Carnival
     def path(extra_params={})
       if @path.nil?
         params = {controller: @presenter.controller_name, action: @name}
+      elsif !@path[:controller].nil?
+        params = @path
       else
         params = {path: @path}
       end
@@ -24,15 +26,30 @@ module Carnival
       url_for(params)
     end
 
+    def show(record)
+      return true if !params[:show_func]
+      return true if !record.respond_to? params[:show_func]
+      record.send params[:show_func]
+    end
+
     def partial
       @partial
+    end
+
+    def params
+      @params
     end
 
     def name
       @name
     end
 
+    def remote?
+      @params[:remote]
+    end
+
     def target
+      return :record if @params[:target].nil?
       @params[:target]
     end
 
@@ -41,7 +58,7 @@ module Carnival
         PARTIAL_DEFAULT
       elsif @name == :destroy
         PARTIAL_DELETE
-      elsif @params[:remote]
+      elsif remote?
         PARTIAL_REMOTE
       else
         PARTIAL_DEFAULT

@@ -6,7 +6,11 @@ module Carnival
 
     def generate_datatable
       model_presenter = instantiate_presenter
-      Carnival::GenericDatatable.new(view_context, instantiate_model(model_presenter), self, model_presenter)
+      Carnival::GenericDatatable.new(view_context, instantiate_model(model_presenter), self, model_presenter, table_items)
+    end
+
+    def table_items
+      nil
     end
 
     def index
@@ -33,7 +37,7 @@ module Carnival
           render text: @datatable.as_csv.encode("utf-16le") and return
         end
         format.pdf do
-          render :pdf => t("#{@datatable.model.to_s.underscore}.lista") , :template => 'carnival/index.pdf.haml',  :show_as_html => params[:debug].present? and return
+          render :pdf => t("#{@datatable.model.to_s.underscore}.lista") , :template => 'carnival/base_admin/index.pdf.haml',  :show_as_html => params[:debug].present? and return
         end
       end
     end
@@ -42,7 +46,7 @@ module Carnival
       @model_presenter = instantiate_presenter
       show! do |format|
         format.html do |render|
-          render 'show'
+          render 'show' and return
         end
       end
     end
@@ -52,7 +56,7 @@ module Carnival
       new! do |format|
         @model = instance_variable_get("@#{controller_name.classify.underscore}")
         format.html do |render|
-          render 'new'
+          render 'new' and return
         end
       end
     end
@@ -62,7 +66,7 @@ module Carnival
       edit! do |format|
         @model = instance_variable_get("@#{controller_name.classify.underscore}")
         format.html do |render|
-          render 'edit'
+          render 'edit' and return
         end
       end
     end
@@ -70,10 +74,10 @@ module Carnival
     def create
       @model_presenter = instantiate_presenter
       create! do |success, failure|
-        success.html{ redirect_to @model_presenter.model_path(:index), :notice => I18n.t("messages.created") }
+        success.html{ redirect_to @model_presenter.model_path(:index), :notice => I18n.t("messages.created") and return}
         failure.html do |render|
           @model = instance_variable_get("@#{controller_name.classify.underscore}")
-          render 'new'
+          render 'new' and return
         end
       end
     end
@@ -81,17 +85,17 @@ module Carnival
     def update
       @model_presenter = instantiate_presenter
       update! do |success, failure|
-        success.html{ redirect_to @model_presenter.model_path(:index), :notice => I18n.t("messages.updated") }
+        success.html{ redirect_to @model_presenter.model_path(:index), :notice => I18n.t("messages.updated") and return}
         failure.html do |render|
           @model = instance_variable_get("@#{controller_name.classify.underscore}")
-          render 'edit'
+          render 'edit' and return
         end
       end
     end
 
     def render_popup partial
       @application_popup = partial
-      render 'layouts/shared/render_popup' and return
+      render '/carnival/shared/render_popup' and return
     end
 
     def load_dependent_select_options
@@ -108,11 +112,15 @@ module Carnival
     end
 
     def instantiate_presenter
+      carnival_presenter_class.new controller: self
+    end
+
+    def carnival_presenter_class
       namespace = extract_namespace
       if namespace.present?
-        "#{extract_namespace}::#{controller_name.classify}Presenter".constantize.send(:new, :controller => self)
+        "#{extract_namespace}::#{controller_name.classify}Presenter".constantize
       else
-        "#{controller_name.classify}Presenter".constantize.send(:new, :controller => self)
+        "#{controller_name.classify}Presenter".constantize
       end
     end
 
