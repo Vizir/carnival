@@ -39,10 +39,43 @@ module Carnival
 
     def constant_exists?(item, field)
       begin
-        item.class.const_get(field.to_s.upcase).present?
+        item.const_get(field.to_s.upcase).present?
       rescue
         false
       end
+    end
+
+    def carnival_render_if_exist partial_path
+      if partial_exist?(partial_path)
+        return render partial_path
+      end
+    end
+
+    def partial_exist? partial_path
+      File.exists?(get_partial_path(partial_path))
+    end
+
+    def has_many_relation? model, field
+      klass = Carnival::KlassService.new model.class
+      klass.is_a_has_many_relation?(field.to_sym)
+    end
+
+    def has_one_relation? model, field
+      klass = Carnival::KlassService.new model.class
+      klass.is_a_has_one_relation?(field.to_sym)
+    end
+
+    def get_partial_path partial_path
+      path = Rails.root.join('app', 'views')
+      partial_path_array = partial_path.split('/')
+      partial_path_array.each do |pp|
+        if pp == partial_path_array.last
+          path = path.join "_#{pp}.html.haml"
+        else
+          path = path.join pp
+        end
+      end
+      path
     end
 
     def field_type(presenter,field)
@@ -58,12 +91,16 @@ module Carnival
     def menu_link link
       link.strip!
       if link.to_s.end_with?('_path') or link.to_s.end_with?('_url')
-        return eval link 
+        return eval link
       elsif link.index(/_path.+/) #path with arguments
-        return eval link 
+        return eval link
       end
 
       link
+    end
+
+    def show_view(presenter, field)
+      presenter.fields[field.to_sym].show_view
     end
 
     def show_as_list(presenter, field)
@@ -74,7 +111,7 @@ module Carnival
 
     def field_to_show(presenter, field, record, show_only_value=false)
       current_type = field_type(presenter,field)
-      if current_type == :relation
+      if current_type.to_s.include?'relation'
         if show_only_value
           record.send(field.to_s).to_label unless record.send(field.to_s).nil?
         else
@@ -94,5 +131,68 @@ module Carnival
         result
       end
     end
+
+    def list_cel(presenter, field, record, only_render_fields)
+      result = field_to_show(presenter, field, record, only_render_fields)
+      return result if only_render_fields
+      td = "<td class='first-td'>"
+      return "#{td}<span class='#{get_css_class(presenter, field, record)}'>#{result}</span></td>" if presenter.fields[field].css_class.present?
+      "#{td}#{result}</td>"
+    end
+
+    def get_css_class presenter, field, record
+      css_class = presenter.fields[field].css_class
+      return '' if !css_class
+      return record.send(css_class[:method]) if css_class.is_a? Hash 
+      return css_class if css_class.is_a? String
+      return ''
+    end
+
+    def list_buttons(presenter, record)
+      result = ""
+      presenter.actions_for_record.each do |key, action|
+        if action.show(record)
+          if action.remote?
+            result << button_action_remote(action, presenter, record)
+          else
+            result << button_action(action, presenter, record)
+          end
+        end
+      end
+      result
+    end
+
+    def button_action(action, presenter, record)
+      label =  t("#{presenter.model_name}.#{action.name}", default: t("carnival.#{action.name}"))
+      path = action.path(:id => record.id)
+      if action.default_partial == :default
+        "<a class='action editar' href='#{path}'>#{label}</a>"
+      elsif action.default_partial == :delete
+        confirm = I18n.t("are_you_sure")
+        "<a class='action apagar' data-confirm='#{confirm}' data-method='delete' href='#{path}' rel='nofollow'>#{label}</a>"
+      end
+    end
+
+    def button_action_remote(action, presenter, record)
+      name = action.name
+      params = action.params
+      label =  t("#{presenter.model_name}.#{action.name}", default: t("carnival.#{action.name}"))
+      path = action.path(:id => record.id)
+
+      success_callback = "#{name}_success_callback" 
+      if params[:success]
+        success_callback = params[:success]
+      end
+
+      error_callback = "#{name}_error_callback" 
+      if params[:error]
+        error_callback = params[:error]
+      end
+
+      remote_function = "Carnival.remoteFunction(\"#{path}\", \"#{success_callback}\", \"#{error_callback}\", \"#{params[:method]}\")"
+
+      "<a class='editar' href='#' onclick='#{remote_function}'>#{label}</a>"
+    end
+
   end
 end

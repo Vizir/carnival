@@ -46,9 +46,38 @@ Execute `rails generate carnival:install` after you install Carnival to copy mig
 If you already have created your database with `rake db:create`, just run `rake db:migrate` to execute the Carnival migrations.
 
 
-## Usage
+## What does Carnival include?
+
+After you install Carnival, you will have a running CRUD application which is ready to manage the currently register useres. The real power of Carnival is that you easily extend to manage your data. Let's start to use it.
+
+### Carnival Admin Application
+
+The Carnival application will be under the '/admin' namespace.
+Some features are already implemented. To use it, do the following:
+
+* Create an administrator user, execute the following Rake Task
+
+```
+rake carnival:users:add_admin["email@username.com","at_least_8_digit_password"]
+```
+
+* Start your Rails web server and acess the `/admin` page.
+
+`http://server-name/admin`
+
+* You will be redirected for the login page, please type the email and password recently added.
+* After logging in, you will see the main page with the menu bar on the right. On this menu bar you can find the users lists where is possible to mange the administrators users of the system
+
+## Basic Usage
+
+Carnival started relying only on MVC model. As we developed it, we saw that it would be good to have a Presenter to better describe our models. We used the presenter to avoid the fat models emerge on our systems.
 
 ### Model
+
+It is a commom Active Record model.
+We only have to include the Carnival Helper.
+
+`include Carnival::ModelHelper`
 
 ```ruby
 
@@ -65,6 +94,11 @@ end
 
 ### Controller
 
+It is also a commom Controller, with some things to note:
+* Inherits from `Carnival::BaseAdminController`
+* Uses the default admin layout: `layout "carnival/admin"`
+* When creating or editing data, you should configure the Rails 4 permitted params.
+
 ```ruby
 
 module Admin
@@ -80,6 +114,8 @@ end
 ```
 
 ### Presenter
+
+All the "magic" of Carnival happens at Presenter. Each model managed under Carnival Admin will have a presenter associated to it. The presenter describes each model attributed that will be acessible in any of Carnival's CRUD interfaces.
 
 ```ruby
 
@@ -122,7 +158,7 @@ field :city,
 
 ## Menu
 
-The menu of the carnival can be configured in the carnival\_initializers.rb file
+The menu of the carnival can be configured in the 'config\initializers\carnival_initializers.rb' file
 
 Ex:
 
@@ -150,6 +186,97 @@ config.menu =
 }
 
 ```
+## [Presenter Properties](docs/presenter.md)
+
+
+## Specific
+
+### Table items
+
+If you want to determine a specific list of items that will appear in the table you have to define the table\_items method in your controller returning a Array or ActiveRelation
+
+Ex:
+
+```ruby
+
+module Admin
+  class CompaniesController < Carnival::BaseAdminController
+    layout "carnival/admin"
+
+    def table_items
+      Company.where(:country => 'Brazil')
+    end
+
+    def permitted_params
+      params.permit(admin_company: [:name])
+    end
+  end
+end
+
+```
+
+### Presenter Class Name
+
+If you want to define a custom Presenter you need to define in your controller the method carnival\_presenter\_class
+
+Ex:
+
+```ruby
+
+  class CompaniesController
+    def carnival_presenter_class
+      MyCustomCompanyPresenter
+    end
+  end
+
+```
+
+In this case you have to define the method full\_model\_name  in your presenter
+
+Ex:
+
+```ruby
+
+  class MyCustomCompanyPresenter
+    field :id,
+          :actions => [:index, :show], :sortable => false,
+          :searchable => true,
+          :advanced_search => {:operator => :equal}
+    field :name,
+          :actions => [:index, :new, :edit, :show],
+          :searchable => true,
+          :advanced_search => {:operator => :like}
+    field :created_at, :actions => [:index, :show]
+
+    action :show
+    action :edit
+    action :destroy
+    action :new
+
+    def full_model_name
+      'Company'
+    end
+
+  end
+
+```
+
+### Custom Views
+
+The Carnival permits that you specify some partials for your page, you just need just add your partial in the app/views/carnival/extra\_header.html.haml
+
+Possible Partials:
+
+- extra\_header
+  - Extra html to render in page header
+
+- app\_logo
+  - Define a specific partial for your app logo
+  - Default Value: link\_to App Name, root\_path
+
+- extra\_footer
+  - Extra html to render in page footer
+
 
 ## Configurations
 
@@ -160,15 +287,20 @@ If you want to have your own AdminUser class or need to add methods to that clas
 - Configure the ar\_admin\_user\_class in the carnival\_initializers.rb file
 
 ``` ruby
-Carnival::Config.ar_admin_user_class = MyAdminClass
+config.devise_class_name = 'MyAdminClass'
 ```
 
-- Your class need to inheritance from ActiveRecord::Base
+- Your class need to inheritance from Carnival::AdminUser
 
 ### Custom Root Action
 
 ``` ruby
-Carnival::Config.root_action = 'my_controller#my_action'
+config.root_action = 'my_controller#my_action'
+```
+
+### Application Name
+``` ruby
+config.app_name = 'Application Name'
 ```
 
 ## Custom Translations
@@ -180,7 +312,6 @@ You can add custom translations for the actions [:new, :show, :edit, :destroy]
     new: Create New company
     show: Show company
 ```
-
 
 ##TODO
 * create has many association input data

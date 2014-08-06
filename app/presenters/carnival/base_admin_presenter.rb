@@ -7,6 +7,8 @@ module Carnival
     def initialize(params)
       @@controller = params[:controller]
       @special_scopes_to_exec = nil
+      @klass_service = KlassService.new model_class
+      @advanced_search_parser = Presenters::AdvancedSearchParser.new(@klass_service)
     end
 
     def base_query
@@ -23,8 +25,23 @@ module Carnival
       @@actions[presenter_class_name][name] = Carnival::Action.new(self.new({}), name, params)
     end
 
+    @@batch_actions = {}
+    def self.batch_action(name, params = {})
+      @@batch_actions[presenter_class_name] = {} if @@batch_actions[presenter_class_name].nil?
+      @@batch_actions[presenter_class_name][name] = Carnival::BatchAction.new(self.new({}), name, params)
+    end
+
+    def has_batch_actions?
+      return false if @@batch_actions[presenter_class_name].nil?
+      @@batch_actions[presenter_class_name].keys.size > 0
+    end
+
     def actions
       @@actions[presenter_class_name]
+    end
+
+    def batch_actions
+      @@batch_actions[presenter_class_name]
     end
 
     def actions_for_record
@@ -97,6 +114,10 @@ module Carnival
       end
     end
 
+    def model_params(params)
+      params.select{|key, value| key != "action" && key != "controller"}
+    end
+
     def model_path(action, extra_params=nil)
       params = {controller: controller_name, action: action}
       params = params.merge(extra_params) if extra_params.present?
@@ -104,7 +125,15 @@ module Carnival
       url_for(params)
     end
 
+    def is_from_carnival?
+      self.class.to_s.include? 'Carnival::'
+    end
+
     def full_model_name
+      if Carnival::Config.use_full_model_name == false and !is_from_carnival?
+        return model_name
+      end
+
       if @@model_names[presenter_class_name].nil?
         self.class.to_s.gsub("Presenter", "").underscore
       else
@@ -132,9 +161,22 @@ module Carnival
     def searchable_fields
       searchable_fields = {}
       @@fields[presenter_class_name].each do |key, field|
-        searchable_fields[key] = field if field.searchable?
+        if relation_field? key
+          field_name = "#{field.name.pluralize}.name"
+        else
+          field_name = "#{self.table_name}.#{field.name}"
+        end
+        searchable_fields[field_name] = field if field.searchable?
       end
       searchable_fields
+    end
+
+    def join_tables
+      joins = []
+      @@fields[presenter_class_name].each do |key, field|
+        joins << key if relation_field? key.to_sym     
+      end
+      joins
     end
 
     def build_relation_field(field, model_object)
@@ -190,11 +232,8 @@ module Carnival
     end
 
     def advanced_search_fields
-      advanced_search_fields = {}
-      @@fields[presenter_class_name].each do |key, field|
-        advanced_search_fields[key] = field if field.advanced_searchable?
-      end
-      advanced_search_fields
+      fields = @@fields[presenter_class_name]
+      @advanced_search_parser.get_advanced_search_fields fields
     end
 
     def date_filter_field
@@ -213,7 +252,11 @@ module Carnival
     end
 
     def relation_field?(field)
-      model_class.reflect_on_association(field.to_sym)
+      @klass_service.relation? field
+    end
+
+    def relation_type sym
+      @klass_service.relation_type sym
     end
 
     def is_relation_belongs_to?(field)
@@ -222,7 +265,7 @@ module Carnival
 
     def relation_label(field, record)
       if relation_field?(field)
-        if is_relation_belongs_to?(field)
+        if @klass_service.is_a_belongs_to_relation?(field)
           value = record.send(field.to_s)
           return value.to_label if value.present?
         else
@@ -239,38 +282,26 @@ module Carnival
     end
 
     def relation_path(field, record)
-      if relation_field?(field)
-        if is_namespaced? and !model_class.reflect_on_association(field).klass.name.pluralize.underscore.include?("/")
-          related_class = "#{extract_namespace.downcase}/#{model_class.reflect_on_association(field).klass.name.pluralize.underscore}"
-        else
-          related_class = model_class.reflect_on_association(field).klass.name.pluralize.underscore
-        end
-        if is_relation_belongs_to?(field)
-          id = -1
-          id = record.send(model_class.reflect_on_association(field).foreign_key) if record.send(model_class.reflect_on_association(field).foreign_key).present?
-          params = {:controller => related_class, :action => :show, :id => id}
-        else
-          params = {:controller => related_class, :action => :index, :advanced_search => make_relation_advanced_query_url_options(field, record)}
-        end
-        params = params.merge(:only_path => true)
-        return url_for(params)
+      return nil if !relation_field?(field)
+      controller_path = "#{extract_namespace.downcase}/#{field.to_s.pluralize}"
+      if @klass_service.is_a_belongs_to_relation?(field)
+        id = -1
+        id = record.send(model_class.reflect_on_association(field).foreign_key) if record.send(model_class.reflect_on_association(field).foreign_key).present?
+        params = {:controller => controller_path, :action => :show, :id => id}
+      else
+        params = {:controller => controller_path, :action => :index, :advanced_search => make_relation_advanced_query_url_options(field, record)}
       end
-      return nil
+
+      params = params.merge(:only_path => true)
+      return generate_route_path params
+    end
+
+    def get_related_class field
+      @klass_service.related_class_file_name field
     end
 
     def parse_advanced_search records, search_syntax
-      search = JSON.parse(search_syntax)
-      search.keys.each do |key|
-        search_field = key
-        search_field = key.split(".").last if key.include?(".")
-        search_field = search_field.gsub("_id", "") if search_field.ends_with?("_id")
-        if @@fields[presenter_class_name].keys.include? search_field.to_sym
-          if @@fields[presenter_class_name][search_field.to_sym].advanced_searchable?
-            records =  parse_advanced_search_field(search_field, search[key], records)
-          end
-        end
-      end
-      records
+      @advanced_search_parser.parse_advanced_search @@fields[presenter_class_name], records, search_syntax
     end
 
     def presenter_to_field field, record
@@ -295,11 +326,11 @@ module Carnival
 
     def filter_actions(default_actions, target)
       actions = {}
-      if @@actions[presenter_class_name]
-        @@actions[presenter_class_name].each do |key, action|
-          if default_actions.include?(key) || action.target == target
-            actions[key] = action
-          end
+      return actions if !@@actions[presenter_class_name]
+
+      @@actions[presenter_class_name].each do |key, action|
+        if default_actions.include?(key) || (action.target == target && key != :new && key != :csv && key != :pdf)
+          actions[key] = action
         end
       end
       actions
@@ -313,58 +344,6 @@ module Carnival
       end
     end
 
-    def parse_advanced_search_field search_field, field_param, records
-      return records if not field_param["value"].present?
-      return records if field_param["value"] == ""
-
-      if relation_field?(search_field.to_sym)
-        related_model = model_class.reflect_on_association(search_field.to_sym).klass.name.underscore
-        foreign_key = model_class.reflect_on_association(search_field.to_sym).foreign_key
-        if model_class.reflect_on_association(search_field.to_sym).macro == :belongs_to
-          records = records.joins(related_model.split("/").last.to_sym)
-        else
-          records = records.joins(related_model.split("/").last.pluralize)
-        end
-        table = related_model.split("/").last.pluralize
-        column = "id"
-      else
-        table = table_name
-        column = search_field
-      end
-      full_column_query = "#{table}.#{column}"
-      where_clause = nil
-
-      case field_param["operator"]
-        when "equal"
-          if field_param["value"] == "nil"
-            where_clause = "#{full_column_query} is null"
-          else
-            where_clause = "#{full_column_query} = #{advanced_search_field_value_for_query(field_param["value"])}"
-          end
-        when "like"
-          where_clause = "#{full_column_query} like '%#{field_param["value"]}%'"
-        when "greater_than"
-          where_clause = "#{full_column_query} >= '#{field_param["value"]}'"
-        when "less_than"
-          where_clause = "#{full_column_query} <= '#{field_param["value"]}'"
-        when "between"
-          where_clause = "#{full_column_query} between '#{field_param["value"]}' and '#{field_param["value2"]}'"
-        else
-          where_clause = "#{full_column_query} = #{advanced_search_field_value_for_query(field_param["value"])}"
-      end
-      records = records.where(where_clause) if where_clause.present?
-      records
-    end
-
-    def advanced_search_field_value_for_query(value)
-      if "true" == value.downcase
-        return "'t'"
-      elsif "false" == value.downcase
-        return "'f'"
-      else
-        "#{value}"
-      end
-    end
 
     def is_namespaced?
       self.class.to_s.split("::").size > 0
@@ -398,6 +377,16 @@ module Carnival
 
     def self.model_name(name)
       @@model_names[presenter_class_name] = name
+    end
+
+    def generate_route_path params
+      path = nil
+      begin
+        path = url_for params
+      rescue
+
+      end
+      path
     end
 
     def self.presenter_class_name

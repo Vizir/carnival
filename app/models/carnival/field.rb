@@ -88,6 +88,7 @@ module Carnival
     end
 
     def sortable?
+	return true if @params[:sortable].nil?
       return true if @params[:sortable]
       return true if @params[:sortable].class == Hash
       return false
@@ -128,6 +129,10 @@ module Carnival
       @params[:widget].present? ? @params[:widget] : :input
     end
 
+    def show_view
+      @params[:show_view]
+    end
+
   private
     def set_position_by_params
       if @params[:position].present?
@@ -138,6 +143,7 @@ module Carnival
     end
 
     def get_associate_nested_form_mode
+      return nil if @params[:nested_form_modes].nil?
       @params[:nested_form_modes].each do |mode|
         if mode.is_a? Hash
           return mode[:associate] if mode[:associate].present?

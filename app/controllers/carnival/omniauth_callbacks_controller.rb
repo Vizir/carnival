@@ -2,7 +2,8 @@ module Carnival
   class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     def facebook
       # You need to implement the method below in your model (e.g. app/models/user.rb)
-      @user = Carnival::AdminUser.find_for_omni_auth(request.env["omniauth.auth"])
+      class_name = Carnival::Config.devise_class_name
+      @user = class_name.constantize.find_for_omni_auth(request.env["omniauth.auth"])
 
       if @user.nil?
         flash.notice = I18n.t("user_not_found")
@@ -17,7 +18,8 @@ module Carnival
     end
 
     def google_oauth2
-      @user = Carnival::AdminUser.find_for_omni_auth(request.env["omniauth.auth"])
+      class_name = Carnival::Config.devise_class_name
+      @user = class_name.constantize.find_for_omni_auth(request.env["omniauth.auth"])
       if @user.nil?
         flash.notice = I18n.t("user_not_found")
         redirect_to new_admin_user_session_path

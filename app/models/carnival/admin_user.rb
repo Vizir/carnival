@@ -1,6 +1,6 @@
 module Carnival
 
-  class AdminUser < Carnival::Config.ar_admin_user_class
+  class AdminUser < ActiveRecord::Base
 
     include Carnival::ModelHelper
     devise_flags = *Carnival::Config.devise_config

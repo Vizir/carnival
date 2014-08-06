@@ -8,14 +8,15 @@ module Admin
     field :name,
           :actions => [:index, :new, :edit, :show],
           :searchable => true,
-          :advanced_search => {:operator => :like}
+          :advanced_search => {:operator => :like},
+          :show_view => 'name'
     field :code,
           :actions => [:index, :new, :edit, :show],
           :searchable => true,
           :advanced_search => {:operator => :like}
     field :states,
           :actions => [:index, :show, :edit, :new],
-          :nested_form => true, :nested_form_allow_destroy => true
+          :nested_form => true, :nested_form_allow_destroy => true, :nested_form_modes => [:new]
     field :cities,
           :actions => [:index, :show, :edit, :new],
           :nested_form => true, :nested_form_allow_destroy => true
