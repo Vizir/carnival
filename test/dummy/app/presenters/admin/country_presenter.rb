@@ -3,22 +3,26 @@ module Admin
   class CountryPresenter < Carnival::BaseAdminPresenter
     field :id,
           :actions => [:index, :show, :csv, :pdf], :sortable => false,
-          :searchable => true,
+          :searchable => false,
           :advanced_search => {:operator => :equal}
     field :name,
           :actions => [:index, :new, :edit, :show],
-          :searchable => true,
+          :searchable => false,
           :advanced_search => {:operator => :like}
     field :code,
           :actions => [:index, :new, :edit, :show],
-          :searchable => true,
+          :searchable => false,
           :advanced_search => {:operator => :like}
     field :states,
           :actions => [:index, :show, :edit, :new],
-          :nested_form => true, :nested_form_allow_destroy => true
+          :searchable => false,
+          :nested_form => true, :nested_form_allow_destroy => true,
+          nested_form_modes: [:new, :associate]
     field :cities,
           :actions => [:index, :show, :edit, :new],
-          :nested_form => true, :nested_form_allow_destroy => true
+          :searchable => false,
+          :nested_form => true, :nested_form_allow_destroy => true,
+          nested_form_modes: [:new, :associate]
     field :created_at, :actions => [:index, :show]
     field :updated_at, :actions => [:index, :show]
 
