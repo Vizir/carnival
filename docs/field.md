@@ -37,3 +37,10 @@
     :sortable => true
   ```
 
+- :show_view
+  - Define a custom partial view that can be used to override the rendering of a specific field
+  - Default Value: nil
+  ```ruby
+    :show_view => 'field_name' #in this case it will search for a partial named _field_name
+  ```
+

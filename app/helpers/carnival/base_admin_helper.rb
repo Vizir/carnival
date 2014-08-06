@@ -99,6 +99,10 @@ module Carnival
       link
     end
 
+    def show_view(presenter, field)
+      presenter.fields[field.to_sym].show_view
+    end
+
     def show_as_list(presenter, field)
       current_type = field_type(presenter,field)
       return false if current_type != :relation

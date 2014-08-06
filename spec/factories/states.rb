@@ -1,3 +1,4 @@
-Factory.define :state, :class => Admin::State do |f|
-
+FactoryGirl.define do
+  factory :state, :class => Admin::State do |f|
+  end
 end
