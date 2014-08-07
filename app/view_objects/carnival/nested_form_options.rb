@@ -18,6 +18,14 @@ module Carnival
       @field
     end
 
+    def presenter
+      @presenter 
+    end
+
+    def model
+      @model 
+    end
+
     def field_name
       @field.name
     end
@@ -36,6 +44,14 @@ module Carnival
 
     def model_class_name_underscore
       @model.class.name.underscore.gsub('/', '_')
+    end
+
+    def field_class_file_name
+      @presenter.get_related_class @field.name.to_sym
+    end
+
+    def controller_to_field
+      @presenter.controller_to_field @field 
     end
 
     def field_name_identifier
@@ -73,6 +89,7 @@ module Carnival
         props = {}
         id = self.option_id(item)
         props[:id] = "#{id}_select_option"
+        props[:data] = {:id => item.id}
         props[:disabled] = self.model_has_this_item?(item.id)
         options << [item.to_label, id, props]
       end

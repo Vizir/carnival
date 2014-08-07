@@ -13,7 +13,7 @@ module Admin
           :actions => [:index, :show, :edit, :new],
           :nested_form => true, 
           :nested_form_allow_destroy => true,
-          :nested_form_modes => [:associate]
+          :nested_form_modes => [:associate, :new]
 
     action :show
     action :edit

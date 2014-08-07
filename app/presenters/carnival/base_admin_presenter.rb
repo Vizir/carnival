@@ -300,6 +300,10 @@ module Carnival
       @klass_service.related_class_file_name field
     end
 
+    def get_class_for field
+      @klass_service.related_class field
+    end
+
     def parse_advanced_search records, search_syntax
       @advanced_search_parser.parse_advanced_search @@fields[presenter_class_name], records, search_syntax
     end
@@ -308,10 +312,17 @@ module Carnival
       "#{extract_namespace}::#{field.name.singularize.classify}Presenter".constantize.send("new", :controller => controller_to_field(field))
     end
 
+    def presenter_to_field_sym field
+      "#{extract_namespace}::#{field.to_s.singularize.classify}Presenter".constantize.send("new", :controller => controller_to_field_sym(field))
+    end
+
     def controller_to_field field
       "#{extract_namespace}::#{field.name.classify.pluralize}Controller".constantize.send("new")
     end
 
+    def controller_to_field_sym field
+      "#{extract_namespace}::#{field.to_sym.classify.pluralize}Controller".constantize.send("new")
+    end
     def load_dependent_select_options_path
       "/#{extract_namespace.downcase}/carnival-base/load_dependent_select_options"
     end

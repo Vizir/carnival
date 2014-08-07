@@ -18,13 +18,26 @@
   - else
     = link_to t("nested_form.new"), "#", onclick: "createNewForm('.nested-form-list.#{opt_obj.field_name}', '#{opt_obj.field_name}'); return false;"
 
-- if not opt_obj.field.nested_form_modes?(:new)
-  .carnival-form-options
-    - checkbox_id = opt_obj.option_id OpenStruct.new(id: '')
-    = check_box_tag opt_obj.option_name, '',true, id: checkbox_id, style: "display: none;"
-    - opt_obj.available_options.each do |item|
-      - checkbox_id = opt_obj.option_id item
-      .carnival-form-options{id: "#{checkbox_id}_options", class: opt_obj.option_css_class(item) }
-        %span
-          = check_box_tag opt_obj.option_name, item.id, opt_obj.model_has_this_item?(item.id), id: checkbox_id, onclick: 'removeRelationOption("'+checkbox_id+'", "'+opt_obj.select_tag_id+'")'
-          = item.to_label
+/- if many_to_many_relation? opt_obj.model, opt_obj.field_name
+:javascript
+  function addOption(selectId){
+    var option = $('#'+selectId).val();
+    if(option == -1)
+      return;
+    $('#'+option+'_options').show();
+    $('#'+option).prop('checked', true);
+    $('#'+option+'_select_option').prop('disabled', true);
+    $('#'+selectId).val(-1);
+    $('#'+selectId).trigger("chosen:updated");
+  }
+.carnival-form-options
+  - checkbox_id = opt_obj.option_id OpenStruct.new(id: '')
+  = check_box_tag opt_obj.option_name, '',true, id: checkbox_id, style: "display: none;"
+  - opt_obj.available_options.each do |item|
+    - checkbox_id = opt_obj.option_id item
+    .carnival-form-options{id: "#{checkbox_id}_options", class: opt_obj.option_css_class(item) }
+      %span
+        = check_box_tag opt_obj.option_name, item.id, opt_obj.model_has_this_item?(item.id), id: checkbox_id, onclick: 'removeRelationOption("'+checkbox_id+'", "'+opt_obj.select_tag_id+'")'
+        = item.to_label
+
+

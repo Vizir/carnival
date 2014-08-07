@@ -3,7 +3,6 @@ module Carnival
     respond_to :html, :json
     before_filter :authenticate_admin_user!
 
-
     def generate_datatable
       model_presenter = instantiate_presenter
       Carnival::GenericDatatable.new(view_context, instantiate_model(model_presenter), self, model_presenter, table_items)
@@ -11,6 +10,19 @@ module Carnival
 
     def table_items
       nil
+    end
+
+    def render_inner_form
+      presenter = Carnival::AdminUserPresenter.new controller: self
+      @model_presenter = presenter_name(params[:field]).new controller: self
+      model_class = params[:field].classify.constantize
+      @model_object = model_class.send(:find_by_id, params[:id])
+    end
+
+    def presenter_name field
+      field_name =  field.split('/').last
+      carnival_mount = Carnival::Config.mount_at 
+      "#{carnival_mount}/#{field_name.singularize}_presenter".classify.constantize
     end
 
     def index

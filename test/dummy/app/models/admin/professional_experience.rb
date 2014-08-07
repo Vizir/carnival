@@ -3,7 +3,7 @@ module Admin
     include Carnival::ModelHelper
     self.table_name = "professional_experiences"
 
-    belongs_to :people
+    belongs_to :people, :foreign_key => 'people_id'
     belongs_to :company
     belongs_to :job
 
