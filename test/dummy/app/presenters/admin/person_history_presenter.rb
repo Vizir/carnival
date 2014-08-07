@@ -5,6 +5,7 @@ module Admin
     field :history,
           :actions => [:index, :new, :edit, :show],
           :searchable => true,
+          :as => :ckeditor,
           :advanced_search => {:operator => :like}
 
 

@@ -26,6 +26,8 @@ gem 'wicked_pdf', '~> 0.11.0'
 gem 'omniauth-facebook', '~> 1.6.0'
 gem 'omniauth-google-oauth2', '~> 0.2.5'
 
+gem 'ckeditor'
+
 group :development do
   gem 'binding_of_caller', '~> 0.7.2'
   gem 'bullet', '~> 4.10.0'

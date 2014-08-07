@@ -46,7 +46,7 @@ module Admin
           :advanced_search => {:operator => :like},
           :position => {line: 4, size: 4}
 
-    field :jobs,
+    field :person_history,
           :actions => [:index, :csv, :pdf, :new, :edit, :show],
           :advanced_search => {:operator => :equal},
           :nested_form => true, :nested_form_allow_destroy => true, :nested_form_modes => [:new],

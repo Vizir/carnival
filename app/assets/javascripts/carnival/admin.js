@@ -1,5 +1,6 @@
 //= require jquery
 //= require jquery_ujs
+//= require ckeditor/init
 //= require carnival/external/jquery.dataTables.min
 //= require carnival/external/noty/jquery.noty
 //= require carnival/external/noty/layouts/bottom
