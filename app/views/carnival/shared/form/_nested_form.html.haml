@@ -6,12 +6,13 @@
     .nested_form_options_div{id: "nested_form_options_#{field.name}"}
       - opt = Carnival::NestedFormOptions.new model_object, model_presenter, field
       = render '/carnival/shared/form/nested_form_options', opt_obj: opt
-
+    - many_to_many =  many_to_many_relation? model_object, field.name
     - if field.nested_form_modes?(:new)
       %ul.nested-form-list{:class => field.name}
         - model_object.send(field.name).build
         = f.simple_fields_for field.name.to_sym do |inner_form|
-          - if inner_form.object.id.nil? and inner_form.object.errors.size == 0
+          - form_create =  inner_form.object.id.nil? and inner_form.object.errors.size == 0
+          - if form_create
             %li.nested-form-list-item{:class => "#{inner_form.object.id.nil? and inner_form.object.errors.size == 0 ? 'form-new-association' : 'form-existent-association'}" }
               .nested-form-list-item-actions
                 = link_to t("remove"), "#", onclick: "removeNestedFormElement(this); return false;" if field.nested_form_allow_destroy?
@@ -19,6 +20,15 @@
               = inner_form.input :_destroy, :as => :hidden, :input_html => {:class => "destroy"} if field.nested_form_allow_destroy?
               - nested_presenter = model_presenter.presenter_to_field(field, inner_form.object)
               = render '/carnival/shared/form/inner_form', button: t('update'), model_object: inner_form.object, model_presenter: nested_presenter, :nested_in => model_object, :f => inner_form, :action => action
+          - else
+            - if !many_to_many
+              %li.nested-form-list-item{:class => "#{inner_form.object.id.nil? and inner_form.object.errors.size == 0 ? 'form-new-association' : 'form-existent-association'}" }
+                .nested-form-list-item-actions
+                  = link_to t("remove"), "#", onclick: "removeNestedFormElement(this); return false;" if field.nested_form_allow_destroy?
+                = inner_form.input :id, :as => :hidden
+                = inner_form.input :_destroy, :as => :hidden, :input_html => {:class => "destroy"} if field.nested_form_allow_destroy?
+                - nested_presenter = model_presenter.presenter_to_field(field, inner_form.object)
+                = render '/carnival/shared/form/inner_form', button: t('update'), model_object: inner_form.object, model_presenter: nested_presenter, :nested_in => model_object, :f => inner_form, :action => action
   - else
     - model_object.send("build_#{field.name}")
     = f.simple_fields_for field.name.to_sym do |inner_form|

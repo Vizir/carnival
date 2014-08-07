@@ -29,6 +29,7 @@
     newForm = newForm.replace(/([_a-zA-Z]+\[[_a-zA-Z]+_attributes\]\[)\d+(\]\[[_a-zA-Z]+\])/g, "$1" + last_index + "$2");
     $(selector).append(newForm);
     $(selector).find("select").chosen();
+    $(selector + " li:last")[0].scrollIntoView(true)
   }
 
   function getFormName(element){
@@ -38,7 +39,8 @@
   }
 
   function removeNestedFormElement(element){
-    $(element).parent().parent().remove();
+    $(element).parent().parent().hide();
+    $(element).parents("li").find(".destroy").val("1");
   }
 
   function toggleNestedForm(element){
@@ -60,16 +62,7 @@
     $('#'+selectId).trigger("chosen:updated");
   }
 
-  function addOption(selectId){
-    var option = $('#'+selectId).val();
-    if(option == -1)
-      return;
-    $('#'+option+'_options').show();
-    $('#'+option).prop('checked', true);
-    $('#'+option+'_select_option').prop('disabled', true);
-    $('#'+selectId).val(-1);
-    $('#'+selectId).trigger("chosen:updated");
-  }
+
 
   function getNestedFormOptions(params){
     $('#nested_form_options_'+params['field_name']).html();

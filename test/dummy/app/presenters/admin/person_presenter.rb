@@ -21,20 +21,14 @@ module Admin
           :advanced_search => {:operator => :equal},
           :position => {line: 2, size: 3}
 
-    field :person_history,
-          :nested_form => true, :nested_form_allow_destroy => true, :nested_form_modes => [:new],
-          :actions => [:index, :csv, :pdf, :new, :edit, :show]
-
     field :state,
           :actions => [:index, :csv, :pdf, :new, :edit, :show],
           :advanced_search => {:operator => :equal},
-          :position => {line: 2, size: 3},
-          :depends_on => :country
+          :position => {line: 2, size: 3}
     field :city,
           :actions => [:index, :csv, :pdf, :new, :edit, :show],
           :advanced_search => {:operator => :equal},
-          :position => {line: 2, size: 3},
-          :depends_on => :state
+          :position => {line: 2, size: 3}
     field :zipcode,
           :actions => [:new, :csv, :pdf, :edit, :show],
           :position => {line: 2, size: 3}
@@ -51,8 +45,12 @@ module Admin
           :actions => [:index, :csv, :pdf, :new, :edit, :show],
           :advanced_search => {:operator => :like},
           :position => {line: 4, size: 4}
-    field :professional_experiences,
-          :actions => [:index, :show]
+
+    field :jobs,
+          :actions => [:index, :csv, :pdf, :new, :edit, :show],
+          :advanced_search => {:operator => :equal},
+          :nested_form => true, :nested_form_allow_destroy => true, :nested_form_modes => [:new],
+          :position => {line: 2, size: 3}
 
     action :show
     action :edit

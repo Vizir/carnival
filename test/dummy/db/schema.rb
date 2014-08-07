@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140623162224) do
+ActiveRecord::Schema.define(version: 20140724142218) do
 
   create_table "admin_user_notifications", force: true do |t|
     t.boolean  "read",            default: false
@@ -132,10 +132,12 @@ ActiveRecord::Schema.define(version: 20140623162224) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "birth_date"
+    t.integer  "point_id"
   end
 
   add_index "people", ["city_id"], name: "index_people_on_city_id"
   add_index "people", ["country_id"], name: "index_people_on_country_id"
+  add_index "people", ["point_id"], name: "index_people_on_point_id"
   add_index "people", ["state_id"], name: "index_people_on_state_id"
 
   create_table "person_histories", force: true do |t|
