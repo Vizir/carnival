@@ -175,9 +175,21 @@ module Carnival
         @presenter.searchable_fields.each do |key, field|
           filtros << "#{key.to_s} like :search"
         end
+        records = includes_relations(records) if @items.nil?
         records = records.where(filtros.join(" or "), search: "%#{params[:sSearch]}%")
       end
-      records = records.joins(@presenter.join_tables)
+
+      if @items.nil?
+        includes_relations(records)
+      else 
+        records
+      end
+    end
+
+    def includes_relations(records)
+      @presenter.join_tables.each do |relation_name|
+        records = records.includes(relation_name)
+      end
       records
     end
 
