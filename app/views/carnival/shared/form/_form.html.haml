@@ -30,6 +30,7 @@
     $(selector).append(newForm);
     $(selector).find("select").chosen();
     $(selector + " li:last")[0].scrollIntoView(true)
+    setupDateFields();
   }
 
   function getFormName(element){

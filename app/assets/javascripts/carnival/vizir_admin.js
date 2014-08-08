@@ -95,7 +95,7 @@ var pageLoad = function(){
 
 // form load functions
 
-var formLoad = function(){
+function setupDateFields(){
   var dateOptions = {
     format: 'Y/m/d',
     mask: true,
@@ -105,7 +105,10 @@ var formLoad = function(){
 
   $(".datepicker").datetimepicker(dateOptions);
   $(".datetimepicker").datetimepicker(dateTimeOptions);
+}
 
+var formLoad = function(){
+  setupDateFields();
   $('select').chosen();
   $(".chosen-container").css({width:$(".chosen-container").parent().css("width")})
 }
