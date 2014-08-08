@@ -96,9 +96,16 @@ var pageLoad = function(){
 // form load functions
 
 var formLoad = function(){
-  $(".datepicker").datepicker({
-    dateFormat: 'yy-mm-dd'
-  });
+  var dateOptions = {
+    format: 'Y/m/d',
+    mask: true,
+    timepicker: false
+  };
+  var dateTimeOptions = $.extend({}, dateOptions, { timepicker: true, format: 'Y/m/d H:i'})
+
+  $(".datepicker").datetimepicker(dateOptions);
+  $(".datetimepicker").datetimepicker(dateTimeOptions);
+
   $('select').chosen();
   $(".chosen-container").css({width:$(".chosen-container").parent().css("width")})
 }
