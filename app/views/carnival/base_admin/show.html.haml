@@ -11,7 +11,7 @@
       - line.each do |field|
         .wrapper_show{class: "col-md-#{field.size}"}
           - if show_view(@model_presenter, field.name)
-            = render partial: show_view(@model_presenter, field.name), locals: { model: item }
+            = render partial: show_view(@model_presenter, field.name), locals: { model: item, field: field.name }
           - else
             %label="#{t("activerecord.attributes.#{@model_presenter.full_model_name}.#{field.name}")}:"
             .value
