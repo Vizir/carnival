@@ -7,6 +7,7 @@ module Carnival
       @params = params
       @name = name
       set_position_by_params
+      validate
     end
 
     def name
@@ -134,6 +135,13 @@ module Carnival
     end
 
   private
+    
+    def validate
+      if nested_form_modes?(:new) and nested_form_modes?(:associate)
+        raise ArgumentError.new("field does not support nested_forms_modes with :new and :associate options at same time")
+      end
+    end
+
     def set_position_by_params
       if @params[:position].present?
         @line = @params[:position][:line]

@@ -65,7 +65,8 @@ private
     end
 
     def many_to_many_relation? association
-      return false if association.macro != :has_many 
+      return true if association.macro == :has_and_belongs_to_many
+      return false if association.macro == :has_many 
       return true if association.options[:through].present?
       return false
     end

@@ -27,7 +27,7 @@ module Admin
           :show_as_list => true,
           :nested_form => true, 
           :nested_form_allow_destroy => true, 
-          nested_form_modes: [:new, :associate => {scope: :country}]
+          nested_form_modes: [:associate]
 
     field :created_at, :actions => [:index, :show]
     field :updated_at, :actions => [:index, :show]
