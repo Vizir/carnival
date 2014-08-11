@@ -25,8 +25,8 @@ gem 'will_paginate', '~> 3.0.7'
 gem 'wicked_pdf', '~> 0.11.0'
 gem 'omniauth-facebook', '~> 1.6.0'
 gem 'omniauth-google-oauth2', '~> 0.2.5'
-
-gem 'ckeditor'
+gem 'ckeditor', '~> 4.1.0'
+gem 'paperclip', '~> 4.2.0'
 
 group :development do
   gem 'binding_of_caller', '~> 0.7.2'

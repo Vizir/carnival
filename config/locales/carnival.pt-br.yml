@@ -211,11 +211,12 @@ pt-BR:
   activerecord:
     attributes:
       carnival/admin_user:
-        email: E-mail
-        name: Nome
-        id: Código
         current_sign_in_at: Acesso atual em
+        email: E-mail
+        id: Código
         last_sign_in_at: Último acesso em
+        name: Nome
+        photo: Foto
         sign_in_count: Total de acessos
     errors:
       template:

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140724142218) do
+ActiveRecord::Schema.define(version: 20140811223237) do
 
   create_table "admin_user_notifications", force: true do |t|
     t.boolean  "read",            default: false
@@ -41,10 +41,25 @@ ActiveRecord::Schema.define(version: 20140724142218) do
     t.string   "provider"
     t.string   "uid"
     t.string   "avatar"
+    t.integer  "imageable_id"
   end
 
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true
+  add_index "admin_users", ["imageable_id"], name: "index_admin_users_on_imageable_id"
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+
+  create_table "avatars", force: true do |t|
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
+    t.integer  "imageable_id"
+    t.string   "imageable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "avatars", ["imageable_id", "imageable_type"], name: "index_avatars_on_imageable_id_and_imageable_type"
 
   create_table "cities", force: true do |t|
     t.string   "name"
@@ -132,12 +147,10 @@ ActiveRecord::Schema.define(version: 20140724142218) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "birth_date"
-    t.integer  "point_id"
   end
 
   add_index "people", ["city_id"], name: "index_people_on_city_id"
   add_index "people", ["country_id"], name: "index_people_on_country_id"
-  add_index "people", ["point_id"], name: "index_people_on_point_id"
   add_index "people", ["state_id"], name: "index_people_on_state_id"
 
   create_table "person_histories", force: true do |t|

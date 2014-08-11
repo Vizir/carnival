@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  imageable_id: 
+  imageable_type: Imageable
+
+two:
+  imageable_id: 
+  imageable_type: Imageable
