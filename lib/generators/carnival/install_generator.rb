@@ -6,7 +6,6 @@ module Carnival
 
       def install
         route "mount_carnival_at 'admin'"
-        rake 'carnival_engine:install:migrations'
         template "../../../../config/locales/carnival.en.yml", "config/locales/carnival.en.yml"
         template "../../../../config/locales/carnival.pt-br.yml", "config/locales/carnival.pt-br.yml"
         template "../../../../config/locales/devise.pt-br.yml", "config/locales/devise.pt-br.yml"
