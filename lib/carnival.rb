@@ -9,6 +9,7 @@ require "carnival/engine"
 require "carnival/config"
 require "carnival/routes"
 require "carnival/version"
+require "ckeditor"
 require "paperclip"
 module Carnival
 
