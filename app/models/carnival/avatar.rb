@@ -1,4 +1,6 @@
-class Avatar < ActiveRecord::Base
+class Carnival::Avatar < ActiveRecord::Base
+  include Carnival::ModelHelper
+
   belongs_to :imageable, polymorphic: true
 
   has_attached_file :photo, styles: { medium: '640x480>', thumb: '160x120>'  }, default_url: '/assets/carnival/avatar.png'

@@ -111,6 +111,22 @@ var formLoad = function(){
   setupDateFields();
   $('select').chosen();
   $(".chosen-container").css({width:$(".chosen-container").parent().css("width")})
+  $('input.previewable').change(function() {
+    var that = $( this );
+    var reader = new FileReader();
+    var img = $(this).next('img.previewable');
+
+    reader.onload = function(e) {
+      var val = e.target.result;
+      img.attr('src', val);
+    }
+
+    if (this.files && this.files[0]) {
+      reader.readAsDataURL(this.files[0]);
+    } else {
+      img.attr('src', '');
+    }
+  });
 }
 
 $(document).ready(function(){

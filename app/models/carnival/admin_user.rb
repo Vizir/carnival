@@ -13,9 +13,14 @@ module Carnival
       devise :database_authenticatable, *devise_flags.uniq
     end
 
-    has_one :avatar, as: :imageable
+    has_one :avatar, as: :imageable, autosave: true
     has_many :admin_user_notifications
     has_many :notifications, through: :admin_user_notifications
+    accepts_nested_attributes_for :avatar
+
+    after_initialize do |user|
+      user.avatar = user.build_avatar if user.avatar.nil?
+    end
 
     def unread_notifications
       self.admin_user_notifications.where(:read => false).to_a
@@ -30,12 +35,10 @@ module Carnival
     end
 
     def photo
-      build_avatar if avatar.nil?
-      avatar.photo
+      self.avatar.photo
     end
 
     def photo=(p)
-      build_avatar if avatar.nil?
       self.avatar.photo = p
     end
 

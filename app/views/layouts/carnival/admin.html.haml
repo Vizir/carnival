@@ -28,7 +28,7 @@
               .email
                 = current_admin_user.email
               %figure
-                = image_tag current_admin_user.photo.url, :class => "#{current_admin_user.photo.exists? ? 'custom' : 'default'}"
+                = image_tag current_admin_user.avatar.photo.url, :class => "#{current_admin_user.avatar.photo.exists? ? 'custom' : 'default'}"
 
       #header_wrapper
         #header

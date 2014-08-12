@@ -23,10 +23,18 @@ module Carnival
     field :password_confirmation,
           :actions => [:new, :edit],
           position: {line: 2, column: 2, size: 5}
-    field :photo,
-          :actions => [:new, :edit, :show],
+
+    field :avatar,
+          :actions => [:new, :edit],
           position: {line: 1, column: 1},
-          show_view: 'carnival/shared/photo_field'
+          nested_form: true,
+          nested_form_modes: [:new, :edit]
+
+    field :photo,
+          :actions => [:show],
+          position: {line: 1, column: 1},
+          show_view: 'carnival/shared/photo_field',
+          as: :admin_previewable_file
           
     field :last_sign_in_at, :actions => [:index, :show]
     field :sign_in_count, :actions => [:index, :show]

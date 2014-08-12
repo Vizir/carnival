@@ -211,6 +211,7 @@ pt-BR:
   activerecord:
     attributes:
       carnival/admin_user:
+        avatar: Foto
         current_sign_in_at: Acesso atual em
         email: E-mail
         id: Código
