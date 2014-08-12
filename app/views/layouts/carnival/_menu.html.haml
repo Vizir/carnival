@@ -5,8 +5,6 @@
       %li{:style => "border-top:none;"}
         %span.arrow
         %ul.dropdown_main_menu
-          %li.dashboard
-            = link_to t("menu.dashboard"), admin_root_url, {:class => " btn_usuario sublevel"}
           - if menus[:admin].present?
             %li.administracao
               = link_to t("menu.admin"), "#", {:class => " btn_usuario sublevel"}
