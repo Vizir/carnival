@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'wicked_pdf'
   s.add_dependency "omniauth-facebook"
   s.add_dependency "omniauth-google-oauth2"
+  s.add_dependency 'paperclip', '~> 4.2.0'
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "better_errors"

@@ -28,7 +28,7 @@
               .email
                 = current_admin_user.email
               %figure
-                %img{:src => "#{current_admin_user.avatar.nil? ? '/assets/carnival/avatar.png' : current_admin_user.avatar}", :class => "#{current_admin_user.avatar.nil? ? 'default' : 'custom'}"}
+                = image_tag current_admin_user.avatar.photo.url, :class => "#{current_admin_user.avatar.photo.exists? ? 'custom' : 'default'}"
 
       #header_wrapper
         #header
