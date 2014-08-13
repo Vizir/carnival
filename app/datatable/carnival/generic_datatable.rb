@@ -10,13 +10,13 @@ module Carnival
     RENDER_CSV = 1
     RENDER_PDF = 2
 
-    def initialize(view, model, controller, presenter, items=nil)
+    def initialize(view, model, controller, presenter)
       @view = view
       @model = model
       @controller = controller
       @presenter = presenter
-      @items = items
       @filters = []
+      @should_include_relation = !@model.is_a?(ActiveRecord::Relation)
     end
 
     def as_csv(options = {})
@@ -37,6 +37,7 @@ module Carnival
 
       return_data = {}
       return_data[:data] = get_data
+
       {
         sEcho: params[:sEcho].to_i,
         iTotalRecords: count,
@@ -151,7 +152,7 @@ module Carnival
 
     def fetch_records
       @filters = []
-      records = !@items.nil? ? @items : @model
+      records = @model
       if(params[:scope].present? && params[:scope] != "all")
         records = records.send(params[:scope])
         add_filter 'Escopo',params[:scope]
@@ -175,11 +176,11 @@ module Carnival
         @presenter.searchable_fields.each do |key, field|
           filtros << "#{key.to_s} like :search"
         end
-        records = includes_relations(records) if @items.nil?
+        records = includes_relations(records) if @should_include_relation
         records = records.where(filtros.join(" or "), search: "%#{params[:sSearch]}%")
       end
 
-      if @items.nil?
+      if @should_include_relation
         includes_relations(records)
       else 
         records
