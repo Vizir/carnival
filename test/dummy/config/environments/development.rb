@@ -44,4 +44,9 @@ Dummy::Application.configure do
     # Bullet.add_footer = true
   end
 
+  config.paperclip_defaults = {
+    :url => "/ckeditor_assets/pictures/:id/:style_:basename.:extension",
+    :path => ":rails_root/public/ckeditor_assets/pictures/:id/:style_:basename.:extension"
+  }
+
 end
