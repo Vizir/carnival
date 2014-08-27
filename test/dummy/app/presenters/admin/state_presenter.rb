@@ -20,6 +20,7 @@ module Admin
 
     field :country,
           :actions => [:index, :new, :edit, :show],
+          :as => :admin_relationship_select_remote,
           :advanced_search => {:operator => :equal}
 
     field :cities,
@@ -27,7 +28,7 @@ module Admin
           :show_as_list => true,
           :nested_form => true, 
           :nested_form_allow_destroy => true, 
-          nested_form_modes: [:new, :associate => {scope: :country}]
+          nested_form_modes: [:new]
 
     field :created_at, :actions => [:index, :show]
     field :updated_at, :actions => [:index, :show]
