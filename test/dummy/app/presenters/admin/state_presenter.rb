@@ -20,7 +20,7 @@ module Admin
 
     field :country,
           :actions => [:index, :new, :edit, :show],
-          :as => :admin_relationship_select_remote,
+          :as => {:carnival_select_remote => {:search_field => :name}},
           :advanced_search => {:operator => :equal}
 
     field :cities,
