@@ -101,6 +101,18 @@ module Carnival
       render layout: nil
     end
 
+    def load_select_options
+      model_name = params[:model_name]
+      search_field = params[:search_field]
+      presenter = params[:presenter_name].constantize.send(:new, :controller => self)
+      model = presenter.relation_model(model_name.to_sym)
+      list = []
+      model.where("#{search_field} like '%#{params[:q]}%'").each do |elem|
+        list << {id: elem.id, text: elem.send(search_field.to_sym)}
+      end
+      
+      render :json => list
+    end
     private
 
     def instantiate_model(presenter)

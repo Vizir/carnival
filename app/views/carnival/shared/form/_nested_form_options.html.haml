@@ -3,7 +3,7 @@
     - scope_html_id = opt_obj.scope_html_id
 
     .carnival-select-tag
-      = select_tag opt_obj.select_tag_id, options_for_select(opt_obj.select_options), {:onchange => 'addOption("'+opt_obj.select_tag_id+'")'}
+      = select_tag opt_obj.select_tag_id, options_for_select(opt_obj.select_options), {:onchange => 'addOption("'+opt_obj.select_tag_id+'")', class: 'chosen'}
     .carnival-select-action
       - if opt_obj.has_new_action?
         = link_to_function t("nested_form.new"), "createNewForm('.nested-form-list.#{opt_obj.field_name}', '#{opt_obj.field_name}')"

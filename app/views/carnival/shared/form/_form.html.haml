@@ -28,7 +28,11 @@
     newForm = newForm.replace(/([_a-zA-Z]+_attributes_)\d+(_[a-zA-Z]+)/g, "$1" + last_index + "$2");
     newForm = newForm.replace(/([_a-zA-Z]+\[[_a-zA-Z]+_attributes\]\[)\d+(\]\[[_a-zA-Z]+\])/g, "$1" + last_index + "$2");
     $(selector).append(newForm);
-    $(selector).find("select").chosen();
+    $(selector).find(".chosen").chosen();
+    var lastFormAdded = $(selector).find(".nested-form-list-item").last();
+    lastFormAdded.find('.select2-remote').each(function(){
+      addSelect2ToField(this);
+    });
   }
 
   function getFormName(element){

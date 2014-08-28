@@ -7,6 +7,13 @@
 - options[:input_html] = {}
 - options[:input_html][:class] = "field-#{field.name}"
 - options[:input_html][:data] = {}
+- options[:input_html][:data][:presenter_name] = model_presenter.presenter_name 
+
+- if options[:as].is_a? Hash
+  - options[:input_html][:data][:carnival_options] = options[:as].first[1]
+  - options[:as] = options[:as].first[0]
+
+
 - if field.depends_on.present?
   - options[:input_html][:data][:depends_on] = field.depends_on
   :javascript

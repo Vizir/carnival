@@ -98,8 +98,9 @@ var formLoad = function(){
   $(".datepicker").datepicker({
     dateFormat: 'yy-mm-dd'
   });
-  $('select').chosen();
+  $('.chosen').chosen();
   $(".chosen-container").css({width:$(".chosen-container").parent().css("width")})
+  selectRemote();
 }
 
 $(document).ready(function(){
