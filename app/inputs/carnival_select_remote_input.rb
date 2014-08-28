@@ -24,6 +24,6 @@ class CarnivalSelectRemoteInput < SimpleForm::Inputs::CollectionSelectInput
       {prompt: I18n.t("#{@builder.object.class.to_s.gsub(/^.*::/, '').downcase}.lista_#{attribute_name}.selecione", default: I18n.t("messages.select"))},
       input_html_options
     )
-    "<div class='select2-remote-div' #{data_options}  ><input class='select2-remote hidden-select' value='aaa'></input>#{html.to_s}</div>".html_safe
+    "<div class='select2-remote-div' #{data_options}  ><input class='select2-remote' value='select'></input>#{html.to_s}</div>".html_safe
   end
 end
