@@ -2356,5 +2356,5 @@ table input{
 }
 
 .hidden-select{
-  display:none;
+  display:none !important;
 }
