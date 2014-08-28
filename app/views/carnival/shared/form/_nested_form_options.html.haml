@@ -3,7 +3,7 @@
     - scope_html_id = opt_obj.scope_html_id
 
     .carnival-select-tag
-      = select_tag opt_obj.select_tag_id, options_for_select(opt_obj.select_options), {:onchange => 'addOption("'+opt_obj.select_tag_id+'")'}
+      = select_tag opt_obj.select_tag_id, options_for_select(opt_obj.select_options), {:onchange => 'addOption("'+opt_obj.select_tag_id+'")', class: 'chosen'}
 
     - if scope_html_id.present?
       :javascript

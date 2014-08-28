@@ -127,6 +127,9 @@ var formLoad = function(){
       img.attr('src', '');
     }
   });
+  $('.chosen').chosen();
+  $(".chosen-container").css({width:$(".chosen-container").parent().css("width")})
+  selectRemote();
 }
 
 $(document).ready(function(){
