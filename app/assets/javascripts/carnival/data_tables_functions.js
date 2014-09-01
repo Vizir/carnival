@@ -39,6 +39,12 @@ function datatable_list(table, ordered_columns, sorting, filter){
     "bServerSide": remote,
     'sAjaxSource': generateDataSource(table),
     'fnDrawCallback': function(oSettings){
+      scopes = oSettings.jqXHR.responseJSON.scope_counters;
+      if (scopes !== undefined) {
+        scopes.forEach(function(scope) {
+          Carnival.setScopeNumber(scope.scope, scope.count);
+        });
+      }
       Carnival.batchActionSelected();
     },
     "sPaginationType": "full_numbers",

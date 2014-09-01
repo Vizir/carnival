@@ -63,21 +63,7 @@ module Carnival
     @@presenters = []
 
     def scopes
-      @@scopes[presenter_class_name]
-    end
-
-    def scopes_counters(query)
-      scopes = {}
-      if @@scopes[presenter_class_name].present?
-        @@scopes[presenter_class_name].each do |key, scope|
-          if base_query.present?
-            scopes[scope.name] = base_query.send(scope.name).count
-          else
-            scopes[scope.name] = query.send(scope.name).count
-          end
-        end
-      end
-      scopes
+      @@scopes[presenter_class_name] || {}
     end
 
     def fields
