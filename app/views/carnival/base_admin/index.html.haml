@@ -1,7 +1,6 @@
 = javascript_include_tag "carnival/data_tables_functions"
 - special_scope =  params[:special_scope]
 - model = @datatable.model
-- items_for_scope_count = controller.table_items || model
 - presenter = @datatable.presenter
 - params = {:class => 'table'}
 
@@ -36,7 +35,7 @@
 .table-tools
   .advanced_search
     = render '/carnival/shared/advanced_search', :params => params, presenter: presenter
-  = render '/carnival/shared/scope', :params => params, presenter: presenter, query: items_for_scope_count
+  = render '/carnival/shared/scope', :params => params, presenter: presenter
   .actions
     - presenter.actions_for_page.each do |key, action|
       = render '/carnival/shared/action_default', :label=>t("#{presenter.model_name}.#{action.name}", default: t("carnival.#{action.name}")), :path=> action.path
