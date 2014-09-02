@@ -186,13 +186,10 @@ module Carnival
     end
 
     def default_scope
-      default_scope = nil
       @@scopes[presenter_class_name].each do |key, scope|
-        default_scope = scope if scope.default?
-        break
+        return scope if scope.default?
       end
-      default_scope = @@scopes[presenter_class_name].first[1] if default_scope.nil?
-      default_scope
+      @@scopes[presenter_class_name].values.first
     end
 
     def default_sortable_field

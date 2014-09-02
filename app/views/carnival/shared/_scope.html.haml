@@ -3,10 +3,11 @@
   - params["data-scope"] = presenter.default_scope.name
   %ul.scopes
     - scopes.each do |key, scope|
-      %li.scope{:class => "#{presenter.default_scope == scope ? 'selected' : ''}"}
-        %a{:class => "datatables-scope filters", :data => {:scope => "#{scope.name}"}}
-          = t("#{presenter.model_name}.scope.#{scope.name}")
-          %span.count (...)
+      - unless scope.hidden?(controller)
+        %li.scope{:class => "#{presenter.default_scope == scope ? 'selected' : ''}"}
+          %a{:class => "datatables-scope filters", :data => {:scope => "#{scope.name}"}}
+            = t("#{presenter.model_name}.scope.#{scope.name}")
+            %span.count (...)
 
 :javascript
   $(document).ready(function(){
