@@ -6,6 +6,7 @@ module Carnival
           :searchable => true
 
     field :notification,
-          :actions => [:index]
+          :actions => [:index],
+          :relation_column => :title
   end
 end
