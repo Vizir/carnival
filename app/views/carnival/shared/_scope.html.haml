@@ -1,14 +1,13 @@
-
 - scopes = presenter.scopes
-- scopes_counters = presenter.scopes_counters(query)
 - if scopes.present? && scopes.size > 0
   - params["data-scope"] = presenter.default_scope.name
   %ul.scopes
     - scopes.each do |key, scope|
-      %li.scope{:class => "#{presenter.default_scope == scope ? 'selected' : ''}"}
-        %a{:class => "datatables-scope filters", :data => {:scope => "#{scope.name}"}}
-          = t("#{presenter.model_name}.scope.#{scope.name}")
-          %span.count= "(#{scopes_counters[scope.name]})"
+      - unless scope.hidden?(controller)
+        %li.scope{:class => "#{presenter.default_scope == scope ? 'selected' : ''}"}
+          %a{:class => "datatables-scope filters", :data => {:scope => "#{scope.name}"}}
+            = t("#{presenter.model_name}.scope.#{scope.name}")
+            %span.count (...)
 
 :javascript
   $(document).ready(function(){

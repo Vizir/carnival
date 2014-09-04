@@ -24,30 +24,26 @@ module Carnival
     end
 
     def as_json(options = {})
-      if(params[:scope].present? && params[:scope] != "all")
-        @model = @model.send(params[:scope])
-      end
-
-      date_filter_field = @presenter.date_filter_field
-      if(date_filter_field.present? && params[:from].present? && params[:from] != "" && params[:to].present? && params[:to] != "")
-        @model = @model.where("#{@presenter.table_name}.#{date_filter_field.name} between ? and ?", "#{params[:from]} 00:00:00", "#{params[:to]} 23:59:59")
-      end
-
-      count = @model.count
-
+      count = records.count
       return_data = {}
       return_data[:data] = get_data
+
+      scope_counters = @presenter.scopes.keys.map do |scope|
+        count = records(false).send(scope.to_sym).size
+        { scope: scope, count: count }
+      end
 
       {
         sEcho: params[:sEcho].to_i,
         iTotalRecords: count,
         iTotalDisplayRecords: records.total_entries,
-        aaData: return_data[:data]
+        aaData: return_data[:data],
+        scope_counters: scope_counters
       }
     end
 
     def as_pdf(options = {})
-      fetch_records
+      records
     end
 
     def as_list(options = {})
@@ -57,9 +53,9 @@ module Carnival
         model_object = params[:model_class_name].classify.constantize.send(:find, params[:model_id])
       end
       if params[:carnival_list_scope]
-        items = @model.where(params[:carnival_list_scope])
+        items = records.where(params[:carnival_list_scope])
       else
-        items = @model.all
+        items = records.all
       end
 
       just_class_name = params[:model_class_name].demodulize.classify.underscore
@@ -104,11 +100,9 @@ module Carnival
     end
 
     def get_data(render_type = RENDER_TABLE)
-      data = []
-      records.each do |record|
-        data << build_table_row(record, render_type)
+      records.map do |record|
+        build_table_row(record, render_type)
       end
-      data
     end
 
     def build_table_row record, render_type
@@ -139,21 +133,16 @@ module Carnival
           i = i + 1
         end
         data_item[i.to_s] = list_buttons(@presenter, record)
-        #data_item[i.to_s] = @controller.render_to_string :formats => [:html], :partial => '/carnival/shared/item_buttons', :locals => {:record=>record, :presenter => @presenter}
         i = i + 1
       end
 
       data_item
     end
 
-    def records
-      @records ||= fetch_records
-    end
-
-    def fetch_records
+    def records(apply_scope = true)
       @filters = []
       records = @model
-      if(params[:scope].present? && params[:scope] != "all")
+      if(params[:scope].present? && params[:scope] != "all" && apply_scope)
         records = records.send(params[:scope])
         add_filter 'Escopo',params[:scope]
       end
