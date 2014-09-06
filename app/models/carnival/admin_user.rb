@@ -14,16 +14,10 @@ module Carnival
     end
 
     has_one :avatar, as: :imageable, autosave: true
-    has_many :admin_user_notifications
-    has_many :notifications, through: :admin_user_notifications
     accepts_nested_attributes_for :avatar
 
     after_initialize do |user|
       user.avatar = user.build_avatar if user.avatar.nil?
-    end
-
-    def unread_notifications
-      self.admin_user_notifications.where(:read => false).to_a
     end
 
     def self.new_with_session(params, session)

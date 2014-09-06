@@ -5,9 +5,7 @@ module ActionDispatch::Routing
       get "/carnival/load_select_options" => 'carnival/base_admin#load_select_options', as: :load_select_options
       scope mount_location do
         get "carnival-base/load_dependent_select_options/:presenter/:field/:dependency_field/:dependency_value" => 'carnival/base_admin#load_dependent_select_options', as: :load_dependent_select_options
-        get "admin_user_notification/read/:id" => 'carnival/admin_user_notifications#read', as: :carnival_read_admin_user_notification
         get "render_inner_form" => 'carnival/base_admin#render_inner_form' 
-        resources :admin_user_notifications, controller: "carnival/admin_user_notifications", :as => :carnival_admin_user_notifications
         resources :admin_users, controller: "carnival/admin_users", :as => :carnival_admin_users
         if Carnival::Config.devise_config.include?(:omniauthable) and Carnival::Config.omniauth.present?
           devise_for :admin_users, :class_name => Carnival::Config.devise_class_name, :path => "sessions", :controllers => { :sessions => "carnival/sessions", :omniauth_callbacks => "carnival/omniauth_callbacks" }

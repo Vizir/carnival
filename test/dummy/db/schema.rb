@@ -11,18 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140811223237) do
-
-  create_table "admin_user_notifications", force: true do |t|
-    t.boolean  "read",            default: false
-    t.integer  "notification_id"
-    t.integer  "admin_user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "admin_user_notifications", ["admin_user_id"], name: "index_admin_user_notifications_on_admin_user_id"
-  add_index "admin_user_notifications", ["notification_id"], name: "index_admin_user_notifications_on_notification_id"
+ActiveRecord::Schema.define(version: 20140814173949) do
 
   create_table "admin_users", force: true do |t|
     t.string   "name",                   default: "", null: false
@@ -72,6 +61,22 @@ ActiveRecord::Schema.define(version: 20140811223237) do
   add_index "cities", ["country_id"], name: "index_cities_on_country_id"
   add_index "cities", ["state_id"], name: "index_cities_on_state_id"
 
+  create_table "ckeditor_assets", force: true do |t|
+    t.string   "data_file_name",               null: false
+    t.string   "data_content_type"
+    t.integer  "data_file_size"
+    t.integer  "assetable_id"
+    t.string   "assetable_type",    limit: 30
+    t.string   "type",              limit: 30
+    t.integer  "width"
+    t.integer  "height"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable"
+  add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type"
+
   create_table "companies", force: true do |t|
     t.string   "name"
     t.integer  "country_id"
@@ -120,14 +125,6 @@ ActiveRecord::Schema.define(version: 20140811223237) do
 
   create_table "jobs", force: true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "notifications", force: true do |t|
-    t.string   "title"
-    t.string   "message"
-    t.string   "link"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
