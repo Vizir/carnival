@@ -5,15 +5,10 @@ module Carnival
     @@app_name
     @@mount_at
     @@menu
-    @@devise_config = []
-    @@omniauth
-    @@omniauth_providers
     @@custom_css_files = []
     @@custom_javascript_files = []
-    @@ar_admin_user_class = ActiveRecord::Base
-    @@root_action = "carnival/admin_users#index"
+    @@root_action = "carnival/base_admin#home"
     @@use_full_model_name = true
-    @@devise_class_name = 'Carnival::AdminUser'
 
     def self.app_name
       return "#{Rails.application.class.to_s.split('::').first} Admin" if @@app_name.nil? 

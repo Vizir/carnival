@@ -16,25 +16,15 @@
 
   %body
     #main
-      - if current_admin_user.present?
-        .right_menu
-          = carnival_render_if_exist 'carnival/extra_header'
-
-          %div.sign_out= link_to t('logout'), destroy_admin_user_session_path, :method => :delete
-          %div.salute
-            = link_to edit_carnival_admin_user_path(:id => current_admin_user.id) do
-              .email
-                = current_admin_user.email
-              %figure
-                = image_tag current_admin_user.avatar.photo.url, :class => "#{current_admin_user.avatar.photo.exists? ? 'custom' : 'default'}"
-
+      .right_menu
+        = carnival_render_if_exist 'carnival/extra_header'
       #header_wrapper
         #header
           .logo_intranet
             - if partial_exist? 'carnival/app_logo' 
               = render 'carnival/app_logo'
             -else
-              = link_to "#{Carnival::Config.app_name}", admin_root_url
+              = link_to "#{Carnival::Config.app_name}", carnival_root_url
 
       #content_wrapper
         = render '/layouts/carnival/menu'
