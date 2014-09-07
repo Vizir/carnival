@@ -89,9 +89,9 @@
     });
   }
 
-  function updateDependentFormSelectHtml(value, field, dependentField){
+  function updateDependentFormSelectHtml(load_dependent_path, presenter, value, field, dependentField){
     if(value != ""){
-      $.ajax("#{model_presenter.load_dependent_select_options_path}/#{model_presenter.presenter_name}/" + dependentField + "/" + field + "/" + value)
+      $.ajax(load_dependent_path + "/" + presenter + "/" + dependentField + "/" + field + "/" + value)
         .done(function(data){
           var selector = ".field-" + dependentField.replace("_id", "");
           $(selector).html(data);

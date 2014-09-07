@@ -307,7 +307,11 @@ module Carnival
       "#{extract_namespace}::#{field.to_sym.classify.pluralize}Controller".constantize.send("new")
     end
     def load_dependent_select_options_path
-      "/#{extract_namespace.downcase}/carnival-base/load_dependent_select_options"
+      if extract_namespace.present?
+        "/#{extract_namespace.downcase}/carnival-base/load_dependent_select_options"
+      else
+        "/carnival-base/load_dependent_select_options"
+      end
     end
 
     protected
