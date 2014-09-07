@@ -6,9 +6,6 @@ Following the [Devise Getting Started Guide](https://github.com/plataformatec/de
 ```ruby 
 
 devise_for :users
-
-...
-
 authenticate :user do
   mount_carnival_at '/'
   resources :people
@@ -20,6 +17,7 @@ end
 Create a partial "carnival/_extra_header.html.haml(erb)" in you views folder
 
 Ex.
+
 ![Extra Header Partial](https://dl.dropboxusercontent.com/u/2134454/cdn/carnival/carnival-extra-header-sample-file.png)
 
 Sample content:
