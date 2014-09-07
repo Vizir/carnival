@@ -31,7 +31,7 @@ Dummy::Application.configure do
 
   config.after_initialize do
     Bullet.enable = true
-    Bullet.alert = true
+    Bullet.alert = false
     Bullet.bullet_logger = true
     Bullet.console = true
     Bullet.growl = false
@@ -41,7 +41,7 @@ Dummy::Application.configure do
     #                 :show_online_status => true }
     # Bullet.rails_logger = true
     # Bullet.airbrake = true
-    # Bullet.add_footer = true
+    Bullet.add_footer = true
   end
 
   config.paperclip_defaults = {
