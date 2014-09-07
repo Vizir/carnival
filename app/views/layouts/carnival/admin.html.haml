@@ -8,7 +8,6 @@
     = stylesheet_link_tag controller_name if Rails.application.assets.find_asset("#{controller_name}.css")
     = javascript_include_tag controller_name if Rails.application.assets.find_asset("#{controller_name}.js")
     = csrf_meta_tags
-    %link{:href => "http://fonts.googleapis.com/css?family=Raleway:400,600,700", :rel => "stylesheet", :type => "text/css"}
     - Carnival::Config.custom_javascript_files.each do |file|
       = javascript_include_tag file
     - Carnival::Config.custom_css_files.each do |file|
