@@ -44,3 +44,28 @@
     :show_view => 'field_name' #in this case it will search for a partial named _field_name
   ```
 
+## Required Parameters for related fields
+You can have a field that is a relation, for example the field category
+in product, in this case you must supply the **relation_column** attribute,
+which will be used to show the value of your field and to sort the results
+in the grid.
+``` ruby
+    :relation_column => :name # this is the name of the field in the related
+                              # entity
+```
+Another way you can show a related field is putting the related field name in
+the field declaration, and adding the **owner_relation** parameter to that
+field.
+Suppose that you have a model Product that **belongs_to** a Category, and
+you wanna show the category_name field in the Category model, you may
+put a field category_name in the ProductPresenter and add the attribute
+**owner_relation** to the field declaration, so Carnival will look
+directly on category when search for that attribute. Following is a simple
+example:
+``` ruby
+class ProductPresenter < Carnival::BaseAdminPresenter
+  field :category_name, # the product model does not need to have this field
+    :actions => [:index, :show, :edit],
+    :owner_relation => :category
+end
+```

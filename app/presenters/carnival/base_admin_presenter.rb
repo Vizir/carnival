@@ -5,7 +5,7 @@ module Carnival
     attr_accessor :special_scope_to_exec
 
     def initialize(params)
-      @@controller = params[:controller]
+      @controller = params[:controller]
       @special_scopes_to_exec = nil
       @klass_service = KlassService.new model_class
       @advanced_search_parser = Presenters::AdvancedSearchParser.new(@klass_service)
@@ -22,7 +22,7 @@ module Carnival
     @@actions = {}
     def self.action(name, params = {})
       @@actions[presenter_class_name] = {} if @@actions[presenter_class_name].nil?
-      @@actions[presenter_class_name][name] = Carnival::Action.new(self.new({}), name, params)
+      @@actions[presenter_class_name][name] = Carnival::Action.new(name, params)
     end
 
     @@batch_actions = {}
@@ -68,6 +68,10 @@ module Carnival
 
     def fields
       @@fields[presenter_class_name]
+    end
+
+    def get_field(field)
+      @@fields[presenter_class_name][field.to_sym]
     end
 
     def fields_for_action(action)
@@ -128,15 +132,15 @@ module Carnival
     end
 
     def controller_class_name
-      @@controller.class.name
+      @controller.class.name
     end
 
     def controller_name
       namespace = extract_namespace
       if namespace.present?
-        "#{extract_namespace.downcase}/#{@@controller.controller_name}"
+        "#{extract_namespace.downcase}/#{@controller.controller_name}"
       else
-        @@controller.controller_name
+        @controller.controller_name
       end
     end
 
@@ -160,7 +164,7 @@ module Carnival
     def join_tables
       joins = []
       @@fields[presenter_class_name].each do |key, field|
-        joins << key if relation_field? key.to_sym     
+        joins << key if relation_field? key.to_sym
       end
       joins
     end
@@ -246,37 +250,58 @@ module Carnival
       model_class.reflect_on_association(field.to_sym).macro == :belongs_to
     end
 
-    def relation_label(field, record)
-      if relation_field?(field)
-        if @klass_service.is_a_belongs_to_relation?(field)
-          value = record.send(field.to_s)
-          return value.to_label if value.present?
+    def relation_column_type(field_name, record)
+      if relation_field?(field_name)
+        if @klass_service.is_a_belongs_to_relation?(field_name) ||
+           @klass_service.is_a_has_one_relation?(field_name)
+          field = self.fields[field_name]
+          associated_field = record.send(field_name.to_s)
+          if associated_field.present?
+            ks = KlassService.new(associated_field.class)
+            associated_field.send(field.relation_column)
+          else
+            :none
+          end
         else
-          return I18n.t("activerecord.attributes.#{full_model_name}.#{field}")
+          :none
         end
       end
-      return ""
+    end
+
+    def field_type(field)
+      type = model_class.columns_hash[field.to_s].try(:type)
+      if relation_field?(field.to_sym) then :relation
+      elsif type == :date || type == :datetime then type
+      elsif type == :number || type == :float then :number
+      elsif type == :integer and model_class.const_defined? field.upcase then :enum
+      else :other
+      end
+    end
+
+    def has_owner_relation?(field_name)
+      !fields[field_name.to_sym].owner_relation.nil?
     end
 
     def relation_model(field)
-      if is_relation_belongs_to?(field)
-        model_class.reflect_on_association(field).klass.name.constantize
-      end
+      model_class.reflect_on_association(field).klass.name.constantize
     end
 
     def relation_path(field, record)
       return nil if !relation_field?(field)
       controller_path = "#{extract_namespace.downcase}/#{field.to_s.pluralize}"
-      if @klass_service.is_a_belongs_to_relation?(field)
-        id = -1
-        id = record.send(model_class.reflect_on_association(field).foreign_key) if record.send(model_class.reflect_on_association(field).foreign_key).present?
-        params = {:controller => controller_path, :action => :show, :id => id}
+      related = record.send(field)
+      unless related.nil?
+        if @klass_service.is_a_belongs_to_relation?(field) ||
+           @klass_service.is_a_has_one_relation?(field)
+          params = {:controller => controller_path, :action => :show, :id => related.id}
+        else
+          params = {:controller => controller_path, :action => :index, :advanced_search => make_relation_advanced_query_url_options(field, record)}
+        end
+        params = params.merge(:only_path => true)
+        return generate_route_path params
       else
-        params = {:controller => controller_path, :action => :index, :advanced_search => make_relation_advanced_query_url_options(field, record)}
+        '#'
       end
-
-      params = params.merge(:only_path => true)
-      return generate_route_path params
     end
 
     def get_related_class field
@@ -304,7 +329,7 @@ module Carnival
     end
 
     def controller_to_field_sym field
-      "#{extract_namespace}::#{field.to_sym.classify.pluralize}Controller".constantize.send("new")
+      "#{extract_namespace}::#{field.to_s.classify.pluralize}Controller".constantize.send("new")
     end
     def load_dependent_select_options_path
       "/#{extract_namespace.downcase}/carnival-base/load_dependent_select_options"
@@ -312,8 +337,8 @@ module Carnival
 
     protected
     def make_relation_advanced_query_url_options(field, record)
-      relation_model = model_class.reflect_on_association(field).klass.name.pluralize.underscore.split("/").last
-      relation_field = model_class.reflect_on_association(field).foreign_key
+      relation_model = @klass_service.get_association(field).klass.name.pluralize.underscore.split("/").last
+      relation_field = @klass_service.get_association(field).foreign_key
       relation_value = record.id
       {"#{relation_model}.#{relation_field}" => relation_value}
     end

@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-module Carnival
+module Carnival::GenericDatatable
   class GenericDatatable
     delegate :params, :caminho_modelo, :h, :link_to, :number_to_currency, :number_with_precision, :list_cel, :list_buttons, to: :@view
     delegate :current_usuario, :render_to_string, to: :@controller
@@ -10,13 +10,14 @@ module Carnival
     RENDER_CSV = 1
     RENDER_PDF = 2
 
+    BATCH_ACTIONS_COLUMN_OFFSET = 1
+
     def initialize(view, model, controller, presenter)
       @view = view
       @model = model
       @controller = controller
       @presenter = presenter
       @filters = []
-      @should_include_relation = !@model.is_a?(ActiveRecord::Relation)
     end
 
     def as_csv(options = {})
@@ -87,7 +88,7 @@ module Carnival
           line.each do |field|
             if i > 1
               if field[1].respond_to? :gsub
-                csv_line << field[1].gsub(/\n$/, "") 
+                csv_line << field[1].gsub(/\n$/, "")
               else
                 csv_line << field[1]
               end
@@ -153,7 +154,7 @@ module Carnival
         add_filter 'Período',"#{params[:from]} - #{params[:to]}"
       end
 
-      records = records.order("#{sort_column} #{sort_direction}")
+      records = records.order("#{ sort_column } #{ sort_direction }")
       if params['format'] == 'json'
         records = records.page(page).per_page(per_page)
       end
@@ -165,15 +166,11 @@ module Carnival
         @presenter.searchable_fields.each do |key, field|
           filtros << "#{key.to_s} like :search"
         end
-        records = includes_relations(records) if @should_include_relation
+        records = includes_relations(records)
         records = records.where(filtros.join(" or "), search: "%#{params[:sSearch]}%")
       end
 
-      if @should_include_relation
-        includes_relations(records)
-      else 
-        records
-      end
+      includes_relations(records)
     end
 
     def includes_relations(records)
@@ -197,24 +194,24 @@ module Carnival
 
     def sort_column
       fields = @presenter.fields_for_action(:index)
-      if fields.size > 0
-        columns =  fields.map {|k, v| k.to_s}
-      end
-        
-      column_index = params[:iSortCol_0].to_i
-      column_index = column_index - 1 if @presenter.has_batch_actions?
+      columns =  fields.keys.map(&:to_s)
 
-      column = columns[column_index]
-      if @presenter.relation_field? column.to_sym
-        "#{column.pluralize}.name"
-      else
-        "#{@presenter.table_name}.#{column}"
-      end
+      column_index = params[:iSortCol_0].to_i
+      column_index = column_index - BATCH_ACTIONS_COLUMN_OFFSET if @presenter.has_batch_actions?
+
+      column = columns[column_index].to_sym
+
+      sorter = ColumnSorterCreator.create_sorter(@presenter, column)
+
+      sorter.build_sort_string
     end
 
     def sort_direction
-      return 'desc' if params[:sSortDir_0] == 'desc'
-      'asc'
+      if params[:sSortDir_0] == 'desc'
+        'desc'
+      else
+        'asc'
+      end
     end
   end
 end

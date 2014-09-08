@@ -134,8 +134,16 @@ module Carnival
       @params[:show_view]
     end
 
+    def relation_column
+      @params[:relation_column]
+    end
+
+    def owner_relation
+      @params[:owner_relation]
+    end
+
   private
-    
+
     def validate
       if nested_form_modes?(:new) and nested_form_modes?(:associate)
         raise ArgumentError.new("field does not support nested_forms_modes with :new and :associate options at same time")
