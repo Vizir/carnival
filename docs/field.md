@@ -10,6 +10,7 @@
 
 - :actions
   - Actions that the field will appear
+
   ```ruby
     :actions => [:index]
   ```
@@ -17,55 +18,92 @@
 - :searchable
   - Define if the field will be searchable
   - Default Value: false
+
   ```ruby
     :searchable => true
   ```
 
-- :advanced_search
+- :advanced\_search
   - Define if the field will be in the advanced search
+
   ```ruby
     :advanced_search => {operator: :equal}
   ```
 
-  - If the field is a relation, you need to define a to\_label method in the relation Model for the Carnival build the select options
-
-
 - :sortable
   - Define if the field will be sortable
   - Default Value: true
+
   ```ruby
     :sortable => true
   ```
 
-- :show_view
+- :show\_view
   - Define a custom partial view that can be used to override the rendering of a specific field
   - Default Value: nil
+
   ```ruby
-    :show_view => 'field_name' #in this case it will search for a partial named _field_name
+    :show_view => 'partial_name' # in this case Carnival will search for a
+                                 # partial named _field_name
   ```
 
-## Required Parameters for related fields
-You can have a field that is a relation, for example the field category
-in product, in this case you must supply the **relation_column** attribute,
-which will be used to show the value of your field and to sort the results
-in the grid.
-``` ruby
-    :relation_column => :name # this is the name of the field in the related
-                              # entity
+## Relations
+### Many to many relations
+#### has\_many and has\_and\_belongs\_to\_many
+For a many to many relations you should just put the field name just like any other field,
+like
+
+```ruby
+field :products,
+  :actions => [:show, :new, :edit]
 ```
-Another way you can show a related field is putting the related field name in
-the field declaration, and adding the **owner_relation** parameter to that
-field.
-Suppose that you have a model Product that **belongs_to** a Category, and
-you wanna show the category_name field in the Category model, you may
-put a field category_name in the ProductPresenter and add the attribute
-**owner_relation** to the field declaration, so Carnival will look
-directly on category when search for that attribute. Following is a simple
-example:
-``` ruby
+###Parameters
+- :show\_as\_list
+  - This param list each associated record. It'll try to call a method to\_label in
+    each of the associated records, if the associated record does not have a to_\label
+    method the method will be the to\_s method.
+
+    ```ruby
+    field :products,
+      :actions => [:show, :new, :edit],
+      :show_as_list => true
+    ```
+- nested\_form
+  - When set to true Carnival will render a nested form for the association
+- nested\_form\_modes (**Required in case nested\_form is set to true**)
+  - This field can have the values :new or :associate.
+      - **:new** allow you edit the associated model in the same form of the current model
+      - **:associate** it'll just allow you associate a related model.
+
+### One to one relations
+#### belongs\_to or has\_one
+For a one to one relation you have two ways to setup a field, one that is used for
+exhibition and the other for edition.
+#### Exhibition
+If you want to show a one to one relation you should name your field with
+'related\_model.related\_field\_name'.
+
+```ruby
+field 'category.name',
+  :actions => [:show, :index]
+```
+#### Edition
+If you want to edit a one to one relation you should name your field with
+the name of the relation.
+
+```ruby
+field :category,
+  :actions => [:new, :edit]
+```
+
+
+#### A sample presenter with exhibition and edition of a one to one relation
+```ruby
 class ProductPresenter < Carnival::BaseAdminPresenter
-  field :category_name, # the product model does not need to have this field
-    :actions => [:index, :show, :edit],
-    :owner_relation => :category
+  field 'category.name',
+    :actions => [:show, :index]
+
+  field :category,
+    :actions => [:new, :edit]
 end
 ```
