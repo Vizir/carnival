@@ -143,6 +143,7 @@ module Carnival::GenericDatatable
     def records(apply_scope = true)
       @filters = []
       records = @model
+
       if(params[:scope].present? && params[:scope] != "all" && apply_scope)
         records = records.send(params[:scope])
         add_filter 'Escopo',params[:scope]
@@ -166,7 +167,6 @@ module Carnival::GenericDatatable
         @presenter.searchable_fields.each do |key, field|
           filtros << "#{key.to_s} like :search"
         end
-        records = includes_relations(records)
         records = records.where(filtros.join(" or "), search: "%#{params[:sSearch]}%")
       end
 

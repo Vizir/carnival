@@ -71,7 +71,11 @@ module Carnival
     end
 
     def get_field(field)
-      @@fields[presenter_class_name][field.to_sym]
+      if field.respond_to? :to_sym
+        @@fields[presenter_class_name][field.to_sym]
+      else
+        field
+      end
     end
 
     def fields_for_action(action)
@@ -164,7 +168,7 @@ module Carnival
     def join_tables
       joins = []
       @@fields[presenter_class_name].each do |key, field|
-        joins << key if relation_field? key.to_sym
+        joins << field.association_name if relation_field? key.to_sym
       end
       joins
     end
@@ -238,8 +242,13 @@ module Carnival
       full_model_name.classify.constantize
     end
 
-    def relation_field?(field)
-      @klass_service.relation? field
+    def relation_field?(field_name)
+      field = get_field(field_name)
+      field.is_relation? or @klass_service.relation?(field.name)
+    end
+
+    def get_association(association)
+      @klass_service.get_association(association)
     end
 
     def relation_type sym
@@ -250,22 +259,10 @@ module Carnival
       model_class.reflect_on_association(field.to_sym).macro == :belongs_to
     end
 
-    def relation_column_type(field_name, record)
-      if relation_field?(field_name)
-        if @klass_service.is_a_belongs_to_relation?(field_name) ||
-           @klass_service.is_a_has_one_relation?(field_name)
-          field = self.fields[field_name]
-          associated_field = record.send(field_name.to_s)
-          if associated_field.present?
-            ks = KlassService.new(associated_field.class)
-            associated_field.send(field.relation_column)
-          else
-            :none
-          end
-        else
-          :none
-        end
-      end
+    def is_relation_has_many?(field)
+      field = get_field(field)
+      association = @klass_service.relation_type(field.association_name || field.name)
+      association.to_s.include? 'many'
     end
 
     def field_type(field)
@@ -274,28 +271,26 @@ module Carnival
       elsif type == :date || type == :datetime then type
       elsif type == :number || type == :float then :number
       elsif type == :integer and model_class.const_defined? field.upcase then :enum
-      else :other
+      else type
       end
     end
 
-    def has_owner_relation?(field_name)
-      !fields[field_name.to_sym].owner_relation.nil?
-    end
-
     def relation_model(field)
-      model_class.reflect_on_association(field).klass.name.constantize
+      field = get_field(field)
+      @klass_service.get_association(field.association_name).klass
     end
 
     def relation_path(field, record)
+      field = get_field(field)
       return nil if !relation_field?(field)
       controller_path = "#{extract_namespace.downcase}/#{field.to_s.pluralize}"
-      related = record.send(field)
+      related = record.send(field.association_name)
       unless related.nil?
-        if @klass_service.is_a_belongs_to_relation?(field) ||
-           @klass_service.is_a_has_one_relation?(field)
+        if @klass_service.is_a_belongs_to_relation?(field.association_name) ||
+           @klass_service.is_a_has_one_relation?(field.association_name)
           params = {:controller => controller_path, :action => :show, :id => related.id}
         else
-          params = {:controller => controller_path, :action => :index, :advanced_search => make_relation_advanced_query_url_options(field, record)}
+          params = {:controller => controller_path, :action => :index, :advanced_search => make_relation_advanced_query_url_options(field.name, record)}
         end
         params = params.merge(:only_path => true)
         return generate_route_path params
@@ -383,15 +378,15 @@ module Carnival
     end
 
     def self.scope(name, params = {})
-      self.instantiate_element(@@scopes, Carnival::Scope, name, params)
+      self.instantiate_element(@@scopes, Carnival::Scope, name.to_sym, params)
     end
 
     def self.field(name, params = {})
-      self.instantiate_element(@@fields, Carnival::Field, name, params)
+      self.instantiate_element(@@fields, Carnival::Field, name.to_sym, params)
     end
 
     def self.form(action, params = {})
-      self.instantiate_element(@@forms, Carnival::Form, name, params)
+      self.instantiate_element(@@forms, Carnival::Form, name.to_sym, params)
     end
 
     def self.model_name(name)

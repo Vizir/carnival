@@ -48,7 +48,7 @@
         %th
           %input{id: 'toggle-all-batch-actions-items',type: 'checkbox',disabled: 'disabled'}
       -presenter.fields_for_action(:index).each do |key, field|
-        %th{"data-sortable" => "#{field.sortable_params}"}= t("activerecord.attributes.#{presenter.full_model_name}.#{field.name}")
+        %th{"data-sortable" => "#{field.sortable_params}"}= translate_field(presenter, field)
       %th.buttons
   %tbody
 
