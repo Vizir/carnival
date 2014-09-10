@@ -9,6 +9,14 @@ module Carnival
       @special_scopes_to_exec = nil
       @klass_service = KlassService.new model_class
       @advanced_search_parser = Presenters::AdvancedSearchParser.new(@klass_service)
+      @validators = [Carnival::PresenterValidators::FieldValidator]
+      validates
+    end
+
+    def validates
+      @validators.each do |validator|
+        validator.new(self).validates
+      end
     end
 
     def base_query
@@ -244,7 +252,7 @@ module Carnival
 
     def relation_field?(field_name)
       field = get_field(field_name)
-      field.is_relation? or @klass_service.relation?(field.name)
+      field.specified_association? or @klass_service.relation?(field.name)
     end
 
     def get_association(association)
@@ -280,6 +288,12 @@ module Carnival
       @klass_service.get_association(field.association_name).klass
     end
 
+    def is_one_to_one_relation?(field_name)
+      field = get_field(field_name)
+      @klass_service.is_a_belongs_to_relation?(field.association_name) ||
+        @klass_service.is_a_has_one_relation?(field.association_name)
+    end
+
     def relation_path(field, record)
       field = get_field(field)
       return nil if !relation_field?(field)
@@ -287,8 +301,7 @@ module Carnival
       controller_path = "#{extract_namespace.downcase}/#{relation_name}"
       related = record.send(field.association_name)
       unless related.nil?
-        if @klass_service.is_a_belongs_to_relation?(field.association_name) ||
-           @klass_service.is_a_has_one_relation?(field.association_name)
+        if is_one_to_one_relation?(field)
           params = {:controller => controller_path, :action => :show, :id => related.id}
         else
           params = {:controller => controller_path, :action => :index, :advanced_search => make_relation_advanced_query_url_options(field.name, record)}

@@ -5,6 +5,8 @@ pt-BR:
     new: Novo
     edit: Editar
     destroy: Apagar
+    errors:
+      invalid_field:  "As actions '%{actions}' não são válidas para o campo '%{field}' do presenter '%{presenter}'"
 
   nested_form:
     open: Abrir
