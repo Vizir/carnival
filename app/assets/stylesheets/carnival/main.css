@@ -532,7 +532,7 @@ h1.title{
 .logo_intranet{
   float: left;
   height: 60px;
-  width: 260px;
+  width: 600px;
   margin-left: 15px;
   margin-top: 10px;
 }
@@ -2304,6 +2304,7 @@ table input{
 
 .nested-form-list{
   clear: both;
+  padding: 10px 5px 10px 30px;
 }
 
 .nested-form-list-item{
@@ -2317,6 +2318,17 @@ table input{
   float: right;
 }
 
+.nested-form .nested-form-title{
+  width: 48%;
+  border-bottom: solid 1px #ccc;
+}
+
+.nested-form .carnival-select-action{
+  width: 48%;
+  float: left;
+  text-align: right;
+  border-bottom: solid 1px #ccc;
+}
 .existing-options{
   clear: both;
   padding-bottom: 10px;

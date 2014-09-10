@@ -20,7 +20,9 @@
   - options[:input_html][:data][:depends_on] = field.depends_on
   :javascript
     $(".field-#{field.depends_on}").change(function(event, element){
-      updateDependentFormSelectHtml(element.selected, $(this).attr("name").match( /\[(.*)\]/)[1], $($(".field-#{field.name}").first()).attr("name").match( /\[(.*)\]/)[1]);
+      var field = $(this).attr("name").match( /\[([A-Za-z_])*\]/g)[1].replace("[", "").replace("]", "");
+      var dependentField = $($(".field-#{field.name}").first()).attr("name").match( /\[([A-Za-z_])*\]/g)[1].replace("[", "").replace("]", "");
+      updateDependentFormSelectHtml("#{model_presenter.load_dependent_select_options_path}", "#{model_presenter.class.name}", element.selected, field, dependentField);
     });
 
 - options[:label] = translate_field(model_presenter, field)
