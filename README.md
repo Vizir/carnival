@@ -333,5 +333,14 @@ You can add custom translations for the actions [:new, :show, :edit, :destroy]
     show: Show company
 ```
 
+## Additional Docs
+You can find more detailed docs in the links below
+
+- [Action](docs/action.md)
+- [Field](docs/field.md)
+- [Presenter](docs/presenter.md)
+- [Scope](docs/scope.md)
+
+
 ##TODO
 * create has many association input data

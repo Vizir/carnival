@@ -47,26 +47,26 @@ module Carnival
     end
 
     def table_name
-      @klass.table_name 
+      @klass.table_name
     end
 
     def klass
-      @klass 
+      @klass
     end
 
-private
 
-    def get_association sym
-      @klass.reflect_on_association(sym)
+    def get_association association
+      @klass.reflect_on_association(association.to_sym)
     end
 
+    private
     def get_related_class sym
       get_association(sym).klass
     end
 
     def many_to_many_relation? association
       return true if association.macro == :has_and_belongs_to_many
-      return false if association.macro == :has_many 
+      return false if association.macro == :has_many
       return true if association.options[:through].present?
       return false
     end

@@ -12,6 +12,7 @@ module Admin
           :actions => [:index, :new, :edit, :show],
           :searchable => true,
           :advanced_search => {:operator => :like}
+
     field :code,
           :sortable => {:default => true, :direction => :desc},
           :actions => [:index, :new, :edit, :show],
@@ -20,14 +21,16 @@ module Admin
 
     field :country,
           :actions => [:index, :new, :edit, :show],
-          :advanced_search => {:operator => :equal}
+          :advanced_search => {:operator => :equal},
+          :relation_column => :name
 
     field :cities,
-          :actions => [:index, :show, :edit, :new],
+          :actions => [:show, :edit, :new],
           :show_as_list => true,
-          :nested_form => true, 
-          :nested_form_allow_destroy => true, 
-          nested_form_modes: [:associate]
+          :nested_form => true,
+          :nested_form_allow_destroy => true,
+          :nested_form_modes => [:associate],
+          :relation_column => :name
 
     field :created_at, :actions => [:index, :show]
     field :updated_at, :actions => [:index, :show]
