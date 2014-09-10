@@ -1,18 +1,17 @@
 - menus = Carnival::Config::menu.clone
-- if current_admin_user.present?
-  .menu.short
-  .menu.full
-    %ul.menu
-      %ul.dropdown_main_menu
-        - menus.each do |key, menu|
-          %li{:class => menu[:class]}
-            = link_to t("carnival.menu.#{ menu[:label].downcase.gsub(' ', '_') }"), menu_link(menu[:link]), {:class => " btn_usuario sublevel"} unless menu[:link].nil?
-            - if menu[:subs].present?
-              %ul.dropdown_main_menu_sublevel
-                - menu[:subs].each do |sub|
-                  %li
-                    = link_to t("carnival.menu.#{ sub[:label].downcase.gsub(' ', '_') }"), menu_link(sub[:link]), {:class => "#{set_resource_actived_if_current(sub[:link])} #{sub[:class]}"}
+.menu.short
+.menu.full
+  %ul.menu
+    %ul.dropdown_main_menu
+      - menus.each do |key, menu|
+        %li{:class => menu[:class]}
+          = link_to t("carnival.menu.#{ menu[:label].downcase.gsub(' ', '_') }"), menu_link(menu[:link]), {:class => " btn_usuario sublevel"} unless menu[:link].nil?
+          - if menu[:subs].present?
+            %ul.dropdown_main_menu_sublevel
+              - menu[:subs].each do |sub|
+                %li
+                  = link_to t("carnival.menu.#{ sub[:label].downcase.gsub(' ', '_') }"), menu_link(sub[:link]), {:class => "#{set_resource_actived_if_current(sub[:link])} #{sub[:class]}"}
 
-        %li.minify
-          %span="Minimizar"
+      %li.minify
+        %span="Minimizar"
 

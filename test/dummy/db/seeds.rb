@@ -1,7 +1,5 @@
 # encoding: utf-8
 
-Carnival::AdminUser.create(email: "admin@vizir.com.br", password: "12345678", password_confirmation: "12345678");
-
 brazil = Admin::Country.create(name: 'Brazil', code: 'BR')
 
 sp = Admin::State.create(:name => 'São Paulo', code: 'SP', country: brazil)

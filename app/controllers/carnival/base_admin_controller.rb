@@ -1,7 +1,11 @@
 module Carnival
   class BaseAdminController < InheritedResources::Base
     respond_to :html, :json
-    before_filter :authenticate_admin_user!
+    layout "carnival/admin"
+
+    def home
+
+    end
 
     def generate_datatable
       model_presenter = instantiate_presenter
@@ -13,7 +17,6 @@ module Carnival
     end
 
     def render_inner_form
-      presenter = Carnival::AdminUserPresenter.new controller: self
       @model_presenter = presenter_name(params[:field]).new controller: self
       model_class = params[:field].classify.constantize
       @model_object = model_class.send(:find_by_id, params[:id])
@@ -154,19 +157,5 @@ module Carnival
       namespace = arr[0] if arr.size > 1
       namespace
     end
-
-    def after_sign_in_path_for(user)
-      session[:admin_user_id] = user.id
-      admin_root_path
-    end
-
-    def after_sign_out_path_for(user)
-      session[:admin_user_id] = nil
-      root_path
-    end
-  end
-
-  def authenticate_admin_user!
-    redirect_to admin_root_path if current_admin_user.nil?
   end
 end

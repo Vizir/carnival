@@ -5,7 +5,7 @@ By [Vizir](http://vizir.com.br/).
 
 Carnival is an easy-to-use and extensible Rails Engine to speed up the development of data management interfaces.
 
-When you use Carnival you can benefit from made features that are already done. If you need to change anything, you can write your own version of the method, using real Ruby code without worrying about the syntax of the engine.
+When you use Carnival you'll benefit from a big suite of feature already done. If you need to change anything, you can write your own version of the code, using real Ruby code in Rails standard components without worrying about a specific syntax or DSL.
 
 ##Features
 
@@ -13,18 +13,46 @@ When you use Carnival you can benefit from made features that are already done. 
 * Search data easily;
 * Advanced searches in a minute. You can specify which fields you want to search for;
 * Fancy time filter, based on Toggl design;
-* Authentication and CRUD of users based on Devise;
-* Facebook and Google authentication;
 * Nice default layout, ready to use.
-* User notification engine.
 * New and Edit forms are easily configured. If you do ot like, you can write your own views.
 
-##Based of the Gems we are used to
-* Devise for authentication;
-* OmniAuth for Facebook and Google;
-* Inherited Resources on our controllers;
-* SimpleForm for new and edit forms;
-* WickedPDF for PDF generation;
+### Detailed features list
+* Index List
+  - Ordering by any column
+  - Scope
+  - Search
+  - Advanced Search
+  - Custom Links
+  - Remote Actions
+  - Custom Actions
+  - Batch Operations
+  - Custom Css Cel
+  - Delete 
+  - CSV Export
+  - PDF Export
+* Edit form
+  - Create new
+  - Update existent
+  - Nested Form
+  - Associate an existent
+  - Create new
+  - Update
+  - Delete
+  - ImagePreview
+  - Relation select (Autocomplete)
+  - Grid config (field order and size)
+* Show
+  - Grid config (field order and size)
+  - Relation links
+  - Custom partial view
+  - Show as list
+* Menu
+  - Customize Order, route, text, label and class
+
+
+## It can be easily integrated with gems that you are already used to use
+### Authentication
+* [Devise](docs/integrations/devise.md)
 
 ##How it works
 In some words, Carnival provides a managing infra-structure for your application. All the data related to Carnival will be located under the /admin namespace.
@@ -55,18 +83,9 @@ After you install Carnival, you will have a running CRUD application which is re
 The Carnival application will be under the '/admin' namespace.
 Some features are already implemented. To use it, do the following:
 
-* Create an administrator user, execute the following Rake Task
-
-```
-rake carnival:users:add_admin["email@username.com","at_least_8_digit_password"]
-```
-
 * Start your Rails web server and acess the `/admin` page.
 
 `http://server-name/admin`
-
-* You will be redirected for the login page, please type the email and password recently added.
-* After logging in, you will see the main page with the menu bar on the right. On this menu bar you can find the users lists where is possible to mange the administrators users of the system
 
 ## Basic Usage
 
@@ -186,6 +205,7 @@ config.menu =
 }
 
 ```
+
 ## [Presenter Properties](docs/presenter.md)
 
 

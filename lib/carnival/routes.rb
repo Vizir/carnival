@@ -6,13 +6,7 @@ module ActionDispatch::Routing
       scope mount_location do
         get "carnival-base/load_dependent_select_options/:presenter/:field/:dependency_field/:dependency_value" => 'carnival/base_admin#load_dependent_select_options', as: :load_dependent_select_options
         get "render_inner_form" => 'carnival/base_admin#render_inner_form' 
-        resources :admin_users, controller: "carnival/admin_users", :as => :carnival_admin_users
-        if Carnival::Config.devise_config.include?(:omniauthable) and Carnival::Config.omniauth.present?
-          devise_for :admin_users, :class_name => Carnival::Config.devise_class_name, :path => "sessions", :controllers => { :sessions => "carnival/sessions", :omniauth_callbacks => "carnival/omniauth_callbacks" }
-        else
-          devise_for :admin_users, :class_name => Carnival::Config.devise_class_name, :path => "sessions", :controllers => { :sessions => "carnival/sessions"}
-        end
-        root to: Carnival::Config.root_action, :as => :admin_root
+        root to: Carnival::Config.root_action, :as => :carnival_root
       end
     end
   end
