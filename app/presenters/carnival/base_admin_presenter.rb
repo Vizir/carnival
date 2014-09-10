@@ -283,7 +283,8 @@ module Carnival
     def relation_path(field, record)
       field = get_field(field)
       return nil if !relation_field?(field)
-      controller_path = "#{extract_namespace.downcase}/#{field.to_s.pluralize}"
+      relation_name = get_related_class_for_field(field)
+      controller_path = "#{extract_namespace.downcase}/#{relation_name}"
       related = record.send(field.association_name)
       unless related.nil?
         if @klass_service.is_a_belongs_to_relation?(field.association_name) ||
@@ -299,8 +300,14 @@ module Carnival
       end
     end
 
-    def get_related_class field
-      @klass_service.related_class_file_name field
+    def get_related_class_for_field (field_name)
+      field = get_field(field_name)
+      relation_name = field.is_relation? ? field.association_name : field.name
+      get_related_class(relation_name)
+    end
+
+    def get_related_class relation_name
+      @klass_service.related_class_file_name relation_name
     end
 
     def get_class_for field
