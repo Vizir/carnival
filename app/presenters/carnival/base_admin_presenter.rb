@@ -46,10 +46,12 @@ module Carnival
 
     @@items_per_page = {}
     def self.items_per_page(per_page)
+      @@items_per_page[presenter_class_name] = {} if @@items_per_page[presenter_class_name].nil?
       @@items_per_page[presenter_class_name][:items_per_page] = per_page
     end
 
     def items_per_page
+      @@items_per_page[presenter_class_name] = {} if @@items_per_page[presenter_class_name].nil?
       unless @@items_per_page[presenter_class_name].present? and @@items_per_page[presenter_class_name][:items_per_page].present? and @@items_per_page[presenter_class_name][:items_per_page] > 0
         @@items_per_page[presenter_class_name][:items_per_page] = Carnival::Config.items_per_page
       end

@@ -36,22 +36,23 @@ module Carnival
 
     def search_query(records)
       filtros = []
-      if @query_form.search.present? and @presenter.searchable_fields.size > 0
+      if @query_form.search_term.present? and @presenter.searchable_fields.size > 0
         @presenter.searchable_fields.each do |key, field|
           filtros << "#{key.to_s} like :search"
         end
         records = includes_relations(records) if @should_include_relation
-        records = records.where(filtros.join(" or "), search: "%#{@query_form.search}%")
+        records = records.where(filtros.join(" or "), search: "%#{@query_form.search_term}%")
       end
       records
     end
 
     def advanced_search_query(records)
-        records = @presenter.parse_advanced_search(records, @query_form.advanced_query)
+      return records if !@query_form.advanced_search.present?
+      @presenter.parse_advanced_search(records, @query_form.advanced_search)
     end
 
     def page_query(records)
-        records = records.paginate(page: @oarams[:page], per_page: @presenter.items_per_page)
+        records = records.paginate(page: @query_form.page, per_page: @presenter.items_per_page)
     end
 
     def order_query(records)
@@ -73,7 +74,7 @@ module Carnival
         columns =  fields.map {|k, v| k.to_s}
       end
         
-      column_index = @query_form.sort_column.to_i
+      column_index = @query_form.sort_column_index.to_i
       column_index = column_index - 1 if @presenter.has_batch_actions?
 
       column = columns[column_index]
@@ -82,11 +83,11 @@ module Carnival
       else
         column_name = "#{@presenter.table_name}.#{column}"
       end
-      @query_form.sort_column = column_name
+      #@query_form.sort_column = column_name
     end
 
     def sort_direction
-      return 'desc' if params[:sSortDir_0] == 'desc'
+      #return 'desc' if params[:sSortDir_0] == 'desc'
       'asc'
     end
 

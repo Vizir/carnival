@@ -1,7 +1,7 @@
 module Carnival
 
   class Config
-    mattr_accessor :menu, :devise_config, :devise_class_name, :omniauth, :omniauth_providers, :custom_css_files, :custom_javascript_files, :root_action, :use_full_model_name, :app_name, :mount_at
+    mattr_accessor :menu, :devise_config, :devise_class_name, :omniauth, :omniauth_providers, :custom_css_files, :custom_javascript_files, :root_action, :use_full_model_name, :app_name, :mount_at, :items_per_page
     @@app_name
     @@mount_at
     @@menu

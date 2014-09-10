@@ -1,7 +1,7 @@
 = javascript_include_tag "carnival/data_tables_functions"
 - special_scope =  params[:special_scope]
-- model = @datatable.model
-- presenter = @datatable.presenter
+- model = @model
+- presenter = @presenter
 - params = {:class => 'table'}
 
 - date_filter_field = presenter.date_filter_field
@@ -159,6 +159,4 @@
     dataTable.fnReloadAjax(generateDataSource($(".table")));
   }
 
-  $(document).ready(function(){
-    datatable_list('table', []);
-  });
+
