@@ -1,12 +1,9 @@
 - options = {wrapper_html: {class: "col-md-#{field.size}"}}
-- current_type = field_type(model_presenter,field.name)
-- if current_type == :has_one_relation
-  = ''
-- else
-  - options[:as] = :admin_enum if current_type == :enum
-  - options[:as] = :admin_relationship_select if current_type == :relation
-  - options[:as] = :admin_date if current_type.to_s =~ /^date(time)?$/
-  - options[:as] = field.as if field.as.present?
+- current_type = model_presenter.field_type(field.name)
+- options[:as] = :admin_enum if current_type == :enum
+- options[:as] = :admin_relationship_select if current_type == :relation
+- options[:as] = :admin_date if current_type.to_s =~ /^date(time)?$/
+- options[:as] = field.as if field.as.present?
 
 
 - options[:input_html] = {}
@@ -26,4 +23,5 @@
       updateDependentFormSelectHtml(element.selected, $(this).attr("name").match( /\[(.*)\]/)[1], $($(".field-#{field.name}").first()).attr("name").match( /\[(.*)\]/)[1]);
     });
 
+- options[:label] = translate_field(model_presenter, field)
 = f.input field.name, options
