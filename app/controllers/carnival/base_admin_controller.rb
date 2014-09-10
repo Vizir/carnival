@@ -29,14 +29,12 @@ module Carnival
     end
 
     def index
-      @datatable = generate_datatable
-      @advanced_search = params["advanced_search"] if params["advanced_search"].present?
+      @query_form = Carnival::QueryForm.new(params)
+      @presenter = instantiate_presenter
+      @model = instantiate_model(@presenter)
+      @query_service = Carnival::QueryService.new(@model, @presenter, @query_form)
 
-      if params[:special_scope].present?
-        presenter = @datatable.presenter
-        presenter.parse_special_scope params[:special_scope]
-      end
-
+      @records = @query_service.get_query
       respond_to do |format|
         format.html do |render|
           render 'index' and return

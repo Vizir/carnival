@@ -60,7 +60,7 @@ function datatable_list(table, ordered_columns, sorting, filter){
   
   tableConfiguration.aaSorting = getSorting(table);
 
-  var oTable = $(table).dataTable(tableConfiguration);
+  //var oTable = $(table).dataTable(tableConfiguration);
 
   if(!search)
     $(".dataTables_filter").hide();

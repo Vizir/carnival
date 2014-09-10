@@ -9,6 +9,7 @@ module Carnival
     @@custom_javascript_files = []
     @@root_action = "carnival/base_admin#home"
     @@use_full_model_name = true
+    @@items_per_page = 50
 
     def self.app_name
       return "#{Rails.application.class.to_s.split('::').first} Admin" if @@app_name.nil? 

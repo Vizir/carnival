@@ -36,6 +36,18 @@ module Carnival
       @@batch_actions[presenter_class_name].keys.size > 0
     end
 
+    @@items_per_page = {}
+    def self.items_per_page(per_page)
+      @@items_per_page[presenter_class_name][:items_per_page] = per_page
+    end
+
+    def items_per_page
+      unless @@items_per_page[presenter_class_name].present? and @@items_per_page[presenter_class_name][:items_per_page].present? and @@items_per_page[presenter_class_name][:items_per_page] > 0
+        @@items_per_page[presenter_class_name][:items_per_page] = Carnival::Config.items_per_page
+      end
+      @@items_per_page[presenter_class_name][:items_per_page]
+    end
+
     def actions
       @@actions[presenter_class_name]
     end

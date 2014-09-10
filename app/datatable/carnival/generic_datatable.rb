@@ -19,6 +19,10 @@ module Carnival
       @should_include_relation = !@model.is_a?(ActiveRecord::Relation)
     end
 
+    def as_html(options = {})
+      get_data(RENDER_TABLE)
+    end
+
     def as_csv(options = {})
       data_to_csv(get_data(RENDER_CSV))
     end
@@ -71,7 +75,7 @@ module Carnival
       @filters
     end
 
-  private
+  #private
 
     def data_to_csv(data)
       CSV.generate(:col_sep => "\t") do |csv|

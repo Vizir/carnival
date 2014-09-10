@@ -51,6 +51,14 @@
         %th{"data-sortable" => "#{field.sortable_params}"}= t("activerecord.attributes.#{presenter.full_model_name}.#{field.name}")
       %th.buttons
   %tbody
+    - @records.each do |record|
+      %tr
+        - if @presenter.has_batch_actions?
+          = render 'carnival/shared/batch_action_checkbox', :modelo_presenter => @presenter,:item=> record
+        - @presenter.fields_for_action(:index).each do |key, field|
+          = list_cel(@presenter, key,record, false).html_safe
+        %td
+          = list_buttons(@presenter, record).html_safe
 
 .table-tools.table-download-links
   = link_to t('download_as_csv'), "javascript:exportTable('csv');"  if presenter.has_action?(:csv)
