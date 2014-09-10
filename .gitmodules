@@ -1,3 +1,5 @@
 [submodule "test/carnival-sample-application"]
 	path = test/carnival-sample-application
 	url = git@github.com:Vizir/carnival-sample-application.git
+[submodule "test/carnival-sample-application (heads/master)"]
+	branch = master
