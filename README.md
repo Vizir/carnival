@@ -57,6 +57,9 @@ When you use Carnival you'll benefit from a big suite of feature already done. I
 ### Rich Text Editor
 * [CKEditor](docs/integrations/ckeditor.md)
 
+### Upload files
+* [Paperclip](docs/integrations/paperclip.md)
+
 
 ##How it works
 In some words, Carnival provides a managing infra-structure for your application. All the data related to Carnival will be located under the /admin namespace.
@@ -336,6 +339,15 @@ You can add custom translations for the actions [:new, :show, :edit, :destroy]
     new: Create New company
     show: Show company
 ```
+
+## Additional Docs
+You can find more detailed docs in the links below
+
+- [Action](docs/action.md)
+- [Field](docs/field.md)
+- [Presenter](docs/presenter.md)
+- [Scope](docs/scope.md)
+
 
 ##TODO
 * create has many association input data
