@@ -15,11 +15,13 @@ module Admin
           :searchable => true,
           :advanced_search => {:operator => :like}
     field :states,
-          :actions => [:index, :show, :edit, :new],
-          :nested_form => true, :nested_form_allow_destroy => true, :nested_form_modes => [:new]
+          :actions => [:show, :edit, :new],
+          :nested_form => true, :nested_form_allow_destroy => true, :nested_form_modes => [:new],
+          :relation_column => 'name'
     field :cities,
-          :actions => [:index, :show, :edit, :new],
-          :nested_form => true, :nested_form_allow_destroy => true
+          :actions => [:show, :edit, :new],
+          :nested_form => true, :nested_form_allow_destroy => true,
+          :relation_column => 'name'
     field :created_at, :actions => [:index, :show]
     field :updated_at, :actions => [:index, :show]
 

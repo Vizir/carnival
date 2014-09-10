@@ -5,17 +5,16 @@ module Carnival
     PARTIAL_DELETE = :delete
     PARTIAL_REMOTE = :remote
 
-    def initialize(presenter, name, params={})
-      @presenter = presenter
+    def initialize(name, params={})
       @name = name
       @params = params
       @partial = default_partial
       @path = params[:path] if params[:path].present?
     end
 
-    def path(extra_params={})
+    def path(presenter, extra_params={})
       if @path.nil?
-        params = {controller: @presenter.controller_name, action: @name}
+        params = {controller: presenter.controller_name, action: @name}
       elsif !@path[:controller].nil?
         params = @path
       else
