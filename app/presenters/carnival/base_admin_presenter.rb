@@ -315,7 +315,7 @@ module Carnival
 
     def get_related_class_for_field (field_name)
       field = get_field(field_name)
-      relation_name = field.is_relation? ? field.association_name : field.name
+      relation_name = field.specified_association? ? field.association_name : field.name
       get_related_class(relation_name)
     end
 
