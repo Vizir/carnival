@@ -1,6 +1,5 @@
 module Carnival
   class Field
-
     attr_accessor :size, :column, :line, :name, :params
 
     def initialize(name, params={})
@@ -14,7 +13,7 @@ module Carnival
       @name.to_s
     end
 
-    def is_relation?
+    def specified_association?
       not get_association_and_field[:association].nil?
     end
 
@@ -23,7 +22,7 @@ module Carnival
     end
 
     def association_field_name
-      if is_relation?
+      if specified_association?
         get_association_and_field[:field]
       end
     end
@@ -134,6 +133,10 @@ module Carnival
     def advanced_search_operator
       return @params[:advanced_search][:operator] if advanced_searchable? and @params[:advanced_search][:operator].present?
       :like
+    end
+
+    def actions
+      @params[:actions]
     end
 
     def valid_for_action?(action)
