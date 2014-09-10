@@ -22,7 +22,6 @@ gem 'simple_form', '~> 3.0.2'
 gem 'inherited_resources', '~> 1.5.0'
 gem 'will_paginate', '~> 3.0.7'
 gem 'wicked_pdf', '~> 0.11.0'
-gem 'ckeditor', '~> 4.1.0'
 
 group :development do
   gem 'binding_of_caller', '~> 0.7.2'

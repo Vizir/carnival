@@ -1,5 +1,5 @@
 ## Install and configure Devise
-Following the [Devise Getting Started Guide](https://github.com/plataformatec/devise#getting-started).
+Install and configure following the [Devise Getting Started Guide](https://github.com/plataformatec/devise#getting-started).
 
 ## Protect Carnival Routes in a Devise Authenticated scope
 

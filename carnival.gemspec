@@ -19,7 +19,6 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 4.0"
   s.add_dependency "haml"
   s.add_dependency "haml-rails"
-  s.add_dependency "ckeditor"
   s.add_dependency "simple_form"
   s.add_dependency "inherited_resources"
   s.add_dependency "will_paginate"

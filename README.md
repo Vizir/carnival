@@ -54,6 +54,10 @@ When you use Carnival you'll benefit from a big suite of feature already done. I
 ### Authentication
 * [Devise](docs/integrations/devise.md)
 
+### Rich Text Editor
+* [CKEditor](docs/integrations/ckeditor.md)
+
+
 ##How it works
 In some words, Carnival provides a managing infra-structure for your application. All the data related to Carnival will be located under the /admin namespace.
 
