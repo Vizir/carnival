@@ -23,4 +23,5 @@
       updateDependentFormSelectHtml(element.selected, $(this).attr("name").match( /\[(.*)\]/)[1], $($(".field-#{field.name}").first()).attr("name").match( /\[(.*)\]/)[1]);
     });
 
+- options[:label] = translate_field(model_presenter, field)
 = f.input field.name, options

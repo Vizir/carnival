@@ -1,6 +1,6 @@
 .nested-form{:class => field.name}
   %label.nested-form-title
-    = t("activerecord.attributes.#{@model_presenter.full_model_name}.#{field.name}")
+    = translate_field(@model_presenter, field)
 
   - if not has_one_relation? model_object, field.name
     - if field.nested_form_modes?(:associate)

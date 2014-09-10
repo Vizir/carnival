@@ -107,7 +107,7 @@ module Carnival
       field_type = rendered[:field_type]
       value = rendered[:value]
 
-      is_relation = presenter.relation_field?(field_name) || presenter.has_owner_relation?(field_name)
+      is_relation = presenter.relation_field?(field_name)
 
       unless value.nil?
         formatted_field = format_field(presenter, field_name, field_type, value)
@@ -142,6 +142,13 @@ module Carnival
       else
         value
       end
+    end
+
+    def translate_field(presenter, field_name)
+      field = presenter.get_field(field_name)
+      field_key = field.name_for_translation
+      key = "activerecord.attributes.#{presenter.full_model_name}.#{field_key}"
+      I18n.t(key, :default => field_key)
     end
 
     def list_cel(presenter, field, record, only_render_fields)
