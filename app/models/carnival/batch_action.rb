@@ -1,5 +1,5 @@
 module Carnival
-  class BatchAction
+  class BatchAction < Action
     include Rails.application.routes.url_helpers
 
     def initialize(presenter, name, params={})
@@ -9,16 +9,6 @@ module Carnival
       @path = params[:path] if params[:path].present?
     end
 
-    def path(extra_params={})
-      if @path.nil?
-        params = {controller: @presenter.controller_name, action: @name}
-      else
-        params = {path: @path}
-      end
-      params = params.merge(extra_params) if extra_params.present?
-      params = params.merge(:only_path => true)
-      url_for(params)
-    end
 
     def params
       @params

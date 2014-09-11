@@ -20,10 +20,11 @@
   .batch-operations
     - batch_operation_actions = []
     - presenter.batch_actions.each do |key, item|
-      - batch_operation_actions.push([item.to_label, item.path]);
+      - batch_operation_actions.push([item.to_label, item.path(presenter)]);
     = select_tag :batch_actions_select, options_for_select(batch_operation_actions), :prompt => I18n.t('batch_actions')
   :javascript
     $(document).ready(function(){
+      Carnival.batchActionSelected();
       $('#batch_actions_select').change(function(){
         if($('#batch_actions_select').val()){
           Carnival.remoteFunction($('#batch_actions_select').val(), 'Carnival.batchActionSuccessCallback', 'Carnival.batchActionErrorCallback', 'POST', {batch_action_items: Carnival.batch_action_items})
@@ -60,7 +61,8 @@
     - @records.each do |record|
       %tr
         - if @presenter.has_batch_actions?
-          = render 'carnival/shared/batch_action_checkbox', :modelo_presenter => @presenter,:item=> record
+          %td
+            =check_box_tag(:batch_action_item, record.id, false, class: 'batch_action_items')
         - @presenter.fields_for_action(:index).each do |key, field|
           = list_cel(@presenter, key,record, false).html_safe
         %td
@@ -112,6 +114,7 @@
       if(console && console.warn)
         console.warn('The funcion ' + functionName + ' was not implemented')
     }
+    Carnival.submitIndexForm();
   }
 
   Carnival.increaseScope = function(scopeName){
