@@ -24,14 +24,17 @@ module Carnival
     end
 
     def index
-      @query_form = Carnival::QueryForm.new(params)
       @presenter = instantiate_presenter
+      @query_form = Carnival::QueryFormCreator.create(@presenter, params)
       @model = instantiate_model(@presenter)
       @query_service = Carnival::QueryService.new(@model, @presenter, @query_form)
 
       @records = @query_service.get_query
       respond_to do |format|
         format.html do |render|
+          last_page = @query_service.total_records/@presenter.items_per_page
+          @paginator = Carnival::Paginator.new @query_form.page, last_page
+          @thead_renderer = Carnival::TheadRenderer.new @presenter.fields_for_action(:index), @query_form.sort_column, @query_form.sort_direction
           render 'index' and return
         end
         format.json do |render|

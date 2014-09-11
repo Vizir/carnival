@@ -79,26 +79,13 @@ module Carnival
     end
 
     def sort_column
-      fields = @presenter.fields_for_action(:index)
-      if fields.size > 0
-        columns =  fields.map {|k, v| k.to_s}
-      end
-        
-      column_index = @query_form.sort_column_index.to_i
-      column_index = column_index - 1 if @presenter.has_batch_actions?
-
-      column = columns[column_index]
-      if @presenter.relation_field? column.to_sym
-        column_name = "#{column.pluralize}.name"
-      else
-        column_name = "#{@presenter.table_name}.#{column}"
-      end
-      #@query_form.sort_column = column_name
+      column = @query_form.sort_column
+      sorter = Carnival::GenericDatatable::ColumnSorterCreator.create_sorter(@presenter, column)
+      sorter.build_sort_string
     end
 
     def sort_direction
-      #return 'desc' if params[:sSortDir_0] == 'desc'
-      'asc'
+      @query_form.sort_direction
     end
 
   end

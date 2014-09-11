@@ -11,7 +11,6 @@ String.prototype.unescapeHtml = function () {
 Carnival.updateIndexForm = function(name, value){
   var form = $('.carnival-index-form').find('form')
   form.find('input[name='+name+']').val(value);
-  form.submit();
 }
 
 Carnival.submitIndexForm = function(){
@@ -21,6 +20,12 @@ Carnival.submitIndexForm = function(){
 
 Carnival.updateIndexFormAndSubmit = function(name, value){
   Carnival.updateIndexForm(name, value);
+  Carnival.submitIndexForm();
+}
+
+Carnival.sortColumn = function(column, direction){
+  Carnival.updateIndexForm('sort_column', column);
+  Carnival.updateIndexForm('sort_direction', direction);
   Carnival.submitIndexForm();
 }
 

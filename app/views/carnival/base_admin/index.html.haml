@@ -53,8 +53,8 @@
       -if presenter.has_batch_actions?
         %th
           %input{id: 'toggle-all-batch-actions-items',type: 'checkbox',disabled: 'disabled'}
-      -presenter.fields_for_action(:index).each do |key, field|
-        %th{"data-sortable" => "#{field.sortable_params}"}= translate_field(presenter, field)
+      - @thead_renderer.columns.each do |column|
+        %th{"onclick" => "javascript:#{column[:sort_function]}",  "class" => "#{column[:class]}"}= translate_field(presenter, column[:field])
       %th.buttons
   %tbody
     - @records.each do |record|
@@ -71,10 +71,8 @@
   = link_to t('download_as_pdf'), presenter.model_path(:index, {:format => 'pdf'}) if presenter.has_action?(:pdf)
 
 .table-tools.table-paginate
-  - last_page = @query_service.total_records/@presenter.items_per_page
-  - paginator = Carnival::Paginator.new @query_form.page, last_page
   = "Total Records : #{@query_service.total_records}"
-  - paginator.pages.each do |page_hash|
+  - @paginator.pages.each do |page_hash|
     = link_to(t(page_hash[:label]), page_hash[:js_function])
 
 
