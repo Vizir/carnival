@@ -14,7 +14,7 @@ module Carnival
 
       if query_form.date_period_label.nil?
         date_filter_field = presenter.date_filter_field
-        query_form.date_period_label = date_filter_field.default_date_filter
+        query_form.date_period_label = date_filter_field.default_date_filter if date_filter_field.present?
       end
 
       query_form

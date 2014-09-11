@@ -1,8 +1,8 @@
 Vagrant.configure("2") do |config|
   config.vm.box      = 'precise32'
   config.vm.box_url  = 'http://files.vagrantup.com/precise32.box'
-  config.vm.synced_folder "vagrant", "/vagrant", type: 'rsync'
-  config.vm.synced_folder ".", "/project", type: 'rsync'
+  config.vm.synced_folder "vagrant", "/vagrant"
+  config.vm.synced_folder ".", "/project"
   config.vm.provider :virtualbox do |vb|
     vb.customize ["modifyvm", :id, "--memory", 512]
   end
