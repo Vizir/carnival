@@ -2,7 +2,6 @@
 //= require jquery_ujs
 //= require carnival/external/select2/select2.min
 //= require carnival/external/select2/select2_locale_pt-BR
-//= require carnival/external/jquery.dataTables.min
 //= require carnival/external/noty/jquery.noty
 //= require carnival/external/noty/layouts/bottom
 //= require carnival/external/noty/themes/default

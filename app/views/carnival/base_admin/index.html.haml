@@ -8,10 +8,6 @@
   - params["data-from"] = date_filter_field.date_filter_periods[date_filter_field.default_date_filter][0]
   - params["data-to"] = date_filter_field.date_filter_periods[date_filter_field.default_date_filter][1]
 
-- params["data-source"] = presenter.model_path("index", presenter.model_params(request.params).merge( {format: :json} ))
-
-- params["data-search"] = presenter.searchable_fields.size > 0
-
 - if special_scope.present?
   - params["data-special_scope"] = special_scope
 
@@ -80,11 +76,6 @@
 
 
 :javascript
-  function exportTable(format){
-    var url = generateDataSource($("table").first()).replace("json", format);
-    window.open(url,'_blank');
-  }
-
 
   Carnival.remoteFunction = function(url, successCallback, errorCallback, method, data){
     if(!data)
@@ -116,47 +107,4 @@
     }
     Carnival.submitIndexForm();
   }
-
-  Carnival.increaseScope = function(scopeName){
-    Carnival.updateScopeNumber(true, scopeName);
-  }
-
-  Carnival.decreaseScope = function(scopeName){
-    Carnival.updateScopeNumber(false, scopeName);
-  }
-
-  Carnival.updateScopeNumber = function(increase, scopeName){
-    var scopeLocNumbers = Carnival.getScopeNumber(scopeName);
-    if(!scopeLocNumbers && scopeLocNumbers != 0)
-      return;
-
-    if(increase)
-      scopeLocNumbers++;
-    else
-      scopeLocNumbers--;
-
-    Carnival.setScopeNumber(scopeName, scopeLocNumbers);
-  }
-
-  Carnival.setScopeNumber = function(scopeName, val){
-    $('.datatables-scope[data-scope='+scopeName+'] .count').html('('+val+')');
-  }
-
-  Carnival.getSelectedScope = function(){
-    return $('.scope.selected .datatables-scope').attr('data-scope');
-  }
-
-  Carnival.getScopeNumber = function(scope){
-    var locNumber = $('.datatables-scope[data-scope='+scope+'] .count').html();
-    if(!locNumber)
-      return '';
-    locNumber = locNumber.replace('(', '').replace(')','');
-    return parseInt(locNumber);
-  }
-
-  Carnival.reloadTable = function(){
-    var dataTable = $(".table").dataTable();
-    dataTable.fnReloadAjax(generateDataSource($(".table")));
-  }
-
 
