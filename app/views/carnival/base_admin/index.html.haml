@@ -38,7 +38,7 @@
 .table-tools
   .advanced_search
     = render '/carnival/shared/advanced_search', :params => params, presenter: presenter
-  = render '/carnival/shared/scope', :params => params, presenter: presenter
+  = render '/carnival/shared/scope', :params => params, presenter: presenter, selected_scope: @query_form.scope
   .actions
     - presenter.actions_for_page.each do |key, action|
       = render '/carnival/shared/action_default', :label=>t("#{presenter.model_name}.#{action.name}", default: t("carnival.#{action.name}")), :path=> action.path(presenter)

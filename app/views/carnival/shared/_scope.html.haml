@@ -4,7 +4,7 @@
   %ul.scopes
     - scopes.each do |key, scope|
       - unless scope.hidden?(controller)
-        %li.scope{:class => "#{presenter.default_scope == scope ? 'selected' : ''}"}
+        %li.scope{:class => "#{selected_scope.to_sym == key ? 'selected' : ''}"}
           %a{:class => "carnival-scope filters", :data => {:scope => "#{scope.name}"}}
             = t("#{presenter.model_name}.scope.#{scope.name}")
             %span.count (...)
