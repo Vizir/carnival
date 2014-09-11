@@ -1,22 +1,32 @@
 module Carnival
   class QueryService
-
+    
+    attr_accessor :total_records
     def initialize(model, presenter, query_form)
       @model = model
       @presenter = presenter
       @query_form = query_form
+      @total_records = 0
       @should_include_relation = !@model.is_a?(ActiveRecord::Relation)
     end
 
     def get_query
+      records = records_without_pagination
+      records = page_query(records)
+    end
+
+    def records_without_pagination
       records = @model
       records = scope_query(records)
       records = date_period_query(records)
       records = search_query(records)
       records = advanced_search_query(records)
-      records = page_query(records)
       records = order_query(records)
       records = includes_relations(records)
+    end
+
+    def total_records
+      records_without_pagination.size 
     end
 
     def scope_query(records)

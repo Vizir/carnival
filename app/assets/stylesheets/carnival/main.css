@@ -2370,3 +2370,8 @@ table input{
 .hidden-select{
   display:none !important;
 }
+
+.table-paginate{
+  float: left;
+  position: relative;
+}

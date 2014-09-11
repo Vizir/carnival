@@ -1,4 +1,3 @@
-= javascript_include_tag "carnival/data_tables_functions"
 - special_scope =  params[:special_scope]
 - model = @model
 - presenter = @presenter
@@ -32,6 +31,13 @@
       });
     });
 
+
+.carnival-index-form
+  = form_tag(presenter.model_path(:index), method: 'get') do
+    - @query_form.instance_variables.each do |variable|
+      - variable_name = variable.to_s.gsub '@', ''
+      = hidden_field_tag(variable_name, @query_form.send(variable_name) )
+
 .table-tools
   .advanced_search
     = render '/carnival/shared/advanced_search', :params => params, presenter: presenter
@@ -63,29 +69,22 @@
 .table-tools.table-download-links
   = link_to t('download_as_csv'), "javascript:exportTable('csv');"  if presenter.has_action?(:csv)
   = link_to t('download_as_pdf'), presenter.model_path(:index, {:format => 'pdf'}) if presenter.has_action?(:pdf)
+
+.table-tools.table-paginate
+  - last_page = @query_service.total_records/@presenter.items_per_page
+  - paginator = Carnival::Paginator.new @query_form.page, last_page
+  = "Total Records : #{@query_service.total_records}"
+  - paginator.pages.each do |page_hash|
+    = link_to(t(page_hash[:label]), page_hash[:js_function])
+
+
+
 :javascript
   function exportTable(format){
     var url = generateDataSource($("table").first()).replace("json", format);
     window.open(url,'_blank');
   }
 
-  var dataTablesTranslation = {
-    'oPaginate': {
-      'sFirst': '#{t('data_tables.first')}',
-      'sLast': '#{t('data_tables.last')}',
-      'sNext': '#{t('data_tables.next')} &raquo;',
-      'sPrevious': '&laquo; #{t('data_tables.previous')}',
-    },
-    'sInfo': '#{t('data_tables.row_counter')}',
-    'sInfoEmpty': '#{t('data_tables.row_counter_empty')}',
-    'sEmptyTable': '#{t('data_tables.table_empty')}',
-    'sInfoFiltered': '#{t('data_tables.rows_filtered')}',
-    'sInfoPostFix': '',
-    'sLengthMenu': '#{t('data_tables.rows_per_page')}',
-    'sProcessing': '#{t('data_tables.processing')}',
-    'sSearch': '',
-    'sZeroRecords': '#{t('data_tables.zero_records')}'
-  };
 
   Carnival.remoteFunction = function(url, successCallback, errorCallback, method, data){
     if(!data)

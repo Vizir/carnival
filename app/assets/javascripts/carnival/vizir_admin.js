@@ -8,6 +8,22 @@ String.prototype.unescapeHtml = function () {
     return result;
 }
 
+Carnival.updateIndexForm = function(name, value){
+  var form = $('.carnival-index-form').find('form')
+  form.find('input[name='+name+']').val(value);
+  form.submit();
+}
+
+Carnival.submitIndexForm = function(){
+  var form = $('.carnival-index-form').find('form')
+  form.submit();
+}
+
+Carnival.updateIndexFormAndSubmit = function(name, value){
+  Carnival.updateIndexForm(name, value);
+  Carnival.submitIndexForm();
+}
+
 function removeFields(link) {
   $(link).prev("input[type=hidden]").val("1");
   $(link).closest(".fields").slideToggle("show");
