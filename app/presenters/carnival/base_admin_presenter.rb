@@ -216,6 +216,7 @@ module Carnival
     end
 
     def default_scope
+      return if scopes.empty?
       @@scopes[presenter_class_name].each do |key, scope|
         return scope if scope.default?
       end

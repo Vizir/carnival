@@ -13,7 +13,8 @@ module Carnival
       end
 
       if query_form.scope.nil?
-        query_form.scope = presenter.default_scope
+        scope = presenter.default_scope
+        query_form.scope = scope.name if scope.present?
       end
 
       date_filter_field = presenter.date_filter_field

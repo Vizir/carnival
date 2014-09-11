@@ -15,9 +15,8 @@ module Carnival
       records = page_query(records)
     end
 
-    def records_without_pagination
+    def records_without_pagination_and_scope
       records = @model
-      records = scope_query(records)
       records = date_period_query(records)
       records = search_query(records)
       records = advanced_search_query(records)
@@ -25,13 +24,28 @@ module Carnival
       records = includes_relations(records)
     end
 
+    def records_without_pagination
+      records = records_without_pagination_and_scope
+      records = scope_query(records)
+    end
+
     def total_records
       records_without_pagination.size 
     end
 
-    def scope_query(records)
-      if(@query_form.scope.present? && @query_form.scope.to_sym != :all)
-        records = records.send(@query_form.scope)
+    def scopes_number
+      records = records_without_pagination_and_scope 
+      scopes = {}
+      @presenter.scopes.each do |key, index|
+        rec = records
+        scopes[key] = scope_query(rec, key).size
+      end
+      scopes
+    end
+
+    def scope_query(records, scope = @query_form.scope)
+      if(scope.present? && scope.to_sym != :all)
+        records = records.send(scope)
       end
       records
     end

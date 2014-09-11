@@ -7,7 +7,7 @@
         %li.scope{:class => "#{selected_scope.to_sym == key ? 'selected' : ''}"}
           %a{:class => "carnival-scope filters", :data => {:scope => "#{scope.name}"}}
             = t("#{presenter.model_name}.scope.#{scope.name}")
-            %span.count (...)
+            %span.count (#{scopes_total[scope.name]})
 
 :javascript
   $(document).ready(function(){
