@@ -12,6 +12,11 @@ module Carnival
         query_form.sort_direction = presenter.default_sort_direction
       end
 
+      if query_form.date_period_label.nil?
+        date_filter_field = presenter.date_filter_field
+        query_form.date_period_label = date_filter_field.default_date_filter
+      end
+
       query_form
     end
 
