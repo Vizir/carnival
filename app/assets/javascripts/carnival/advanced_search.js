@@ -21,13 +21,13 @@ $(document).ready(function(){
         queryParams.push(generateQueryParam($(this).attr("name"), $(this).data("type"), $(this).data("operator"), $(this).val()));
     });
     var advancedSearchParams = "{" + queryParams.join(", ") + "}";
-    Carnival.updateIndexFormAndSubmit('advanced_search', advancedSearchParams);
+    Carnival.setIndexPageParamAndReload('advanced_search', advancedSearchParams);
   });
 
   $("#clear_button").click(function(e){
     e.preventDefault();
     $($(this).parent().parent().parent()).trigger("reset")
-    Carnival.updateIndexFormAndSubmit('advanced_search', '');
+    Carnival.setIndexPageParamAndReload('advanced_search', '');
   });
 });
 

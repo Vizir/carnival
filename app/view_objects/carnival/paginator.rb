@@ -22,9 +22,13 @@ module Carnival
     def fast_pages_links_html
       htmls = []
       fast_pages_links_indexes.each do |page| 
-        htmls << {:label => page, :css_class => get_css_class(page), :js_function => "javascript:Carnival.updateIndexFormAndSubmit('page', #{page});"}
+        htmls << {:label => page, :css_class => get_css_class(page), :js_function => get_js_function(page)}
       end
       htmls
+    end
+
+    def get_js_function page
+      "javascript:Carnival.goToPage(#{page})" 
     end
 
     def get_css_class page
@@ -44,11 +48,11 @@ module Carnival
 
     def pages
       htmls = [] 
-      htmls << {:label => ('paginate_first'), :js_function => "javascript:Carnival.updateIndexFormAndSubmit('page', 1);"}
-      htmls << {:label => ('paginate_previous'), :js_function => "javascript:Carnival.updateIndexFormAndSubmit('page', #{previous_page});"}
+      htmls << {:label => ('paginate_first'), :js_function => get_js_function(1)}
+      htmls << {:label => ('paginate_previous'), :js_function => get_js_function(previous_page)}
       htmls = htmls + fast_pages_links_html
-      htmls << {:label => ('paginate_next'), :js_function => "javascript:Carnival.updateIndexFormAndSubmit('page', #{next_page});"}
-      htmls << {:label => ('paginate_last'), :js_function => "javascript:Carnival.updateIndexFormAndSubmit('page', #{@last_page});"}
+      htmls << {:label => ('paginate_next'), :js_function => get_js_function(next_page)}
+      htmls << {:label => ('paginate_last'), :js_function => get_js_function(@last_page)}
     end
 
   end

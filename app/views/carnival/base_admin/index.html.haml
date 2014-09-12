@@ -74,38 +74,3 @@
       = link_to(t(page_hash[:label]), page_hash[:js_function])
   = "#{t('paginate_total')}: #{@query_service.total_records}"
 
-
-
-:javascript
-
-  Carnival.remoteFunction = function(url, successCallback, errorCallback, method, data){
-    if(!data)
-      data = {};
-    $.ajax({
-      url: url,
-      type: method,
-      data: data,
-      success: function(data, status, jqXHR){
-        Carnival.callFunc(successCallback, data);
-      },
-      error: function(jqXHR, status, error){
-        Carnival.callFunc(errorCallback, data);
-      }
-    })
-  }
-
-  Carnival.callFunc = function(functionName, data){
-    var func = window[functionName];
-    if(func)
-    {
-      if(typeof func === 'function')
-      {
-        func(data);
-      }
-    }else{
-      if(console && console.warn)
-        console.warn('The funcion ' + functionName + ' was not implemented')
-    }
-    Carnival.submitIndexForm();
-  }
-

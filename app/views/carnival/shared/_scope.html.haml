@@ -13,6 +13,6 @@
   $(document).ready(function(){
     $(".carnival-scope").click(function(){
       var scope = $(this).data("scope")
-      Carnival.updateIndexFormAndSubmit('scope', scope);
+      Carnival.setIndexPageParamAndReload('scope', scope);
     });
   });

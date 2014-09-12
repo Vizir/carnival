@@ -16,9 +16,9 @@ Carnival.batchActionSelected = function(){
 }
 
 Carnival.batchActionSuccessCallback = function(data, status, jqXHR){
-  Carnival.updateIndexForm();
+  Carnival.reloadIndexPage();
 }
 
 Carnival.batchActionErrorCallback = function(jqXHR, status, error){
-  Carnival.updateIndexForm();
+  Carnival.reloadIndexPage();
 }

@@ -44,10 +44,10 @@
       })
     });
     function filter_date(label, from, to){
-      Carnival.updateIndexForm('date_period_from', from)
-      Carnival.updateIndexForm('date_period_to', to)
-      Carnival.updateIndexForm('date_period_label', label)
+      Carnival.setIndexPageParam('date_period_from', from)
+      Carnival.setIndexPageParam('date_period_to', to)
+      Carnival.setIndexPageParam('date_period_label', label)
       $("#filtro_periodo").html(label);
-      Carnival.submitIndexForm();
+      Carnival.reloadIndexPage();
       $("#container_tempo").toggle();
     }

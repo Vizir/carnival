@@ -8,25 +8,63 @@ String.prototype.unescapeHtml = function () {
     return result;
 }
 
-Carnival.updateIndexForm = function(name, value){
+Carnival.remoteFunction = function(url, successCallback, errorCallback, method, data){
+  if(!data)
+    data = {};
+  $.ajax({
+    url: url,
+    type: method,
+    data: data,
+    success: function(data, status, jqXHR){
+      Carnival.callFunc(successCallback, data);
+    },
+    error: function(jqXHR, status, error){
+      Carnival.callFunc(errorCallback, data);
+    }
+  })
+}
+
+Carnival.callFunc = function(functionName, data){
+  var func = window[functionName];
+  if(func)
+  {
+    if(typeof func === 'function')
+    {
+      func(data);
+    }
+  }else{
+    if(console && console.warn)
+      console.warn('The funcion ' + functionName + ' was not implemented')
+  }
+  Carnival.reloadIndexPage();
+}
+
+Carnival.setIndexPageParam = function(name, value){
   var form = $('.carnival-index-form').find('form')
   form.find('input[name='+name+']').val(value);
 }
 
-Carnival.submitIndexForm = function(){
+Carnival.reloadIndexPage = function(){
+  Carnival.setIndexPageParam('page', 1);
   var form = $('.carnival-index-form').find('form')
   form.submit();
 }
 
-Carnival.updateIndexFormAndSubmit = function(name, value){
-  Carnival.updateIndexForm(name, value);
-  Carnival.submitIndexForm();
+Carnival.setIndexPageParamAndReload = function(name, value){
+  Carnival.setIndexPageParam(name, value);
+  Carnival.reloadIndexPage();
 }
 
 Carnival.sortColumn = function(column, direction){
-  Carnival.updateIndexForm('sort_column', column);
-  Carnival.updateIndexForm('sort_direction', direction);
-  Carnival.submitIndexForm();
+  Carnival.setIndexPageParam('sort_column', column);
+  Carnival.setIndexPageParam('sort_direction', direction);
+  Carnival.reloadIndexPage();
+}
+
+Carnival.goToPage = function(page){
+  Carnival.setIndexPageParam('page', page);
+  var form = $('.carnival-index-form').find('form')
+  form.submit();
 }
 
 function removeFields(link) {
