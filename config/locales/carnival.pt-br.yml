@@ -69,6 +69,11 @@ pt-BR:
   at: às
   new_support: Abrir solicitação de suporte
   batch_actions: Operações em Lote
+  paginate_first: Primeira
+  paginate_previous: « Anterior
+  paginate_next: Próxima »
+  paginate_last: Última
+  paginate_total: Total
   data_tables:
     first: Primeira
     last: Última

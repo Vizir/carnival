@@ -22,9 +22,14 @@ module Carnival
     def fast_pages_links_html
       htmls = []
       fast_pages_links_indexes.each do |page| 
-        htmls << {:label => page, :js_function => "javascript:Carnival.updateIndexFormAndSubmit('page', #{page});"}
+        htmls << {:label => page, :css_class => get_css_class(page), :js_function => "javascript:Carnival.updateIndexFormAndSubmit('page', #{page});"}
       end
       htmls
+    end
+
+    def get_css_class page
+      return 'carnival-selected-page-button' if page == @actual_page
+      return 'carnival-page-button'
     end
 
     def previous_page

@@ -2372,6 +2372,39 @@ table input{
 }
 
 .table-paginate{
-  float: left;
+  margin-left: -3px;
   position: relative;
+  margin-top: 20px;
+  float: right;
+}
+
+.table-paginate a{
+  margin: 3px;
+  padding: 8px;
+  cursor: default !important;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none !important;
+  background: url('novo.png') repeat scroll left bottom padding-box transparent;
+  border: 1px solid #CCC;
+  font-size: 13px;
+  box-shadow: 0px -1px 0px 0px #FFF;
+  border-radius: 1px;
+  color: #333 !important;
+  font-weight: normal;
+}
+
+.table-paginate a:hover{
+background: url('novo.png') repeat scroll left top transparent;
+font-size: 13px;
+color: #FFF !important;
+cursor: pointer !important;
+border: 1px solid #2A6198;
+}
+.carnival-selected-page-button a{
+background: url('novo.png') repeat scroll left top transparent;
+font-size: 13px;
+color: #FFF !important;
+cursor: pointer !important;
+border: 1px solid #2A6198;
 }
