@@ -3,11 +3,6 @@
 - presenter = @presenter
 - params = {:class => 'table'}
 
-- date_filter_field = presenter.date_filter_field
-- if date_filter_field.present?
-  - params["data-from"] = date_filter_field.date_filter_periods[date_filter_field.default_date_filter][0]
-  - params["data-to"] = date_filter_field.date_filter_periods[date_filter_field.default_date_filter][1]
-
 - if special_scope.present?
   - params["data-special_scope"] = special_scope
 
