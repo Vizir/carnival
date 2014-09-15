@@ -1,10 +1,11 @@
+- value = "" if value.nil?
 - field = presenter.get_field(field)
 - if presenter.relation_field?(field)
-  = select_tag field.name.to_sym, options_for_select(presenter.get_association(field.association_name).klass.list_for_select(reverse: true, add_empty_option: true))
+  = select_tag field.name.to_sym, options_for_select(presenter.get_association(field.association_name).klass.list_for_select(reverse: true, add_empty_option: true), value)
 - else
   - if presenter.field_type(field.name) == :boolean
-    = select_tag field.name, options_for_select([['',''],['true', 'true'],['false', 'false']])
+    = select_tag field.name, options_for_select([['',''],['true', 'true'],['false', 'false']], value)
   - elsif presenter.field_type(field.name) == :datetime
-    = text_field_tag field.name, "", "data-operator" => field.advanced_search_operator, :class => "datepicker"
+    = text_field_tag field.name, value, "data-operator" => field.advanced_search_operator, :class => "datepicker"
   - else
-    = text_field_tag field.name, "", "data-operator" => field.advanced_search_operator
+    = text_field_tag field.name, value, "data-operator" => field.advanced_search_operator
