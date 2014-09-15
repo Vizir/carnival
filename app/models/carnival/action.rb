@@ -10,11 +10,12 @@ module Carnival
       @params = params
       @partial = default_partial
       @path = params[:path] if params[:path].present?
+      @controller = params[:controller]
     end
 
     def path(presenter, extra_params={})
       if @path.nil?
-        params = {controller: presenter.controller_name, action: @name}
+        params = {controller: @controller || presenter.controller_name, action: @name}
       elsif !@path[:controller].nil?
         params = @path
       else

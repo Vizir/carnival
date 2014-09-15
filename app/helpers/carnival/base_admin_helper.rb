@@ -151,7 +151,7 @@ module Carnival
     def translate_field(presenter, field_name)
       field = presenter.get_field(field_name)
       field_key = field.name_for_translation
-      key = "activerecord.attributes.#{presenter.full_model_name}.#{field_key}"
+      key = "activerecord.attributes.#{presenter.full_model_name.underscore}.#{field_key}"
       I18n.t(key, :default => field_key)
     end
 
@@ -186,7 +186,7 @@ module Carnival
     end
 
     def button_action(action, presenter, record)
-      label = t("#{presenter.model_name}.#{action.name}", default: t("carnival.#{action.name}"))
+      label = t("#{presenter.model_name.underscore}.#{action.name}", default: t("carnival.#{action.name}"))
       path = action.path(presenter, :id => record.id)
       if action.default_partial == :default
         "<a class='action editar' href='#{path}'>#{label}</a>"
