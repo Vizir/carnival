@@ -6,6 +6,7 @@ require "carnival/engine"
 require "carnival/config"
 require "carnival/routes"
 require "carnival/version"
+require "haml-rails"
 module Carnival
 
   def self.configure
