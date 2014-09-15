@@ -14,6 +14,15 @@ module Carnival
       @page = params[:page]
     end
 
+    def to_hash
+      params = {} 
+      self.instance_variables.each do |var|
+        var_name = var.to_s.gsub('@', '')
+        params[var_name] = self.send(var_name)
+      end
+      params
+    end
+
     def page
       return 1 if @page.nil?
       @page.to_i

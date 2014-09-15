@@ -39,15 +39,13 @@ module Carnival
           render 'index' and return
         end
         format.csv do
-
           @records = @query_service.records_without_pagination
-          @thead_renderer = Carnival::TheadRenderer.new @presenter.fields_for_action(:index), @query_form.sort_column, @query_form.sort_direction
-          render :csv => t("pdf") , :template => 'carnival/base_admin/index.csv.haml' and return
+          render :csv => t("activerecord.attributes.#{@presenter.full_model_name}.csv_name") , :template => 'carnival/base_admin/index.csv.haml' and return
         end
         format.pdf do
           @records = @query_service.records_without_pagination
           @thead_renderer = Carnival::TheadRenderer.new @presenter.fields_for_action(:index), @query_form.sort_column, @query_form.sort_direction
-          render :pdf => t("pdf") , :template => 'carnival/base_admin/index.pdf.haml',  :show_as_html => params[:debug].present? and return
+          render :pdf => t("activerecord.attributes.#{@presenter.full_model_name}.pdf_name") , :template => 'carnival/base_admin/index.pdf.haml',  :show_as_html => params[:debug].present? and return
         end
       end
     end
