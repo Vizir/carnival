@@ -100,10 +100,7 @@ module Carnival
     end
 
     def field_to_show(presenter, field_name, record, show_only_value=false)
-      renderer = FieldRenderers::RendererCreator
-        .create_field_renderer(presenter, field_name)
-
-      rendered = renderer.render_field(record)
+      rendered = field_value_and_type presenter, field_name, record
       field_type = rendered[:field_type]
       value = rendered[:value]
 
@@ -119,6 +116,13 @@ module Carnival
       else
         nil
       end
+    end
+
+    def field_value_and_type presenter, field_name, record
+      renderer = FieldRenderers::RendererCreator
+        .create_field_renderer(presenter, field_name)
+
+      rendered = renderer.render_field(record)
     end
 
     def format_field(presenter, field_name, field_type, value)

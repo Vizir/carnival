@@ -2371,7 +2371,7 @@ table input{
   display:none !important;
 }
 
-.table-paginate{
+.table-paginate, .table-download-links{
   margin-left: -3px;
   position: relative;
   margin-top: 20px;
