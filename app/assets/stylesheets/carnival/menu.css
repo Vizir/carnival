@@ -132,7 +132,7 @@ ul.menu .dropdown_main_menu{
   z-index:1000;
   margin:0;
   float:left;
-  padding:4px 0px 10px 0px;
+  padding:0px 0px 10px 0px;
 }
 
 ul.menu .dropdown_main_menu li{

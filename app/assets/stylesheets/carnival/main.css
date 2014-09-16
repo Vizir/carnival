@@ -147,7 +147,7 @@ padding-left: 5.2%;
 }
 
 #main_column_wrapper{
-  padding-top:20px;
+  padding: 20px 0 50px;
   width: 100%;
 }
 
@@ -159,9 +159,13 @@ padding-left: 5.2%;
   width: 100%;
 }
 
-#main_column a{text-decoration: none;}
-#main_column a:hover{text-decoration: underline;}
+#main_column a{
+  text-decoration: none;
+}
 
+#main_column a:hover{
+  text-decoration: underline;
+}
 
 h1.title{
   background: url("title_bg.png") repeat scroll 0 0 transparent;
@@ -1547,6 +1551,11 @@ table input{
   margin-left: 20px;
 }
 
+.nested-form-title:first-child{
+  float: left;
+  margin-left: 0px;
+}
+
 .nested-form-actions{
   float: right;
   margin-top: 17px;
@@ -1618,7 +1627,7 @@ table input{
 
 .table-paginate a{
   margin: 3px;
-  padding: 8px;
+  padding: 3px 8px 3px 8px;
   cursor: default !important;
   display: inline-block;
   text-align: center;
@@ -1639,6 +1648,7 @@ color: #FFF !important;
 cursor: pointer !important;
 border: 1px solid #2A6198;
 }
+
 .carnival-selected-page-button a{
 background: url('novo.png') repeat scroll left top transparent;
 font-size: 13px;

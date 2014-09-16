@@ -36,7 +36,7 @@
 .logo_intranet{
   float: left;
   height: 60px;
-  width: 260px;
+  width: 50%;
   margin-left: 15px;
   margin-top: 10px;
 }
@@ -136,4 +136,3 @@
   float: right;
   margin-right: 10px;
 }
-

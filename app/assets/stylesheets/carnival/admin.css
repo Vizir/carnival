@@ -1,7 +1,8 @@
 /*
  *= require_self
  *= require carnival/grid.css
- *= require carnival/datatable.css
+ *= require carnival/actions.css
+ *= require carnival/tables.css
  *= require carnival/jquery.noty.css
  *= require carnival/chosen.css
  *= require carnival/colorbox.css

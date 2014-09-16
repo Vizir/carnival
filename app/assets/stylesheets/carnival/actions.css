@@ -1,0 +1,58 @@
+.carnival-action-link{
+  display: block;
+  font-size: 11px;
+  padding: 2px 6px 0px 6px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
+  text-align: center;
+  border-right: none;
+  float: right;
+}
+
+.carnival-action-link:hover{
+  text-decoration: none !important;
+}
+
+.carnival-action-button{
+  display: block;
+  font-size: 11px;
+  padding: 2px 6px 0px 6px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
+  text-align: center;
+  border-right: none;
+  float: right;
+}
+
+.carnival-action-button:hover{
+  text-decoration: none !important;
+}
+
+.apagar{
+  color: #d63e30;
+}
+
+.apagar:hover{
+  background: #d63e30;
+  color: #fff;
+}
+
+.editar{
+  color:#2e77ec;
+}
+
+.editar:hover{
+  background:#2e77ec;
+  color:#fff;
+}
+
+.visualizar{
+  color: #5F6374;
+}
+
+.visualizar:hover{
+  background: #5F6374;
+  color:#fff;
+}

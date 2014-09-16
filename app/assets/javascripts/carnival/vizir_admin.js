@@ -112,7 +112,6 @@ var pageLoad = function(){
     return false
   })
 
-  $('.dataTables_info').insertAfter('.dataTables_paginate');
   $(".chosen").chosen({no_results_text: "Nenhum resultado encontrado", disable_search_threshold: 5});
   $(".popup").click(function(e){
     e.preventDefault()
