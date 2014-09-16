@@ -1,16 +1,34 @@
 module Carnival
   class Field
-
     attr_accessor :size, :column, :line, :name, :params
 
     def initialize(name, params={})
       @params = params
       @name = name
       set_position_by_params
+      validate
     end
 
     def name
       @name.to_s
+    end
+
+    def specified_association?
+      not get_association_and_field[:association].nil?
+    end
+
+    def association_name
+      get_association_and_field[:association] || @name
+    end
+
+    def association_field_name
+      if specified_association?
+        get_association_and_field[:field]
+      end
+    end
+
+    def name_for_translation
+      @name.to_s.gsub('.', '_')
     end
 
     def css_class
@@ -38,13 +56,13 @@ module Carnival
         @params[:date_filter_periods]
       else
         {:today => ["#{Date.today}", "#{Date.today}"],
-                                  :yesterday => ["#{Date.today - 1.day}", "#{Date.today - 1.day}"],
-                                  :this_week => ["#{Date.today.beginning_of_week}", "#{Date.today.end_of_week}"],
-                                  :last_week => ["#{(Date.today - 1.week).beginning_of_week}", "#{(Date.today - 1.week).end_of_week}"],
-                                  :this_month => ["#{Date.today.beginning_of_month}", "#{Date.today.end_of_month}"],
-                                  :last_month => ["#{(Date.today - 1.month).beginning_of_month}", "#{(Date.today - 1.month).end_of_month}"],
-                                  :this_year => ["#{Date.today.beginning_of_year}", "#{Date.today.end_of_year}"],
-                                  :last_year => ["#{(Date.today - 1.year).beginning_of_year}", "#{(Date.today - 1.year).end_of_year}"]
+         :yesterday => ["#{Date.today - 1.day}", "#{Date.today - 1.day}"],
+         :this_week => ["#{Date.today.beginning_of_week}", "#{Date.today.end_of_week}"],
+         :last_week => ["#{(Date.today - 1.week).beginning_of_week}", "#{(Date.today - 1.week).end_of_week}"],
+         :this_month => ["#{Date.today.beginning_of_month}", "#{Date.today.end_of_month}"],
+         :last_month => ["#{(Date.today - 1.month).beginning_of_month}", "#{(Date.today - 1.month).end_of_month}"],
+         :this_year => ["#{Date.today.beginning_of_year}", "#{Date.today.end_of_year}"],
+         :last_year => ["#{(Date.today - 1.year).beginning_of_year}", "#{(Date.today - 1.year).end_of_year}"]
         }
       end
     end
@@ -88,6 +106,7 @@ module Carnival
     end
 
     def sortable?
+      return true if @params[:sortable].nil?
       return true if @params[:sortable]
       return true if @params[:sortable].class == Hash
       return false
@@ -116,6 +135,10 @@ module Carnival
       :like
     end
 
+    def actions
+      @params[:actions]
+    end
+
     def valid_for_action?(action)
       @params[:actions].include?(action)
     end
@@ -128,7 +151,29 @@ module Carnival
       @params[:widget].present? ? @params[:widget] : :input
     end
 
-  private
+    def show_view
+      @params[:show_view]
+    end
+
+    private
+
+    def get_association_and_field
+      split = @name.to_s.split('.')
+      if split.size > 1
+        association = split[0]
+        field = split[1]
+      else
+        field = split[0]
+      end
+      { association: association, field: field }
+    end
+
+    def validate
+      if nested_form_modes?(:new) and nested_form_modes?(:associate)
+        raise ArgumentError.new("field does not support nested_forms_modes with :new and :associate options at same time")
+      end
+    end
+
     def set_position_by_params
       if @params[:position].present?
         @line = @params[:position][:line]
@@ -138,6 +183,7 @@ module Carnival
     end
 
     def get_associate_nested_form_mode
+      return nil if @params[:nested_form_modes].nil?
       @params[:nested_form_modes].each do |mode|
         if mode.is_a? Hash
           return mode[:associate] if mode[:associate].present?

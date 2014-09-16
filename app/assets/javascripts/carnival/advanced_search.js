@@ -13,25 +13,21 @@ $(document).ready(function(){
     $(".advanced_search input").each(function(){
       if($(this).attr("type") == "checkbox")
         queryParams.push(generateQueryParam($(this).attr("name"), $(this).data("type"), $(this).data("operator"), $(this).is(":checked")));
-      else if ($(this).attr("type") == "text" && $(this).val() != "")
+      else if ($(this).attr("type") == "text" && $(this).val() != "" && $(this).val() != "____/__/__")
         queryParams.push(generateQueryParam($(this).attr("name"), $(this).data("type"), $(this).data("operator"), $(this).val()));
     });
     $(".advanced_search select").each(function(){
       if($(this).val() != "-1")
         queryParams.push(generateQueryParam($(this).attr("name"), $(this).data("type"), $(this).data("operator"), $(this).val()));
     });
-    $(".table").first().data("advancedquery", "{" + queryParams.join(", ") + "}");
-    var dataTable = $(".table").dataTable();
-    dataTable.fnReloadAjax(generateDataSource($(".table")));
+    var advancedSearchParams = "{" + queryParams.join(", ") + "}";
+    Carnival.setIndexPageParamAndReload('advanced_search', advancedSearchParams);
   });
 
   $("#clear_button").click(function(e){
     e.preventDefault();
     $($(this).parent().parent().parent()).trigger("reset")
-    $(".table").first().data("advancedquery", "");
-    $(".dataTables_filter input[type=text]").val("");
-    var dataTable = $(".table").dataTable();
-    dataTable.fnReloadAjax(generateDataSource($(".table")));
+    Carnival.setIndexPageParamAndReload('advanced_search', '');
   });
 });
 

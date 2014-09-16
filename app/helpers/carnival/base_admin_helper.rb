@@ -37,62 +37,185 @@ module Carnival
       url_for(params)
     end
 
-    def constant_exists?(item, field)
-      begin
-        item.class.const_get(field.to_s.upcase).present?
-      rescue
-        false
+    def carnival_render_if_exist partial_path
+      if partial_exist?(partial_path)
+        return render partial_path
       end
     end
 
-    def field_type(presenter,field)
-      return :relation if presenter.relation_field?(field.to_sym)
-      field_type = nil
-      field_type = presenter.model_class.columns_hash[field.to_s].type if presenter.model_class.columns_hash[field.to_s].present?
-      return :date if field_type == :datetime or field_type == :date
-      return :number  if field_type == :decimal or field_type == :float
-      return :enum if field_type == :integer and constant_exists?(presenter.model_class,field)
-      :other
+    def partial_exist? partial_path
+      File.exists?(get_partial_path(partial_path))
+    end
+
+    def has_many_relation? model, field
+      klass = Carnival::KlassService.new model.class
+      klass.is_a_has_many_relation?(field.to_sym)
+    end
+
+    def has_one_relation? model, field
+      klass = Carnival::KlassService.new model.class
+      klass.is_a_has_one_relation?(field.to_sym)
+    end
+
+    def many_to_many_relation? model, field
+      klass = Carnival::KlassService.new model.class
+      klass.is_a_many_to_many_relation?(field.to_sym)
+    end
+
+    def get_partial_path partial_path
+      path = Rails.root.join('app', 'views')
+      partial_path_array = partial_path.split('/')
+      partial_path_array.each do |pp|
+        if pp == partial_path_array.last
+          path = path.join "_#{pp}.html.haml"
+        else
+          path = path.join pp
+        end
+      end
+      path
     end
 
     def menu_link link
       link.strip!
       if link.to_s.end_with?('_path') or link.to_s.end_with?('_url')
-        return eval link 
+        return eval link
       elsif link.index(/_path.+/) #path with arguments
-        return eval link 
+        return eval link
       end
 
       link
     end
 
-    def show_as_list(presenter, field)
-      current_type = field_type(presenter,field)
-      return false if current_type != :relation
-      return presenter.fields[field.to_sym].show_as_list
+    def show_view(presenter, field)
+      presenter.get_field(field).show_view
     end
 
-    def field_to_show(presenter, field, record, show_only_value=false)
-      current_type = field_type(presenter,field)
-      if current_type == :relation
-        if show_only_value
-          record.send(field.to_s).to_label unless record.send(field.to_s).nil?
-        else
-          return link_to presenter.relation_label(field.to_sym, record), presenter.relation_path(field.to_sym, record)
-        end
+    def show_as_list(presenter, field)
+      current_type = presenter.field_type(field)
+      if current_type != :relation
+        false
       else
-        result = record.send(field.to_s)
-        if current_type == :date
-          if result.nil?
-            return result
-          else
-            return result.strftime("%d/%m/%y %H:%M:%S")
-          end
-        end
-        return number_with_precision(result, :precision => 2, :separator => ",") if current_type == :number
-        return record.class.const_get(field.to_s.upcase)[result] if current_type == :enum
-        result
+        presenter.get_field(field).show_as_list
       end
     end
+
+    def field_to_show(presenter, field_name, record, show_only_value=false)
+      rendered = field_value_and_type presenter, field_name, record
+      field_type = rendered[:field_type]
+      value = rendered[:value]
+
+      is_relation = presenter.relation_field?(field_name)
+
+      unless value.nil?
+        formatted_field = format_field(presenter, field_name, field_type, value)
+        if is_relation and !show_only_value
+          link_to(formatted_field, presenter.relation_path(field_name, record))
+        else
+          formatted_field
+        end
+      else
+        nil
+      end
+    end
+
+    def field_value_and_type presenter, field_name, record
+      renderer = FieldRenderers::RendererCreator
+        .create_field_renderer(presenter, field_name)
+
+      rendered = renderer.render_field(record)
+    end
+
+    def format_field(presenter, field_name, field_type, value)
+      case field_type
+      when :datetime
+        begin
+          I18n.l(value, format: :long_date)
+        rescue I18n::MissingTranslationData
+          value.strftime("%d/%m/%y %H:%M:%S")
+        end
+      when :date
+        begin
+          I18n.l(value, format: :short_date)
+        rescue I18n::MissingTranslationData
+          value.strftime("%d/%m/%Y")
+        end
+      when :number
+        number_with_precision(value, :precision => 2, :separator => ",")
+      when :enum
+        presenter.model_class.const_get(field_name.upcase)[value]
+      else
+        value
+      end
+    end
+
+    def translate_field(presenter, field_name)
+      field = presenter.get_field(field_name)
+      field_key = field.name_for_translation
+      key = "activerecord.attributes.#{presenter.full_model_name.underscore}.#{field_key}"
+      I18n.t(key, :default => field_key)
+    end
+
+    def list_cel(presenter, field, record, only_render_fields)
+      result = field_to_show(presenter, field, record, only_render_fields)
+      return result if only_render_fields
+      td = "<td class='first-td'>"
+      return "#{td}<span class='#{get_css_class(presenter, field, record)}'>#{result}</span></td>" if presenter.get_field(field).css_class.present?
+      "#{td}#{result}</td>"
+    end
+
+    def get_css_class presenter, field, record
+      css_class = presenter.get_field(field).css_class
+      return '' if !css_class
+      return record.send(css_class[:method]) if css_class.is_a? Hash
+      return css_class if css_class.is_a? String
+      return ''
+    end
+
+    def list_buttons(presenter, record)
+      result = ""
+      presenter.actions_for_record.each do |key, action|
+        if action.show(record)
+          if action.remote?
+            result << button_action_remote(action, presenter, record)
+          else
+            result << button_action(action, presenter, record)
+          end
+        end
+      end
+      result
+    end
+
+    def button_action(action, presenter, record)
+      label = t("#{presenter.model_name.underscore}.#{action.name}", default: t("carnival.#{action.name}"))
+      path = action.path(presenter, :id => record.id)
+      if action.default_partial == :default
+        "<a class='action editar' href='#{path}'>#{label}</a>"
+      elsif action.default_partial == :delete
+        confirm = I18n.t("are_you_sure")
+        "<a class='action apagar' data-confirm='#{confirm}' data-method='delete' href='#{path}' rel='nofollow'>#{label}</a>"
+      end
+    end
+
+    def button_action_remote(action, presenter, record)
+      name = action.name
+      params = action.params
+      label =  t("#{presenter.model_name}.#{action.name}", default: t("carnival.#{action.name}"))
+      path = action.path(presenter, :id => record.id)
+
+      success_callback = "#{name}_success_callback"
+      if params[:success]
+        success_callback = params[:success]
+      end
+
+      error_callback = "#{name}_error_callback"
+      if params[:error]
+        error_callback = params[:error]
+      end
+
+      remote_function = "Carnival.remoteFunction(\"#{path}\", \"#{success_callback}\", \"#{error_callback}\", \"#{params[:method]}\")"
+
+      "<a class='editar' href='#' onclick='#{remote_function}'>#{label}</a>"
+    end
+
   end
 end

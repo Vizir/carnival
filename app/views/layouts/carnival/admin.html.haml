@@ -2,13 +2,12 @@
 %html
   %head
     %link{ href: '/assets/favicon.ico', rel: 'shortcut icon', type: 'image/x-icon' }/
-    %title="#{Rails.application.class.to_s.split('::').first} Admin"
+    %title= Carnival::Config.app_name
     = stylesheet_link_tag "carnival/admin", :media => "all"
+    = javascript_include_tag "carnival/admin", "data-turbolinks-track" => true
     = stylesheet_link_tag controller_name if Rails.application.assets.find_asset("#{controller_name}.css")
     = javascript_include_tag controller_name if Rails.application.assets.find_asset("#{controller_name}.js")
-    = javascript_include_tag "carnival/admin", "data-turbolinks-track" => true
     = csrf_meta_tags
-    %link{:href => "http://fonts.googleapis.com/css?family=Raleway:400,600,700", :rel => "stylesheet", :type => "text/css"}
     - Carnival::Config.custom_javascript_files.each do |file|
       = javascript_include_tag file
     - Carnival::Config.custom_css_files.each do |file|
@@ -16,21 +15,16 @@
 
   %body
     #main
-      - if current_admin_user.present?
-        .right_menu
-          %div.sign_out= link_to t('logout'), destroy_admin_user_session_path, :method => :delete
-          %div.safe-guard-notification
-            = render '/layouts/carnival/notifications_list'
-          %div.salute
-            = link_to edit_carnival_admin_user_path(:id => current_admin_user.id) do
-              .email
-                = current_admin_user.email
-              %figure
-                %img{:src => "#{current_admin_user.avatar.nil? ? '/assets/carnival/avatar.png' : current_admin_user.avatar}", :class => "#{current_admin_user.avatar.nil? ? 'default' : 'custom'}"}
-
+      .right_menu
+        = carnival_render_if_exist 'carnival/extra_header'
       #header_wrapper
         #header
-          .logo_intranet= link_to "#{Rails.application.class.to_s.split('::').first} Admin", admin_root_url
+          .logo_intranet
+            - if partial_exist? 'carnival/app_logo' 
+              = render 'carnival/app_logo'
+            -else
+              = link_to "#{Carnival::Config.app_name}", carnival_root_url
+
       #content_wrapper
         = render '/layouts/carnival/menu'
         #content
@@ -42,6 +36,7 @@
               = render '/carnival/shared/application_popup_partial'
             .clearfix
       #footer_wrapper_app
+        = carnival_render_if_exist 'carnival/extra_footer'
         #footer_app
           #footer_title_app
           #footer_logo_app

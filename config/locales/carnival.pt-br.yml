@@ -5,6 +5,8 @@ pt-BR:
     new: Novo
     edit: Editar
     destroy: Apagar
+    errors:
+      invalid_field:  "As actions '%{actions}' não são válidas para o campo '%{field}' do presenter '%{presenter}'"
 
   nested_form:
     open: Abrir
@@ -66,7 +68,12 @@ pt-BR:
   by: por
   at: às
   new_support: Abrir solicitação de suporte
-  batch_operations: Operações em Lote
+  batch_actions: Operações em Lote
+  paginate_first: Primeira
+  paginate_previous: « Anterior
+  paginate_next: Próxima »
+  paginate_last: Última
+  paginate_total: Total
   data_tables:
     first: Primeira
     last: Última
@@ -211,11 +218,13 @@ pt-BR:
   activerecord:
     attributes:
       carnival/admin_user:
-        email: E-mail
-        name: Nome
-        id: Código
+        avatar: Foto
         current_sign_in_at: Acesso atual em
+        email: E-mail
+        id: Código
         last_sign_in_at: Último acesso em
+        name: Nome
+        photo: Foto
         sign_in_count: Total de acessos
     errors:
       template:

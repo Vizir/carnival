@@ -2,7 +2,7 @@
 - if date_filter_field.present?
   %ul
     %li#filtro_tempo
-      = link_to t("date_filter.#{date_filter_field.default_date_filter}"), "#", :id=>"filtro_periodo", :class => "filters"
+      = link_to t("date_filter.#{date_period_label}"), "#", :id=>"filtro_periodo", :class => "filters"
       #container_tempo
         %ul.atalhos{:style=>"clear:left"}
           - i = 0
@@ -44,11 +44,10 @@
       })
     });
     function filter_date(label, from, to){
-      $(".table").first().data("from", from);
-      $(".table").first().data("to", to);
+      Carnival.setIndexPageParam('date_period_from', from)
+      Carnival.setIndexPageParam('date_period_to', to)
+      Carnival.setIndexPageParam('date_period_label', label)
       $("#filtro_periodo").html(label);
-
-      var dataTable = $(".table").dataTable();
-      dataTable.fnReloadAjax(generateDataSource($(".table")));
+      Carnival.reloadIndexPage();
       $("#container_tempo").toggle();
     }

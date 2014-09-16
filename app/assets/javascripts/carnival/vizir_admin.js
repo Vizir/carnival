@@ -1,10 +1,70 @@
 // add/remove dynamic fields
+var Carnival = {}
 String.prototype.unescapeHtml = function () {
     var temp = document.createElement("div");
     temp.innerHTML = this;
     var result = temp.childNodes[0].nodeValue;
     temp.removeChild(temp.firstChild);
     return result;
+}
+
+Carnival.remoteFunction = function(url, successCallback, errorCallback, method, data){
+  if(!data)
+    data = {};
+  $.ajax({
+    url: url,
+    type: method,
+    data: data,
+    success: function(data, status, jqXHR){
+      Carnival.callFunc(successCallback, data);
+    },
+    error: function(jqXHR, status, error){
+      Carnival.callFunc(errorCallback, data);
+    }
+  })
+}
+
+Carnival.callFunc = function(functionName, data){
+  var func = window[functionName];
+  if(func)
+  {
+    if(typeof func === 'function')
+    {
+      func(data);
+    }
+  }else{
+    if(console && console.warn)
+      console.warn('The funcion ' + functionName + ' was not implemented')
+  }
+  Carnival.reloadIndexPage();
+}
+
+Carnival.setIndexPageParam = function(name, value){
+  var form = $('.carnival-index-form').find('form')
+  form.find('input[name='+name+']').val(value);
+}
+
+Carnival.reloadIndexPage = function(){
+  Carnival.setIndexPageParam('page', 1);
+  var form = $('.carnival-index-form').find('form')
+  form.submit();
+}
+
+Carnival.setIndexPageParamAndReload = function(name, value){
+  Carnival.setIndexPageParam(name, value);
+  Carnival.reloadIndexPage();
+}
+
+Carnival.sortColumn = function(column, direction){
+  Carnival.setIndexPageParam('sort_column', column);
+  Carnival.setIndexPageParam('sort_direction', direction);
+  Carnival.reloadIndexPage();
+}
+
+Carnival.goToPage = function(page){
+  Carnival.setIndexPageParam('page', page);
+  var form = $('.carnival-index-form').find('form')
+  form.submit();
 }
 
 function removeFields(link) {
@@ -94,12 +154,41 @@ var pageLoad = function(){
 
 // form load functions
 
+function setupDateFields(){
+  var dateOptions = {
+    format: 'Y/m/d',
+    mask: true,
+    timepicker: false
+  };
+  var dateTimeOptions = $.extend({}, dateOptions, { timepicker: true, format: 'Y/m/d H:i'})
+
+  $(".datepicker").datetimepicker(dateOptions);
+  $(".datetimepicker").datetimepicker(dateTimeOptions);
+}
+
 var formLoad = function(){
-  $(".datepicker").datepicker({
-    dateFormat: 'yy-mm-dd'
-  });
+  setupDateFields();
   $('select').chosen();
   $(".chosen-container").css({width:$(".chosen-container").parent().css("width")})
+  $('input.previewable').change(function() {
+    var that = $( this );
+    var reader = new FileReader();
+    var img = $(this).next('img.previewable');
+
+    reader.onload = function(e) {
+      var val = e.target.result;
+      img.attr('src', val);
+    }
+
+    if (this.files && this.files[0]) {
+      reader.readAsDataURL(this.files[0]);
+    } else {
+      img.attr('src', '');
+    }
+  });
+  $('.chosen').chosen();
+  $(".chosen-container").css({width:$(".chosen-container").parent().css("width")})
+  selectRemote();
 }
 
 $(document).ready(function(){

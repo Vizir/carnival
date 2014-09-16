@@ -6,6 +6,7 @@
  *= require carnival/chosen.css
  *= require carnival/colorbox.css
  *= require carnival/main.css
+ *= require carnival/select2.css
  *= require carnival/header.css
  *= require carnival/menu.css
  *= require carnival/notifications.css
@@ -14,4 +15,5 @@
  *= require carnival/jquery-ui-1.8.11.custom
  *= require carnival/perfect-scrollbar-0.4.6.min
  *= require carnival/jquery.fancybox
+ *= require carnival/external/jquery.datetimepicker.css
 */

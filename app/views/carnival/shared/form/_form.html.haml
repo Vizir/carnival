@@ -28,7 +28,13 @@
     newForm = newForm.replace(/([_a-zA-Z]+_attributes_)\d+(_[a-zA-Z]+)/g, "$1" + last_index + "$2");
     newForm = newForm.replace(/([_a-zA-Z]+\[[_a-zA-Z]+_attributes\]\[)\d+(\]\[[_a-zA-Z]+\])/g, "$1" + last_index + "$2");
     $(selector).append(newForm);
-    $(selector).find("select").chosen();
+    $(selector).find(".chosen").chosen();
+    $(selector + " li:last")[0].scrollIntoView(true)
+    setupDateFields();
+    var lastFormAdded = $(selector).find(".nested-form-list-item").last();
+    lastFormAdded.find('.select2-remote').each(function(){
+      addSelect2ToField(this);
+    });
   }
 
   function getFormName(element){
@@ -38,7 +44,8 @@
   }
 
   function removeNestedFormElement(element){
-    $(element).parent().parent().remove();
+    $(element).parent().parent().hide();
+    $(element).parents("li").find(".destroy").val("1");
   }
 
   function toggleNestedForm(element){
@@ -60,16 +67,7 @@
     $('#'+selectId).trigger("chosen:updated");
   }
 
-  function addOption(selectId){
-    var option = $('#'+selectId).val();
-    if(option == -1)
-      return;
-    $('#'+option+'_options').show();
-    $('#'+option).prop('checked', true);
-    $('#'+option+'_select_option').prop('disabled', true);
-    $('#'+selectId).val(-1);
-    $('#'+selectId).trigger("chosen:updated");
-  }
+
 
   function getNestedFormOptions(params){
     $('#nested_form_options_'+params['field_name']).html();
@@ -91,9 +89,9 @@
     });
   }
 
-  function updateDependentFormSelectHtml(value, field, dependentField){
+  function updateDependentFormSelectHtml(load_dependent_path, presenter, value, field, dependentField){
     if(value != ""){
-      $.ajax("#{model_presenter.load_dependent_select_options_path}/#{model_presenter.presenter_name}/" + dependentField + "/" + field + "/" + value)
+      $.ajax(load_dependent_path + "/" + presenter + "/" + dependentField + "/" + field + "/" + value)
         .done(function(data){
           var selector = ".field-" + dependentField.replace("_id", "");
           $(selector).html(data);

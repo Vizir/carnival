@@ -1,6 +1,7 @@
 //= require jquery
 //= require jquery_ujs
-//= require carnival/external/jquery.dataTables.min
+//= require carnival/external/select2/select2.min
+//= require carnival/external/select2/select2_locale_pt-BR
 //= require carnival/external/noty/jquery.noty
 //= require carnival/external/noty/layouts/bottom
 //= require carnival/external/noty/themes/default
@@ -10,4 +11,7 @@
 //= require carnival/external/perfect-scrollbar-0.4.6.min
 //= require carnival/external/perfect-scrollbar-0.4.6.with-mousewheel.min
 //= require carnival/external/jquery.fancybox
+//= require carnival/select_remote
+//= require carnival/external/jquery.datetimepicker.js
 //= require carnival/vizir_admin
+//= require carnival/batch_action
