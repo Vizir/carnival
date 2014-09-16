@@ -59,10 +59,18 @@ module Carnival
       @klass.reflect_on_association(association.to_sym)
     end
 
-    private
     def get_related_class sym
-      get_association(sym).klass
+      association = get_association(sym)
+      return nil if association.nil?
+      association.klass
     end
+
+    def get_foreign_key sym
+      association = get_association(sym)
+      return nil if association.nil?
+      association.foreign_key
+    end
+    private
 
     def many_to_many_relation? association
       return true if association.macro == :has_and_belongs_to_many
