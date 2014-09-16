@@ -1,6 +1,6 @@
 module Carnival
   class QueryForm
-    attr_accessor :scope, :search_term, :advanced_search, :date_period_label, :date_period_from, :date_period_to, :sort_column, :sort_direction
+    attr_accessor :scope, :search_term, :date_period_label, :date_period_from, :date_period_to, :sort_column, :sort_direction
 
     def initialize(params)
       @scope = params[:scope]
@@ -12,6 +12,11 @@ module Carnival
       @sort_column = params[:sort_column]
       @sort_direction = params[:sort_direction]
       @page = params[:page]
+    end
+
+    def advanced_search
+      return '' if @advanced_search.nil? 
+      @advanced_search
     end
 
     def to_hash
