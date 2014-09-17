@@ -152,15 +152,10 @@ padding-left: 5.2%;
 }
 
 #main_column{
-  padding: 20px 1%;
   padding-top: 0px;
   padding-right:0;
   padding-left:0;
   width: 100%;
-}
-
-#main_column a{
-  text-decoration: none;
 }
 
 #main_column a:hover{
@@ -212,51 +207,6 @@ h1.title{
   clear: both;
   display: block;
   padding-bottom: 30px;
-}
-
-.action_back a{
-  min-width: 54px;
-  text-decoration: none !important;
-  background: url('voltar.png') 42px -38px;
-  right:0%;
-  top:25px;
-  position:absolute;
-  display: inline-block;
-  font-weight: 300;
-  height: 23px;
-  text-align: center;
-  border: 1px solid #2a6198;
-  color: #fff !important;
-  font-size:14px !important;
-  padding:3px 5px 0px 22px;
-  border-radius: 2px;
-}
-
-.action_back a:hover{
-  background: url('voltar.png') 42px -4px;
-  cursor:pointer !important;
-}
-
-.actions a{
-  right:1%;
-  cursor: default !important;
-  display: inline-block;
-  font-weight: bold;
-  height: 26px;
-  text-align: center;
-  background: url('novo.png') 41px -38px;
-  border: 1px solid #2a6198;
-  color: #fff !important;
-  font-size:12px !important;
-  cursor:pointer;
-  font-size:13px;
-  padding:3px 10px 0px 30px
-}
-
-.actions a:hover{
-  background: url('novo.png') 41px -4px;
-  cursor:pointer !important;
-  text-decoration:none !important;
 }
 
 .field label{
@@ -846,45 +796,34 @@ li.scope{
 }
 
 .table-tools a.filters{
-  display: inline-block;
-  font-weight: bold;
-  font-size: 1.0em;
-  font-family: Helvetica, Arial, sans-serif;
-  line-height: 12px;
-  padding: 7px 16px 6px;
+  display: block;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 26px;
+  padding: 0px 10px;
   text-decoration: none;
-  -webkit-font-smoothing: antialiased;
-  background: white;
-  background: -webkit-linear-gradient(-90deg, #fff, #e7e7e7);
-  background: -moz-linear-gradient(-90deg, #fff, #e7e7e7);
-  background: linear, -90deg, white, #e7e7e7;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFE7E7E7');
-  -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFE7E7E7');
-  box-shadow: 0 1px 1px rgba(0,0,0,0.1),0 1px 0 0 rgba(255,255,255,0.8) inset;
   border: solid 1px #c7c7c7;
-  border-color: #c7c7c7;
-  border-top-color: lightgrey;
-  border-right-color: #c7c7c7;
-  border-bottom-color: #c2c2c2;
-  border-left-color: #c7c7c7;
-  text-shadow: white 0 1px 0;
   color: #5e6469;
   background: white;
   background: -webkit-linear-gradient(-90deg, #fff, #f0f0f0);
   background: -moz-linear-gradient(-90deg, #fff, #f0f0f0);
   background: linear, -90deg, white, #f0f0f0;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFF0F0F0');
-  -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFF0F0F0');
   border-color: #d0d0d0;
   border-top-color: #d9d9d9;
   border-right-color: #d0d0d0;
   border-bottom-color: #c5c5c5;
   border-left-color: #d0d0d0;
-  font-size: 0.9em;
   text-decoration: none;
-  padding: 6px 14px;
-  position: relative;
   -webkit-transition: all 0.08s ease-in;
+  height: 26px !important;
+  border-radius: 3px;
+  width: auto;
+  float: left;
+  opacity: 0.8;
+}
+
+.table-tools a.filters:hover{
+  opacity: 1;
 }
 
 .table-tools li.selected a {
@@ -896,13 +835,6 @@ li.scope{
   -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFF0F0F0', endColorstr='#FFFDFDFD');
   box-shadow: 0 1px 1px 0 rgba(0,0,0,0.1) inset;
   cursor: default;
-}
-
-.table-tools a {
-  border-radius: 0px;
-  line-height: 24px;
-  text-decoration: none !important;
-  z-index: 999;
 }
 
 .table-tools li a:hover {
@@ -920,17 +852,16 @@ li.scope{
 
 #filtro_tempo #container_tempo{
   display: none;
-  text-align: left;
   z-index: 99;
   position: absolute;
   background: #fff;
-  border: 1px solid #c0c0c0;
-  margin-left: -210px;
+  border: 1px solid #ccc;
+  margin-left: -245px;
   width: 295px;
-}
-
-#filtro_tempo a{
-  height: 13px;
+  margin-top: 25px;
+  overflow: hidden;
+  border-radius: 3px 0px 3px 3px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
 }
 
 #filtro_tempo #container_tempo .field{
@@ -938,7 +869,7 @@ li.scope{
   width: 44%;
 }
 #filtro_tempo #container_tempo input{
-  width: 104px;
+  width: 112px;
   padding: 4px 2px !important;
   margin-left: 10px;
 }
@@ -964,49 +895,26 @@ li.scope{
   padding: 0;
   margin: 0px;
   width: 100%;
-  border-bottom: 1px solid #c0c0c0;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 5px 0;
+}
+
+#container_tempo ul li:last-child a{
+  border: none
+}
+
+#container_tempo ul li:nth-child(7) a{
+  border: none;
 }
 
 .table-tools{
   width: 100%;
-  height: 75px;
+  height: 35px;
 }
 
-.table-download-links{
-  position: relative;
-  float: left;
-  width: 273px;
-  margin-top: -75px;
-}
-
-.table-download-links a{
-  margin:3px;
-  padding:3px 8px 5px 8px;
-  cursor: default !important;
-  display: inline-block;
-  font-weight: bold;
-  text-align: center;
-  text-decoration: none !important;
-  background: url('novo.png') left bottom;
-  border: 1px solid
-  #ccc;
-  font-size:13px;
-  box-shadow: 0 -1px 0px 0 #fff;
-  cursor:pointer;
-  -webkit-border-radius: 1px;
-  border-radius: 1px;
-  -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
-  color:#333 !important;
-  font-weight:normal;
-  line-height: 22px;
-}
-.table-download-links a:hover{
-  background: url('novo.png') left top;
-  color: #fff !important;
-  font-size:13px;
-  color:#fff !important;
-  cursor:pointer !important;
-    border:1px solid #2A6198;
+.table-tools ul{
+  padding: 0;
+  margin: 0;
 }
 
 .period-selector{
@@ -1016,26 +924,34 @@ li.scope{
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   text-align: center;
-  height:22px;
 }
 
 
 li.period-selector:nth-child(odd){
-  border-right: 1px solid #c0c0c0;
+  border-right: 1px solid #e0e0e0;
 }
 
 .period-selector a{
-  margin: 0 !important;
-  height: auto;
   cursor: pointer;
   z-index: 10;
-  margin: 0;
-  font-size: 14px;
+  font-size: 13px;
   color: #0088CC !important;
-  font-weight: 600;
+  font-weight: normal;
   border: none;
   background: none;
   box-shadow: none;
+  float: left;
+  width: 80%;
+  height: 100%;
+  display: block;
+  padding: 2px 0px;
+  margin: 0 10%;
+  border-bottom: 1px dotted #ccc;
+  opacity: 0.8;
+}
+
+.period-selector a:hover{
+  opacity: 1;
 }
 
 #container_tempo .field label{
@@ -1046,22 +962,24 @@ li.period-selector:nth-child(odd){
 
 #container_tempo .action{
   float: left;
-  margin-top: 30px;
-  width: 12%;
+  margin-top: 24px;
+  width: 10%;
 }
 
 #container_tempo .custom{
-  background-color: #efefef;
+  background-color: #f1f1f1;
   width: 100%;
-  height: 64px;
+  height: 60px;
   float: left;
+  padding-top: 4px;
 }
 
-.datepicker {
-  background-image: url('cal.png');
+.formframe input.datepicker {
+  background-image: url('cal.png') !important;
   background-repeat: no-repeat;
-  background-position-x: 90px;
-  background-position-y: 3px;
+  background-position-x: 87px !important;
+  background-position-y: 5px !important;
+  height: 27px;
 }
 
 #tabs{
@@ -1115,27 +1033,25 @@ table input{
 }
 
 .advanced_search{
-  /* width: 383px; */
-  /* position: absolute; */
-  /* background: #fff; */
-  /* margin-top: 0px; */
-  /* z-index:10; */
-  float: left;
+  position: absolute;
 }
 
 .advanced_search .toggler{
-  margin-left: 253px;
   margin-top: 2px;
   width:130px;
 }
 
+.advanced_search .toggler a:hover{
+  text-decoration: none !important;
+}
+
 .advanced_search #advanced_search_form{
-  display:none;
-  border: 1px solid #c0c0c0;
+  display: none;
+  border: 1px solid #ccc;
   padding: 20px;
   margin-top: -9px;
   float: left;
-  width: 383px;
+  width: 350px;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -1143,64 +1059,22 @@ table input{
   position: absolute;
   z-index: 99999;
   background-color: #fff;
+  border-radius: 0px 3px 3px 3px;
+  background: #fafafa;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
 }
 
-.advanced_search li.search_item{
-  line-height: 30px;
-}
-.advanced_search li.search_item:last-child{
-  clear: both;
-}
-.advanced_search .search_field .label{
-  width: 30%;
-  float: left;
-}
-.advanced_search .search_field .field{
-  width: 70%;
-  float: left;
+.advanced_search li.search_item input{
+  height: 28px;
 }
 
-.advanced_search .search_field .field input{
-  border:1px solid #dfe4e7;
-  padding:4px;
-  background:none;
-  -webkit-border-radius: 1px;
-  border-radius: 1px;
-  padding:5px 6px;
-  width:225px;
-  border-top:1px solid #ccc;
+.advanced_search li.search_item label{
+  margin: 0px 0px 0px 0px;
+  text-align: left;
 }
-
 
 .advanced_search input[type=text].datepicker{
-  width: 104px;
-  padding: 4px 2px !important;
-}
-
-.advanced_search .search_item .action{
-  width: 50%;
-  float: left;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.advanced_search .search_item .action a{
-  margin: 0 !important;
-  height: auto;
-  cursor: pointer;
-  z-index: 10;
-  margin: 0;
-  font-size: 14px;
-  color: #0088CC !important;
-  font-weight: 600;
-  border: none;
-  background: none;
-  box-shadow: none;
-}
-
-.advanced_search .search_item .action a:hover{
-  cursor: pointer;
-  text-decoration: none !important;
+  width: 110px;
 }
 
 .advanced_search .chosen-container{
@@ -1546,78 +1420,6 @@ table input{
   background-color: #2D66A0;
 }
 
-.nested-form-title{
-  float: left;
-  margin-left: 20px;
-}
-
-.nested-form-title:first-child{
-  float: left;
-  margin-left: 0px;
-}
-
-.nested-form-actions{
-  float: right;
-  margin-top: 17px;
-}
-
-.nested-form-list{
-  clear: both;
-}
-
-.nested-form-list-item{
-  border: 1px solid #ccc;
-  float: left;
-  margin-bottom: 10px;
-  padding: 10px;
-  width: 95%;
-}
-.nested-form-list-item-actions{
-  float: right;
-}
-
-.existing-options{
-  clear: both;
-  padding-bottom: 10px;
-  width: 95%;
-}
-
-.existing-options span{
-  float: left;
-}
-
-.carnival-form-options-hide{
-  display: none
-}
-
-.carnival-select-options{
-  width: 100%;
-  margin-left: 20px;
-  position: relative;
-  float: left;
-}
-
-.carnival-select-tag{
-  width: 50%;
-  float: left;
-  position: relative;
-  margin-right: 10px;
-}
-
-.carnival-select-action{
-  width: 50%;
-  float: left;
-  position: relative;
-}
-.carnival-form-options{
-  margin-left: 20px;
-  float: left;
-}
-
-.hidden-select{
-  display:none !important;
-}
-
 .table-paginate, .table-download-links{
   margin-left: -3px;
   position: relative;
@@ -1625,10 +1427,9 @@ table input{
   float: right;
 }
 
-.table-paginate a{
-  margin: 3px;
-  padding: 3px 8px 3px 8px;
-  cursor: default !important;
+.table-paginate a, .table-download-links a{
+  margin: 3px 0px;
+  padding: 0 8px;
   display: inline-block;
   text-align: center;
   text-decoration: none !important;
@@ -1636,23 +1437,29 @@ table input{
   border: 1px solid #CCC;
   font-size: 13px;
   box-shadow: 0px -1px 0px 0px #FFF;
-  border-radius: 1px;
+  border-radius: 3px;
   color: #333 !important;
   font-weight: normal;
+  line-height: 26px;
+  opacity: 0.8;
 }
 
-.table-paginate a:hover{
-background: url('novo.png') repeat scroll left top transparent;
-font-size: 13px;
-color: #FFF !important;
-cursor: pointer !important;
-border: 1px solid #2A6198;
+.table-paginate a:hover, .table-download-links a:hover{
+  background: url('novo.png') repeat scroll left -40px transparent;
+  font-size: 13px;
+  color: #FFF !important;
+  cursor: pointer !important;
+  border: 1px solid #2A6198;
 }
 
 .carnival-selected-page-button a{
-background: url('novo.png') repeat scroll left top transparent;
-font-size: 13px;
-color: #FFF !important;
-cursor: pointer !important;
-border: 1px solid #2A6198;
+  background: url('novo.png') repeat scroll left top transparent;
+  font-size: 13px;
+  color: #FFF !important;
+  cursor: pointer !important;
+  border: 1px solid rgba(42, 97, 152, 0.48);
+}
+
+.table-download-links{
+  width: 270px;
 }

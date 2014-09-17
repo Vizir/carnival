@@ -5,9 +5,19 @@ input::-webkit-inner-spin-button {
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
+.formframe *{
+    transition: all 0.3s ease;
+}
+
 .formframe, .formframe label{
   width: 100%;
   float: left;
+}
+
+.formframe label{
+  font-weight: bold;
+  text-transform: capitalize;
+  line-height: 20px;
 }
 
 .formframe input{
@@ -18,11 +28,11 @@ input::-webkit-inner-spin-button {
   font-family: 'OpenSansRegular';
   padding:2px 6px 2px 6px;
   color:#555;
-  box-shadow: 0px 1px 0px 0px #fff;
-  border-radius: 1px;
+  border-radius: 3px;
   -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
   background:#fff;
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
   height: 35px;
 }
 
@@ -32,7 +42,8 @@ input::-webkit-inner-spin-button {
 }
 
 .formframe input:focus{
-  border: 1px solid #2c6fec;
+  border: 1px solid #A2C5F3;
+  box-shadow: 0px 0px 3px rgba(110, 220, 255, 0.6);
 }
 
 .formframe input.submit{
@@ -46,10 +57,6 @@ input::-webkit-inner-spin-button {
   #C8C8C8;
   background: url(bg_button.png);
   color: #333;
-  -webkit-box-shadow: 0px 1px 0px 0px white;
-  -moz-box-shadow: 0px 1px 0px 0px #fff;
-  -webkit-border-radius: 1px;
-  -moz-border-radius: 1px;
   margin-right: 0px;
   box-shadow:none;
   font-weight: 300;
@@ -82,12 +89,8 @@ input::-webkit-inner-spin-button {
   min-height:100px;
   margin:0;
   color:#555;
-  -webkit-box-shadow: 0px 1px 0px 0px #fff;
-    -moz-box-shadow: 0px 1px 0px 0px #fff;
-    box-shadow: 0px 1px 0px 0px #fff;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
+  box-shadow: 0px 1px 0px 0px #fff;
+  border-radius: 4px;
   -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
   font-size:13px;
 }
@@ -102,15 +105,8 @@ input::-webkit-inner-spin-button {
   background:url(bg_button.png);
   font-family: 'OpenSansSemibold';
   color:#333;
-
-
-  -webkit-box-shadow: 0px 1px 0px 0px #fff;
-    -moz-box-shadow: 0px 1px 0px 0px #fff;
-    box-shadow: 0px 1px 0px 0px #fff;
-
-  -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
+  box-shadow: 0px 1px 0px 0px #fff;
+  border-radius: 4px;
 }
 
 .formframe button:hover{
@@ -136,7 +132,6 @@ input::-webkit-inner-spin-button {
 .submit_button{
   float: left;
   margin-top: 15px;
-  margin-left: -15px;
   padding-top:10px;
   bottom:15px;
   border-top: 1px solid #C7C7C7;
@@ -148,8 +143,6 @@ input::-webkit-inner-spin-button {
   margin-top: 10px;
   margin-right: 20px;
 }
-
-/********************************************************************************/
 
 .formframe .styleCheck, .styleRadio{
   padding:5px 0px 0px 26px;
@@ -188,73 +181,101 @@ input::-webkit-inner-spin-button {
   position: absolute; left: -9999px;
 }
 
+/************************ NESTED FORMS *********************** START */
 
-/***********************************************************************************/
-
-#pagination{
-  list-style:none;
+.nested-form{
+  margin: 10px 0 0;
 }
 
-#pagination li{
-  display:block;
-  background: #eee;
-  border: 1px solid #ccc;
-  float:left;
-  border: 1px solid #c8c8c8;
-  padding:6px 8px 4px 8px;
-  background:url(bg_button.png);
-  font-family: 'OpenSansSemibold';
-  color:#333;
-  -webkit-box-shadow: 0px 1px 0px 0px #fff;
-    -moz-box-shadow: 0px 1px 0px 0px #fff;
-    box-shadow: 0px 1px 0px 0px #fff;
-  -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-    margin:0px 2px 0px 2px;
+.nested-form-title{
+  float: left;
+  margin-left: 20px;
 }
 
-#pagination li:hover{
-  color:#3079ed;
-  cursor:pointer;
+.nested-form-title:first-child{
+  margin-left: 0px;
+  float: left;
+  width: auto;
+  display: block;
+  margin: 1px 10px 16px 0px;
+  line-height: 26px;
 }
 
-#pagination li:active{
-  color:#fff;
-  background-position:0px -30px ;
-  border: 1px solid #173988;
-  cursor:pointer;
+.nested-form-actions{
+  float: right;
+  margin-top: 17px;
 }
 
-.pagPrev{
-  text-indent:-9999px;
-  background:url(bg_button.png) 3px -122px !important;
-  width:7px;
+.nested-form-list{
+  clear: both;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-.pagPrev:hover{
-  background:url(bg_button.png) -15px -122px !important;
+.nested-form-list-item{
+  border-top: 1px solid #ccc;
+  border-bottom: 0px solid #ccc;
+  float: left;
+  margin-bottom: 0px;
+  padding: 10px 25px 15px;
+  width: 100%;
+  background: #f9f9f9;
+  box-sizing: border-box;
+  -mox-box-sizing: border-box;
+
 }
 
-.pagPrev:active{
-  text-indent:-9999px;
-  background:url(bg_button.png) 3px -122px !important;
-  width:7px;
+.nested-form-list-item:hover{
+  background: #e2e2e2;
+  border-top: 3px solid #ccc;
+  border-bottom: 2px solid #ccc;
 }
 
-.pagNext{
-  text-indent:-9999px;
-  background:url(bg_button.png) 38px -122px !important;
-  width:7px;
+.nested-form-list-item-actions{
+  float: right;
 }
 
-.pagNext:hover{
-  background: #fff url(bg_button.png) 20px -122px !important;
+.existing-options{
+  clear: both;
+  padding-bottom: 10px;
+  width: 95%;
 }
 
-.pagNext:active{
-  color:#fff;
-  background-position:0px -30px ;
-  border: 1px solid #173988;
-  cursor:pointer;
+.existing-options span{
+  float: left;
 }
+
+.carnival-form-options-hide{
+  display: none
+}
+
+.carnival-select-options{
+  width: 100%;
+  margin-left: 20px;
+  position: relative;
+  float: left;
+}
+
+.carnival-select-tag{
+  width: 50%;
+  float: left;
+  position: relative;
+  margin-right: 10px;
+}
+
+.carnival-select-action{
+  width: 50%;
+  float: left;
+  position: relative;
+}
+.carnival-form-options{
+  margin-left: 20px;
+  float: left;
+}
+
+.hidden-select{
+  display:none !important;
+}
+
+/************************ NESTED FORMS *********************** END */

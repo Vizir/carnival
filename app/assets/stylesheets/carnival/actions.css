@@ -16,18 +16,69 @@
 
 .carnival-action-button{
   display: block;
-  font-size: 11px;
-  padding: 2px 6px 0px 6px;
+  font-size: 13px;
+  padding: 0px 10px 0px;
   -webkit-border-radius: 2px;
   border-radius: 2px;
   -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
   text-align: center;
   border-right: none;
-  float: right;
+  float: left;
+  background: #999;
+  color: #fff;
+  line-height: 26px;
+  border: 1px solid rgba(0, 0, 0, 0.21);
 }
+
+
+.action_back a, .actions a{
+  min-width: 54px;
+  text-decoration: none !important;
+  background: url('voltar.png') 42px -38px;
+  position:absolute;
+  display: inline-block;
+  font-weight: 300;
+  height: 23px;
+  text-align: center;
+  border: 1px solid #2a6198;
+  color: #fff !important;
+  font-size:14px !important;
+  padding:3px 5px 0px 22px;
+  border-radius: 2px;
+  opacity: 0.8;
+  position: relative;
+}
+
+.actions a{
+  background: url('novo.png') 41px -38px;
+}
+
+.action_back a:hover{
+  opacity: 1;
+  cursor:pointer !important;
+}
+
+.actions a:hover{
+  opacity: 1;
+  background: url('novo.png') 41px -38px;
+  cursor:pointer !important;
+  text-decoration:none !important;
+}
+
 
 .carnival-action-button:hover{
   text-decoration: none !important;
+}
+
+.novo{
+  background: #007ae1;
+  color: #fff; 
+  opacity: 0.8;
+}
+
+.novo:hover{
+  opacity: 1;
+  color: #fff; 
 }
 
 .apagar{
@@ -40,11 +91,11 @@
 }
 
 .editar{
-  color:#2e77ec;
+  color:#007ae1;
 }
 
 .editar:hover{
-  background:#2e77ec;
+  background:#007ae1;
   color:#fff;
 }
 

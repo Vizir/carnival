@@ -44,7 +44,7 @@
   }
 
   function removeNestedFormElement(element){
-    $(element).parent().parent().hide();
+    $(element).parent().parent().slideUp();
     $(element).parents("li").find(".destroy").val("1");
   }
 

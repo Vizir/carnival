@@ -10,7 +10,7 @@
             %li.period-selector{:data => {:from => date_filter_field.date_filter_periods[period][0], :to => date_filter_field.date_filter_periods[period][1]}}
               = link_to t("date_filter.#{period}"), ""
             - i = i + 1
-        .custom
+        .custom.formframe
           = simple_form_for "", :url=> "", :method=> :get, :html=>{:id=>"form_tempo", :class=> "clear_both"} do |f|
             = f.input :filtro, :as=> :hidden, :input_html=>{:value=> :range}
             .field
