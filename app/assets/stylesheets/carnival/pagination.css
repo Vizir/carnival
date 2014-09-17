@@ -1,68 +1,24 @@
-
-#pagination{
-  list-style:none;
+.table-paginate, .table-download-links{
+  margin-left: -3px;
+  position: relative;
+  margin-top: 20px;
+  float: right;
 }
 
-#pagination li{
-  display:block;
-  background: #eee;
-  border: 1px solid #ccc;
-  float:left;
-  border: 1px solid #c8c8c8;
-  padding:6px 8px 4px 8px;
-  background:url(bg_button.png);
-  font-family: 'OpenSansSemibold';
-  color:#333;
-  -webkit-box-shadow: 0px 1px 0px 0px #fff;
-    -moz-box-shadow: 0px 1px 0px 0px #fff;
-    box-shadow: 0px 1px 0px 0px #fff;
-  -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-    margin:0px 2px 0px 2px;
+.table-download-links{
+  float: left;
 }
 
-#pagination li:hover{
-  color:#3079ed;
-  cursor:pointer;
+.table-paginate a, .table-download-links a{
+  margin: -5px 4px 0 0;
 }
 
-#pagination li:active{
-  color:#fff;
-  background-position:0px -30px ;
-  border: 1px solid #173988;
-  cursor:pointer;
+.carnival-selected-page-button a{
+  background: url('novo.png') repeat scroll left top transparent;
+  border: 1px solid rgba(42, 97, 152, 0.48);
+  color: #fff;
 }
 
-.pagPrev{
-  text-indent:-9999px;
-  background:url(bg_button.png) 3px -122px !important;
-  width:7px;
-}
-
-.pagPrev:hover{
-  background:url(bg_button.png) -15px -122px !important;
-}
-
-.pagPrev:active{
-  text-indent:-9999px;
-  background:url(bg_button.png) 3px -122px !important;
-  width:7px;
-}
-
-.pagNext{
-  text-indent:-9999px;
-  background:url(bg_button.png) 38px -122px !important;
-  width:7px;
-}
-
-.pagNext:hover{
-  background: #fff url(bg_button.png) 20px -122px !important;
-}
-
-.pagNext:active{
-  color:#fff;
-  background-position:0px -30px ;
-  border: 1px solid #173988;
-  cursor:pointer;
+.table-download-links{
+  width: 270px;
 }

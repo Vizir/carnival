@@ -1,6 +1,6 @@
 - index_path = caminho_modelo(:index)
 .gray_border.with_margin_bottom
   %h1= t("#{@model_presenter.model_name}.edit", default: t('carnival.edit'))
-.action_back
-  = link_to t('back'), index_path, class: 'back_link'
+  .action_back
+    = link_to t('back'), index_path, class: 'voltar carnival-action-button'
 = render '/carnival/shared/form/form', button: t('update'), model_object: @model, model_presenter: @model_presenter, :url => @model_presenter.model_path(:show, :id => @model.id), :action => :edit

@@ -40,11 +40,14 @@ body, html{
 }
 
 li{list-style: none;}
-a{color:#666; text-decoration:none;}
-a:hover{color:#000; text-decoration:none;}
-#main{width: 100%; height: 100%;}
+a{text-decoration:none;}
 
-#application-popup{
+#main{
+  width: 100%; 
+  height: 100%;
+}
+
+#carnival-popup{
   position: fixed;
   z-index: 15;
   top: 130px;
@@ -54,7 +57,7 @@ a:hover{color:#000; text-decoration:none;}
   display:none;
 }
 
-#application-popup input[type="submit"]{
+#carnival-popup input[type="submit"]{
   width: auto !important;
   cursor: pointer !important;
   display: inline-block;
@@ -83,6 +86,7 @@ a:hover{color:#000; text-decoration:none;}
   margin-right: 0px;
   box-shadow: none;
 }
+
 .close-popup{
   text-align: center;
   width: 57px;
@@ -98,7 +102,7 @@ a:hover{color:#000; text-decoration:none;}
   border-top-right-radius: 3px;
 }
 
-#application-popup-content{
+#carnival-popup-content{
   background: white;
   padding: 10px;
   border: solid 1px #c0c0c0;
@@ -242,13 +246,10 @@ h1.title{
 
 .gray_border{
   border-bottom: 1px solid #ccc;
-  margin: 0px 0px;
+  margin: 2px 0px 20px;
   width: 100%;
   float: left;
-}
-
-.gray_border.with_margin_bottom{
-  margin-bottom: 20px;
+  padding: 0 0 10px;
 }
 
 .gray_border h2{
@@ -259,15 +260,15 @@ h1.title{
   font-size:18px;
   padding-bottom:5px;
 }
-.gray_border h1{
-font-weight: bold;
-line-height: 140%;
-margin: 0px;
-margin-left: 0px;
-font-size: 24px;
-margin-bottom: 8px;
-}
 
+.gray_border h1{
+  font-weight: bold;
+  line-height: 140%;
+  margin: 0 0 8px;
+  margin-left: 0px;
+  font-size: 24px;
+  position: absolute;
+}
 
 input[type="checkbox"]{
   width: auto !important;
@@ -1058,7 +1059,6 @@ table input{
   margin-bottom: 0px;
   position: absolute;
   z-index: 99999;
-  background-color: #fff;
   border-radius: 0px 3px 3px 3px;
   background: #fafafa;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
@@ -1081,11 +1081,16 @@ table input{
   width: 168px !important;
 }
 
+.advanced_search .chosen-container *{
+  transition:all 0s ease !important;
+}
+
 .status_tag{
   width: 30px;
   text-align:center;
   float:left;
 }
+
 .status_tag.n0 {
     background: #00CC00;
 }
@@ -1418,48 +1423,4 @@ table input{
   cursor: pointer;
   border: 1px solid #2A6198;
   background-color: #2D66A0;
-}
-
-.table-paginate, .table-download-links{
-  margin-left: -3px;
-  position: relative;
-  margin-top: 20px;
-  float: right;
-}
-
-.table-paginate a, .table-download-links a{
-  margin: 3px 0px;
-  padding: 0 8px;
-  display: inline-block;
-  text-align: center;
-  text-decoration: none !important;
-  background: url('novo.png') repeat scroll left bottom padding-box transparent;
-  border: 1px solid #CCC;
-  font-size: 13px;
-  box-shadow: 0px -1px 0px 0px #FFF;
-  border-radius: 3px;
-  color: #333 !important;
-  font-weight: normal;
-  line-height: 26px;
-  opacity: 0.8;
-}
-
-.table-paginate a:hover, .table-download-links a:hover{
-  background: url('novo.png') repeat scroll left -40px transparent;
-  font-size: 13px;
-  color: #FFF !important;
-  cursor: pointer !important;
-  border: 1px solid #2A6198;
-}
-
-.carnival-selected-page-button a{
-  background: url('novo.png') repeat scroll left top transparent;
-  font-size: 13px;
-  color: #FFF !important;
-  cursor: pointer !important;
-  border: 1px solid rgba(42, 97, 152, 0.48);
-}
-
-.table-download-links{
-  width: 270px;
 }
