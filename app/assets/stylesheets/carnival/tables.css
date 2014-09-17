@@ -50,6 +50,7 @@
   height:50px;
   width:960px;
   bottom:0;
+  transition: all 0.3s ease;
 }
 
 .carnival-table tbody tr td{
