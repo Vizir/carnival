@@ -1,4 +1,4 @@
-/********************* FORM BASE STYEL ******************* START */
+/********************* FORM BASE STYLE ******************* START */
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -131,7 +131,7 @@ input::-webkit-inner-spin-button {
   border: 1px solid #ccc;
 }
 
-/********************* FORM BASE STYEL ******************* END */
+/********************* FORM BASE STYLE ******************* END */
 
 .submit_button{
   float: left;
@@ -150,7 +150,7 @@ input::-webkit-inner-spin-button {
 
 .gray_border{
   border-bottom: 1px solid #ccc;
-  margin: 2px 0px 20px;
+  margin: 0px 0px 20px;
   width: 100%;
   float: left;
   padding: 0 0 10px;

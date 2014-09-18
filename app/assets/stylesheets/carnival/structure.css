@@ -180,17 +180,6 @@ a.confirm, a.cancel{
   margin-top: 0px;
 }
 
-ul.scopes{
-  float: left;
-  padding: 0;
-  margin: 2px;
-}
-
-li.scope{
-  float: left;
-  padding: 0px;
-}
-
 .chosen-container{
   margin-bottom: 10px;
 }

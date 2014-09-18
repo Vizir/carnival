@@ -5,6 +5,10 @@
   float: right;
 }
 
+.table-paginate span{
+  float: left;
+}
+
 .table-download-links{
   float: left;
 }

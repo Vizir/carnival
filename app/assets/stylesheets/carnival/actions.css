@@ -6,8 +6,8 @@
   text-align: center;
   border-right: none;
   border-radius: 2px;
-  transition: all 0.3s ease;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .carnival-action-link{
@@ -45,6 +45,7 @@
   padding: 1px 10px 0px 28px;
   color: #fff;
   line-height: 25px;
+  float: right;
 }
 
 .add:hover{
@@ -64,12 +65,12 @@
   background: url('voltar.png') 42px -38px;
 }
 
-.novo{
+.novo, .search-submit{
   background: #007ae1;
   color: #fff; 
 }
 
-.novo:hover{
+.novo:hover, .search-submit:hover{
   background: #007ae1;
   color: #fff; 
 }

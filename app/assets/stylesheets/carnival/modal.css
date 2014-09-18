@@ -28,11 +28,7 @@
   height: 30px;
   background: url(bg_button.png);
   color: #333;
-  -webkit-box-shadow: 0px 1px 0px 0px white;
-  -moz-box-shadow: 0px 1px 0px 0px #fff;
   box-shadow: 0px 1px 0px 0px white;
-  -webkit-border-radius: 1px;
-  -moz-border-radius: 1px;
   border-radius: 1px;
   margin-right: 0px;
   box-shadow: none;
