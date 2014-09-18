@@ -1,3 +1,5 @@
+/********************* FORM BASE STYEL ******************* START */
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     /* display: none; <- Crashes Chrome on hover */
@@ -128,6 +130,8 @@ input::-webkit-inner-spin-button {
   padding: 8px 5px;
   border: 1px solid #ccc;
 }
+
+/********************* FORM BASE STYEL ******************* END */
 
 .submit_button{
   float: left;

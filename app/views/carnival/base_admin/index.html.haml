@@ -65,11 +65,11 @@
   .table-paginate
     - @paginator.pages.each do |page_hash|
       %span{class: page_hash[:css_class]}
-        = link_to(t(page_hash[:label]), page_hash[:js_function])
+        = link_to(t(page_hash[:label]), page_hash[:js_function], :class => "carnival-action-button")
     = "#{t('paginate_total')}: #{@query_service.total_records}"
 
   .table-download-links
     - params = @query_form.to_hash
-    = link_to t('download_as_csv'), presenter.model_path(:index, {:format => 'csv'}.merge(params)) if presenter.has_action?(:csv)
-    = link_to t('download_as_pdf'), presenter.model_path(:index, {:format => 'pdf'}.merge(params)) if presenter.has_action?(:pdf)
+    = link_to t('download_as_csv'), presenter.model_path(:index, {:format => 'csv'}.merge(params)), :class => "carnival-action-button" if presenter.has_action?(:csv)
+    = link_to t('download_as_pdf'), presenter.model_path(:index, {:format => 'pdf'}.merge(params)), :class => "carnival-action-button" if presenter.has_action?(:pdf)
 

@@ -1,3 +1,5 @@
+/********************* TABLE BASE STYEL ********************* START */
+
 .carnival-table{
   border-collapse: collapse;
   border-spacing:0px;
@@ -70,28 +72,19 @@
   background: #EDFAFF;
 }
 
-/*********************** TABLE SORTABLES ********************** START */
-
-#sortable{
-  width: 95%;
-  padding-left: 0px;
-}
-
-.sorting { background: url('sort_both.png') no-repeat center left; }
-.sorting_asc { background: url('sort_asc.png') no-repeat center left; }
-.sorting_desc { background: url('sort_desc.png') no-repeat center left; }
-.sorting_asc_disabled { background: url('sort_asc_disabled.png') no-repeat center left; }
-.sorting_desc_disabled { background: url('sort_desc_disabled.png') no-repeat center left; }
-
-#sortable > li > a {
-  float: right;
-  padding-right: 10px;
-}
-
-#sortable > .ui-state-default{
-  border: 0px;
-  border-bottom: 1px solid lightGrey;
-  background: transparent;
-}
+/*********************** TABLE BASE STYEL ********************* END */
 
 /*********************** TABLE SORTABLES ********************** START */
+
+#sortable {width: 95%; padding-left: 0px;}
+
+.sorting {background: url('sort_both.png') no-repeat center left; }
+.sorting_asc {background: url('sort_asc.png') no-repeat center left; }
+.sorting_desc {background: url('sort_desc.png') no-repeat center left; }
+.sorting_asc_disabled {background: url('sort_asc_disabled.png') no-repeat center left; }
+.sorting_desc_disabled {background: url('sort_desc_disabled.png') no-repeat center left; }
+
+#sortable > li > a {float: right; padding-right: 10px;}
+#sortable > .ui-state-default {border: 0px; border-bottom: 1px solid lightGrey; background: transparent;}
+
+/*********************** TABLE SORTABLES ********************** END */

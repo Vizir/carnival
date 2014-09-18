@@ -1,4 +1,6 @@
-#header_wrapper{
+/******************** HEADER STRUCTURE ****************** START */
+
+.carnival-header-wrappeer{
   height: 60px;
   margin: 0 auto;
   min-width: 400px;
@@ -11,12 +13,12 @@
   z-index: 9999999;
 }
 
-#header{
+.carnival-header{
   width:100%;
   margin:0 auto;
 }
 
-#header h1{
+.carnival-header h1{
   position: relative;
   font-size: 17px;
   font-weight: normal;
@@ -30,9 +32,11 @@
   left: 12px;
 }
 
-/* LOGO */
+/******************** HEADER STRUCTURE ****************** END */
 
-.logo_intranet{
+/*********************** USER MENU ********************** START */
+
+.carnival-custom-logo{
   float: left;
   height: 60px;
   max-width: 50%;
@@ -40,7 +44,7 @@
   margin-top: 10px;
 }
 
-.logo_intranet a{
+.carnival-custom-logo a{
   cursor:pointer;
   width:100%;
   height:100%;
@@ -50,9 +54,11 @@
   color: #444;
 }
 
-/* SALUT */
+/*********************** CUSTOM LOGO ********************** END */
 
-.right_menu{
+/************************ USER MENU *********************** START */
+
+.carnival-user-menu{
   position: fixed;
   right: 0px;
   top: 20px;
@@ -63,28 +69,33 @@
   margin-bottom: -25px;
 }
 
-.right_menu #account_id{
+.carnival-user-menu #account_id{
   float: right;
   margin-right: 20px;
   margin-top: -5px;
 }
 
-.right_menu a{
-  color:#000 !important;
+.carnival-user-menu a{
+  color:#333;
+}
+
+.carnival-user-menu .sign_out{
+  float: right;
+  margin-right: 10px;
+  border-left: 1px dotted #aaa;
+  padding: 0 0 0 10px;
+}
+
+.salute, .salute .email, .salute figure, .salute a{
+  float: right;
 }
 
 .salute{
-  float: right;
   margin-right: 10px;
   width: 380px;
 }
 
-.salute .email{
-  float: right;
-}
-
 .salute figure{
-  float: right;
   margin-right: 5px;
   margin-left: 5px;
   margin-top: -13px;
@@ -107,9 +118,6 @@
   opacity: 0.7;
 }
 
-.salute img.custom{
-}
-
 .salute span{
   position:relative;
   display:block;
@@ -123,7 +131,6 @@
 .salute a{
   position:relative;
   display: block;
-  float: right;
   margin-right: 0;
 }
 
@@ -131,9 +138,4 @@
   background-color: transparent !important;
 }
 
-.right_menu .sign_out{
-  float: right;
-  margin-right: 10px;
-  border-left: 1px dotted #aaa;
-  padding: 0 0 0 10px;
-}
+/************************ USER MENU *********************** END */

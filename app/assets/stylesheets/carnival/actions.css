@@ -1,4 +1,6 @@
-.carnival-action-link, .carnival-action-button, .actions a, .table-paginate a, .table-download-links a{
+/************************ ACTIONS BASE STYLES *********************** STAR */
+
+.carnival-action-link, .carnival-action-button{
   display: block;
   -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
   text-align: center;
@@ -14,7 +16,7 @@
   float: right;
 }
 
-.carnival-action-button, .actions a, .table-paginate a, .table-download-links a{
+.carnival-action-button{
   font-size: 13px;
   padding: 0px 10px 0px;
   float: left;
@@ -28,12 +30,16 @@
   opacity: 0.7;
 }
 
-.carnival-action-link:hover, .carnival-action-button:hover, .actions a:hover, .table-paginate a:hover, .table-download-links a:hover{
+.carnival-action-link:hover, .carnival-action-button:hover{
   text-decoration: none !important;
   opacity: 1;
 }
 
-.actions a{
+/************************ ACTIONS BASE STYLES *********************** END */
+
+/********************** ACTIONS SPECIFIC STYLES ********************* START */
+
+.add{
   background: url('novo.png') 41px -38px;
   font-size: 14px !important;
   padding: 1px 10px 0px 28px;
@@ -41,7 +47,7 @@
   line-height: 25px;
 }
 
-.actions a:hover{
+.add:hover{
   background: url('novo.png') 41px -38px;
 }
 
@@ -75,7 +81,6 @@
 
 .remover:hover{
   background: #d63e30;
-  opacity: 1;
   color: #fff; 
 }
 
@@ -105,3 +110,5 @@
   background: #5F6374;
   color:#fff;
 }
+
+/********************** ACTIONS SPECIFIC STYLES ********************* START */

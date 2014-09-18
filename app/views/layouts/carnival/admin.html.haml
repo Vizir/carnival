@@ -15,11 +15,11 @@
 
   %body
     .carnival-wrapper
-      .right_menu
+      .carnival-user-menu
         = carnival_render_if_exist 'carnival/extra_header'
-      #header_wrapper
-        #header
-          .logo_intranet
+      .carnival-header-wrappeer
+        .carnival-header
+          .carnival-custom-logo
             - if partial_exist? 'carnival/app_logo' 
               = render 'carnival/app_logo'
             -else
@@ -35,8 +35,8 @@
               = yield
               = render '/carnival/shared/application_modal_partial'
             .clearfix
-      #footer_wrapper_app
+      .carnival-footer-wrapper
         = carnival_render_if_exist 'carnival/extra_footer'
-        #footer_app
-          #footer_title_app
-          #footer_logo_app
+        .carnival-footer
+          .carnival-footer-title
+          .carnival-footer-logo
