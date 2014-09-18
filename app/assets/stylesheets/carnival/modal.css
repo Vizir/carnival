@@ -1,0 +1,66 @@
+#carnival-modal{
+  position: fixed;
+  z-index: 15;
+  top: 130px;
+  width: 415px;
+  left: 50%;
+  margin-left: -205px;
+  display:none;
+}
+
+#carnival-modal input[type="submit"]{
+  width: auto !important;
+  cursor: pointer !important;
+  display: inline-block;
+  font-weight: bold;
+  height: 28px !important;
+  text-align: center;
+  background: url('calendar.png') 20px -38px;
+  border: 1px solid #2a6198;
+  cursor: pointer;
+  font-size: 17px;
+  border-radius: 1px;
+  box-shadow: none;
+  font-family: 'microsoft_yi_baitiregular';
+  padding: 3px 10px 6px 10px !important;
+  border: 1px solid #C8C8C8;
+  padding: 5px 16px 5px 16px;
+  height: 30px;
+  background: url(bg_button.png);
+  color: #333;
+  -webkit-box-shadow: 0px 1px 0px 0px white;
+  -moz-box-shadow: 0px 1px 0px 0px #fff;
+  box-shadow: 0px 1px 0px 0px white;
+  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
+  border-radius: 1px;
+  margin-right: 0px;
+  box-shadow: none;
+}
+
+.close-modal{
+  text-align: center;
+  width: 57px;
+  right: 0px;
+  background: #555;
+  color: #fff;
+  padding: 2px;
+  position: absolute;
+  right: -21px;
+  z-index: 99;
+  border-bottom-left-radius: 3px;
+  cursor:pointer;
+  border-top-right-radius: 3px;
+}
+
+#carnival-modal-content{
+  background: white;
+  padding: 10px;
+  border: solid 1px #c0c0c0;
+  margin: 0 auto;
+  position: absolute;
+  width: 100%;
+  box-shadow: 0px 0px 100px rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+  padding-bottom:35px;
+}

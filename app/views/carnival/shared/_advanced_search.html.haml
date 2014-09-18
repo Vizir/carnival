@@ -2,7 +2,7 @@
   = javascript_include_tag "carnival/advanced_search"
   .table-tools.toggler
     = link_to t("advanced_search"), "", id: "advanced_search_toggler", :class => "filters"
-  %ul#advanced_search_form.formframe
+  %ul#advanced_search_form.carnival-form
     %form
       - presenter.advanced_search_fields.each do |key, field|
         - if params[key.to_s].present? && params[key.to_s]['value'] != "undefined"

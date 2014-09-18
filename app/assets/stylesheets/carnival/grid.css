@@ -659,3 +659,66 @@ padding: 0;
     margin-left: 0%;
   }
 }
+
+/********************************DTGRID*********************************/
+
+div .dt-grid-1{
+  width:16%;
+  min-height:100px;
+  background:#eee;
+  position:relative;
+  float:left;
+  margin-right:0.2%;
+  margin-left:0.4%;
+}
+
+div .dt-grid-2{
+  width:32.6%;
+  min-height:100px;
+  background:#eee;
+  position:relative;
+  float:left;
+  margin-right:0.2%;
+  margin-left:0.4%;
+}
+
+div .dt-grid-3{
+  width:49.2%;
+  min-height:100px;
+  background:#eee;
+  position:relative;
+  float:left;
+  margin-right:0.2%;
+  margin-left:0.4%;
+}
+
+div .dt-grid-4{
+  width:65.8%;
+  min-height:100px;
+  background:#eee;
+  position:relative;
+  float:left;
+  margin-right:0.2%;
+  margin-left:0.4%;
+}
+
+div .dt-grid-5{
+  width:82.4%;
+  min-height:100px;
+  background:#eee;
+  position:relative;
+  float:left;
+  margin-right:0.2%;
+  margin-left:0.4%;
+}
+
+div .dt-grid-6{
+  width:99%;
+  min-height:100px;
+  background:#eee;
+  position:relative;
+  float:left;
+  margin-right:0.2%;
+  margin-left:0.4%;
+}
+

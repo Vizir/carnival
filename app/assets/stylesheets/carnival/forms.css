@@ -5,22 +5,22 @@ input::-webkit-inner-spin-button {
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
-.formframe *{
+.carnival-form *{
     transition: all 0.3s ease;
 }
 
-.formframe, .formframe label{
+.carnival-form, .carnival-form label{
   width: 100%;
   float: left;
 }
 
-.formframe label{
+.carnival-form label{
   font-weight: bold;
   text-transform: capitalize;
   line-height: 20px;
 }
 
-.formframe input{
+.carnival-form input{
   width: 100%;
   outline:none;
   height:21px;
@@ -36,17 +36,17 @@ input::-webkit-inner-spin-button {
   height: 35px;
 }
 
-.formframe input[type='file']{
+.carnival-form input[type='file']{
   padding:0px 6px 0px 0px;
   border-left:none;
 }
 
-.formframe input:focus{
+.carnival-form input:focus{
   border: 1px solid #A2C5F3;
   box-shadow: 0px 0px 3px rgba(110, 220, 255, 0.6);
 }
 
-.formframe input.submit{
+.carnival-form input.submit{
   width: auto !important;
   cursor: pointer !important;
   display: inline-block;
@@ -65,13 +65,13 @@ input::-webkit-inner-spin-button {
   margin-top: 0px;
 }
 
-.formframe input.submit:hover, #profile_submit:hover{
+.carnival-form input.submit:hover, #profile_submit:hover{
   color:#3079ed;
   cursor:pointer;
   background:#efefef;
 }
 
-.formframe input.submit:active, #profile_submit:active{
+.carnival-form input.submit:active, #profile_submit:active{
   background-position:0px -30px ;
   border: 1px solid #173988;
   color:#fff;
@@ -79,7 +79,7 @@ input::-webkit-inner-spin-button {
   cursor:pointer;
 }
 
-.formframe textarea{
+.carnival-form textarea{
   width: 100%;
   outline:none;
   line-height:18px;
@@ -95,11 +95,11 @@ input::-webkit-inner-spin-button {
   font-size:13px;
 }
 
-.formframe textarea:focus{
+.carnival-form textarea:focus{
   border: 1px solid #2c6fec;
 }
 
-.formframe button{
+.carnival-form button{
   border: 1px solid #c8c8c8;
   padding:7px 15px 6px 15px;
   background:url(bg_button.png);
@@ -109,12 +109,12 @@ input::-webkit-inner-spin-button {
   border-radius: 4px;
 }
 
-.formframe button:hover{
+.carnival-form button:hover{
   color:#3079ed;
   cursor:pointer;
 }
 
-.formframe button:active{
+.carnival-form button:active{
   background-position:0px -30px ;
   border: 1px solid #173988;
   color:#fff;
@@ -122,7 +122,7 @@ input::-webkit-inner-spin-button {
   cursor:pointer;
 }
 
-.formframe fieldset{
+.carnival-form fieldset{
   width:97%;
   margin: 15px 0px;
   padding: 8px 5px;
@@ -144,41 +144,63 @@ input::-webkit-inner-spin-button {
   margin-right: 20px;
 }
 
-.formframe .styleCheck, .styleRadio{
-  padding:5px 0px 0px 26px;
-  font-family: 'OpenSansSemibold';
-  color:#333;
+.gray_border{
+  border-bottom: 1px solid #ccc;
+  margin: 2px 0px 20px;
+  width: 100%;
+  float: left;
+  padding: 0 0 10px;
 }
 
-.formframe .styleCheck.floatLeft, .formframe .styleRadio.floatLeft{
-  float:left;
-  margin-right:15px;
+.gray_border h2{
+  font-weight: bold;
+  line-height: 140%;
+  margin: 0px;
+  margin-left:0px;
+  font-size:18px;
+  padding-bottom:5px;
 }
 
-.formframe .styleRadio{
-  height: 20px;
-  margin:0;
-  display:block;
-  background: url(bg_button.png) 0px -205px no-repeat;
+.gray_border h1{
+  font-weight: bold;
+  line-height: 140%;
+  margin: 0 0 8px;
+  margin-left: 0px;
+  font-size: 24px;
+  position: absolute;
 }
 
-.formframe .styleCheck{
-  height: 20px;
-  margin:0;
-  display:block;
-  background: url(bg_button.png) 0px -153px no-repeat;
+input[type="checkbox"]{
+  width: auto !important;
+  margin-right: 10px !important;
+  padding: 0px !important;
+  height: auto !important;
 }
 
-.formframe label.c_on{
-  background: url(bg_button.png) 0px -179px no-repeat;
+input{
+  margin-bottom:10px;
 }
 
-.formframe label.r_on{
-  background: url(bg_button.png) 0px -231px no-repeat;
+.hidden{
+  display: none;
 }
 
-.formframe .styleCheck input, .styleRadio input{
-  position: absolute; left: -9999px;
+#error_explanation{
+  background-color: #9B281E;
+  background-image: -moz-linear-gradient(center top , #CB3425 0pt, #9B281E 100%);
+  background-image: -webkit-linear-gradient(center top , #CB3425 0pt, #9B281E 100%);
+  background-image: -ms-linear-gradient(center top , #CB3425 0pt, #9B281E 100%);
+  background-image: -o-linear-gradient(center top , #CB3425 0pt, #9B281E 100%);
+  border-radius: 3px 3px 0 0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 10px;
+  text-shadow: 0 0 0 transparent, 0 0 2px rgba(0, 0, 0, 0.3);
+  width: 550px;
+  margin: 10px 0px;
+  float: left;
 }
 
 /************************ NESTED FORMS *********************** START */
@@ -223,8 +245,7 @@ input::-webkit-inner-spin-button {
   width: 100%;
   background: #f9f9f9;
   box-sizing: border-box;
-  -mox-box-sizing: border-box;
-
+  -moz-box-sizing: border-box;
 }
 
 .nested-form-list-item:hover{

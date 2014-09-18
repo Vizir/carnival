@@ -1,28 +1,22 @@
-.carnival-action-link{
+.carnival-action-link, .carnival-action-button, .actions a, .table-paginate a, .table-download-links a{
   display: block;
-  font-size: 11px;
-  padding: 2px 6px 0px 6px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
   -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
   text-align: center;
   border-right: none;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.carnival-action-link{
+  font-size: 11px;
+  padding: 2px 6px 0px 6px;
   float: right;
 }
 
-.carnival-action-link:hover{
-  text-decoration: none !important;
-}
-
 .carnival-action-button, .actions a, .table-paginate a, .table-download-links a{
-  display: block;
   font-size: 13px;
   padding: 0px 10px 0px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
-  -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
-  text-align: center;
-  border-right: none;
   float: left;
   background: white;
   background: -webkit-linear-gradient(-90deg, #fff, #f0f0f0);
@@ -31,12 +25,10 @@
   color: #333;
   line-height: 26px;
   border: 1px solid rgba(0, 0, 0, 0.21);
-  cursor: pointer;
   opacity: 0.7;
-  transition: all 0.3s ease;
 }
 
-.carnival-action-button:hover, .actions a:hover, .table-paginate a:hover, .table-download-links a:hover{
+.carnival-action-link:hover, .carnival-action-button:hover, .actions a:hover, .table-paginate a:hover, .table-download-links a:hover{
   text-decoration: none !important;
   opacity: 1;
 }

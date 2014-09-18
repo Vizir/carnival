@@ -14,7 +14,7 @@
       = stylesheet_link_tag file, :media => "all"
 
   %body
-    #main
+    .carnival-wrapper
       .right_menu
         = carnival_render_if_exist 'carnival/extra_header'
       #header_wrapper
@@ -33,7 +33,7 @@
               :javascript
                 #{show_messages}
               = yield
-              = render '/carnival/shared/application_popup_partial'
+              = render '/carnival/shared/application_modal_partial'
             .clearfix
       #footer_wrapper_app
         = carnival_render_if_exist 'carnival/extra_footer'
