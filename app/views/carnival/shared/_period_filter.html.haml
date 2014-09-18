@@ -46,7 +46,7 @@
     function filter_date(label, from, to){
       Carnival.setIndexPageParam('date_period_from', from)
       Carnival.setIndexPageParam('date_period_to', to)
-      Carnival.setIndexPageParam('date_period_label', label)
+      Carnival.setIndexPageParam('date_period_label', label.trim())
       $("#filtro_periodo").html(label);
       Carnival.reloadIndexPage();
       $("#container_tempo").toggle();
