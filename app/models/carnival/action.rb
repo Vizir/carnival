@@ -11,6 +11,7 @@ module Carnival
       @partial = default_partial
       @path = params[:path] if params[:path].present?
       @controller = params[:controller]
+      @route_name = params[:route_name]
     end
 
     def path(presenter, extra_params={})
@@ -23,7 +24,11 @@ module Carnival
       end
       params = params.merge(extra_params) if extra_params.present?
       params = params.merge(:only_path => true)
-      url_for(params)
+      if @route_name
+        Rails.application.routes.url_helpers.send(@route_name, params)
+      else
+        url_for(params)
+      end
     end
 
     def show(record)
