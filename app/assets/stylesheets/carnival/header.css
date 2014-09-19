@@ -34,7 +34,7 @@
 
 /******************** HEADER STRUCTURE ****************** END */
 
-/*********************** USER MENU ********************** START */
+/*********************** CUSTOM LOGO ********************** START */
 
 .carnival-custom-logo{
   float: left;
@@ -116,6 +116,12 @@
 .salute img.default{
   margin-top: 3px;
   opacity: 0.7;
+  border: none;
+  width: 50px;
+  left: -2px;
+  position: relative;
+  top: -5px;
+  height: 50px;
 }
 
 .salute span{

@@ -29,13 +29,14 @@
 }
 
 .advanced-search .datepicker {
+  width: 112px;
+  padding: 4px 2px !important;
+  margin-left: 10px;
   background-image: url('cal.png') !important;
   background-repeat: no-repeat;
   background-position-x: 87px !important;
   background-position-y: 5px !important;
-  height: 28px;
-  width: 110px;
-}
+  height: 27px;}
 
 .advanced-search #advanced_search_form{
   display: none;
@@ -74,6 +75,11 @@
   padding: 0;
   float: left;
   height: 28px;
+  transition: all 0.3s ease;
+}
+
+.advanced-search-tags.explode:hover{
+  height: 61px;  
 }
 
 .advanced-search-tag{
