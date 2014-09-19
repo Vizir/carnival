@@ -1,5 +1,7 @@
 /************************ ACTIONS BASE STYLES *********************** STAR */
 
+
+
 .carnival-action-link, .carnival-action-button{
   display: block;
   -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
@@ -110,6 +112,31 @@
 .visualizar:hover{
   background: #5F6374;
   color:#fff;
+}
+
+.pdf, .csv{
+  padding: 0px 10px 0px 25px;
+  position: relative;
+}
+
+.pdf:before, .csv:before{
+  content: '';
+  display: block;
+  width: 25px;
+  height: 25px;
+  background: url('sprites.png');
+  background-size: 400px;
+  position: absolute;
+  left: 7px;
+  top: 6px;
+}
+
+.pdf:before{
+  background-position: -279px -502px;
+}
+
+.csv:before{
+  background-position: -101px -50px; 
 }
 
 /********************** ACTIONS SPECIFIC STYLES ********************* START */

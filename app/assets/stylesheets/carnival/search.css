@@ -10,10 +10,10 @@
   display: block;
   width: 25px;
   height: 25px;
-  background: url('sprites.png') -475px 680px;
-  left: 2px;
-  top: 1px;
-  background-size: 500px;
+  background: url('sprites.png') -375px 547px;
+  left: 0px;
+  top: 0px;
+  background-size: 400px;
 }
 
 .advanced-search{
