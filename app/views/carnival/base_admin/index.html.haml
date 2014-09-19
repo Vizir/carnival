@@ -33,46 +33,7 @@
   - advanced_search_params = {}
   - advanced_search_params = JSON.parse(@query_form.advanced_search) if @query_form.advanced_search.size > 0
   = render '/carnival/shared/advanced_search', :params => advanced_search_params, presenter: presenter
-  %ul.advanced-search-tags
-    %li.advanced-search-tag
-      %a{:href => "#{}"}
-        Name
-    %li.advanced-search-tag
-      %a{:href => "#{}"}
-        Code
-    %li.advanced-search-tag
-      %a{:href => "#{}"}
-        Outra
-    %li.advanced-search-tag
-      %a{:href => "#{}"}
-        Tag
-    %li.advanced-search-tag
-      %a{:href => "#{}"}
-        Data
-    %li.advanced-search-tag
-      %a{:href => "#{}"}
-        Created At
-    %li.advanced-search-tag
-      %a{:href => "#{}"}
-        End Date
-    %li.advanced-search-tag
-      %a{:href => "#{}"}
-        Code
-    %li.advanced-search-tag
-      %a{:href => "#{}"}
-        Outra
-    %li.advanced-search-tag
-      %a{:href => "#{}"}
-        Tag
-    %li.advanced-search-tag
-      %a{:href => "#{}"}
-        Data
-    %li.advanced-search-tag
-      %a{:href => "#{}"}
-        Created At
-    %li.advanced-search-tag
-      %a{:href => "#{}"}
-        End Date
+
 
 
 .actions

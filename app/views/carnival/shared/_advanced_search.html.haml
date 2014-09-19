@@ -17,3 +17,12 @@
           = link_to t("clear"), "#", :id=> "clear_button", :class => "carnival-action-button clear-search"
         .action
           = link_to t("search"), "#", :id=> "search_button", :class => "carnival-action-button search-submit"
+
+  %ul.advanced-search-tags
+    - presenter.advanced_search_fields.each do |key, field|
+      - if params[key.to_s].present? && params[key.to_s]['value'] != "undefined"
+        - value =  params[key.to_s]['value']
+        %li.advanced-search-tag
+          = t("activerecord.attributes.#{presenter.full_model_name}.#{key}")
+          = ": #{value}"
+          %a{:href => "javascript:Carnival.removeAdvancedSearch('"+key.to_s+"')"}

@@ -10,15 +10,28 @@ $(document).ready(function(){
   $("#search_button").click(function(e){
     e.preventDefault();
     var queryParams = [];
-    $(".advanced_search input").each(function(){
-      if($(this).attr("type") == "checkbox")
-        queryParams.push(generateQueryParam($(this).attr("name"), $(this).data("type"), $(this).data("operator"), $(this).is(":checked")));
-      else if ($(this).attr("type") == "text" && $(this).val() != "" && $(this).val() != "____/__/__")
-        queryParams.push(generateQueryParam($(this).attr("name"), $(this).data("type"), $(this).data("operator"), $(this).val()));
+    $("#advanced_search_form input").each(function(){
+      var inputType = $(this).attr("type");
+      var inputName = $(this).attr("name");
+      var inputOperator = $(this).data("operator");
+      var inputValue = $(this).val();
+
+      if(inputType == "checkbox")
+        queryParams.push(generateQueryParam(inputName, inputType, inputOperator, $(this).is(":checked")));
+      else if (inputType == "text"){
+        if(inputValue != "" && inputValue != "____/__/__")
+          queryParams.push(generateQueryParam(inputName, inputType, inputOperator, inputValue));
+      }
     });
-    $(".advanced_search select").each(function(){
-      if($(this).val() != "-1")
-        queryParams.push(generateQueryParam($(this).attr("name"), $(this).data("type"), $(this).data("operator"), $(this).val()));
+
+    $("#advanced_search_form select").each(function(){
+      var inputType = $(this).attr("type");
+      var inputName = $(this).attr("name");
+      var inputOperator = $(this).data("operator");
+      var inputValue = $(this).val();
+
+      if(inputValue != "-1" && inputValue != "")
+        queryParams.push(generateQueryParam(inputName, inputType, inputOperator, inputValue));
     });
     var advancedSearchParams = "{" + queryParams.join(", ") + "}";
     Carnival.setIndexPageParamAndReload('advanced_search', advancedSearchParams);

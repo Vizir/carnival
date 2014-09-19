@@ -44,6 +44,29 @@ Carnival.setIndexPageParam = function(name, value){
   form.find('input[name='+name+']').val(value);
 }
 
+Carnival.getIndexPageParam = function(name){
+  var form = $('.carnival-index-form').find('form')
+  return form.find('input[name='+name+']').val();
+}
+
+Carnival.removeAdvancedSearch = function(key){
+  var values = Carnival.getIndexPageParam('advanced_search');
+  if(!values)
+    return;
+
+  values = JSON.parse(values);
+  
+  var new_value = {};
+
+  for(var prop in values){
+    if(prop != key){
+      new_value[prop] = values[prop] 
+    }
+  }
+
+  Carnival.setIndexPageParamAndReload('advanced_search', JSON.stringify(new_value));
+}
+
 Carnival.reloadIndexPage = function(){
   Carnival.setIndexPageParam('page', 1);
   var form = $('.carnival-index-form').find('form')
