@@ -1,5 +1,5 @@
 - url = '/'
 - button = ''
 - action = :edit
-= simple_form_for(model_object, :url => url, :html => {:class => 'formframe container-fluid'}) do |f|
+= simple_form_for(model_object, :url => url, :html => {:class => 'carnival-form container-fluid'}) do |f|
   = render "carnival/shared/form/inner_form", button: button, model_object: model_object, model_presenter: @model_presenter, :url => url, :action => action, :f => f

@@ -1,7 +1,7 @@
 - index_path = caminho_modelo(:index)
 .gray_border.with_margin_bottom
   %h1= t("#{@model_presenter.model_name}.new", default: t('carnival.new'))
-.action_back
-  - # TODO add buttons to the form in presenter
-  = link_to t('back'), index_path, class: 'back_link' if @model_presenter
+  .action_back
+    - # TODO add buttons to the form in presenter
+    = link_to t('back'), index_path, class: 'voltar carnival-action-button' if @model_presenter
 = render '/carnival/shared/form/form', button: t('create'), model_object: @model, model_presenter: @model_presenter, :url => @model_presenter.model_path(:create), :action => :new

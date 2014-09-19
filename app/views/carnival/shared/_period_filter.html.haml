@@ -1,27 +1,26 @@
 - date_filter_field = presenter.date_filter_field
 - if date_filter_field.present?
-  %ul
-    %li#filtro_tempo
-      = link_to t("date_filter.#{date_period_label}"), "#", :id=>"filtro_periodo", :class => "filters"
-      #container_tempo
-        %ul.atalhos{:style=>"clear:left"}
-          - i = 0
-          - date_filter_field.date_filter_periods.keys.each do |period|
-            %li.period-selector{:data => {:from => date_filter_field.date_filter_periods[period][0], :to => date_filter_field.date_filter_periods[period][1]}}
-              = link_to t("date_filter.#{period}"), ""
-            - i = i + 1
-        .custom
-          = simple_form_for "", :url=> "", :method=> :get, :html=>{:id=>"form_tempo", :class=> "clear_both"} do |f|
-            = f.input :filtro, :as=> :hidden, :input_html=>{:value=> :range}
-            .field
-              = label_tag t("from")
-              = f.input :from, :label=> false, :input_html=>{:class=> "datepicker"}
-            .field
-              = label_tag t("to")
-              = f.input :to, :label=> false, :input_html=>{:class=> "datepicker"}
-            .action
-              = link_to "", "#", :id=> "search_button_range"
-            .clear_both
+  #filtro_tempo
+    = link_to t("date_filter.#{date_period_label}"), "#", :id=>"filtro_periodo", :class => "carnival-action-button"
+    #container_tempo
+      %ul.atalhos{:style=>"clear:left"}
+        - i = 0
+        - date_filter_field.date_filter_periods.keys.each do |period|
+          %li.period-selector{:data => {:from => date_filter_field.date_filter_periods[period][0], :to => date_filter_field.date_filter_periods[period][1]}}
+            = link_to t("date_filter.#{period}"), ""
+          - i = i + 1
+      .custom.carnival-form
+        = simple_form_for "", :url=> "", :method=> :get, :html=>{:id=>"form_tempo", :class=> "clear_both"} do |f|
+          = f.input :filtro, :as=> :hidden, :input_html=>{:value=> :range}
+          .field
+            = label_tag t("from")
+            = f.input :from, :label=> false, :input_html=>{:class=> "datepicker"}
+          .field
+            = label_tag t("to")
+            = f.input :to, :label=> false, :input_html=>{:class=> "datepicker"}
+          .action
+            = link_to "", "#", :id=> "search_button_range"
+          .clear_both
 
   :javascript
     $(document).ready(function(){

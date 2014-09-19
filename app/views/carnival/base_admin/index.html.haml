@@ -1,6 +1,6 @@
 - special_scope =  params[:special_scope]
 - presenter = @presenter
-- params = {:class => 'table'}
+- params = {:class => 'carnival-table'}
 
 - if special_scope.present?
   - params["data-special_scope"] = special_scope
@@ -29,16 +29,57 @@
       - variable_name = variable.to_s.gsub '@', ''
       = hidden_field_tag(variable_name, @query_form.send(variable_name) )
 
-.table-tools
-  .advanced_search
-    - advanced_search_params = {}
-    - advanced_search_params = JSON.parse(@query_form.advanced_search) if @query_form.advanced_search.size > 0
-    = render '/carnival/shared/advanced_search', :params => advanced_search_params, presenter: presenter
-  = render '/carnival/shared/scope', :params => params, presenter: presenter, selected_scope: @query_form.scope, scopes_total: @query_service.scopes_number
-  .actions
-    - presenter.actions_for_page.each do |key, action|
-      = render '/carnival/shared/action_default', :label=>t("#{presenter.model_name}.#{action.name}", default: t("carnival.#{action.name}")), :path=> action.path(presenter)
-  = render '/carnival/shared/period_filter', :params => params, presenter: presenter, date_period_label: @query_form.date_period_label
+.advanced-search
+  - advanced_search_params = {}
+  - advanced_search_params = JSON.parse(@query_form.advanced_search) if @query_form.advanced_search.size > 0
+  = render '/carnival/shared/advanced_search', :params => advanced_search_params, presenter: presenter
+  %ul.advanced-search-tags
+    %li.advanced-search-tag
+      %a{:href => "#{}"}
+        Name
+    %li.advanced-search-tag
+      %a{:href => "#{}"}
+        Code
+    %li.advanced-search-tag
+      %a{:href => "#{}"}
+        Outra
+    %li.advanced-search-tag
+      %a{:href => "#{}"}
+        Tag
+    %li.advanced-search-tag
+      %a{:href => "#{}"}
+        Data
+    %li.advanced-search-tag
+      %a{:href => "#{}"}
+        Created At
+    %li.advanced-search-tag
+      %a{:href => "#{}"}
+        End Date
+    %li.advanced-search-tag
+      %a{:href => "#{}"}
+        Code
+    %li.advanced-search-tag
+      %a{:href => "#{}"}
+        Outra
+    %li.advanced-search-tag
+      %a{:href => "#{}"}
+        Tag
+    %li.advanced-search-tag
+      %a{:href => "#{}"}
+        Data
+    %li.advanced-search-tag
+      %a{:href => "#{}"}
+        Created At
+    %li.advanced-search-tag
+      %a{:href => "#{}"}
+        End Date
+
+
+.actions
+  - presenter.actions_for_page.each do |key, action|
+    = render '/carnival/shared/action_default', :label=>t("#{presenter.model_name}.#{action.name}", default: t("carnival.#{action.name}")), :path=> action.path(presenter)
+= render '/carnival/shared/period_filter', :params => params, presenter: presenter, date_period_label: @query_form.date_period_label
+= render '/carnival/shared/scope', :params => params, presenter: presenter, selected_scope: @query_form.scope, scopes_total: @query_service.scopes_number
 
 %table{params}
   %thead
@@ -60,16 +101,14 @@
         %td
           = list_buttons(@presenter, record).html_safe
 
-.table-tools
+.table-paginate
+  - @paginator.pages.each do |page_hash|
+    %span{class: page_hash[:css_class]}
+      = link_to(t(page_hash[:label]), page_hash[:js_function], :class => "carnival-action-button")
+  = "#{t('paginate_total')}: #{@query_service.total_records}"
 
-  .table-paginate
-    - @paginator.pages.each do |page_hash|
-      %span{class: page_hash[:css_class]}
-        = link_to(t(page_hash[:label]), page_hash[:js_function])
-    = "#{t('paginate_total')}: #{@query_service.total_records}"
-
-  .table-download-links
-    - params = @query_form.to_hash
-    = link_to t('download_as_csv'), presenter.model_path(:index, {:format => 'csv'}.merge(params)) if presenter.has_action?(:csv)
-    = link_to t('download_as_pdf'), presenter.model_path(:index, {:format => 'pdf'}.merge(params)) if presenter.has_action?(:pdf)
+.table-download-links
+  - params = @query_form.to_hash
+  = link_to t('download_as_csv'), presenter.model_path(:index, {:format => 'csv'}.merge(params)), :class => "carnival-action-button pdf" if presenter.has_action?(:csv)
+  = link_to t('download_as_pdf'), presenter.model_path(:index, {:format => 'pdf'}.merge(params)), :class => "carnival-action-button csv" if presenter.has_action?(:pdf)
 

@@ -1,0 +1,127 @@
+#filtro_tempo{
+  float: right;
+  padding: 0 10px 0 0;
+  margin: 0 10px 0 0;
+  border-right: 1px dotted #c0c0c0;
+}
+
+#filtro_tempo #container_tempo{
+  display: none;
+  z-index: 99;
+  position: absolute;
+  background: none repeat scroll 0% 0% #FFF;
+  border: 1px solid #CCC;
+  width: 295px;
+  margin-top: 25px;
+  overflow: hidden;
+  border-radius: 3px 0px 3px 3px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+  right: 95px;
+}
+
+#filtro_tempo #container_tempo .field{
+  float: left;
+  width: 44%;
+}
+
+#filtro_tempo #container_tempo input{
+  width: 112px;
+  padding: 4px 2px !important;
+  margin-left: 10px;
+  background-image: url('cal.png') !important;
+  background-repeat: no-repeat;
+  background-position-x: 87px !important;
+  background-position-y: 5px !important;
+  height: 27px;
+}
+
+#filtro_tempo #container_tempo #search_button_range{
+  background-image: url('search-button.png');
+  width: 24px;
+  height: 24px;
+  display: block;
+  padding: 0;
+  border: none;
+  box-shadow: none;
+}
+
+#container_tempo span{
+  float: left;
+  margin: 5px;
+  margin-bottom: 0;
+}
+
+#container_tempo ul.atalhos{
+  float: left;
+  padding: 0;
+  margin: 0px;
+  width: 100%;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 5px 0;
+}
+
+#container_tempo ul li:last-child a{
+  border: none
+}
+
+#container_tempo ul li:nth-child(7) a{
+  border: none;
+}
+
+.period-selector{
+  float: left;
+  width: 50%;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  text-align: center;
+}
+
+
+li.period-selector:nth-child(odd){
+  border-right: 1px solid #e0e0e0;
+}
+
+.period-selector a{
+  cursor: pointer;
+  z-index: 10;
+  font-size: 13px;
+  color: #0088CC !important;
+  font-weight: normal;
+  border: none;
+  background: none;
+  box-shadow: none;
+  float: left;
+  width: 80%;
+  height: 100%;
+  display: block;
+  padding: 2px 0px;
+  margin: 0 10%;
+  border-bottom: 1px dotted #ccc;
+  opacity: 0.8;
+}
+
+.period-selector a:hover{
+  opacity: 1;
+}
+
+#container_tempo .field label{
+  width: 80px;
+  float: none;
+  margin-left: 10px;
+}
+
+#container_tempo .action{
+  float: left;
+  margin-top: 24px;
+  width: 10%;
+}
+
+#container_tempo .custom{
+  background-color: #f1f1f1;
+  width: 100%;
+  height: 60px;
+  float: left;
+  padding-top: 4px;
+}
+

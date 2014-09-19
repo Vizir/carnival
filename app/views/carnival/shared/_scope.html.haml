@@ -5,7 +5,7 @@
     - scopes.each do |key, scope|
       - unless scope.hidden?(controller)
         %li.scope{:class => "#{selected_scope.to_sym == key ? 'selected' : ''}"}
-          %a{:class => "carnival-scope filters", :data => {:scope => "#{scope.name}"}}
+          %a{:class => "carnival-scope carnival-action-button", :data => {:scope => "#{scope.name}"}}
             = t("#{presenter.model_name.underscore}.scope.#{scope.name}")
             %span.count (#{scopes_total[scope.name]})
 
