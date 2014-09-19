@@ -1,6 +1,6 @@
-/* HEADER */
+/******************** HEADER STRUCTURE ****************** START */
 
-#header_wrapper{
+.carnival-header-wrappeer{
   height: 60px;
   margin: 0 auto;
   min-width: 400px;
@@ -13,46 +13,52 @@
   z-index: 9999999;
 }
 
-#header{
+.carnival-header{
   width:100%;
   margin:0 auto;
 }
 
-#header h1{
-  position: absolute;
+.carnival-header h1{
+  position: relative;
   font-size: 17px;
   font-weight: normal;
-  left: 235px;
   text-transform: uppercase;
   border-left: 1px solid #e0e0e0;
   display: block;
   padding: 10px 0px 8px 10px;
   top: 0px;
   color: #999;
+  float: left;
+  left: 12px;
 }
 
-/* LOGO */
+/******************** HEADER STRUCTURE ****************** END */
 
-.logo_intranet{
+/*********************** CUSTOM LOGO ********************** START */
+
+.carnival-custom-logo{
   float: left;
   height: 60px;
-  width: 260px;
+  max-width: 50%;
   margin-left: 15px;
   margin-top: 10px;
 }
 
-.logo_intranet a{
+.carnival-custom-logo a{
   cursor:pointer;
   width:100%;
   height:100%;
   display:block;
   font-size: 30px;
   margin-top: 7px;
+  color: #444;
 }
 
-/* SALUT */
+/*********************** CUSTOM LOGO ********************** END */
 
-.right_menu{
+/************************ USER MENU *********************** START */
+
+.carnival-user-menu{
   position: fixed;
   right: 0px;
   top: 20px;
@@ -63,28 +69,33 @@
   margin-bottom: -25px;
 }
 
-.right_menu #account_id{
+.carnival-user-menu #account_id{
   float: right;
   margin-right: 20px;
   margin-top: -5px;
 }
 
-.right_menu a{
-  color:#000 !important;
+.carnival-user-menu a{
+  color:#333;
+}
+
+.carnival-user-menu .sign_out{
+  float: right;
+  margin-right: 10px;
+  border-left: 1px dotted #aaa;
+  padding: 0 0 0 10px;
+}
+
+.salute, .salute .email, .salute figure, .salute a{
+  float: right;
 }
 
 .salute{
-  float: right;
-  margin-right: 50px;
+  margin-right: 10px;
   width: 380px;
 }
 
-.salute .email{
-  float: right;
-}
-
 .salute figure{
-  float: right;
   margin-right: 5px;
   margin-left: 5px;
   margin-top: -13px;
@@ -93,8 +104,9 @@
   overflow: hidden;
   height: 45px;
   width: 45px;
-  border: 1px solid #e2e2e2;
-  background: #fff;
+  box-shadow: 0px 0px 1px #c0c0c0;
+  background: #fff url('avatar.png')no-repeat center 8px;
+  background-size: 88%;
 }
 
 .salute img{
@@ -104,9 +116,12 @@
 .salute img.default{
   margin-top: 3px;
   opacity: 0.7;
-}
-
-.salute img.custom{
+  border: none;
+  width: 50px;
+  left: -2px;
+  position: relative;
+  top: -5px;
+  height: 50px;
 }
 
 .salute span{
@@ -122,7 +137,6 @@
 .salute a{
   position:relative;
   display: block;
-  float: right;
   margin-right: 0;
 }
 
@@ -130,10 +144,4 @@
   background-color: transparent !important;
 }
 
-/* SIGN OUT */
-
-.right_menu .sign_out{
-  float: right;
-  margin-right: 10px;
-}
-
+/************************ USER MENU *********************** END */

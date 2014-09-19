@@ -1,0 +1,12 @@
+#carnival-modal
+  .close-modal{:onclick => 'closeModal()'}
+    = 'Fechar'
+  #carnival-modal-content
+
+:javascript
+  function showModal(){
+    $('#carnival-modal').show();
+  }
+  function closeModal(){
+    $('#carnival-modal').hide();
+  }

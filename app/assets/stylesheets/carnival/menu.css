@@ -1,24 +1,4 @@
-div.menu.full{
-  width: 20%;
-  float: left;
-  position: relative;
-  margin-left: 0px;
-  border-right: 1px solid #eee;
-  margin-left: -1px;
-  height: 100%;
-  display: block;
-  position: fixed;
-  z-index: 99999;
-  background: #fff;
-  top: 0;
-  padding-top: 59px;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-}
-
-div.menu.short{
-  width:3.2%;
+div.menu.full, div.menu.short{
   float:left;
   position:relative;
   margin-left:0px;
@@ -34,6 +14,14 @@ div.menu.short{
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
+}
+
+div.menu.full{
+  width: 20%;
+}
+
+div.menu.short{
+  width:3.2%;
 }
 
 div.menu.short ul li a{
@@ -53,8 +41,6 @@ padding: 5px 15px 0px;
 margin: 0px 0px 0px 100%;
 box-shadow: 2px 0px 6px rgba(0,0,0,0.1);
 }
-
-
 
 ul.menu{
   margin:0;
@@ -132,7 +118,7 @@ ul.menu .dropdown_main_menu{
   z-index:1000;
   margin:0;
   float:left;
-  padding:4px 0px 10px 0px;
+  padding:0px 0px 10px 0px;
 }
 
 ul.menu .dropdown_main_menu li{
@@ -142,7 +128,7 @@ ul.menu .dropdown_main_menu li{
   margin:0;
   border:none;
   padding:0;
-  min-height: 40px;
+  height: 40px;
 }
 
 ul.menu .dropdown_main_menu li:hover{
@@ -162,6 +148,7 @@ position: relative;
 content: '';
 display: inline-block;
 background-repeat: no-repeat;
+float: left;
 }
 
 .menu.short ul.menu .dropdown_main_menu li{
@@ -172,12 +159,12 @@ content: '';
 display: inline-block;
 background-repeat: no-repeat;
 margin: 0 auto;
+float: left;
 }
 
 .menu ul.menu .dropdown_main_menu li.active:before{
   background-image: url(sprites-active.png) !important;
 }
-
 
 .menu.short ul.menu .dropdown_main_menu ul li{
 display: block;
@@ -280,6 +267,10 @@ top: 18px;
 .menu.short ul.menu .dropdown_main_menu li a{
   background: none;
   padding: 0;
+  height: 100%;
+  display: block;
+  float: left;
+  width: 100%;
 }
 
 .menu.short ul.menu .dropdown_main_menu li ul li:before,.menu.full ul.menu .dropdown_main_menu li ul li:before{
@@ -289,7 +280,7 @@ display: none
 ul.menu .dropdown_main_menu li a{
   margin:0 !important;
   padding:8px 0px 0px 38px;
-  min-width:85%;
+  min-width: 86%;
   height:auto;
   cursor:pointer;
   z-index:1000;
@@ -314,13 +305,13 @@ ul.menu .dropdown_main_menu_sublevel{
 }
 
 ul.menu .dropdown_main_menu_sublevel li{
-float: left;
-height: auto;
-min-width: 100%;
-margin: 0;
-border: none;
-min-height: 26px;
-margin-top: 5px;
+  float: left;
+  height: auto;
+  min-width: 100%;
+  margin: 0;
+  border: none;
+  min-height: 26px;
+  margin-top: 5px;
 }
 
 ul.menu .dropdown_main_menu_sublevel li a{

@@ -8,9 +8,6 @@
 //= require carnival/external/jquery.colorbox-min
 //= require carnival/external/jquery-ui-1.9.1.custom.min
 //= require carnival/external/chosen.jquery
-//= require carnival/external/perfect-scrollbar-0.4.6.min
-//= require carnival/external/perfect-scrollbar-0.4.6.with-mousewheel.min
-//= require carnival/external/jquery.fancybox
 //= require carnival/select_remote
 //= require carnival/external/jquery.datetimepicker.js
 //= require carnival/vizir_admin

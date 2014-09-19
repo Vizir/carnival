@@ -1,3 +1,5 @@
+/********************* FORM BASE STYLE ******************* START */
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     /* display: none; <- Crashes Chrome on hover */
@@ -5,12 +7,22 @@ input::-webkit-inner-spin-button {
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
-.formframe, .formframe label{
+.carnival-form *{
+    transition: all 0.3s ease;
+}
+
+.carnival-form, .carnival-form label{
   width: 100%;
   float: left;
 }
 
-.formframe input{
+.carnival-form label{
+  font-weight: bold;
+  text-transform: capitalize;
+  line-height: 20px;
+}
+
+.carnival-form input{
   width: 100%;
   outline:none;
   height:21px;
@@ -18,26 +30,25 @@ input::-webkit-inner-spin-button {
   font-family: 'OpenSansRegular';
   padding:2px 6px 2px 6px;
   color:#555;
-  -webkit-box-shadow: 0px 1px 0px 0px #fff;
-    -moz-box-shadow: 0px 1px 0px 0px #fff;
-    box-shadow: 0px 1px 0px 0px #fff;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 1px;
-    border-radius: 1px;
+  border-radius: 3px;
   -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
   background:#fff;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 35px;
 }
 
-.formframe input[type='file']{
+.carnival-form input[type='file']{
   padding:0px 6px 0px 0px;
   border-left:none;
 }
 
-.formframe input:focus{
-  border: 1px solid #2c6fec;
+.carnival-form input:focus{
+  border: 1px solid #A2C5F3;
+  box-shadow: 0px 0px 3px rgba(110, 220, 255, 0.6);
 }
 
-.formframe input.submit{
+.carnival-form input.submit{
   width: auto !important;
   cursor: pointer !important;
   display: inline-block;
@@ -48,10 +59,6 @@ input::-webkit-inner-spin-button {
   #C8C8C8;
   background: url(bg_button.png);
   color: #333;
-  -webkit-box-shadow: 0px 1px 0px 0px white;
-  -moz-box-shadow: 0px 1px 0px 0px #fff;
-  -webkit-border-radius: 1px;
-  -moz-border-radius: 1px;
   margin-right: 0px;
   box-shadow:none;
   font-weight: 300;
@@ -60,13 +67,13 @@ input::-webkit-inner-spin-button {
   margin-top: 0px;
 }
 
-.formframe input.submit:hover, #profile_submit:hover{
+.carnival-form input.submit:hover, #profile_submit:hover{
   color:#3079ed;
   cursor:pointer;
   background:#efefef;
 }
 
-.formframe input.submit:active, #profile_submit:active{
+.carnival-form input.submit:active, #profile_submit:active{
   background-position:0px -30px ;
   border: 1px solid #173988;
   color:#fff;
@@ -74,7 +81,7 @@ input::-webkit-inner-spin-button {
   cursor:pointer;
 }
 
-.formframe textarea{
+.carnival-form textarea{
   width: 100%;
   outline:none;
   line-height:18px;
@@ -84,43 +91,32 @@ input::-webkit-inner-spin-button {
   min-height:100px;
   margin:0;
   color:#555;
-  -webkit-box-shadow: 0px 1px 0px 0px #fff;
-    -moz-box-shadow: 0px 1px 0px 0px #fff;
-    box-shadow: 0px 1px 0px 0px #fff;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
+  box-shadow: 0px 1px 0px 0px #fff;
+  border-radius: 4px;
   -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
   font-size:13px;
 }
 
-.formframe textarea:focus{
+.carnival-form textarea:focus{
   border: 1px solid #2c6fec;
 }
 
-.formframe button{
+.carnival-form button{
   border: 1px solid #c8c8c8;
   padding:7px 15px 6px 15px;
   background:url(bg_button.png);
   font-family: 'OpenSansSemibold';
   color:#333;
-
-
-  -webkit-box-shadow: 0px 1px 0px 0px #fff;
-    -moz-box-shadow: 0px 1px 0px 0px #fff;
-    box-shadow: 0px 1px 0px 0px #fff;
-
-  -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
+  box-shadow: 0px 1px 0px 0px #fff;
+  border-radius: 4px;
 }
 
-.formframe button:hover{
+.carnival-form button:hover{
   color:#3079ed;
   cursor:pointer;
 }
 
-.formframe button:active{
+.carnival-form button:active{
   background-position:0px -30px ;
   border: 1px solid #173988;
   color:#fff;
@@ -128,18 +124,18 @@ input::-webkit-inner-spin-button {
   cursor:pointer;
 }
 
-.formframe fieldset{
+.carnival-form fieldset{
   width:97%;
   margin: 15px 0px;
   padding: 8px 5px;
   border: 1px solid #ccc;
 }
 
+/********************* FORM BASE STYLE ******************* END */
+
 .submit_button{
   float: left;
   margin-top: 15px;
-  margin-left: -15px;
-  margin-right: -15px;
   padding-top:10px;
   bottom:15px;
   border-top: 1px solid #C7C7C7;
@@ -152,116 +148,173 @@ input::-webkit-inner-spin-button {
   margin-right: 20px;
 }
 
-/********************************************************************************/
-
-.formframe .styleCheck, .styleRadio{
-  padding:5px 0px 0px 26px;
-  font-family: 'OpenSansSemibold';
-  color:#333;
+.gray_border{
+  border-bottom: 1px solid #ccc;
+  margin: 0px 0px 20px;
+  width: 100%;
+  float: left;
+  padding: 0 0 10px;
 }
 
-.formframe .styleCheck.floatLeft, .formframe .styleRadio.floatLeft{
-  float:left;
-  margin-right:15px;
+.gray_border h2{
+  font-weight: bold;
+  line-height: 140%;
+  margin: 0px;
+  margin-left:0px;
+  font-size:18px;
+  padding-bottom:5px;
 }
 
-.formframe .styleRadio{
-  height: 20px;
-  margin:0;
-  display:block;
-  background: url(bg_button.png) 0px -205px no-repeat;
+.gray_border h1{
+  font-weight: bold;
+  line-height: 140%;
+  margin: 0 0 8px;
+  margin-left: 0px;
+  font-size: 24px;
+  position: absolute;
 }
 
-.formframe .styleCheck{
-  height: 20px;
-  margin:0;
-  display:block;
-  background: url(bg_button.png) 0px -153px no-repeat;
+input[type="checkbox"]{
+  width: auto !important;
+  margin-right: 10px !important;
+  padding: 0px !important;
+  height: auto !important;
 }
 
-.formframe label.c_on{
-  background: url(bg_button.png) 0px -179px no-repeat;
+input{
+  margin-bottom:10px;
 }
 
-.formframe label.r_on{
-  background: url(bg_button.png) 0px -231px no-repeat;
+.hidden{
+  display: none;
 }
 
-.formframe .styleCheck input, .styleRadio input{
-  position: absolute; left: -9999px;
+#error_explanation{
+  background-color: #9B281E;
+  background-image: -moz-linear-gradient(center top , #CB3425 0pt, #9B281E 100%);
+  background-image: -webkit-linear-gradient(center top , #CB3425 0pt, #9B281E 100%);
+  background-image: -ms-linear-gradient(center top , #CB3425 0pt, #9B281E 100%);
+  background-image: -o-linear-gradient(center top , #CB3425 0pt, #9B281E 100%);
+  border-radius: 3px 3px 0 0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 10px;
+  text-shadow: 0 0 0 transparent, 0 0 2px rgba(0, 0, 0, 0.3);
+  width: 550px;
+  margin: 10px 0px;
+  float: left;
 }
 
+/************************ NESTED FORMS *********************** START */
 
-/***********************************************************************************/
-
-#pagination{
-  list-style:none;
+.nested-form{
+  margin: 10px 0 0;
 }
 
-#pagination li{
-  display:block;
-  background: #eee;
-  border: 1px solid #ccc;
-  float:left;
-  border: 1px solid #c8c8c8;
-  padding:6px 8px 4px 8px;
-  background:url(bg_button.png);
-  font-family: 'OpenSansSemibold';
-  color:#333;
-  -webkit-box-shadow: 0px 1px 0px 0px #fff;
-    -moz-box-shadow: 0px 1px 0px 0px #fff;
-    box-shadow: 0px 1px 0px 0px #fff;
-  -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-    margin:0px 2px 0px 2px;
+.nested-form-title{
+  float: left;
+  margin-left: 20px;
 }
 
-#pagination li:hover{
-  color:#3079ed;
-  cursor:pointer;
+.nested-form-title:first-child{
+  margin-left: 0px;
+  float: left;
+  width: auto;
+  display: block;
+  margin: 1px 10px 16px 0px;
+  line-height: 26px;
 }
 
-#pagination li:active{
-  color:#fff;
-  background-position:0px -30px ;
-  border: 1px solid #173988;
-  cursor:pointer;
+.nested-form-actions{
+  float: right;
+  margin-top: 17px;
 }
 
-.pagPrev{
-  text-indent:-9999px;
-  background:url(bg_button.png) 3px -122px !important;
-  width:7px;
+.nested-form-list{
+  clear: both;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-.pagPrev:hover{
-  background:url(bg_button.png) -15px -122px !important;
+.nested-form-list-item{
+  position: relative;
+  border-top: 1px solid #ccc;
+  border-bottom: 0px solid #ccc;
+  float: left;
+  margin-bottom: 0px;
+  padding: 20px 25px 24px;
+  width: 100%;
+  background: #f9f9f9;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 
-.pagPrev:active{
-  text-indent:-9999px;
-  background:url(bg_button.png) 3px -122px !important;
-  width:7px;
+.nested-form-list-item:hover{
+  background: #e2e2e2;
 }
 
-.pagItem{
-
+.nested-form-list-item-actions{
+  float: right;
 }
 
-.pagNext{
-  text-indent:-9999px;
-  background:url(bg_button.png) 38px -122px !important;
-  width:7px;
+.nested-form-list-item-actions{
+  opacity: 0;
+  position: absolute;
+  right: 0px;
+  top: -1px;
 }
 
-.pagNext:hover{
-  background: #fff url(bg_button.png) 20px -122px !important;
+.nested-form-list-item-actions a{
+  border-radius: 0px 3px 0px 3px 
 }
 
-.pagNext:active{
-  color:#fff;
-  background-position:0px -30px ;
-  border: 1px solid #173988;
-  cursor:pointer;
+.nested-form-list-item:hover .nested-form-list-item-actions{
+ opacity: 1;
 }
+
+.existing-options{
+  clear: both;
+  padding-bottom: 10px;
+  width: 95%;
+}
+
+.existing-options span{
+  float: left;
+}
+
+.carnival-form-options-hide{
+  display: none
+}
+
+.carnival-select-options{
+  width: 100%;
+  margin-left: 20px;
+  position: relative;
+  float: left;
+}
+
+.carnival-select-tag{
+  width: 50%;
+  float: left;
+  position: relative;
+  margin-right: 10px;
+}
+
+.carnival-select-action{
+  width: 50%;
+  float: left;
+  position: relative;
+}
+.carnival-form-options{
+  margin-left: 20px;
+  float: left;
+}
+
+.hidden-select{
+  display:none !important;
+}
+
+/************************ NESTED FORMS *********************** END */

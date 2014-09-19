@@ -11,7 +11,7 @@
 	padding-left: 0px;
 	padding-top: 2px;
 	position: absolute;
-	z-index: 9999;
+	z-index: 99999;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 	display:none;

@@ -102,7 +102,7 @@ module Carnival
     end
 
     def render_popup partial
-      @application_popup = partial
+      @application_modal = partial
       render '/carnival/shared/render_popup' and return
     end
 

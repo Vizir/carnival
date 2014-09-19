@@ -189,10 +189,10 @@ module Carnival
       label = t("#{presenter.model_name.underscore}.#{action.name}", default: t("carnival.#{action.name}"))
       path = action.path(presenter, :id => record.id)
       if action.default_partial == :default
-        "<a class='action editar' href='#{path}'>#{label}</a>"
+        "<a class='carnival-action-link #{label.parameterize}' href='#{path}'>#{label}</a>"
       elsif action.default_partial == :delete
         confirm = I18n.t("are_you_sure")
-        "<a class='action apagar' data-confirm='#{confirm}' data-method='delete' href='#{path}' rel='nofollow'>#{label}</a>"
+        "<a class='carnival-action-link apagar' data-confirm='#{confirm}' data-method='delete' href='#{path}' rel='nofollow'>#{label}</a>"
       end
     end
 
@@ -214,7 +214,7 @@ module Carnival
 
       remote_function = "Carnival.remoteFunction(\"#{path}\", \"#{success_callback}\", \"#{error_callback}\", \"#{params[:method]}\")"
 
-      "<a class='editar' href='#' onclick='#{remote_function}'>#{label}</a>"
+      "<a class='carnival-action-link editar' href='#' onclick='#{remote_function}'>#{label}</a>"
     end
 
   end

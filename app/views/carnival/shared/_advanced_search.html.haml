@@ -1,8 +1,7 @@
 - if presenter.advanced_search_fields.size > 0
   = javascript_include_tag "carnival/advanced_search"
-  .table-tools.toggler
-    = link_to t("advanced_search"), "", id: "advanced_search_toggler", :class => "filters"
-  %ul#advanced_search_form
+  = link_to t("advanced_search"), "", id: "advanced_search_toggler", :class => "carnival-action-button busca"
+  %ul#advanced_search_form.carnival-form
     %form
       - presenter.advanced_search_fields.each do |key, field|
         - if params[key.to_s].present? && params[key.to_s]['value'] != "undefined"
@@ -15,6 +14,6 @@
               = render '/carnival/shared/advanced_search_field', :field => field, :presenter => presenter, :value => value
       %li.search_item
         .action
-          = link_to t("clear"), "#", :id=> "clear_button"
+          = link_to t("clear"), "#", :id=> "clear_button", :class => "carnival-action-button clear-search"
         .action
-          = link_to t("search"), "#", :id=> "search_button"
+          = link_to t("search"), "#", :id=> "search_button", :class => "carnival-action-button search-submit"

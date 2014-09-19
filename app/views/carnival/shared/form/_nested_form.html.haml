@@ -9,7 +9,7 @@
         = render '/carnival/shared/form/nested_form_options', opt_obj: opt
     - else
       .carnival-select-action
-        = link_to t("nested_form.new"), '#', onclick: "createNewForm('.nested-form-list.#{field.name}', '#{field.name}'); return false;"
+        = link_to t("nested_form.new"), '#', onclick: "createNewForm('.nested-form-list.#{field.name}', '#{field.name}'); return false;", class: "carnival-action-button novo"
 
       - if field.nested_form_modes?(:new)
         %ul.nested-form-list{:class => field.name}
@@ -17,7 +17,7 @@
           = f.simple_fields_for field.name.to_sym do |inner_form|
             %li.nested-form-list-item{:class => "#{inner_form.object.id.nil? and inner_form.object.errors.size == 0 ? 'form-new-association' : 'form-existent-association'}" }
               .nested-form-list-item-actions
-                = link_to t("remove"), "#", onclick: "removeNestedFormElement(this); return false;" if field.nested_form_allow_destroy?
+                = link_to t("remove"), "#", onclick: "removeNestedFormElement(this); return false;", class: "carnival-action-button remover" if field.nested_form_allow_destroy?
               = inner_form.input :id, :as => :hidden
               = inner_form.input :_destroy, :as => :hidden, :input_html => {:class => "destroy"} if field.nested_form_allow_destroy?
               - nested_presenter = model_presenter.presenter_to_field(field, inner_form.object)
