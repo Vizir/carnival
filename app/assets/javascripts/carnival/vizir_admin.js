@@ -113,7 +113,7 @@ var pageLoad = function(){
   })
 
   $('.dataTables_info').insertAfter('.dataTables_paginate');
-  $(".chosen").chosen({no_results_text: "Nenhum resultado encontrado", disable_search_threshold: 5});
+  $(".carnival-select").select2();
   $(".popup").click(function(e){
     e.preventDefault()
     var url = $(this).attr('href')
@@ -168,8 +168,7 @@ function setupDateFields(){
 
 var formLoad = function(){
   setupDateFields();
-  $('select').chosen();
-  $(".chosen-container").css({width:$(".chosen-container").parent().css("width")})
+  $('select').select2();
   $('input.previewable').change(function() {
     var that = $( this );
     var reader = new FileReader();
@@ -186,8 +185,7 @@ var formLoad = function(){
       img.attr('src', '');
     }
   });
-  $('.chosen').chosen();
-  $(".chosen-container").css({width:$(".chosen-container").parent().css("width")})
+  $('.carnival-select').select2();
   selectRemote();
 }
 

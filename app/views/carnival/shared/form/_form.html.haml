@@ -28,7 +28,7 @@
     newForm = newForm.replace(/([_a-zA-Z]+_attributes_)\d+(_[a-zA-Z]+)/g, "$1" + last_index + "$2");
     newForm = newForm.replace(/([_a-zA-Z]+\[[_a-zA-Z]+_attributes\]\[)\d+(\]\[[_a-zA-Z]+\])/g, "$1" + last_index + "$2");
     $(selector).append(newForm);
-    $(selector).find(".chosen").chosen();
+    $(selector).find(".carnival-select").select2();
     $(selector + " li:last")[0].scrollIntoView(true)
     setupDateFields();
     var lastFormAdded = $(selector).find(".nested-form-list-item").last();
@@ -64,7 +64,7 @@
     $('#'+id+'_options').hide();
     $('#'+id).attr('checked', false);
     $('#'+id+'_select_option').prop('disabled', false);
-    $('#'+selectId).trigger("chosen:updated");
+    //$('#'+selectId).trigger("chosen:updated");
   }
 
 
@@ -93,9 +93,9 @@
     if(value != ""){
       $.ajax(load_dependent_path + "/" + presenter + "/" + dependentField + "/" + field + "/" + value)
         .done(function(data){
-          var selector = ".field-" + dependentField.replace("_id", "");
+          var selector = "select.field-" + dependentField.replace("_id", "");
           $(selector).html(data);
-          $(selector).trigger("chosen:updated");
+          //$(selector).trigger("chosen:updated");
         })
         .error(function(err, data){
           console.log("updateDependentFormSelectHtml ajax error " + err);

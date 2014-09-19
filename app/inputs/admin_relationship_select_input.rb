@@ -1,7 +1,7 @@
 class AdminRelationshipSelectInput < SimpleForm::Inputs::CollectionSelectInput
   def input
     super
-    input_html_options[:class] << ' chosen'
+    input_html_options[:class] << ' carnival-select'
     if input_html_options[:data][:depends_on].nil?
       collection = @builder.object.class.name.constantize.reflect_on_association(attribute_name.to_sym).klass.name.constantize.list_for_select
     else

@@ -1,7 +1,7 @@
 class AdminEnumInput < SimpleForm::Inputs::CollectionSelectInput
   def input
     super
-    input_html_options[:class] << ' chosen'
+    input_html_options[:class] << ' carnival-select'
 
     @builder.collection_select(
       attribute_name, @builder.object.class.const_get(attribute_name.to_s.upcase),

@@ -3,7 +3,7 @@
     - scope_html_id = opt_obj.scope_html_id
 
     .carnival-select-tag
-      = select_tag opt_obj.select_tag_id, options_for_select(opt_obj.select_options), {:onchange => 'addOption("'+opt_obj.select_tag_id+'")', class: 'chosen'}
+      = select_tag opt_obj.select_tag_id, options_for_select(opt_obj.select_options), {:onchange => 'addOption("'+opt_obj.select_tag_id+'")', class: 'carnival-select'}
 
     - if scope_html_id.present?
       :javascript
@@ -25,7 +25,7 @@
     $('#'+option).prop('checked', true);
     $('#'+option+'_select_option').prop('disabled', true);
     $('#'+selectId).val(-1);
-    $('#'+selectId).trigger("chosen:updated");
+    //$('#'+selectId).trigger("chosen:updated");
   }
 .carnival-form-options
   - checkbox_id = opt_obj.option_id OpenStruct.new(id: '')
