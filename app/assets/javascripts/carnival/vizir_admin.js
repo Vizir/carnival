@@ -193,4 +193,7 @@ var formLoad = function(){
 $(document).ready(function(){
   pageLoad();
   formLoad();
+
+  $('a').each(function(){this_=$(this);if(this_.hasClass() == false){this_.addClass('link')}})
+
 });

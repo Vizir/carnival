@@ -1,0 +1,30 @@
+.scopes{
+  float: right;
+  padding: 0 10px 0 0;
+  margin: 0 10px 0 0;
+  border-right: 1px dotted #c0c0c0;
+}
+
+.scope{
+  float: left;
+  padding: 0px;
+}
+
+.scopes li:first-child .carnival-scope{
+  border-radius: 3px 0px 0px 3px;
+}
+
+.scopes li:last-child .carnival-scope{
+  border-radius: 0px 3px 3px 0px;
+  border-right-width: 1px;
+}
+
+.carnival-scope{
+  border-right-width: 0px;
+  border-radius: 0px;
+}
+
+.selected .carnival-scope{
+  background: #007ae1;
+  color: #fff;
+}

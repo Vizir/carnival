@@ -39,6 +39,10 @@ body, html{
   height: 100%;
 }
 
+.link{
+  color: #007ae1;
+}
+
 li{list-style: none;}
 a{text-decoration:none;}
 
