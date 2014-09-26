@@ -145,7 +145,7 @@ var pageLoad = function(){
   })
 
 
-  $(".carnival-select").select2();
+  $(".carnival-select").select2({width: '100%'});
   $(".popup").click(function(e){
     e.preventDefault()
     var url = $(this).attr('href')
@@ -200,7 +200,7 @@ function setupDateFields(){
 
 var formLoad = function(){
   setupDateFields();
-  $('select').select2();
+  $('select').select2({width: '100%'});
   $('input.previewable').change(function() {
     var that = $( this );
     var reader = new FileReader();
@@ -217,7 +217,7 @@ var formLoad = function(){
       img.attr('src', '');
     }
   });
-  $('.carnival-select').select2();
+  $('.carnival-select').select2({width: '100%'});
   selectRemote();
 }
 
