@@ -1,5 +1,6 @@
 /********************* FORM BASE STYLE ******************* START */
 
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     /* display: none; <- Crashes Chrome on hover */
@@ -50,27 +51,22 @@ input::-webkit-inner-spin-button {
 
 .carnival-form input.submit{
   width: auto !important;
-  cursor: pointer !important;
-  display: inline-block;
-  text-align: center;
-  font-size:14px;
-  padding: 7px 12px 6px 12px !important;
-  border: 1px solid
-  #C8C8C8;
-  background: url(bg_button.png);
-  color: #333;
   margin-right: 0px;
-  box-shadow:none;
-  font-weight: 300;
-  border-radius: 2px;
-  height: auto;
-  margin-top: 0px;
+  padding: 0px 15px 0px;
+  background: white;
+  background: -webkit-linear-gradient(-90deg, #fff, #f0f0f0);
+  background: -moz-linear-gradient(-90deg, #fff, #f0f0f0);
+  background: linear, -90deg, white, #f0f0f0;
+  color: #333;
+  line-height: 26px;
+  border: 1px solid rgba(0, 0, 0, 0.21);
+  opacity: 0.7;
 }
 
 .carnival-form input.submit:hover, #profile_submit:hover{
   color:#3079ed;
+  opacity: 1;
   cursor:pointer;
-  background:#efefef;
 }
 
 .carnival-form input.submit:active, #profile_submit:active{
