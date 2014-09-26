@@ -50,7 +50,7 @@
   -moz-box-sizing: border-box;
   margin-bottom: 0px;
   position: absolute;
-  z-index: 99999;
+  z-index: 999;
   border-radius: 0px 3px 3px 3px;
   background: #fafafa;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
