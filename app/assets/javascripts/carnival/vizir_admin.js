@@ -204,7 +204,7 @@ var formLoad = function(){
   $('input.previewable').change(function() {
     var that = $( this );
     var reader = new FileReader();
-    var img = $(this).next('img.previewable');
+    var img = $(this).siblings('img.previewable');
 
     reader.onload = function(e) {
       var val = e.target.result;
