@@ -24,7 +24,7 @@
 
 
 .carnival-index-form
-  = form_tag(presenter.model_path(:index), method: 'get') do
+  = form_tag('', method: 'get') do
     - @query_form.instance_variables.each do |variable|
       - variable_name = variable.to_s.gsub '@', ''
       = hidden_field_tag(variable_name, @query_form.send(variable_name) )
