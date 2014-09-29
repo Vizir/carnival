@@ -6,9 +6,11 @@
  *= require carnival/footer.css
  *= require carnival/forms.css
  *= require carnival/actions.css
- *= require carnival/tables.css
- *= require carnival/index_grid.css
+ *= require carnival/carnival-table.css
+ *= require carnival/carnival-list.css
+ *= require carnival/carnival-grid.css
  *= require carnival/period.css
+ *= require carnival/listing-tools.css
  *= require carnival/search.css
  *= require carnival/scope.css
  *= require carnival/pagination.css
