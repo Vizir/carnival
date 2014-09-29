@@ -12,6 +12,7 @@
   width:25%;
   float: left;
   height: 280px;
+  position: relative;
 }
 
 .carnival-grid-card{
@@ -27,6 +28,12 @@
 
 .carnival-grid-card:hover{
   background: #fcfcfc;
+}
+
+.carnival-grid-item .row:last-child{
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
 }
 
 .carnival-grid-item .carnival-action-link{
