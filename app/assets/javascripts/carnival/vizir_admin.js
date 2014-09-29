@@ -90,6 +90,13 @@ Carnival.goToPage = function(page){
   form.submit();
 }
 
+Carnival.sortIndexList = function(elem){
+  var selectedOption = $(elem).find('option:selected');
+  var columnName = $(selectedOption).data('columnName');
+  var sortDir = $(selectedOption).data('sortDir');
+  Carnival.sortColumn(columnName, sortDir);
+}
+
 function removeFields(link) {
   $(link).prev("input[type=hidden]").val("1");
   $(link).closest(".fields").slideToggle("show");

@@ -36,9 +36,10 @@
 
 - unless presenter.index_as_table?
   .sorter
-    %select
+    %select{"onchange" => "javascript:Carnival.sortIndexList(this)"}
       - @thead_renderer.columns.each do |column|
-        %option{"onclick" => "javascript:#{column[:sort_function]}",  "class" => "#{column[:class]}"}= translate_field(presenter, column[:field])
+        - if column[:sort_function] != ''
+          %option{ :selected => column[:name] == @query_form.sort_column , :data => {column_name: "#{column[:name]}", sort_dir: "#{column[:sort_dir]}"} ,  "class" => "#{column[:class]}"}= translate_field(presenter, column[:field])
 
 
 .actions
