@@ -163,6 +163,19 @@ module Carnival
       "#{td}#{result}</td>"
     end
 
+    def grid_attr(presenter, field, record, only_render_fields)
+      result = field_to_show(presenter, field, record, only_render_fields)
+      return result if only_render_fields
+      return "<img class='attr' src='#{result}' alt='#{translate_field(presenter, field)}' />"
+    end
+
+    def list_attr(presenter, field, record, only_render_fields)
+      result = field_to_show(presenter, field, record, only_render_fields)
+      return result if only_render_fields
+      return "<div class='attr'><span class='label #{field}'>#{translate_field(presenter, field)}:</span><span class='#{field} #{get_css_class(presenter, field, record)}'>#{result}</span></div>" if presenter.get_field(field).css_class.present?
+      "<div class='attr'><span class='label #{field}'>#{translate_field(presenter, field)}:</span><span class='#{field}'>#{result}</span></div>"
+    end
+
     def get_css_class presenter, field, record
       css_class = presenter.get_field(field).css_class
       return '' if !css_class

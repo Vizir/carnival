@@ -1,6 +1,6 @@
 - special_scope =  params[:special_scope]
 - presenter = @presenter
-- params = {:class => 'carnival-table'}
+- params = {:class => "carnival-#{presenter.index_as}"}
 
 - if special_scope.present?
   - params["data-special_scope"] = special_scope
@@ -34,6 +34,11 @@
   - advanced_search_params = JSON.parse(@query_form.advanced_search) if @query_form.advanced_search.size > 0
   = render '/carnival/shared/advanced_search', :params => advanced_search_params, presenter: presenter
 
+- unless presenter.index_as_table?
+  .sorter
+    %select
+      - @thead_renderer.columns.each do |column|
+        %option{"onclick" => "javascript:#{column[:sort_function]}",  "class" => "#{column[:class]}"}= translate_field(presenter, column[:field])
 
 
 .actions
@@ -42,25 +47,7 @@
 = render '/carnival/shared/period_filter', :params => params, presenter: presenter, date_period_label: @query_form.date_period_label
 = render '/carnival/shared/scope', :params => params, presenter: presenter, selected_scope: @query_form.scope, scopes_total: @query_service.scopes_number
 
-%table{params}
-  %thead
-    %tr
-      -if presenter.has_batch_actions?
-        %th
-          %input{id: 'toggle-all-batch-actions-items',type: 'checkbox',disabled: 'disabled'}
-      - @thead_renderer.columns.each do |column|
-        %th{"onclick" => "javascript:#{column[:sort_function]}",  "class" => "#{column[:class]}"}= translate_field(presenter, column[:field])
-      %th.buttons
-  %tbody
-    - @records.each do |record|
-      %tr
-        - if @presenter.has_batch_actions?
-          %td
-            =check_box_tag(:batch_action_item, record.id, false, class: 'batch_action_items')
-        - @presenter.fields_for_action(:index).each do |key, field|
-          = list_cel(@presenter, key,record, false).html_safe
-        %td
-          = list_buttons(@presenter, record).html_safe
+= render "index_as_#{presenter.index_as}", :params => params, presenter: presenter
 
 .table-paginate
   - @paginator.pages.each do |page_hash|

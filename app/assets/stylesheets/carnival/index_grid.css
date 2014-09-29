@@ -1,0 +1,10 @@
+ul.carnival-grid {
+  clear: both;
+  width:100%;
+}
+
+.carnival-grid li{
+  width:25%;
+  float: left;
+  height: 250px;
+}

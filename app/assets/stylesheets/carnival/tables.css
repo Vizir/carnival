@@ -9,6 +9,7 @@
   margin-top:10px;
   border-radius: 4px 5px 0px 0px;
   overflow: hidden;
+  padding-left: 0px;
 }
 
 .carnival-table thead tr.filters{
@@ -70,6 +71,19 @@
 
 .carnival-table tbody tr:hover{
   background: #EDFAFF;
+}
+
+.carnival-table .attr{
+  float: left;
+  width: 250px;
+}
+
+.carnival-table .row{
+  border: 1px solid #e3e9ec;
+  border-radius: 4px 5px;
+  margin-top: 3px;
+  margin-right: 15px;
+
 }
 
 /*********************** TABLE BASE STYEL ********************* END */

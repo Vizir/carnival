@@ -27,6 +27,11 @@ module Carnival
       self.class.to_s
     end
 
+    @@index_as = {}
+    def self.index_as(type)
+      @@index_as[presenter_class_name] = type
+    end
+
     @@actions = {}
     def self.action(name, params = {})
       @@actions[presenter_class_name] = {} if @@actions[presenter_class_name].nil?
@@ -56,6 +61,24 @@ module Carnival
         @@items_per_page[presenter_class_name][:items_per_page] = Carnival::Config.items_per_page
       end
       @@items_per_page[presenter_class_name][:items_per_page]
+    end
+
+    def index_as_table?
+      index_as == :table
+    end
+
+    def index_as_list?
+      index_as == :list
+    end
+
+    def index_as_grid?
+      index_as == :grid
+    end
+
+    def index_as
+      index_as = @@index_as[presenter_class_name]
+      index_as = :table if index_as.nil?
+      index_as
     end
 
     def actions

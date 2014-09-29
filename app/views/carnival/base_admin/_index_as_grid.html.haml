@@ -1,0 +1,12 @@
+%ul{params}
+  - @records.each do |record|
+    %li
+      .row
+        .col-md-12
+          %a
+            - @presenter.fields_for_action(:index).each do |key, field|
+              = grid_attr(@presenter, key,record, false).html_safe
+      .row
+        -if presenter.has_batch_actions?
+          %input{id: 'toggle-all-batch-actions-items',type: 'checkbox',disabled: 'disabled'}
+        = list_buttons(@presenter, record).html_safe
