@@ -28,7 +28,7 @@
     newForm = newForm.replace(/([_a-zA-Z]+_attributes_)\d+(_[a-zA-Z]+)/g, "$1" + last_index + "$2");
     newForm = newForm.replace(/([_a-zA-Z]+\[[_a-zA-Z]+_attributes\]\[)\d+(\]\[[_a-zA-Z]+\])/g, "$1" + last_index + "$2");
     $(selector).append(newForm);
-    $(selector).find(".carnival-select").select2();
+    $(selector).find(".carnival-select").select2({width: '100%'});
     $(selector + " li:last")[0].scrollIntoView(true)
     setupDateFields();
     var lastFormAdded = $(selector).find(".nested-form-list-item").last();
