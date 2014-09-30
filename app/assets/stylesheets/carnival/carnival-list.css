@@ -1,0 +1,33 @@
+.carnival-list{
+  padding: 0;
+  margin: 0;  
+}
+
+.carnival-list-item:first-child{
+  margin: 15px 0px 15px 0px;  
+}
+
+.carnival-list-item{
+  border: 1px solid #e0e0e0; 
+  float: left;
+  width: 100%;
+  padding: 15px;
+  margin: 0px 0px 15px 0px;
+  box-sizing: border-box;
+  background: #f6f6f6;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.carnival-list-item:hover{
+  background: #fcfcfc;
+}
+
+.carnival-list-item .carnival-action-link{
+  margin: -5px 0px 0px 0px;
+}
+
+.carnival-list-item .label{
+  font-weight: bold;
+  margin: 0px 4px 0px 0px;
+}

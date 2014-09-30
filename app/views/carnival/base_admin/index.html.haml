@@ -29,35 +29,41 @@
       - variable_name = variable.to_s.gsub '@', ''
       = hidden_field_tag(variable_name, @query_form.send(variable_name) )
 
-.advanced-search
-  - advanced_search_params = {}
-  - advanced_search_params = JSON.parse(@query_form.advanced_search) if @query_form.advanced_search.size > 0
-  = render '/carnival/shared/advanced_search', :params => advanced_search_params, presenter: presenter
+.carnival-linsting-tools
 
-- unless presenter.index_as_table?
-  .sorter
-    %select{"onchange" => "javascript:Carnival.sortIndexList(this)"}
-      - @thead_renderer.columns.each do |column|
-        - if column[:sort_function] != ''
-          %option{ :selected => column[:name] == @query_form.sort_column , :data => {column_name: "#{column[:name]}", sort_dir: "#{column[:sort_dir]}"} ,  "class" => "#{column[:class]}"}= translate_field(presenter, column[:field])
+  .advanced-search
+    - advanced_search_params = {}
+    - advanced_search_params = JSON.parse(@query_form.advanced_search) if @query_form.advanced_search.size > 0
+    = render '/carnival/shared/advanced_search', :params => advanced_search_params, presenter: presenter
 
 
-.actions
-  - presenter.actions_for_page.each do |key, action|
-    = render '/carnival/shared/action_default', :label=>t("#{presenter.model_name}.#{action.name}", default: t("carnival.#{action.name}")), :path=> action.path(presenter)
-= render '/carnival/shared/period_filter', :params => params, presenter: presenter, date_period_label: @query_form.date_period_label
-= render '/carnival/shared/scope', :params => params, presenter: presenter, selected_scope: @query_form.scope, scopes_total: @query_service.scopes_number
+
+  .actions
+    - presenter.actions_for_page.each do |key, action|
+      = render '/carnival/shared/action_default', :label=>t("#{presenter.model_name}.#{action.name}", default: t("carnival.#{action.name}")), :path=> action.path(presenter)
+  = render '/carnival/shared/period_filter', :params => params, presenter: presenter, date_period_label: @query_form.date_period_label
+  = render '/carnival/shared/scope', :params => params, presenter: presenter, selected_scope: @query_form.scope, scopes_total: @query_service.scopes_number
+
+  - unless presenter.index_as_table?
+    .sorter
+      %select{"onchange" => "javascript:Carnival.sortIndexList(this)"}
+        - @thead_renderer.columns.each do |column|
+          - if column[:sort_function] != ''
+            %option{ :selected => column[:name] == @query_form.sort_column , :data => {column_name: "#{column[:name]}", sort_dir: "#{column[:sort_dir]}"} ,  "class" => "#{column[:class]}"}= translate_field(presenter, column[:field])
 
 = render "index_as_#{presenter.index_as}", :params => params, presenter: presenter
 
-.table-paginate
-  - @paginator.pages.each do |page_hash|
-    %span{class: page_hash[:css_class]}
-      = link_to(t(page_hash[:label]), page_hash[:js_function], :class => "carnival-action-button")
-  = "#{t('paginate_total')}: #{@query_service.total_records}"
 
-.table-download-links
-  - params = @query_form.to_hash
-  = link_to t('download_as_csv'), presenter.model_path(:index, {:format => 'csv'}.merge(params)), :class => "carnival-action-button pdf" if presenter.has_action?(:csv)
-  = link_to t('download_as_pdf'), presenter.model_path(:index, {:format => 'pdf'}.merge(params)), :class => "carnival-action-button csv" if presenter.has_action?(:pdf)
+.carnival-footer-tools
+
+  .table-paginate
+    - @paginator.pages.each do |page_hash|
+      %span{class: page_hash[:css_class]}
+        = link_to(t(page_hash[:label]), page_hash[:js_function], :class => "carnival-action-button")
+    = "#{t('paginate_total')}: #{@query_service.total_records}"
+
+  .table-download-links
+    - params = @query_form.to_hash
+    = link_to t('download_as_csv'), presenter.model_path(:index, {:format => 'csv'}.merge(params)), :class => "carnival-action-button pdf" if presenter.has_action?(:csv)
+    = link_to t('download_as_pdf'), presenter.model_path(:index, {:format => 'pdf'}.merge(params)), :class => "carnival-action-button csv" if presenter.has_action?(:pdf)
 
