@@ -18,19 +18,6 @@ module Carnival
       ''
     end
 
-    def link_to_add_fields(name, f, association, path="")
-      new_object = f.object.class.reflect_on_association(association).klass.new
-      fields = f.fields_for(association, [new_object], :child_index => "new_#{association}") do |builder|
-        render(path + association.to_s.singularize + "_fields", :f => builder)
-      end
-      fields = fields.gsub("\"","'").gsub("&",'&amp;').gsub("<",'&lt;').gsub(">",'&gt;').gsub("\n", '')
-      link_to_function(name, ("addFields(this, '#{association}', \"#{raw(fields)}\")"))
-    end
-
-    def link_to_remove_fields(name, f)
-      f.hidden_field(:_destroy) + link_to_function(name, "removeFields(this)")
-    end
-
     def caminho_modelo(action, extra_params=nil)
       params = {controller: controller.controller_name, action: action}
       params = params.merge(extra_params) if extra_params.present?
