@@ -214,7 +214,7 @@ module Carnival
 
       remote_function = "Carnival.remoteFunction(\"#{path}\", \"#{success_callback}\", \"#{error_callback}\", \"#{params[:method]}\")"
 
-      "<a class='carnival-action-link editar' href='#' onclick='#{remote_function}'>#{label}</a>"
+      "<a class='carnival-action-link editar' href='javascript:#{remote_function}'>#{label}</a>"
     end
 
   end
