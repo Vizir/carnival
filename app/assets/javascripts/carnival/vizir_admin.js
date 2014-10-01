@@ -36,7 +36,6 @@ Carnival.callFunc = function(functionName, data){
     if(console && console.warn)
       console.warn('The funcion ' + functionName + ' was not implemented')
   }
-  Carnival.reloadIndexPage();
 }
 
 Carnival.setIndexPageParam = function(name, value){
