@@ -41,6 +41,7 @@ When you use Carnival you'll benefit from a big suite of feature already done. I
   - ImagePreview
   - Relation select (Autocomplete)
   - Grid config (field order and size)
+  - Select Enum
 * Show
   - Grid config (field order and size)
   - Relation links
