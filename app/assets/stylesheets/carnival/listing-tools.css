@@ -1,5 +1,16 @@
 .sorter{
   float: right;
   margin: 0px 5px 0px 0px;
-  min-width: 150px;
+  min-width: 250px;
+}
+
+.sorter .label{
+  float: left;
+  margin-top: 4px;
+  margin-right: 5px;
+}
+
+.sorter .select-container{
+  width: 60%;
+  float: left;
 }

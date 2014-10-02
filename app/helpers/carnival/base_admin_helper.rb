@@ -112,26 +112,34 @@ module Carnival
       rendered = renderer.render_field(record)
     end
 
+    def is_image? field_type, value
+      field_type.nil? and value.class.to_s == "Paperclip::Attachment" and value.content_type.include? "image"
+    end
+
     def format_field(presenter, field_name, field_type, value)
-      case field_type
-      when :datetime
-        begin
-          I18n.l(value, format: :long_date)
-        rescue I18n::MissingTranslationData
-          value.strftime("%d/%m/%y %H:%M:%S")
-        end
-      when :date
-        begin
-          I18n.l(value, format: :short_date)
-        rescue I18n::MissingTranslationData
-          value.strftime("%d/%m/%Y")
-        end
-      when :number
-        number_with_precision(value, :precision => 2, :separator => ",")
-      when :enum
-        presenter.model_class.const_get(field_name.upcase)[value]
+      if is_image?(field_type, value)
+        "<img class='attr' src='#{value.url(:thumb)}' alt='#{translate_field(presenter, field_name)}' />"
       else
-        value
+        case field_type
+        when :datetime
+          begin
+            I18n.l(value, format: :long_date)
+          rescue I18n::MissingTranslationData
+            value.strftime("%d/%m/%y %H:%M:%S")
+          end
+        when :date
+          begin
+            I18n.l(value, format: :short_date)
+          rescue I18n::MissingTranslationData
+            value.strftime("%d/%m/%Y")
+          end
+        when :number
+          number_with_precision(value, :precision => 2, :separator => ",")
+        when :enum
+          presenter.model_class.const_get(field_name.upcase)[value]
+        else
+          value
+        end
       end
     end
 
@@ -153,14 +161,14 @@ module Carnival
     def grid_attr(presenter, field, record, only_render_fields)
       result = field_to_show(presenter, field, record, only_render_fields)
       return result if only_render_fields
-      return "<img class='attr' src='#{result}' alt='#{translate_field(presenter, field)}' />"
+      list_attr(presenter, field, record, only_render_fields)
     end
 
     def list_attr(presenter, field, record, only_render_fields)
       result = field_to_show(presenter, field, record, only_render_fields)
       return result if only_render_fields
-      return "<div class='attr'><span class='label #{field}'>#{translate_field(presenter, field)}:</span><span class='field_value #{field} #{get_css_class(presenter, field, record)}'>#{result}</span></div>" if presenter.get_field(field).css_class.present?
-      "<div class='attr'><span class='label #{field}'>#{translate_field(presenter, field)}:</span><span class='field_value #{field}'>#{result}</span></div>"
+      return "<div class='attr'><div class='label #{field}'>#{translate_field(presenter, field)}:</div><div class='field_value #{field} #{get_css_class(presenter, field, record)}'>#{result}</div></div>" if presenter.get_field(field).css_class.present?
+      "<div class='attr'><div class='label #{field}'>#{translate_field(presenter, field)}:</div><div class='field_value #{field}'>#{result}</div></div>"
     end
 
     def get_css_class presenter, field, record
