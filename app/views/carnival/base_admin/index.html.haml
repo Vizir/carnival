@@ -46,10 +46,13 @@
 
   - unless presenter.index_as_table?
     .sorter
-      %select{"onchange" => "javascript:Carnival.sortIndexList(this)"}
-        - @thead_renderer.columns.each do |column|
-          - if column[:sort_function] != ''
-            %option{ :selected => column[:name] == @query_form.sort_column , :data => {column_name: "#{column[:name]}", sort_dir: "#{column[:sort_dir]}"} ,  "class" => "#{column[:class]}"}= translate_field(presenter, column[:field])
+      .label
+        =t("sort_by")
+      .select-container
+        %select{"onchange" => "javascript:Carnival.sortIndexList(this)"}
+          - @thead_renderer.columns.each do |column|
+            - if column[:sort_function] != ''
+              %option{ :selected => column[:name] == @query_form.sort_column , :data => {column_name: "#{column[:name]}", sort_dir: "#{column[:sort_dir]}"} ,  "class" => "#{column[:class]}"}= translate_field(presenter, column[:field])
 
 = render "index_as_#{presenter.index_as}", :params => params, presenter: presenter
 

@@ -2,6 +2,7 @@
   padding: 0;
   margin: 15px 0px 0px;  
   float: left;
+  width: 100%;
 }
 
 .carnival-grid-item{ 
@@ -43,4 +44,5 @@
 .carnival-grid-card .label{
   font-weight: bold;
   margin: 0px 4px 0px 0px;
+  float: left;
 }

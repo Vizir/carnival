@@ -27,7 +27,13 @@
   margin: -5px 0px 0px 0px;
 }
 
+.carnival-list-item .attr{
+  float: left;
+  width: 25%;
+}
+
 .carnival-list-item .label{
   font-weight: bold;
   margin: 0px 4px 0px 0px;
+  float: left;
 }
