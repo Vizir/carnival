@@ -15,14 +15,6 @@
     :actions => [:index]
   ```
 
-- :searchable
-  - Define if the field will be searchable
-  - Default Value: false
-
-  ```ruby
-    :searchable => true
-  ```
-
 - :advanced\_search
   - Define if the field will be in the advanced search
 
