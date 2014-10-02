@@ -21,11 +21,13 @@ pt-BR:
   menu:
     dashboard: Dashboard
     admin_user: Usuários administradores
+    countries: Países
   messages:
     created: Criado com sucesso!
     updated: Alterado com sucesso!
     select: Selecione
   sort_by: Ordenar por
+  minimize: Minimizar
   download_as_csv: Baixar como CSV
   download_as_pdf: Baixar como PDF
   advanced_search: Busca

@@ -13,5 +13,5 @@
                   = link_to t("carnival.menu.#{ sub[:label].downcase.gsub(' ', '_') }"), menu_link(sub[:link]), {:class => "#{set_resource_actived_if_current(sub[:link])} #{sub[:class]}"}
 
       %li.minify
-        %span="Minimizar"
+        %span=t("minimize")
 

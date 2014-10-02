@@ -24,7 +24,11 @@
               = render 'carnival/app_logo'
             -else
               = link_to "#{Carnival::Config.app_name}", carnival_root_url
-
+          - title = page_title
+          - if title.present?
+            .page-title
+              &nbsp;::
+              = t(title).html_safe
       #content_wrapper
         = render '/layouts/carnival/menu'
         #content

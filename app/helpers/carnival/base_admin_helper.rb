@@ -4,6 +4,25 @@ module Carnival
       (request.fullpath == path)? 'actived' : ''
     end
 
+    def is_current_path?(path)
+      request.fullpath == path
+    end
+
+    def page_title
+      title = ""
+      menus = Carnival::Config::menu.clone
+      menus.each do |key, menu|
+        if menu[:subs].present?
+          menu[:subs].each do |sub|
+            title = sub[:label] if is_current_path?(sub[:link])
+          end
+        else
+          title = menu[:label] if is_current_path?(menu[:link])
+        end
+      end
+      title
+    end
+
     def show_messages
       @messages = ''
       flash.each do |type, message|

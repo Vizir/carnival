@@ -56,6 +56,13 @@
 
 /*********************** CUSTOM LOGO ********************** END */
 
+.carnival-header .page-title{
+  font-size: 30px;
+  margin-top: 16px;
+  color: #444;
+  float: left;
+}
+
 /************************ USER MENU *********************** START */
 
 .carnival-user-menu{
