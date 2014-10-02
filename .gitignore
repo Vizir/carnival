@@ -1,4 +1,6 @@
 .bundle/
+vendor/
+fig.yml
 log/*.log
 pkg/
 Gemfile.lock
