@@ -21,7 +21,6 @@ pt-BR:
   menu:
     dashboard: Dashboard
     admin_user: Usuários administradores
-    countries: Países
   messages:
     created: Criado com sucesso!
     updated: Alterado com sucesso!
