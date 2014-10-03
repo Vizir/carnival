@@ -25,7 +25,7 @@ Sample content:
 
 %div.sign_out= link_to t('logout'), destroy_user_session_path, :method => :delete
 %div.salute
-  = link_to "#" do
+  = link_to "edit_admin_user_path(current_user.id)" do
     .email
       = current_user.email
     %figure
