@@ -8,5 +8,5 @@
               = grid_attr(@presenter, key,record, false).html_safe
         .row
           -if presenter.has_batch_actions?
-            %input{id: 'toggle-all-batch-actions-items',type: 'checkbox',disabled: 'disabled'}
+            =check_box_tag(:batch_action_item, record.id, false, class: 'batch_action_items')
           = list_buttons(@presenter, record).html_safe
