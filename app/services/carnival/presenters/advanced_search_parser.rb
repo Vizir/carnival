@@ -44,7 +44,7 @@ module Carnival
             else
               records = records.joins(related_model.split("/").last.pluralize)
             end
-            table = related_model.split("/").last.pluralize
+            table = related_model.split("/").last.classify.constantize.table_name
             column = "id" if column.nil? || field_param["operator"] == "equal"
           else
             table = @klass_service.table_name
