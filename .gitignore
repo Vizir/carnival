@@ -2,6 +2,7 @@
 vendor/
 fig.yml
 log/*.log
+.data/
 pkg/
 Gemfile.lock
 test/dummy/db/*.sqlite3

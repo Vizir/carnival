@@ -17,7 +17,7 @@ module Carnival
           search = JSON.parse(search_syntax)
           search.keys.each do |key|
             search_field = key
-            search_field = key.split(".").last if key.include?(".")
+            #search_field = key.split(".").last if key.include?(".")
             search_field = search_field.gsub("_id", "") if search_field.ends_with?("_id")
             next if !fields.keys.include? search_field.to_sym
             if fields[search_field.to_sym].advanced_searchable?
@@ -31,7 +31,11 @@ module Carnival
         def parse_advanced_search_field search_field, field_param, records
           return records if not field_param["value"].present?
           return records if field_param["value"] == ""
-
+          if search_field.is_a?(String) && search_field.include?('.')
+            search_field_params = search_field.split('.')
+            search_field = search_field_params[0]
+            column = search_field_params[1]
+          end
           if @klass_service.relation? search_field.to_sym
             related_model = @klass_service.get_related_class(search_field.to_sym).name.underscore
             foreign_key = @klass_service.get_foreign_key(search_field.to_sym)
@@ -41,7 +45,7 @@ module Carnival
               records = records.joins(related_model.split("/").last.pluralize)
             end
             table = related_model.split("/").last.pluralize
-            column = "id"
+            column = "id" if column.nil? || field_param["operator"] == "equal"
           else
             table = @klass_service.table_name
             column = search_field
