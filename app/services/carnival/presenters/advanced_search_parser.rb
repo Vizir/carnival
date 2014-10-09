@@ -14,14 +14,16 @@ module Carnival
        end
 
        def parse_advanced_search fields, records, search_syntax
-          search = JSON.parse(search_syntax)
-          search.keys.each do |key|
+          search = search_syntax
+          search.each do |key, value|
             search_field = key
             #search_field = key.split(".").last if key.include?(".")
             search_field = search_field.gsub("_id", "") if search_field.ends_with?("_id")
             next if !fields.keys.include? search_field.to_sym
-            if fields[search_field.to_sym].advanced_searchable?
-              records =  parse_advanced_search_field(search_field, search[key], records)
+            field = fields[search_field.to_sym]
+            if field.advanced_searchable? && value.present? && value.size > 0
+              field_param = {"operator" => field.advanced_search_operator.to_s, "value" => "#{value}"}
+              records =  parse_advanced_search_field(search_field, field_param, records)
             end
           end
           records

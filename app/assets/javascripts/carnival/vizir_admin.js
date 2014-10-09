@@ -38,6 +38,24 @@ Carnival.callFunc = function(functionName, data){
   }
 }
 
+Carnival.submitIndexForm = function(){
+  $("#advanced_search_form input").each(function(){
+    var inputValue = $(this).val();
+
+    if(inputValue == "____/__/__")
+      $(this).val('');
+  });
+
+  $("#advanced_search_form select").each(function(){
+    var inputValue = $(this).val();
+
+    if(inputValue == "-1")
+      $(this).val('');
+  });
+  var form = $('.carnival-index-form').find('form')
+  form.submit();
+}
+
 Carnival.setIndexPageParam = function(name, value){
   var form = $('.carnival-index-form').find('form')
   form.find('input[name='+name+']').val(value);
@@ -49,27 +67,14 @@ Carnival.getIndexPageParam = function(name){
 }
 
 Carnival.removeAdvancedSearch = function(key){
-  var values = Carnival.getIndexPageParam('advanced_search');
-  if(!values)
-    return;
-
-  values = JSON.parse(values);
-  
-  var new_value = {};
-
-  for(var prop in values){
-    if(prop != key){
-      new_value[prop] = values[prop] 
-    }
-  }
-
-  Carnival.setIndexPageParamAndReload('advanced_search', JSON.stringify(new_value));
+  var input = $("[name='advanced_search["+key+"]']");
+  input.val('');
+  Carnival.submitIndexForm()
 }
 
 Carnival.reloadIndexPage = function(){
   Carnival.setIndexPageParam('page', 1);
-  var form = $('.carnival-index-form').find('form')
-  form.submit();
+  Carnival.submitIndexForm()
 }
 
 Carnival.setIndexPageParamAndReload = function(name, value){
@@ -85,8 +90,7 @@ Carnival.sortColumn = function(column, direction){
 
 Carnival.goToPage = function(page){
   Carnival.setIndexPageParam('page', page);
-  var form = $('.carnival-index-form').find('form')
-  form.submit();
+  Carnival.submitIndexForm()
 }
 
 Carnival.sortIndexList = function(elem){
