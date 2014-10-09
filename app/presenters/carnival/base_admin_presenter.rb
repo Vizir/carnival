@@ -290,6 +290,7 @@ module Carnival
 
     def relation_field?(field_name)
       field = get_field(field_name)
+      return false if field.nil?
       field.specified_association? or @klass_service.relation?(field.name)
     end
 
