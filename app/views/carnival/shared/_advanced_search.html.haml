@@ -1,28 +1,27 @@
-- if presenter.advanced_search_fields.size > 0
-  = javascript_include_tag "carnival/advanced_search"
-  = link_to t("advanced_search"), "", id: "advanced_search_toggler", :class => "carnival-action-button busca"
-  %ul#advanced_search_form.carnival-form
-    %form
-      - presenter.advanced_search_fields.each do |key, field|
-        - if params[key.to_s].present? && params[key.to_s]['value'] != "undefined"
-          - value =  params[key.to_s]['value']
-        %li.search_item
-          .search_field
-            .label
-              = label_tag key, t("activerecord.attributes.#{presenter.full_model_name}.#{key}")
-            .field
-              = render '/carnival/shared/advanced_search_field', :field => field, :presenter => presenter, :value => value
-      %li.search_item
-        .action
-          = link_to t("clear"), "#", :id=> "clear_button", :class => "carnival-action-button clear-search"
-        .action
-          = link_to t("search"), "#", :id=> "search_button", :class => "carnival-action-button search-submit"
-
-  %ul.advanced-search-tags
+= javascript_include_tag "carnival/advanced_search"
+= link_to t("advanced_search"), "", id: "advanced_search_toggler", :class => "carnival-action-button busca"
+%ul#advanced_search_form.carnival-form
+  %form
     - presenter.advanced_search_fields.each do |key, field|
       - if params[key.to_s].present? && params[key.to_s]['value'] != "undefined"
         - value =  params[key.to_s]['value']
-        %li.advanced-search-tag
-          = t("activerecord.attributes.#{presenter.full_model_name}.#{key}")
-          = ": #{value}"
-          %a{:href => "javascript:Carnival.removeAdvancedSearch('"+key.to_s+"')"}
+      %li.search_item
+        .search_field
+          .label
+            = label_tag key, t("activerecord.attributes.#{presenter.full_model_name}.#{key}")
+          .field
+            = render '/carnival/shared/advanced_search_field', :field => field, :presenter => presenter, :value => value
+    %li.search_item
+      .action
+        = link_to t("clear"), "#", :id=> "clear_button", :class => "carnival-action-button clear-search"
+      .action
+        = link_to t("search"), "#", :id=> "search_button", :class => "carnival-action-button search-submit"
+
+%ul.advanced-search-tags
+  - presenter.advanced_search_fields.each do |key, field|
+    - if params[key.to_s].present? && params[key.to_s]['value'] != "undefined"
+      - value =  params[key.to_s]['value']
+      %li.advanced-search-tag
+        = t("activerecord.attributes.#{presenter.full_model_name}.#{key}")
+        = ": #{value}"
+        %a{:href => "javascript:Carnival.removeAdvancedSearch('"+key.to_s+"')"}

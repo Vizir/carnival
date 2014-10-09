@@ -34,7 +34,8 @@
   .advanced-search
     - advanced_search_params = {}
     - advanced_search_params = JSON.parse(@query_form.advanced_search) if @query_form.advanced_search.size > 0
-    = render '/carnival/shared/advanced_search', :params => advanced_search_params, presenter: presenter
+    - if presenter.advanced_search_fields.size > 0
+      = render '/carnival/shared/advanced_search', :params => advanced_search_params, presenter: presenter
 
 
 

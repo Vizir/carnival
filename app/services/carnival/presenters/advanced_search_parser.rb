@@ -1,9 +1,9 @@
 module Carnival
   module Presenters
     class AdvancedSearchParser
-        
+
       def initialize(klass_service)
-        @klass_service = klass_service 
+        @klass_service = klass_service
       end
        def get_advanced_search_fields fields
           advanced_search_fields = {}
@@ -26,7 +26,7 @@ module Carnival
           end
           records
        end
-      
+
       private
         def parse_advanced_search_field search_field, field_param, records
           return records if not field_param["value"].present?
