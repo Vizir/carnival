@@ -140,6 +140,7 @@ module Carnival
     end
 
     def valid_for_action?(action)
+      return false if @params[:actions].nil?
       @params[:actions].include?(action)
     end
 

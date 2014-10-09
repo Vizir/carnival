@@ -31,18 +31,20 @@ module Carnival
         def parse_advanced_search_field search_field, field_param, records
           return records if not field_param["value"].present?
           return records if field_param["value"] == ""
+
           if search_field.is_a?(String) && search_field.include?('.')
             search_field_params = search_field.split('.')
             search_field = search_field_params[0]
             column = search_field_params[1]
           end
+
           if @klass_service.relation? search_field.to_sym
             related_model = @klass_service.get_related_class(search_field.to_sym).name.underscore
             foreign_key = @klass_service.get_foreign_key(search_field.to_sym)
             if @klass_service.is_a_belongs_to_relation?(search_field.to_sym)
               records = records.joins(related_model.split("/").last.to_sym)
             else
-              records = records.joins(related_model.split("/").last.pluralize)
+              records = records.joins(related_model.split("/").last.pluralize.to_sym)
             end
             table = related_model.split("/").last.classify.constantize.table_name
             column = "id" if column.nil? || field_param["operator"] == "equal"

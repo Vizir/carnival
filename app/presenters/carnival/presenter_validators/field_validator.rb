@@ -24,6 +24,7 @@ module Carnival::PresenterValidators
 
     private
     def check_field_invalid_actions(field, actions)
+      return if field.actions.nil?
       intersection = actions & field.actions
       if intersection.size > 0
         error = I18n.t("carnival.errors.invalid_field", actions: intersection, field: field.name, presenter: @presenter.presenter_name)
