@@ -245,7 +245,7 @@ $(document).ready(function(){
 
   $('a').each(function(){this_=$(this);if(this_.hasClass() == false){this_.addClass('link')}})
 
-  $(':data(show-overlay)').on('ajax:beforeSend', function(xhr, settings) {
+  $('*[data-carnival-show-overlay=true]').on('ajax:beforeSend', function(xhr, settings) {
     showModalOverlay();
   });
   

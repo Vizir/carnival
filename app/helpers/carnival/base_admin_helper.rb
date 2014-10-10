@@ -227,7 +227,7 @@ module Carnival
 
       remote_function = "Carnival.remoteFunction(\"#{path}\", \"#{success_callback}\", \"#{error_callback}\", \"#{params[:method]}\", {} ,#{params[:show_overlay]})"
 
-      "<a class='carnival-action-link editar' #{data_overlay} href='javascript:#{remote_function}'>#{label}</a>"
+      "<a class='carnival-action-link editar' href='javascript:#{remote_function}'>#{label}</a>"
     end
 
   end
