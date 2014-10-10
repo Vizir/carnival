@@ -220,9 +220,14 @@ module Carnival
         error_callback = params[:error]
       end
 
-      remote_function = "Carnival.remoteFunction(\"#{path}\", \"#{success_callback}\", \"#{error_callback}\", \"#{params[:method]}\")"
+      data_overlay = ''
+      if params[:show_overlay]
+        data_overlay = 'data-carnival-show-overlay=true'
+      end
 
-      "<a class='carnival-action-link editar' href='javascript:#{remote_function}'>#{label}</a>"
+      remote_function = "Carnival.remoteFunction(\"#{path}\", \"#{success_callback}\", \"#{error_callback}\", \"#{params[:method]}\", {} ,#{params[:show_overlay]})"
+
+      "<a class='carnival-action-link editar' #{data_overlay} href='javascript:#{remote_function}'>#{label}</a>"
     end
 
   end

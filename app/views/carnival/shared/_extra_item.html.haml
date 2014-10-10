@@ -8,7 +8,7 @@
     - botao[:success] = "\'\'"
   - if !botao[:error].present?
     - botao[:error] = "\'\'"
-  %a{href:"#", :class => "editar #{class_name}", onclick: "Carnival.remoteFunction('#{link}', #{botao[:success]}, #{botao[:error]}, '#{botao[:method]}')", :id => id_name}
+  %a{href:"#", :class => "editar #{class_name}", onclick: "Carnival.remoteFunction('#{link}', #{botao[:success]}, #{botao[:error]}, '#{botao[:method]}')", :id => id_name, :data => {'carnival-show-overlay': true}}
     = botao[:nome]
 
 - else

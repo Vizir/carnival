@@ -6,5 +6,5 @@
 - if params[:error]
   - error_callback = params[:error]
 
-%a{href:"#", :class => "editar", onclick: "Carnival.remoteFunction('#{path}', '#{success_callback}', '#{error_callback}', '#{params[:method]}')", :id => name}
+%a{href:"#", :class => "editar", onclick: "Carnival.remoteFunction('#{path}', '#{success_callback}', '#{error_callback}', '#{params[:method]}')", :id => name, :data => {'carnival-show-overlay': true}}
   = label

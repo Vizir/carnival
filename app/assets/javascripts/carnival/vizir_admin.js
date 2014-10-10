@@ -8,10 +8,10 @@ String.prototype.unescapeHtml = function () {
     return result;
 }
 
-Carnival.remoteFunction = function(url, successCallback, errorCallback, method, data){
+Carnival.remoteFunction = function(url, successCallback, errorCallback, method, data, showOverlay){
   if(!data)
     data = {};
-  $.ajax({
+  var ajaxParams = {
     url: url,
     type: method,
     data: data,
@@ -20,8 +20,15 @@ Carnival.remoteFunction = function(url, successCallback, errorCallback, method, 
     },
     error: function(jqXHR, status, error){
       Carnival.callFunc(errorCallback, data);
+    },
+    complete: function(jqXHR, status){
     }
-  })
+  };
+
+  if(showOverlay)
+    showModalOverlay();  
+
+  $.ajax(ajaxParams);
 }
 
 Carnival.callFunc = function(functionName, data){
@@ -238,4 +245,8 @@ $(document).ready(function(){
 
   $('a').each(function(){this_=$(this);if(this_.hasClass() == false){this_.addClass('link')}})
 
+  $(':data(show-overlay)').on('ajax:beforeSend', function(xhr, settings) {
+    showModalOverlay();
+  });
+  
 });
