@@ -26,7 +26,7 @@ Carnival.remoteFunction = function(url, successCallback, errorCallback, method, 
   };
 
   if(showOverlay)
-    showModalOverlay();  
+    showModalOverlay();
 
   $.ajax(ajaxParams);
 }
@@ -134,12 +134,12 @@ function markActive(){
 var pageLoad = function(){
 
   width = 0;
-    
+
   $('.advanced-search-tag').each(function(){
     width += $(this).outerWidth();
-    if($('.advanced-search-tags').width() < width){
-      $('.advanced-search-tags').addClass('explode');
-    }
+    var explodeLevel = Math.floor(width/$('.advanced-search-tags').width());
+    if(explodeLevel >= 1)
+      $(this).parent().addClass('explode'+ explodeLevel);
   })
 
   $('ul.menu').clone().appendTo('div.menu.short');
@@ -248,5 +248,5 @@ $(document).ready(function(){
   $('*[data-carnival-show-overlay=true]').on('ajax:beforeSend', function(xhr, settings) {
     showModalOverlay();
   });
-  
+
 });
