@@ -20,7 +20,6 @@ When you use Carnival you'll benefit from a big suite of feature already done. I
 * Index List
   - Ordering by any column
   - Scope
-  - Search
   - Advanced Search
   - Custom Links
   - Remote Actions
@@ -150,11 +149,9 @@ module Admin
   class CompanyPresenter < Carnival::BaseAdminPresenter
     field :id,
           :actions => [:index, :show], :sortable => false,
-          :searchable => true,
           :advanced_search => {:operator => :equal}
     field :name,
           :actions => [:index, :new, :edit, :show],
-          :searchable => true,
           :advanced_search => {:operator => :like}
     field :created_at, :actions => [:index, :show]
 
@@ -268,11 +265,9 @@ Ex:
   class MyCustomCompanyPresenter
     field :id,
           :actions => [:index, :show], :sortable => false,
-          :searchable => true,
           :advanced_search => {:operator => :equal}
     field :name,
           :actions => [:index, :new, :edit, :show],
-          :searchable => true,
           :advanced_search => {:operator => :like}
     field :created_at, :actions => [:index, :show]
 

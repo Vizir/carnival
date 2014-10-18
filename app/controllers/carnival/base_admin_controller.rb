@@ -28,7 +28,8 @@ module Carnival
       @presenter = instantiate_presenter
       @query_form = Carnival::QueryFormCreator.create(@presenter, params)
       @model = instantiate_model(@presenter)
-      @query_service = Carnival::QueryService.new(@model, @presenter, @query_form)
+      base_query = table_items || @model
+      @query_service = Carnival::QueryService.new(base_query, @presenter, @query_form)
 
       respond_to do |format|
         format.html do |render|
