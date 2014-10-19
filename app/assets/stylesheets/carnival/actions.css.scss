@@ -40,7 +40,7 @@
 /********************** ACTIONS SPECIFIC STYLES ********************* START */
 
 .add{
-  background: url(image_path('novo.png')) 41px -38px;
+  background: url(image_path('carnival/novo.png')) 41px -38px;
   font-size: 14px !important;
   padding: 1px 10px 0px 28px;
   color: #fff;
@@ -49,11 +49,11 @@
 }
 
 .add:hover{
-  background: url(image_path('novo.png')) 41px -38px;
+  background: url(image_path('carnival/novo.png')) 41px -38px;
 }
 
 .voltar{
-  background: url(image_path('voltar.png')) 42px -38px;
+  background: url(image_path('carnival/voltar.png')) 42px -38px;
   font-size: 14px !important;
   padding: 1px 10px 0px 28px;
   color: #fff;
@@ -62,7 +62,7 @@
 }
 
 .voltar:hover{
-  background: url(image_path('voltar.png')) 42px -38px;
+  background: url(image_path('carnival/voltar.png')) 42px -38px;
 }
 
 .novo, .search-submit{
@@ -122,7 +122,7 @@
   display: block;
   width: 25px;
   height: 25px;
-  background: url(image_path('sprites.png'));
+  background: url(image_path('carnival/sprites.png'));
   background-size: 400px;
   position: absolute;
   left: 7px;

@@ -14,7 +14,7 @@
   position: fixed;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4) url(loadingGif.gif) no-repeat center 150px;
+  background: rgba(0, 0, 0, 0.4) url(image_path('carnival/loadingGif.gif')) no-repeat center 150px;
   background-size: 56px;
   top: 0;
   left: 0;
@@ -28,7 +28,7 @@
   font-weight: bold;
   height: 28px !important;
   text-align: center;
-  background: url(image_path('calendar.png')) 20px -38px;
+  background: url(image_path('carnival/calendar.png')) 20px -38px;
   border: 1px solid #2a6198;
   cursor: pointer;
   font-size: 17px;

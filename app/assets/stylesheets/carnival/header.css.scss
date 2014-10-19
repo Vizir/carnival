@@ -6,7 +6,7 @@
   min-width: 400px;
   overflow: hidden;
   border-bottom:1px solid #e0e0e0;
-  background: url('header-bg.png');
+  background: url(image_path('carnival/header-bg.png'));
   position: relative;
   position: fixed;
   width: 100%;
@@ -105,7 +105,7 @@
   height: 45px;
   width: 45px;
   box-shadow: 0px 0px 1px #c0c0c0;
-  background: #fff url('avatar.png')no-repeat center 8px;
+  background: #fff url(image_path('carnival/avatar.png')no-repeat center 8px;
   background-size: 88%;
 }
 
