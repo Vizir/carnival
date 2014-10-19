@@ -23,20 +23,19 @@
     });
 
 
-.carnival-index-form
-  = form_tag('', method: 'get') do
-    - @query_form.instance_variables.each do |variable|
-      - variable_name = variable.to_s.gsub '@', ''
-      = hidden_field_tag(variable_name, @query_form.send(variable_name) )
 
 .carnival-linsting-tools
+  .carnival-index-form
+    = form_tag('', method: 'get') do
+      - @query_form.instance_variables.each do |variable|
+        - next if variable.to_s == '@advanced_search'
+        - variable_name = variable.to_s.gsub '@', ''
+        = hidden_field_tag(variable_name, @query_form.send(variable_name) )
 
-  .advanced-search
-    - advanced_search_params = {}
-    - advanced_search_params = JSON.parse(@query_form.advanced_search) if @query_form.advanced_search.size > 0
-    = render '/carnival/shared/advanced_search', :params => advanced_search_params, presenter: presenter
-
-
+      .advanced-search
+        - advanced_search_params = {}
+        - if presenter.advanced_search_fields.size > 0
+          = render '/carnival/shared/advanced_search', :params => @query_form.advanced_search, presenter: presenter
 
   .actions
     - presenter.actions_for_page.each do |key, action|

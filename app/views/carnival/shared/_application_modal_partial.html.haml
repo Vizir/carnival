@@ -4,9 +4,30 @@
   #carnival-modal-content
 
 :javascript
-  function showModal(){
-    $('#carnival-modal').show();
+  
+  function showModalOverlay(){
+    $('body').append("<div class='carnival-modal-overlay'></div>");
+    $('.carnival-modal-overlay').fadeIn(300);
+    $('.carnival-modal-overlay').click(function(){
+      closeModal();
+    });
   }
+
+  function removeModalOverlay(){
+    $('.carnival-modal-overlay').fadeOut(300);
+    setTimeout(function(){
+      $('.carnival-modal-overlay').remove();
+    }, 3000)
+  }
+
+  function showModal(){
+    if(!$('.carnival-modal-overlay').length)
+      showModalOverlay();
+    $('#carnival-modal').fadeIn(300);
+  }
+
   function closeModal(){
-    $('#carnival-modal').hide();
+    $('#carnival-modal').fadeOut(300);
+    removeModalOverlay();
+
   }

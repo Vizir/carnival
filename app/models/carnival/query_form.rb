@@ -15,7 +15,7 @@ module Carnival
     end
 
     def advanced_search
-      return '' if @advanced_search.nil? 
+      return {} if @advanced_search.nil? 
       @advanced_search
     end
 

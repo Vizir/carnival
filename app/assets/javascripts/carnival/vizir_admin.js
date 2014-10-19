@@ -8,10 +8,10 @@ String.prototype.unescapeHtml = function () {
     return result;
 }
 
-Carnival.remoteFunction = function(url, successCallback, errorCallback, method, data){
+Carnival.remoteFunction = function(url, successCallback, errorCallback, method, data, showOverlay){
   if(!data)
     data = {};
-  $.ajax({
+  var ajaxParams = {
     url: url,
     type: method,
     data: data,
@@ -20,8 +20,15 @@ Carnival.remoteFunction = function(url, successCallback, errorCallback, method, 
     },
     error: function(jqXHR, status, error){
       Carnival.callFunc(errorCallback, data);
+    },
+    complete: function(jqXHR, status){
     }
-  })
+  };
+
+  if(showOverlay)
+    showModalOverlay();
+
+  $.ajax(ajaxParams);
 }
 
 Carnival.callFunc = function(functionName, data){
@@ -38,6 +45,24 @@ Carnival.callFunc = function(functionName, data){
   }
 }
 
+Carnival.submitIndexForm = function(){
+  $("#advanced_search_form input").each(function(){
+    var inputValue = $(this).val();
+
+    if(inputValue == "____/__/__")
+      $(this).val('');
+  });
+
+  $("#advanced_search_form select").each(function(){
+    var inputValue = $(this).val();
+
+    if(inputValue == "-1")
+      $(this).val('');
+  });
+  var form = $('.carnival-index-form').find('form')
+  form.submit();
+}
+
 Carnival.setIndexPageParam = function(name, value){
   var form = $('.carnival-index-form').find('form')
   form.find('input[name='+name+']').val(value);
@@ -49,27 +74,14 @@ Carnival.getIndexPageParam = function(name){
 }
 
 Carnival.removeAdvancedSearch = function(key){
-  var values = Carnival.getIndexPageParam('advanced_search');
-  if(!values)
-    return;
-
-  values = JSON.parse(values);
-  
-  var new_value = {};
-
-  for(var prop in values){
-    if(prop != key){
-      new_value[prop] = values[prop] 
-    }
-  }
-
-  Carnival.setIndexPageParamAndReload('advanced_search', JSON.stringify(new_value));
+  var input = $("[name='advanced_search["+key+"]']");
+  input.val('');
+  Carnival.submitIndexForm()
 }
 
 Carnival.reloadIndexPage = function(){
   Carnival.setIndexPageParam('page', 1);
-  var form = $('.carnival-index-form').find('form')
-  form.submit();
+  Carnival.submitIndexForm()
 }
 
 Carnival.setIndexPageParamAndReload = function(name, value){
@@ -85,8 +97,7 @@ Carnival.sortColumn = function(column, direction){
 
 Carnival.goToPage = function(page){
   Carnival.setIndexPageParam('page', page);
-  var form = $('.carnival-index-form').find('form')
-  form.submit();
+  Carnival.submitIndexForm()
 }
 
 Carnival.sortIndexList = function(elem){
@@ -123,12 +134,12 @@ function markActive(){
 var pageLoad = function(){
 
   width = 0;
-    
+
   $('.advanced-search-tag').each(function(){
     width += $(this).outerWidth();
-    if($('.advanced-search-tags').width() < width){
-      $('.advanced-search-tags').addClass('explode');
-    }
+    var explodeLevel = Math.floor(width/$('.advanced-search-tags').width());
+    if(explodeLevel >= 1)
+      $(this).parent().addClass('explode'+ explodeLevel);
   })
 
   $('ul.menu').clone().appendTo('div.menu.short');
@@ -233,5 +244,9 @@ $(document).ready(function(){
 
 
   $('a').each(function(){this_=$(this);if(this_.hasClass() == false){this_.addClass('link')}})
+
+  $('*[data-carnival-show-overlay=true]').on('ajax:beforeSend', function(xhr, settings) {
+    showModalOverlay();
+  });
 
 });
