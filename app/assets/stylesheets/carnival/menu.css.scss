@@ -163,7 +163,7 @@ float: left;
 }
 
 .menu ul.menu .dropdown_main_menu li.active:before{
-  background-image: url(sprites-active.png) !important;
+  background-image: url(image_path('carnival/sprites-active.png')) !important;
 }
 
 .menu.short ul.menu .dropdown_main_menu ul li{
@@ -195,7 +195,7 @@ content: '';
 display: inline-block;
 width: 18px;
 height: 18px;
-background-image: url(sprites.png);
+background-image: url(image_path('carnival/sprites.png'));
 background-repeat: no-repeat;
 margin-left: 50%;
 position: absolute;
@@ -217,7 +217,7 @@ content: '';
 display: inline-block;
 width: 18px;
 height: 18px;
-background-image: url(sprites.png);
+background-image: url(image_path('carnival/sprites.png'));
 background-repeat: no-repeat;
 position: relative;
 clear: both;

@@ -28,7 +28,7 @@
   width: 112px;
   padding: 4px 2px !important;
   margin-left: 10px;
-  background-image: url('cal.png') !important;
+  background-image: url(image_path('cal.png')) !important;
   background-repeat: no-repeat;
   background-position-x: 87px !important;
   background-position-y: 5px !important;
@@ -36,7 +36,7 @@
 }
 
 #filtro_tempo #container_tempo #search_button_range{
-  background-image: url('search-button.png');
+  background-image: url(image_path('search-button.png'));
   width: 24px;
   height: 24px;
   display: block;

@@ -15,7 +15,7 @@
   font-weight: bold;
   height: 28px !important;
   text-align: center;
-  background: url('calendar.png') 20px -38px;
+  background: url(image_path('calendar.png')) 20px -38px;
   border: 1px solid #2a6198;
   cursor: pointer;
   font-size: 17px;
@@ -26,7 +26,7 @@
   border: 1px solid #C8C8C8;
   padding: 5px 16px 5px 16px;
   height: 30px;
-  background: url(bg_button.png);
+  background: url(image_path('bg_button.png'));
   color: #333;
   box-shadow: 0px 1px 0px 0px white;
   border-radius: 1px;
