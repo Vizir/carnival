@@ -26,7 +26,7 @@ When you use Carnival you'll benefit from a big suite of feature already done. I
   - Custom Actions
   - Batch Operations
   - Custom Css Cel
-  - Delete 
+  - Delete
   - CSV Export
   - PDF Export
 * Edit form
@@ -76,9 +76,9 @@ gem 'carnival'
 Run `bundle install`
 
 
-Execute `rails generate carnival:install` after you install Carnival to copy migrations and generate the initializer.
+Execute `rails generate carnival:install` after you install Carnival to generate the initializer.
 
-If you already have created your database with `rake db:create`, just run `rake db:migrate` to execute the Carnival migrations.
+
 
 
 ## What does Carnival include?
@@ -111,7 +111,6 @@ module Admin
   class Company < ActiveRecord::Base
 
     include Carnival::ModelHelper
-    self.table_name = "companies"
 
   end
 end
