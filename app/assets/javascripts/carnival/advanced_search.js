@@ -1,11 +1,17 @@
 $(document).ready(function(){
-  $("#advanced_search_toggler, ul#advanced_search_form").mouseover(function(e){
-    $("#advanced_search_form").show();
+  $("#advanced_search_toggler").click(function(e){
+    $('body').append('<div class="as-form-overlay">')
+    $("#advanced_search_toggler").toggleClass('is-opened')
+    $("#advanced_search_form").toggle();
+    $(".as-form-overlay").click(function(e){
+      $(".as-form-overlay").remove();
+      $("#advanced_search_form").hide();
+      $(".select2-drop").hide();      
+      return false
+    });
+    return false
   });
 
-  $("#advanced_search_toggler, ul#advanced_search_form").mouseout(function(e){
-    $("#advanced_search_form").hide();
-  });
 
   $("#search_button").click(function(e){
     e.preventDefault();
