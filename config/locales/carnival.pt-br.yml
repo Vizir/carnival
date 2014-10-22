@@ -29,6 +29,7 @@ pt-BR:
   sort_by: Ordenar por
   download_as_csv: Baixar como CSV
   download_as_pdf: Baixar como PDF
+  no_results: Não foram encontrados resultados
   advanced_search: Busca
   select_an_option: Selecione uma opção
   without_country: Sem país
