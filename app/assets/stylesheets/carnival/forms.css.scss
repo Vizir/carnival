@@ -203,6 +203,9 @@ input{
   float: left;
 }
 
+.carnival-form img.previewable{
+  width: 200px;
+}
 /************************ NESTED FORMS *********************** START */
 
 .nested-form{
@@ -264,7 +267,7 @@ input{
 }
 
 .nested-form-list-item-actions a{
-  border-radius: 0px 3px 0px 3px 
+  border-radius: 0px 3px 0px 3px
 }
 
 .nested-form-list-item:hover .nested-form-list-item-actions{
