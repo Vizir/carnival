@@ -1,5 +1,9 @@
 /********************* SEARCH BASE STYLE ******************* START */
 
+.xdsoft_datetimepicker.xdsoft_noselect {
+  z-index: 99999999999;
+}
+
 #advanced_search_toggler{
   padding: 0px 10px 0px 30px;
 }
