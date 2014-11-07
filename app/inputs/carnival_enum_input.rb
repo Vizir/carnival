@@ -2,7 +2,7 @@ class CarnivalEnumInput < SimpleForm::Inputs::CollectionSelectInput
 
   def input(wrapper_options = nil)
     options[:collection] ||= get_collection
-    super(wrapper_options)
+    super
   end
 
   def input_html_classes
