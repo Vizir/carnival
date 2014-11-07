@@ -234,7 +234,6 @@ var formLoad = function(){
       img.attr('src', '');
     }
   });
-  $('.carnival-select').select2({width: '100%'});
   selectRemote();
 }
 
