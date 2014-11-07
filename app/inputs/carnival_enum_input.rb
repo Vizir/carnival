@@ -1,4 +1,4 @@
-class EnumInput < SimpleForm::Inputs::CollectionSelectInput
+class CarnivalEnumInput < SimpleForm::Inputs::CollectionSelectInput
 
   def input(wrapper_options)
     options[:collection] ||= get_collection
