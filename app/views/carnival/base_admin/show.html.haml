@@ -1,5 +1,5 @@
 - index_path = caminho_modelo(:index)
-- item = instance_variable_get("@#{@model_presenter.model_name}")
+- item = @model
 .gray_border.with_margin_bottom
   %h1= t("#{@model_presenter.model_name}.show", default: t('carnival.show'))
   .action_back
