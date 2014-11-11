@@ -1,5 +1,5 @@
 class AdminEnumInput < SimpleForm::Inputs::CollectionSelectInput
-  def input
+  def input(wrapper_options)
     super
     input_html_options[:class] << ' carnival-select'
 

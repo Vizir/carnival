@@ -1,5 +1,5 @@
 class AdminRelationshipSelectInput < SimpleForm::Inputs::CollectionSelectInput
-  def input
+  def input(wrapper_options)
     super
     input_html_options[:class] << ' carnival-select'
     if input_html_options[:data][:depends_on].nil?
