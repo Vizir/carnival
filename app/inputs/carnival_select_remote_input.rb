@@ -1,5 +1,5 @@
 class CarnivalSelectRemoteInput < SimpleForm::Inputs::CollectionSelectInput
-  def input
+  def input(wrapper_options)
     super
     input_html_options[:class] << 'hidden-select'
     collection = []
