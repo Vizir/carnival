@@ -4,12 +4,6 @@ module Carnival
     respond_to :html, :json
     layout "carnival/admin"
 
-    def self.inherited(base)
-      base.send(:defaults, instance_name: 'model')
-      model_name = base.name.split('::').last.gsub('Controller', '').singularize
-      base.send(:defaults, resource_class: model_name.constantize)
-    end
-
     def home
 
     end
@@ -26,7 +20,7 @@ module Carnival
 
     def presenter_name field
       field_name =  field.split('/').last
-      carnival_mount = Carnival::Config.mount_at
+      carnival_mount = Carnival::Config.mount_at 
       "#{carnival_mount}/#{field_name.singularize}_presenter".classify.constantize
     end
 
@@ -60,6 +54,7 @@ module Carnival
     def show
       @model_presenter = instantiate_presenter
       show! do |format|
+        @model = instance_variable_get("@#{resource_instance_name}")
         format.html do |render|
           render 'show' and return
         end
@@ -69,6 +64,7 @@ module Carnival
     def new
       @model_presenter = instantiate_presenter
       new! do |format|
+        @model = instance_variable_get("@#{resource_instance_name}")
         format.html do |render|
           render 'new' and return
         end
@@ -78,6 +74,7 @@ module Carnival
     def edit
       @model_presenter = instantiate_presenter
       edit! do |format|
+        @model = instance_variable_get("@#{resource_instance_name}")
         format.html do |render|
           render 'edit' and return
         end
@@ -89,6 +86,7 @@ module Carnival
       create! do |success, failure|
         success.html{ redirect_to @model_presenter.model_path(:index), :notice => I18n.t("messages.created") and return}
         failure.html do |render|
+          @model = instance_variable_get("@#{resource_instance_name}")
           render 'new' and return
         end
       end
@@ -99,6 +97,7 @@ module Carnival
       update! do |success, failure|
         success.html{ redirect_to @model_presenter.model_path(:index), :notice => I18n.t("messages.updated") and return}
         failure.html do |render|
+          @model = instance_variable_get("@#{resource_instance_name}")
           render 'edit' and return
         end
       end
@@ -125,7 +124,7 @@ module Carnival
       model.where("#{search_field} like '%#{params[:q]}%'").each do |elem|
         list << {id: elem.id, text: elem.send(search_field.to_sym)}
       end
-
+      
       render :json => list
     end
     private
