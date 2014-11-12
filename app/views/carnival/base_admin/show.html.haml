@@ -1,5 +1,4 @@
 - index_path = caminho_modelo(:index)
-- item = @model
 .gray_border.with_margin_bottom
   %h1= t("#{@model_presenter.model_name}.show", default: t('carnival.show'))
   .action_back
@@ -11,11 +10,11 @@
       - line.each do |field|
         .wrapper_show{class: "col-md-#{field.size}"}
           - if show_view(@model_presenter, field.name)
-            = render partial: show_view(@model_presenter, field.name), locals: { model: item, model_name: @model_presenter.full_model_name, field_name: field.name  }
+            = render partial: show_view(@model_presenter, field.name), locals: { model: @model, model_name: @model_presenter.full_model_name, field_name: field.name  }
           - else
             %label="#{translate_field(@model_presenter, field)}:"
             .value
               - if show_as_list @model_presenter,field.name
-                = render 'carnival/shared/show/show_as_list', items: item.send(field.name.to_s)
+                = render 'carnival/shared/show/show_as_list', items: @model.send(field.name.to_s)
               - else
-                = field_to_show @model_presenter,field.name,item
+                = field_to_show @model_presenter, field.name, @model
