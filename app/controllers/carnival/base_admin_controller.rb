@@ -7,7 +7,10 @@ module Carnival
     def self.inherited(base)
       base.send(:defaults, instance_name: 'model')
       model_name = base.name.split('::').last.gsub('Controller', '').singularize
-      base.send(:defaults, resource_class: model_name.constantize)
+      begin
+        base.send(:defaults, resource_class: model_name.constantize)
+      rescue
+      end
     end
 
     def home
