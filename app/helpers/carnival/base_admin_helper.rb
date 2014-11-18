@@ -146,8 +146,7 @@ module Carnival
     def translate_field(presenter, field_name)
       field = presenter.get_field(field_name)
       field_key = field.name_for_translation
-      key = "activerecord.attributes.#{presenter.full_model_name.underscore}.#{field_key}"
-      I18n.t(key, :default => field_key)
+      presenter.full_model_name.constantize.human_attribute_name field_key
     end
 
     def list_cel(presenter, field, record, only_render_fields)
@@ -226,7 +225,7 @@ module Carnival
       end
 
       params[:show_overlay] = false if params[:show_overlay].nil?
-      
+
       remote_function = "Carnival.remoteFunction(\"#{path}\", \"#{success_callback}\", \"#{error_callback}\", \"#{params[:method]}\", {} ,#{params[:show_overlay]})"
 
       "<a class='carnival-action-link editar' href='javascript:#{remote_function}'>#{label}</a>"

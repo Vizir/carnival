@@ -40,7 +40,7 @@
   ```
 
 ## Relations
-### Many to many relations
+### Many relations
 #### has\_many and has\_and\_belongs\_to\_many
 For a many to many relations you should just put the field name just like any other field,
 like
@@ -66,6 +66,13 @@ field :products,
   - This field can have the values :new or :associate.
       - **:new** allow you edit the associated model in the same form of the current model
       - **:associate** it'll just allow you associate a related model.
+
+###Translations
+Carnival can use the default ActiveRecord model\_name to show your many relation. If you need
+a different version for plural (you'll probably need one if you have a compound model name),
+you can specify the same key of ActiveRecord model name appending \_plural to it, for ex:
+activerecord.models.user would have a activerecord.models.user\_plural translation. If that
+key exists, Carnival will use it
 
 ### One to one relations
 #### belongs\_to or has\_one
