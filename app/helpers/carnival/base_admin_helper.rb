@@ -146,7 +146,7 @@ module Carnival
     def translate_field(presenter, field_name)
       field = presenter.get_field(field_name)
       field_key = field.name_for_translation
-      presenter.full_model_name.constantize.human_attribute_name field_key
+      presenter.full_model_name.classify.constantize.human_attribute_name field_key
     end
 
     def list_cel(presenter, field, record, only_render_fields)
