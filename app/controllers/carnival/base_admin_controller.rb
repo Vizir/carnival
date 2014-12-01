@@ -4,15 +4,6 @@ module Carnival
     respond_to :html, :json
     layout "carnival/admin"
 
-    def self.inherited(base)
-      base.send(:defaults, instance_name: 'model')
-      model_name = base.name.split('::').last.gsub('Controller', '').singularize
-      begin
-        base.send(:defaults, resource_class: model_name.constantize)
-      rescue
-      end
-    end
-
     def home
 
     end
@@ -63,6 +54,7 @@ module Carnival
     def show
       @model_presenter = instantiate_presenter
       show! do |format|
+        @model = instance_variable_get("@#{resource_instance_name}")
         format.html do |render|
           render 'show' and return
         end
@@ -72,6 +64,7 @@ module Carnival
     def new
       @model_presenter = instantiate_presenter
       new! do |format|
+        @model = instance_variable_get("@#{resource_instance_name}")
         format.html do |render|
           render 'new' and return
         end
@@ -81,6 +74,7 @@ module Carnival
     def edit
       @model_presenter = instantiate_presenter
       edit! do |format|
+        @model = instance_variable_get("@#{resource_instance_name}")
         format.html do |render|
           render 'edit' and return
         end
@@ -92,6 +86,7 @@ module Carnival
       create! do |success, failure|
         success.html{ redirect_to @model_presenter.model_path(:index), :notice => I18n.t("messages.created") and return}
         failure.html do |render|
+          @model = instance_variable_get("@#{resource_instance_name}")
           render 'new' and return
         end
       end
@@ -102,6 +97,7 @@ module Carnival
       update! do |success, failure|
         success.html{ redirect_to @model_presenter.model_path(:index), :notice => I18n.t("messages.updated") and return}
         failure.html do |render|
+          @model = instance_variable_get("@#{resource_instance_name}")
           render 'edit' and return
         end
       end
