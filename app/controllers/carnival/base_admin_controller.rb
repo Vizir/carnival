@@ -20,7 +20,7 @@ module Carnival
 
     def presenter_name field
       field_name =  field.split('/').last
-      carnival_mount = Carnival::Config.mount_at 
+      carnival_mount = Carnival::Config.mount_at
       "#{carnival_mount}/#{field_name.singularize}_presenter".classify.constantize
     end
 
@@ -124,7 +124,7 @@ module Carnival
       model.where("#{search_field} like '%#{params[:q]}%'").each do |elem|
         list << {id: elem.id, text: elem.send(search_field.to_sym)}
       end
-      
+
       render :json => list
     end
     private
