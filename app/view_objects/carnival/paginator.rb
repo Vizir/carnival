@@ -2,7 +2,7 @@ module Carnival
   class Paginator
 
     def initialize(actual_page, last_page, max_fast_pages = 5)
-      @actual_page = actual_page 
+      @actual_page = actual_page
       @last_page = last_page >= 1 ? last_page : 1
       @max_fast_pages = max_fast_pages
     end
@@ -18,36 +18,45 @@ module Carnival
       end
       fast_page_links
     end
-    
+
     def fast_pages_links_html
       htmls = []
-      fast_pages_links_indexes.each do |page| 
+      fast_pages_links_indexes.each do |page|
         htmls << {:label => page, :css_class => get_css_class(page), :js_function => get_js_function(page)}
       end
       htmls
     end
 
     def get_js_function page
-      "javascript:Carnival.goToPage(#{page})" 
+      "javascript:Carnival.goToPage(#{page})"
     end
 
     def get_css_class page
-      return 'carnival-selected-page-button' if page == @actual_page
-      return 'carnival-page-button'
+      if page == @actual_page
+        'carnival-selected-page-button'
+      else
+        'carnival-page-button'
+      end
     end
 
     def previous_page
-      return @actual_page if @actual_page - 1 < 1 
-      @actual_page - 1
+      if @actual_page - 1 < 1
+        @actual_page
+      else
+        @actual_page - 1
+      end
     end
 
     def next_page
-      return @actual_page if @actual_page + 1 > @last_page 
-      @actual_page + 1
+      if @actual_page + 1 > @last_page
+        @actual_page
+      else
+        @actual_page + 1
+      end
     end
 
     def pages
-      htmls = [] 
+      htmls = []
       htmls << {:label => ('paginate_first'), :js_function => get_js_function(1)}
       htmls << {:label => ('paginate_previous'), :js_function => get_js_function(previous_page)}
       htmls = htmls + fast_pages_links_html

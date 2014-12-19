@@ -34,7 +34,7 @@ module Carnival
       respond_to do |format|
         format.html do |render|
           @records = @query_service.get_query
-          last_page = @query_service.total_records/@presenter.items_per_page
+          last_page = (@query_service.total_records / @presenter.items_per_page.to_f).ceil
           @paginator = Carnival::Paginator.new @query_form.page, last_page
           @thead_renderer = Carnival::TheadRenderer.new @presenter.fields_for_action(:index), @query_form.sort_column, @query_form.sort_direction
           render 'index' and return
