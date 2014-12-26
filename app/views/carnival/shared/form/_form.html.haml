@@ -21,7 +21,7 @@
 
     newForm = $(nestedForms[form]).clone().wrap("<div>").parent();
     $(newForm).find("select").show();
-    $(newForm).find(".chosen-container").remove();
+    $(newForm).find(".select2-container").remove();
 
     newForm = $(newForm).html()
     var last_index = $(selector + " li").length
@@ -113,4 +113,3 @@
       create_option: function(){createNewForm('.nested-form-list.'+params['field_name'], params['field_name'])}
     });
   }
-
