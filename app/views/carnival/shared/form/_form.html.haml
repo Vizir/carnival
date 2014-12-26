@@ -20,9 +20,10 @@
     $(".nested-form-subtitle").show();
 
     newForm = $(nestedForms[form]).clone().wrap("<div>").parent();
-    $(newForm).find("select").show();
     $(newForm).find(".select2-container").remove();
-
+    $(newForm).find("select").removeClass("select2-offscreen");
+    $(newForm).find("select").show();
+    
     newForm = $(newForm).html()
     var last_index = $(selector + " li").length
     newForm = newForm.replace(/([_a-zA-Z]+_attributes_)\d+(_[a-zA-Z]+)/g, "$1" + last_index + "$2");
