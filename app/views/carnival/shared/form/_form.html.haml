@@ -23,7 +23,6 @@
     $(newForm).find(".select2-container").remove();
     $(newForm).find("select").removeClass("select2-offscreen");
     $(newForm).find("select").show();
-    $(newForm).find(".carnival-select").select2({width: '100%'});
 
     newForm = $(newForm).html()
     var last_index = $(selector + " li").length
@@ -31,6 +30,8 @@
     newForm = newForm.replace(/([_a-zA-Z]+\[[_a-zA-Z]+_attributes\]\[)\d+(\]\[[_a-zA-Z]+\])/g, "$1" + last_index + "$2");
     $(selector).append(newForm);
     $(selector + " li:last")[0].scrollIntoView(true)
+    $(selector + " li:last").find(".carnival-select").select2({width: '100%'});
+
     setupDateFields();
     var lastFormAdded = $(selector).find(".nested-form-list-item").last();
     lastFormAdded.find('.select2-remote').each(function(){
