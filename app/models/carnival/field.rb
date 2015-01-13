@@ -156,6 +156,11 @@ module Carnival
       @params[:show_view]
     end
 
+    def sort_name
+      return @params[:related_to].to_s if @params[:as] == :partial
+      @name.to_s 
+    end
+
     private
 
     def get_association_and_field

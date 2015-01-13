@@ -26,7 +26,7 @@ module Carnival
     def css_class field
       return 'sorting_disabled' if !field.sortable?
 
-      if field.name.to_sym == @sort_column
+      if field.sort_name.to_sym == @sort_column
         return "sorting_#{@sort_direction.to_s}"
       else
         return 'sorting'
@@ -36,12 +36,12 @@ module Carnival
     def sort_function field
       return '' if !field.sortable?
       sort_direction = sort_dir field
-      "Carnival.sortColumn('#{field.name}', '#{sort_direction}')"
+      "Carnival.sortColumn('#{field.sort_name}', '#{sort_direction}')"
     end
 
     def sort_dir field
       sort_direction = 'asc'
-      if field.name.to_sym == @sort_column
+      if field.sort_name.to_sym == @sort_column
        sort_direction = 'desc' if @sort_direction == 'asc'
       end
       sort_direction
