@@ -39,7 +39,7 @@ module Carnival
       end
       final_lines << line_temp if line_temp.size > 0
       final_lines
-    end  
+    end
 
     def sort_columns (lines)
       lines.each do | line|
