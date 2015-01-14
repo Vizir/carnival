@@ -5,7 +5,7 @@ module Carnival
       query_form = Carnival::QueryForm.new(params)
 
       if query_form.sort_column.nil?
-        query_form.sort_column = presenter.default_sortable_field.name.to_sym
+        query_form.sort_column = presenter.default_sortable_field.sort_name.to_sym
       end
 
       if query_form.sort_direction.nil?
