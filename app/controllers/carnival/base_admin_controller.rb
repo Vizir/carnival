@@ -37,7 +37,6 @@ module Carnival
           last_page = (@query_service.total_records / @presenter.items_per_page.to_f).ceil
           @paginator = Carnival::Paginator.new @query_form.page, last_page
           @thead_renderer = Carnival::TheadRenderer.new @presenter.fields_for_action(:index), @query_form.sort_column, @query_form.sort_direction
-          render 'index' and return
         end
         format.csv do
           @records = @query_service.records_without_pagination
@@ -52,32 +51,23 @@ module Carnival
     end
 
     def show
-      @model_presenter = instantiate_presenter
-      show! do |format|
+      show! do
+        @model_presenter = instantiate_presenter
         @model = instance_variable_get("@#{resource_instance_name}")
-        format.html do |render|
-          render 'show' and return
-        end
       end
     end
 
     def new
-      @model_presenter = instantiate_presenter
       new! do |format|
+        @model_presenter = instantiate_presenter
         @model = instance_variable_get("@#{resource_instance_name}")
-        format.html do |render|
-          render 'new' and return
-        end
       end
     end
 
     def edit
-      @model_presenter = instantiate_presenter
       edit! do |format|
+        @model_presenter = instantiate_presenter
         @model = instance_variable_get("@#{resource_instance_name}")
-        format.html do |render|
-          render 'edit' and return
-        end
       end
     end
 
