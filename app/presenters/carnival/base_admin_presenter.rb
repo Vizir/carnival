@@ -76,9 +76,7 @@ module Carnival
     end
 
     def index_as
-      index_as = @@index_as[presenter_class_name]
-      index_as = :table if index_as.nil?
-      index_as
+      @@index_as[presenter_class_name] ||= :table
     end
 
     def actions
