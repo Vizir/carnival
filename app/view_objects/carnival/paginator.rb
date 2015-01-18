@@ -20,11 +20,9 @@ module Carnival
     end
 
     def fast_pages_links_html
-      htmls = []
-      fast_pages_links_indexes.each do |page|
-        htmls << {:label => page, :css_class => get_css_class(page), :js_function => get_js_function(page)}
+      fast_pages_links_indexes.map do |page|
+        {:label => page, :css_class => get_css_class(page), :js_function => get_js_function(page)}
       end
-      htmls
     end
 
     def get_js_function page
