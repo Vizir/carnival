@@ -57,13 +57,13 @@ module Carnival
     end
 
     def new
-      new! do |format|
+      new! do
         instantiate_model
       end
     end
 
     def edit
-      edit! do |format|
+      edit! do
         instantiate_model
       end
     end
