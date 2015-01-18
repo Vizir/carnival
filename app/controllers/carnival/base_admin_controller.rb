@@ -3,6 +3,7 @@ module Carnival
   class BaseAdminController < InheritedResources::Base
     respond_to :html, :json
     layout "carnival/admin"
+    before_action :instantiate_presenter
 
     def home
 
@@ -13,7 +14,7 @@ module Carnival
     end
 
     def render_inner_form
-      @model_presenter = presenter_name(params[:field]).new controller: self
+      @presenter = presenter_name(params[:field]).new controller: self
       model_class = params[:field].classify.constantize
       @model_object = model_class.send(:find_by_id, params[:id])
     end
@@ -25,7 +26,6 @@ module Carnival
     end
 
     def index
-      @presenter = instantiate_presenter
       @query_form = Carnival::QueryFormCreator.create(@presenter, params)
       @model = instantiate_model(@presenter)
       base_query = table_items || @model
@@ -52,29 +52,25 @@ module Carnival
 
     def show
       show! do
-        @model_presenter = instantiate_presenter
         @model = instance_variable_get("@#{resource_instance_name}")
       end
     end
 
     def new
       new! do |format|
-        @model_presenter = instantiate_presenter
         @model = instance_variable_get("@#{resource_instance_name}")
       end
     end
 
     def edit
       edit! do |format|
-        @model_presenter = instantiate_presenter
         @model = instance_variable_get("@#{resource_instance_name}")
       end
     end
 
     def create
-      @model_presenter = instantiate_presenter
       create! do |success, failure|
-        success.html{ redirect_to @model_presenter.model_path(:index), :notice => I18n.t("messages.created") and return}
+        success.html{ redirect_to @presenter.model_path(:index), :notice => I18n.t("messages.created") and return}
         failure.html do |render|
           @model = instance_variable_get("@#{resource_instance_name}")
           render 'new' and return
@@ -83,9 +79,8 @@ module Carnival
     end
 
     def update
-      @model_presenter = instantiate_presenter
       update! do |success, failure|
-        success.html{ redirect_to @model_presenter.model_path(:index), :notice => I18n.t("messages.updated") and return}
+        success.html{ redirect_to @presenter.model_path(:index), :notice => I18n.t("messages.updated") and return}
         failure.html do |render|
           @model = instance_variable_get("@#{resource_instance_name}")
           render 'edit' and return
@@ -124,7 +119,7 @@ module Carnival
     end
 
     def instantiate_presenter
-      carnival_presenter_class.new controller: self
+      @presenter = carnival_presenter_class.new controller: self
     end
 
     def carnival_presenter_class

@@ -4,7 +4,7 @@ describe 'carnival/base_admin/show.html.haml' do
   context 'when a presenter has a custom partial view in a given field' do
     it 'should render the specified partial view' do
       assign(:country, create(:country, name: 'Brazil'))
-      assign(:model_presenter, Admin::CountryPresenter.new(controller: controller))
+      assign(:presenter, Admin::CountryPresenter.new(controller: controller))
 
       view.stub(caminho_modelo: '/admin/countries')
 
