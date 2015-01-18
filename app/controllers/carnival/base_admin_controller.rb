@@ -27,7 +27,7 @@ module Carnival
 
     def index
       @query_form = Carnival::QueryFormCreator.create(@presenter, params)
-      @model = instantiate_model(@presenter)
+      @model = @presenter.full_model_name.classify.constantize
       base_query = table_items || @model
       @query_service = Carnival::QueryService.new(base_query, @presenter, @query_form)
 
@@ -52,45 +52,39 @@ module Carnival
 
     def show
       show! do
-        @model = instance_variable_get("@#{resource_instance_name}")
+        instantiate_model
       end
     end
 
     def new
       new! do |format|
-        @model = instance_variable_get("@#{resource_instance_name}")
+        instantiate_model
       end
     end
 
     def edit
       edit! do |format|
-        @model = instance_variable_get("@#{resource_instance_name}")
+        instantiate_model
       end
     end
 
     def create
       create! do |success, failure|
-        success.html{ redirect_to @presenter.model_path(:index), :notice => I18n.t("messages.created") and return}
-        failure.html do |render|
-          @model = instance_variable_get("@#{resource_instance_name}")
-          render 'new' and return
-        end
+        success.html { redirect_to @presenter.model_path(:index), :notice => I18n.t("messages.created") }
+        failure.html { instantiate_model and render 'new' }
       end
     end
 
     def update
       update! do |success, failure|
-        success.html{ redirect_to @presenter.model_path(:index), :notice => I18n.t("messages.updated") and return}
-        failure.html do |render|
-          @model = instance_variable_get("@#{resource_instance_name}")
-          render 'edit' and return
-        end
+        success.html { redirect_to @presenter.model_path(:index), :notice => I18n.t("messages.updated") }
+        failure.html { instantiate_model and render 'edit' }
       end
     end
 
     def render_popup partial
       @application_modal = partial
-      render '/carnival/shared/render_popup' and return
+      render '/carnival/shared/render_popup'
     end
 
     def load_dependent_select_options
@@ -112,10 +106,11 @@ module Carnival
 
       render :json => list
     end
-    private
 
-    def instantiate_model(presenter)
-      presenter.full_model_name.classify.constantize
+    protected
+
+    def instantiate_model
+      @model = instance_variable_get("@#{resource_instance_name}")
     end
 
     def instantiate_presenter
