@@ -7,6 +7,7 @@ require "carnival/routes"
 require "carnival/version"
 require "haml-rails"
 require "wicked_pdf"
+require "will_paginate"
 
 module Carnival
 

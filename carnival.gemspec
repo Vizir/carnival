@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
   s.add_dependency "simple_form", '~> 3.1.0'
   s.add_dependency "unicode", '>= 0.4.4.2'
   s.add_dependency "wicked_pdf", "~> 0.11.0"
+  s.add_dependency "will_paginate", "~> 3.0.7"
 
   s.add_development_dependency "better_errors", "~> 0.9.0"
   s.add_development_dependency "binding_of_caller", "~> 0.7.2"
