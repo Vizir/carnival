@@ -16,27 +16,25 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["spec/**/*"]
 
-  s.add_dependency "coffee-rails"
-  s.add_dependency "haml"
-  s.add_dependency "haml-rails"
-  s.add_dependency "inherited_resources"
-  s.add_dependency "jquery-rails"
   s.add_dependency "rails", "~> 4.0"
-  s.add_dependency "simple_form"
-  s.add_dependency "simple_form"
-  s.add_dependency "unicode"
-  s.add_dependency "wicked_pdf"
-  s.add_dependency "will_paginate"
 
-  s.add_development_dependency "better_errors"
-  s.add_development_dependency "binding_of_caller"
-  s.add_development_dependency "bullet"
-  s.add_development_dependency "byebug"
-  s.add_development_dependency "capybara"
-  s.add_development_dependency "factory_girl"
-  s.add_development_dependency "pry-byebug"
-  s.add_development_dependency "poltergeist"
-  s.add_development_dependency "rspec-rails"
-  s.add_development_dependency "simplecov"
-  s.add_development_dependency "sqlite3"
+  s.add_dependency "coffee-rails", '~> 4.1.0'
+  s.add_dependency "haml-rails", '~> 0.7.0'
+  s.add_dependency "inherited_resources", '~> 1.5.1'
+  s.add_dependency "jquery-rails", '~> 3.1.2'
+  s.add_dependency "simple_form", '~> 3.1.0'
+  s.add_dependency "unicode", '~> 0.4.4.2'
+  s.add_dependency "wicked_pdf", "~> 0.11.0"
+
+  s.add_development_dependency "better_errors", "~> 0.9.0"
+  s.add_development_dependency "binding_of_caller", "~> 0.7.2"
+  s.add_development_dependency "bullet", "~> 4.14.0"
+  s.add_development_dependency "byebug", "~> 3.4.0"
+  s.add_development_dependency "capybara", "~> 2.4.4"
+  s.add_development_dependency "factory_girl_rails", "~> 4.5.0"
+  s.add_development_dependency "pry-byebug", "~> 2.0.0"
+  s.add_development_dependency "poltergeist", "~> 1.5.1"
+  s.add_development_dependency "rspec-rails", "~> 3.1.0"
+  s.add_development_dependency "simplecov", "~> 0.9.1"
+  s.add_development_dependency "sqlite3", "~> 1.3.10"
 end
