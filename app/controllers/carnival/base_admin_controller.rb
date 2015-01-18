@@ -127,10 +127,12 @@ module Carnival
     end
 
     def extract_namespace
-      namespace = ""
-      arr = self.class.to_s.split("::")
-      namespace = arr[0] if arr.size > 1
-      namespace
+      module_class_split = self.class.to_s.split("::")
+      if module_class_split.size > 1
+        module_class_split[0]
+      else
+        ''
+      end
     end
   end
 end
