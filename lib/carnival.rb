@@ -8,9 +8,10 @@ require "carnival/routes"
 require "carnival/version"
 require "haml-rails"
 require "wicked_pdf"
+
 module Carnival
 
   def self.configure
-    yield(Carnival::Config)       
+    yield(Carnival::Config)
   end
 end
