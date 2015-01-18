@@ -18,12 +18,12 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 4.0"
 
-  s.add_dependency "coffee-rails", '~> 4.1.0'
-  s.add_dependency "haml-rails", '~> 0.7.0'
+  s.add_dependency "coffee-rails", '>= 4.0.0'
+  s.add_dependency "haml-rails", '>= 0.7.0'
   s.add_dependency "inherited_resources", '~> 1.5.1'
   s.add_dependency "jquery-rails", '~> 3.1.2'
   s.add_dependency "simple_form", '~> 3.1.0'
-  s.add_dependency "unicode", '~> 0.4.4.2'
+  s.add_dependency "unicode", '>= 0.4.4.2'
   s.add_dependency "wicked_pdf", "~> 0.11.0"
 
   s.add_development_dependency "better_errors", "~> 0.9.0"
