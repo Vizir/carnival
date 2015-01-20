@@ -9,9 +9,9 @@ module Carnival
       validate
     end
 
-    def name
-      @name.to_s
-    end
+    #def name
+    #  @name.to_s
+    #end
 
     def specified_association?
       not get_association_and_field[:association].nil?

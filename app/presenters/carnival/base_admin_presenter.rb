@@ -371,7 +371,7 @@ module Carnival
     end
 
     def presenter_to_field field, record
-      "#{extract_namespace}::#{field.name.singularize.classify}Presenter".constantize.send("new", :controller => controller_to_field(field))
+      "#{extract_namespace}::#{field.name.to_s.singularize.classify}Presenter".constantize.send("new", :controller => controller_to_field(field))
     end
 
     def presenter_to_field_sym field
@@ -379,7 +379,7 @@ module Carnival
     end
 
     def controller_to_field field
-      "#{extract_namespace}::#{field.name.classify.pluralize}Controller".constantize.send("new")
+      "#{extract_namespace}::#{field.name.to_s.classify.pluralize}Controller".constantize.send("new")
     end
 
     def controller_to_field_sym field

@@ -28,6 +28,6 @@
 
 - options[:label] = translate_field(model_presenter, field)
 - if options[:as] == :partial
-  = render field.name, f: f, record: f.object
+  = render field.name.to_s, f: f, record: f.object
 - else
   = f.input field.name, options

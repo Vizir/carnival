@@ -55,7 +55,7 @@ module Carnival
     end
 
     def field_name_identifier
-      self.field_name.singularize.to_sym
+      self.field_name.to_s.singularize.to_sym
     end
 
     def option_name
