@@ -12,7 +12,8 @@
           - if show_view(@model_presenter, field.name)
             = render partial: show_view(@model_presenter, field.name), locals: { model: @model, model_name: @model_presenter.full_model_name, field_name: field.name  }
           - else
-            %label="#{translate_field(@model_presenter, field)}:"
+            - if field.params[:as] != :partial
+              %label="#{translate_field(@model_presenter, field)}:"
             .value
               - if show_as_list @model_presenter,field.name
                 = render 'carnival/shared/show/show_as_list', items: @model.send(field.name.to_s)
