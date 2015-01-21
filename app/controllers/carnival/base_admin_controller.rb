@@ -15,7 +15,7 @@ module Carnival
     def render_inner_form
       @presenter = presenter_name(params[:field]).new controller: self
       model_class = params[:field].classify.constantize
-      @model_object = model_class.send(:find_by_id, params[:id])
+      @model_object = model_class.find(params[:id])
     end
 
     def presenter_name field
