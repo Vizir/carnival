@@ -2,7 +2,6 @@
 module Carnival
   class BaseAdminPresenter
     include Rails.application.routes.url_helpers
-    attr_accessor :special_scope_to_exec
 
     def initialize(params)
       @controller = params[:controller]
