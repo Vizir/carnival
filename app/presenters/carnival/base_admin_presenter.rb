@@ -192,7 +192,7 @@ module Carnival
     end
 
     def table_name
-      model_class.send("table_name")
+      model_class.table_name
     end
 
     def searchable_fields
