@@ -81,11 +81,6 @@ module Carnival
       end
     end
 
-    def render_popup partial
-      @application_modal = partial
-      render '/carnival/shared/render_popup'
-    end
-
     def load_dependent_select_options
       presenter = params[:presenter].constantize.send(:new, :controller => self)
       model = presenter.relation_model(params[:field].gsub("_id", "").to_sym)
