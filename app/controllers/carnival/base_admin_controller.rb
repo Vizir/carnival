@@ -27,12 +27,11 @@ module Carnival
 
     def index
       @query_form = Carnival::QueryFormCreator.create(@presenter, params)
-      @model = @presenter.full_model_name.classify.constantize
-      base_query = table_items || @model
-      @query_service = Carnival::QueryService.new(base_query, @presenter, @query_form)
+      @model = @presenter.model_class
+      @query_service = Carnival::QueryService.new(table_items || @model, @presenter, @query_form)
 
       respond_to do |format|
-        format.html do |render|
+        format.html do
           @records = @query_service.get_query
           last_page = (@query_service.total_records / @presenter.items_per_page.to_f).ceil
           @paginator = Carnival::Paginator.new @query_form.page, last_page
@@ -40,7 +39,7 @@ module Carnival
         end
         format.csv do
           @records = @query_service.records_without_pagination
-          render :csv => t("activerecord.attributes.#{@presenter.full_model_name}.csv_name") , :template => 'carnival/base_admin/index.csv.haml' and return
+          render :csv => @model.model_name.human
         end
         format.pdf do
           @records = @query_service.records_without_pagination

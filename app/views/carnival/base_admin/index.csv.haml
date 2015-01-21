@@ -1,6 +1,6 @@
-- @records.each do |record|
-  - csv_line = []
-  - @presenter.fields_for_action(:csv).each do |key, field|
-    - csv_line << field_value_and_type(@presenter, key,record)[:value]
-  = "#{csv_line.join(',')}\n"
+- csv = CSV.generate do |csv|
+  - @records.each do |record|
+    - csv << @presenter.fields_for_action(:csv).map do |key, field|
+      - field_value_and_type(@presenter, key,record)[:value]
 
+= raw csv
