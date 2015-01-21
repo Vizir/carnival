@@ -18,10 +18,6 @@ module Carnival
       end
     end
 
-    def base_query
-      @base_query
-    end
-
     def presenter_name
       self.class.to_s
     end
