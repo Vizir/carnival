@@ -5,7 +5,6 @@ module Carnival
     before_action :instantiate_presenter
 
     def home
-
     end
 
     def table_items
@@ -43,7 +42,7 @@ module Carnival
         format.pdf do
           @records = @query_service.records_without_pagination
           @thead_renderer = Carnival::TheadRenderer.new @presenter.fields_for_action(:index), @query_form.sort_column, @query_form.sort_direction
-          render :pdf => t("activerecord.attributes.#{@presenter.full_model_name}.pdf_name") , :template => 'carnival/base_admin/index.pdf.haml',  :show_as_html => params[:debug].present? and return
+          render :pdf => t("activerecord.attributes.#{@presenter.full_model_name}.pdf_name") , :template => 'carnival/base_admin/index.pdf.haml',  :show_as_html => params[:debug].present?
         end
       end
     end
