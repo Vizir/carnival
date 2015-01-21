@@ -100,7 +100,6 @@ module Carnival
     @@fields = {}
     @@scopes = {}
     @@forms = {}
-    @@presenters = []
 
     def scopes
       @@scopes[presenter_class_name] || {}
@@ -434,8 +433,6 @@ module Carnival
     end
 
     def self.instantiate_element(container, klass, name, params)
-      @@presenters << presenter_class_name unless @@presenters.include?(presenter_class_name)
-
       container[presenter_class_name] ||= {}
       container[presenter_class_name][name] = klass.new(name, params)
     end
