@@ -1,4 +1,3 @@
-require 'csv'
 module Carnival
   class BaseAdminController < InheritedResources::Base
     respond_to :html, :json
