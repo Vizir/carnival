@@ -722,3 +722,6 @@ div .dt-grid-6{
   margin-left:0.4%;
 }
 
+.row > div.input {
+  padding: 0 1% !important;
+}
