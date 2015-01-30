@@ -218,6 +218,10 @@ module Carnival
       joins
     end
 
+    def before_field(field, action = nil)
+      return true
+    end
+
     def build_relation_field(field, model_object)
       if is_relation_belongs_to?(field.name)
         model_object.send("#{field.name}_build")
