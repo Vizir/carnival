@@ -184,13 +184,13 @@ module Carnival
 
     def list_buttons(presenter, record)
       result = ""
-      presenter.actions_for_record.each do |key, action|
-        if presenter.before_action(action, params[:action])
-          if action.show(record)
-            if action.remote?
-              result << button_action_remote(action, presenter, record)
+      presenter.actions_for_record.each do |key, record_action|
+        if presenter.before_action(record_action, params[:action])
+          if record_action.show(record)
+            if record_action.remote?
+              result << button_action_remote(record_action, presenter, record)
             else
-              result << button_action(action, presenter, record)
+              result << button_action(record_action, presenter, record)
             end
           end
         end

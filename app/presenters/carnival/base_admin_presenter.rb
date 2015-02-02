@@ -223,7 +223,7 @@ module Carnival
       return true
     end
 
-    def before_action(field, action = nil)
+    def before_action(record_action, action = nil)
       return true
     end
 
