@@ -16,7 +16,7 @@
     $(".nested-form-subtitle").hide();
   });
 
-  function createNewForm(selector, form){
+  function createNewForm(selector, form, target){
     $(".nested-form-subtitle").show();
 
     newForm = $(nestedForms[form]).clone().wrap("<div>").parent();
@@ -25,15 +25,22 @@
     $(newForm).find("select").show();
 
     newForm = $(newForm).html()
-    var last_index = $(selector + " li").length
-    newForm = newForm.replace(/([_a-zA-Z]+_attributes_)\d+(_[a-zA-Z]+)/g, "$1" + last_index + "$2");
-    newForm = newForm.replace(/([_a-zA-Z]+\[[_a-zA-Z]+_attributes\]\[)\d+(\]\[[_a-zA-Z]+\])/g, "$1" + last_index + "$2");
-    $(selector).append(newForm);
-    $(selector + " li:last")[0].scrollIntoView(true)
-    $(selector + " li:last").find(".carnival-select").select2({width: '100%'});
+    var container = $(target).parents("." + form).find(selector);
+    var last_index = container.find("li").length
+    newForm = newForm.replace(new RegExp("(_" + form + "_attributes_)\\d+(_[a-zA-Z]+)", "g"), "$1" + last_index + "$2");
+
+    newForm = newForm.replace(new RegExp("(\\[" + form + "_attributes\\]\\[)\\d+(\\]\\[[a-zA-Z]+\\])", "g"), "$1" + last_index + "$2");
+    //newForm = newForm.replace(/([_a-zA-Z]+\[[_a-zA-Z]+_attributes\]\[)\d+(\]\[[_a-zA-Z]+\])/g, "$1" + last_index + "$2");
+
+    /*name.match(/\[[0-1]\]\[\w*\]/g);
+      .parents('.nested-form-list')*/
+
+    container.append(newForm);
+    container.find("li:last")[0].scrollIntoView(true)
+    container.find("li:last .carnival-select").select2({width: '100%'});
 
     setupDateFields();
-    var lastFormAdded = $(selector).find(".nested-form-list-item").last();
+    var lastFormAdded = container.find(".nested-form-list-item").last();
     lastFormAdded.find('.select2-remote').each(function(){
       addSelect2ToField(this);
     });
