@@ -6,6 +6,7 @@ module Carnival
 
     def initialize(params)
       @controller = params[:controller]
+      @current_user = params[:current_user]
       @special_scopes_to_exec = nil
       @klass_service = KlassService.new model_class
       @advanced_search_parser = Presenters::AdvancedSearchParser.new(@klass_service)

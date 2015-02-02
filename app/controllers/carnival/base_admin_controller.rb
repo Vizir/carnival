@@ -134,7 +134,7 @@ module Carnival
     end
 
     def instantiate_presenter
-      carnival_presenter_class.new controller: self
+      carnival_presenter_class.new controller: self, current_user: current_user
     end
 
     def carnival_presenter_class
