@@ -2,5 +2,5 @@
   - csv_line = []
   - @presenter.fields_for_action(:csv).each do |key, field|
     - csv_line << field_value_and_type(@presenter, key,record)[:value]
-  = "#{csv_line.join(',')}\n"
+  = "#{csv_line.join(',')}"
 

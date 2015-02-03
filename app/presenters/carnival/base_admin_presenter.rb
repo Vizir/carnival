@@ -317,7 +317,7 @@ module Carnival
       if relation_field?(field.to_sym) then :relation
       elsif type == :date || type == :datetime then type
       elsif type == :number || type == :float then :number
-      elsif type == :integer and model_class.const_defined? field.upcase then :enum
+      elsif type == :integer and model_class.const_defined? field.upcase and field != :id then :enum
       else type
       end
     end

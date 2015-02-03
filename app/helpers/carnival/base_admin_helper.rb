@@ -90,7 +90,7 @@ module Carnival
       rendered = field_value_and_type presenter, field_name, record
       field_type = rendered[:field_type]
       value = rendered[:value]
-
+      
       is_relation = presenter.relation_field?(field_name)
 
       unless value.nil?
