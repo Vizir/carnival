@@ -26,14 +26,8 @@
 
     newForm = $(newForm).html()
     var container = $(target).parents("." + form).find(selector);
-    var last_index = container.find("li").length
-    newForm = newForm.replace(new RegExp("(_" + form + "_attributes_)\\d+(_[a-zA-Z]+)", "g"), "$1" + last_index + "$2");
-
-    newForm = newForm.replace(new RegExp("(\\[" + form + "_attributes\\]\\[)\\d+(\\]\\[[a-zA-Z]+\\])", "g"), "$1" + last_index + "$2");
-    //newForm = newForm.replace(/([_a-zA-Z]+\[[_a-zA-Z]+_attributes\]\[)\d+(\]\[[_a-zA-Z]+\])/g, "$1" + last_index + "$2");
-
-    /*name.match(/\[[0-1]\]\[\w*\]/g);
-      .parents('.nested-form-list')*/
+    var last_index = container.children("li").length;
+    newForm = replaceInputIndexes(newForm, form, container, last_index);
 
     container.append(newForm);
     container.find("li:last")[0].scrollIntoView(true)
@@ -44,6 +38,21 @@
     lastFormAdded.find('.select2-remote').each(function(){
       addSelect2ToField(this);
     });
+  }
+
+  function replaceInputIndexes(newForm, form, container, index){
+    newForm = newForm.replace(new RegExp("(_" + form + "_attributes_)\\d+(_[a-zA-Z]+)", "g"), "$1" + index + "$2");
+    newForm = newForm.replace(new RegExp("(\\[" + form + "_attributes\\]\\[)\\d+(\\]\\[[a-zA-Z_]+\\])", "g"), "$1" + index + "$2");
+
+    if (container.parents('.nested-form-list').length){
+      var parent = container.parents('.nested-form-list');
+      var parentForm = getFormName(parent.children(":first"));
+      var parentIndex = container.parents('li').index();
+
+      newForm = replaceInputIndexes(newForm, parentForm, parent, parentIndex);
+    }    
+
+    return newForm;
   }
 
   function getFormName(element){
