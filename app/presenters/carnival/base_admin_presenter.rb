@@ -472,5 +472,10 @@ module Carnival
         self.class.name
       end
     end
+
+    def current_user 
+      return @controller.current_user if @controller.respond_to?(:current_user)
+      nil
+    end
   end
 end
