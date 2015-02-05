@@ -8,36 +8,42 @@
 
 ## Parameters
 
-- :actions
+#### :actions
   - Actions that the field will appear
 
   ```ruby
     :actions => [:index]
   ```
 
-- :advanced\_search
+#### :advanced\_search
   - Define if the field will be in the advanced search
 
   ```ruby
     :advanced_search => {operator: :equal}
   ```
 
-- :sortable
+#### :sortable
   - Define if the field will be sortable
   - Default Value: true
 
   ```ruby
     :sortable => true
   ```
-
-- :show\_view
-  - Define a custom partial view that can be used to override the rendering of a specific field
-  - Default Value: nil
-
-  ```ruby
-    :show_view => 'partial_name' # in this case Carnival will search for a
-                                 # partial named _field_name
+  
+#### :as
+  - Define the type of the render that will be used to render the field. If the type passed as parameter to SimpleForm, as a type of Input. The only exception is the :partial parameter that is explained below. 
+  
+  ##### as: :partial
+  Instead of rendereing a field, Carnival fill search for a partial with the field name. The following declaration inside AuthorsPresenter
+  
+```ruby
+    field :custom_partial, actions: [:edit], as: :partial 
   ```
+  Carnival will try to render the partial '_custom_partial.html.haml' inside /app/views/authors. 
+  To be more useful the following objects are available to the called partial: 
+  * record: available to all partials, it represents de current record being displayed. 
+  * f: when a new or edit action is being rendered, the 'f' object will contain the current form being rendered.
+  
 
 ## Relations
 ### Many relations

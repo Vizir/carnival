@@ -6,6 +6,11 @@
 
 ## Defining if a field or action will be shown
 
+The presenter implements some conditional methods to verify if a action or field must be displayed. 
+If some additional information is needed, the following objects will be available on these render methods: 
+* current_user: the 'current_user' variable inside the controller context.  
+* @controller: the current controller of the application. 
+
 ### render_field? (field_name,action_name)
 Before rendering a field, Carnival calls the '''.render_field?''' method on presenter. If this method returns a false value, the field wil not be displayed. 
 
