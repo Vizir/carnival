@@ -5,6 +5,7 @@ module Carnival
     before_action :instantiate_presenter
 
     def home
+      raise 1
     end
 
     def table_items
