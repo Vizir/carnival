@@ -24,19 +24,19 @@ input::-webkit-inner-spin-button {
 }
 
 .carnival-form input{
-  width: 100%;
-  outline:none;
-  height:21px;
-  border: 1px solid #c8c8c8;
-  font-family: 'OpenSansRegular';
-  padding:2px 6px 2px 6px;
-  color:#555;
-  border-radius: 3px;
   -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
-  background:#fff;
+  width: 100%;
+  outline: none;
+  border: 1px solid #c8c8c8;
+  padding: 2px 8px;
+  color: #555;
+  border-radius: 3px;
+  background-clip: padding-box;
+  background: #fff;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   height: 35px;
+  font-size: 0.9rem;
 }
 
 .carnival-form input[type='file']{
@@ -177,8 +177,18 @@ input[type="checkbox"]{
   height: auto !important;
 }
 
-input{
-  margin-bottom:10px;
+.boolean label{
+  float: left;
+  width: auto;
+  margin-bottom: 10px;
+}
+.boolean input{
+  float: left;
+  width: auto;
+}
+
+input, .select2-container{
+  margin-bottom:10px !important;
 }
 
 .hidden{

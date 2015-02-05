@@ -15,5 +15,6 @@ module Carnival
       return "#{Rails.application.class.to_s.split('::').first} Admin" if @@app_name.nil? 
       return @@app_name
     end
+
   end
 end

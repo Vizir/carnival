@@ -86,22 +86,26 @@ module Carnival
       end
     end
 
-    def field_to_show(presenter, field_name, record, show_only_value=false)
-      rendered = field_value_and_type presenter, field_name, record
-      field_type = rendered[:field_type]
-      value = rendered[:value]
-      
-      is_relation = presenter.relation_field?(field_name)
-
-      unless value.nil?
-        formatted_field = format_field(presenter, field_name, field_type, value)
-        if is_relation and !show_only_value
-          link_to(formatted_field, presenter.relation_path(field_name, record))
-        else
-          formatted_field
-        end
+    def field_to_show(presenter, field_name, record, show_only_values=false)
+      if presenter.fields[field_name].params[:as] == :partial 
+        raw(render field_name.to_s, record: record)
       else
-        nil
+        rendered = field_value_and_type presenter, field_name, record
+        field_type = rendered[:field_type]
+        value = rendered[:value]
+
+        is_relation = presenter.relation_field?(field_name)
+
+        unless value.nil?
+          formatted_field = format_field(presenter, field_name, field_type, value)
+          if is_relation and !show_only_values
+            link_to(formatted_field, presenter.relation_path(field_name, record))
+          else
+            formatted_field
+          end
+        else
+          nil
+        end
       end
     end
 
@@ -180,12 +184,14 @@ module Carnival
 
     def list_buttons(presenter, record)
       result = ""
-      presenter.actions_for_record.each do |key, action|
-        if action.show(record)
-          if action.remote?
-            result << button_action_remote(action, presenter, record)
-          else
-            result << button_action(action, presenter, record)
+      presenter.actions_for_record.each do |key, record_action|
+        if presenter.render_action?(record_action, params[:action])
+          if record_action.show(record)
+            if record_action.remote?
+              result << button_action_remote(record_action, presenter, record)
+            else
+              result << button_action(record_action, presenter, record)
+            end
           end
         end
       end

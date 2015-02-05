@@ -3,13 +3,15 @@
     %ul
       - model_object.errors.full_messages.each do |msg|
         %li= msg
-- model_presenter.form_for(action).lines.each do |line|
+- presenter.form_for(action).lines.each do |line|
   .row
     - line.each do |field|
-      - nested_in = nil unless nested_in
-      - if field.nested_form?
-        = render "/carnival/shared/form/nested_form", f: f, field: field, model_presenter: model_presenter, model_object: model_object, action: action
-      - else
-        - if model_presenter.must_render_field?(nested_in, field, model_object)
-          = render "/carnival/shared/form/field", f: f, field: field, model_presenter: model_presenter
+
+      - if ( presenter.render_field?(field, params[:action]))
+        - nested_in = nil unless nested_in
+        - if field.nested_form?
+          = render "/carnival/shared/form/nested_form", f: f, field: field, presenter: presenter, model_object: model_object, action: action
+        - else
+          - if presenter.must_render_field?(nested_in, field, model_object)
+            = render "/carnival/shared/form/field", f: f, field: field, presenter: presenter
 

@@ -1,11 +1,11 @@
 .nested-form{:class => field.name}
   %label.nested-form-title
-    = translate_field(@model_presenter, field)
+    = translate_field(@presenter, field)
 
   - if not has_one_relation? model_object, field.name
     - if field.nested_form_modes?(:associate)
       .nested_form_options_div{id: "nested_form_options_#{field.name}"}
-        - opt = Carnival::NestedFormOptions.new model_object, model_presenter, field
+        - opt = Carnival::NestedFormOptions.new model_object, presenter, field
         = render '/carnival/shared/form/nested_form_options', opt_obj: opt
     - else
       .carnival-select-action
@@ -20,8 +20,8 @@
                 = link_to t("remove"), "#", onclick: "removeNestedFormElement(this); return false;", class: "carnival-action-button remover" if field.nested_form_allow_destroy?
               = inner_form.input :id, :as => :hidden
               = inner_form.input :_destroy, :as => :hidden, :input_html => {:class => "destroy"} if field.nested_form_allow_destroy?
-              - nested_presenter = model_presenter.presenter_to_field(field, inner_form.object)
-              = render '/carnival/shared/form/inner_form', button: t('update'), model_object: inner_form.object, model_presenter: nested_presenter, :nested_in => model_object, :f => inner_form, :action => action
+              - nested_presenter = presenter.presenter_to_field(field, inner_form.object)
+              = render '/carnival/shared/form/inner_form', button: t('update'), model_object: inner_form.object, presenter: nested_presenter, :nested_in => model_object, :f => inner_form, :action => action
 
   - else
     - model_object.send("build_#{field.name}")
@@ -31,5 +31,5 @@
           .nested-form-list-item-actions
           = inner_form.input :id, :as => :hidden
           = inner_form.input :_destroy, :as => :hidden, :input_html => {:class => "destroy"} if field.nested_form_allow_destroy?
-          - nested_presenter = model_presenter.presenter_to_field(field, inner_form.object)
-          = render '/carnival/shared/form/inner_form', button: t('update'), model_object: inner_form.object, model_presenter: nested_presenter, :nested_in => model_object, :f => inner_form, :action => action
+          - nested_presenter = presenter.presenter_to_field(field, inner_form.object)
+          = render '/carnival/shared/form/inner_form', button: t('update'), model_object: inner_form.object, presenter: nested_presenter, :nested_in => model_object, :f => inner_form, :action => action
