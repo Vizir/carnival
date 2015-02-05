@@ -6,7 +6,6 @@
 - presenter.form_for(action).lines.each do |line|
   .row
     - line.each do |field|
-
       - if ( presenter.render_field?(field, params[:action]))
         - nested_in = nil unless nested_in
         - if field.nested_form?

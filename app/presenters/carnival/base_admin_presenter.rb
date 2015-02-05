@@ -5,10 +5,13 @@ module Carnival
 
     def initialize(params)
       @controller = params[:controller]
-      @klass_service = KlassService.new model_class
-      @advanced_search_parser = Presenters::AdvancedSearchParser.new(@klass_service)
-      @validators = [Carnival::PresenterValidators::FieldValidator]
-      validates
+
+      if model_class.present?
+        @klass_service = KlassService.new model_class
+        @advanced_search_parser = Presenters::AdvancedSearchParser.new(@klass_service)
+        @validators = [Carnival::PresenterValidators::FieldValidator]
+        validates
+      end
     end
 
     def validates
@@ -231,7 +234,9 @@ module Carnival
     def must_render_field?(nested_in, field, model_object)
       must_render = true
       if nested_in.present?
-        if nested_in.class == model_object.send(field.name).class
+        if field.as == :partial
+          must_render = true
+        elsif nested_in.class == model_object.send(field.name).class
           must_render = false
         elsif nested_in.class.name.underscore.split("/").last == field.name
           must_render = false
@@ -287,7 +292,8 @@ module Carnival
     end
 
     def model_class
-      full_model_name.classify.constantize
+      return full_model_name.classify.constantize if Object.const_defined? full_model_name.classify
+      nil 
     end
 
     def relation_field?(field_name)
