@@ -1,6 +1,6 @@
 
 - options = {wrapper_html: {class: "col-md-#{field.size}"}}
-- current_type = model_presenter.field_type(field.name)
+- current_type = presenter.field_type(field.name)
 - options[:as] = :admin_enum if current_type == :enum
 - options[:as] = :admin_relationship_select if current_type == :relation
 - options[:as] = :admin_date if current_type.to_s =~ /^date(time)?$/
@@ -10,7 +10,7 @@
 - options[:input_html] = {}
 - options[:input_html][:class] = "field-#{field.name}"
 - options[:input_html][:data] = {}
-- options[:input_html][:data][:presenter_name] = model_presenter.presenter_name 
+- options[:input_html][:data][:presenter_name] = presenter.presenter_name 
 
 - if options[:as].is_a? Hash
   - options[:input_html][:data][:carnival_options] = options[:as].first[1]
@@ -23,10 +23,10 @@
     $("select.field-#{field.depends_on}").change(function(event, element){
       var field = $(this).attr("name").match( /\[([A-Za-z_])*\]/g)[0].replace("[", "").replace("]", "");
       var dependentField = $($("select.field-#{field.name}").first()).attr("name").match( /\[([A-Za-z_])*\]/g)[0].replace("[", "").replace("]", "");
-      updateDependentFormSelectHtml("#{model_presenter.load_dependent_select_options_path}", "#{model_presenter.class.name}", $(this).val(), field, dependentField);
+      updateDependentFormSelectHtml("#{presenter.load_dependent_select_options_path}", "#{presenter.class.name}", $(this).val(), field, dependentField);
     });
 
-- options[:label] = translate_field(model_presenter, field)
+- options[:label] = translate_field(presenter, field)
 - if options[:as] == :partial
   = render field.name.to_s, f: f, record: f.object
 - else

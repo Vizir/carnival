@@ -1,11 +1,10 @@
-require 'csv'
 module Carnival
   class BaseAdminController < InheritedResources::Base
     respond_to :html, :json
     layout "carnival/admin"
+    before_action :instantiate_presenter
 
     def home
-
     end
 
     def table_items
@@ -13,9 +12,9 @@ module Carnival
     end
 
     def render_inner_form
-      @model_presenter = presenter_name(params[:field]).new controller: self
+      @presenter = presenter_name(params[:field]).new controller: self
       model_class = params[:field].classify.constantize
-      @model_object = model_class.send(:find_by_id, params[:id])
+      @model_object = model_class.find(params[:id])
     end
 
     def presenter_name field
@@ -25,87 +24,59 @@ module Carnival
     end
 
     def index
-      @presenter = instantiate_presenter
       @query_form = Carnival::QueryFormCreator.create(@presenter, params)
-      @model = instantiate_model(@presenter)
-      base_query = table_items || @model
-      @query_service = Carnival::QueryService.new(base_query, @presenter, @query_form)
+      @model = @presenter.model_class
+      @query_service = Carnival::QueryService.new(table_items || @model, @presenter, @query_form)
 
       respond_to do |format|
-        format.html do |render|
+        format.html do
           @records = @query_service.get_query
           last_page = (@query_service.total_records / @presenter.items_per_page.to_f).ceil
           @paginator = Carnival::Paginator.new @query_form.page, last_page
           @thead_renderer = Carnival::TheadRenderer.new @presenter.fields_for_action(:index), @query_form.sort_column, @query_form.sort_direction
-          render 'index' and return
         end
         format.csv do
           @records = @query_service.records_without_pagination
-          render :csv => t("activerecord.attributes.#{@presenter.full_model_name}.csv_name") , :template => 'carnival/base_admin/index.csv.haml' and return
+          render :csv => @model.model_name.human
         end
         format.pdf do
           @records = @query_service.records_without_pagination
           @thead_renderer = Carnival::TheadRenderer.new @presenter.fields_for_action(:index), @query_form.sort_column, @query_form.sort_direction
-          render :pdf => t("activerecord.attributes.#{@presenter.full_model_name}.pdf_name") , :template => 'carnival/base_admin/index.pdf.haml',  :show_as_html => params[:debug].present? and return
+          render :pdf => t("activerecord.attributes.#{@presenter.full_model_name}.pdf_name") , :template => 'carnival/base_admin/index.pdf.haml',  :show_as_html => params[:debug].present?
         end
       end
     end
 
     def show
-      @model_presenter = instantiate_presenter
-      show! do |format|
-        @model = instance_variable_get("@#{resource_instance_name}")
-        format.html do |render|
-          render 'show' and return
-        end
+      show! do
+        instantiate_model
       end
     end
 
     def new
-      @model_presenter = instantiate_presenter
-      new! do |format|
-        @model = instance_variable_get("@#{resource_instance_name}")
-        format.html do |render|
-          render 'new' and return
-        end
+      new! do
+        instantiate_model
       end
     end
 
     def edit
-      @model_presenter = instantiate_presenter
-      edit! do |format|
-        @model = instance_variable_get("@#{resource_instance_name}")
-        format.html do |render|
-          render 'edit' and return
-        end
+      edit! do
+        instantiate_model
       end
     end
 
     def create
-      @model_presenter = instantiate_presenter
       create! do |success, failure|
-        success.html{ redirect_to @model_presenter.model_path(:index), :notice => I18n.t("messages.created") and return}
-        failure.html do |render|
-          @model = instance_variable_get("@#{resource_instance_name}")
-          render 'new' and return
-        end
+        success.html { redirect_to @presenter.model_path(:index), :notice => I18n.t("messages.created") }
+        failure.html { instantiate_model and render 'new' }
       end
     end
 
     def update
-      @model_presenter = instantiate_presenter
       update! do |success, failure|
-        success.html{ redirect_to @model_presenter.model_path(:index), :notice => I18n.t("messages.updated") and return}
-        failure.html do |render|
-          @model = instance_variable_get("@#{resource_instance_name}")
-          render 'edit' and return
-        end
+        success.html { redirect_to @presenter.model_path(:index), :notice => I18n.t("messages.updated") }
+        failure.html { instantiate_model and render 'edit' }
       end
-    end
-
-    def render_popup partial
-      @application_modal = partial
-      render '/carnival/shared/render_popup' and return
     end
 
     def load_dependent_select_options
@@ -127,14 +98,15 @@ module Carnival
 
       render :json => list
     end
-    private
 
-    def instantiate_model(presenter)
-      presenter.full_model_name.classify.constantize
+    protected
+
+    def instantiate_model
+      @model = instance_variable_get("@#{resource_instance_name}")
     end
 
     def instantiate_presenter
-      carnival_presenter_class.new controller: self, current_user: current_user
+      @presenter = carnival_presenter_class.new controller: self
     end
 
     def carnival_presenter_class
@@ -147,10 +119,12 @@ module Carnival
     end
 
     def extract_namespace
-      namespace = ""
-      arr = self.class.to_s.split("::")
-      namespace = arr[0] if arr.size > 1
-      namespace
+      module_class_split = self.class.to_s.split("::")
+      if module_class_split.size > 1
+        module_class_split[0]
+      else
+        ''
+      end
     end
   end
 end

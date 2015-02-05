@@ -2,12 +2,9 @@
 module Carnival
   class BaseAdminPresenter
     include Rails.application.routes.url_helpers
-    attr_accessor :special_scope_to_exec
 
     def initialize(params)
       @controller = params[:controller]
-      @current_user = params[:current_user]
-      @special_scopes_to_exec = nil
       @klass_service = KlassService.new model_class
       @advanced_search_parser = Presenters::AdvancedSearchParser.new(@klass_service)
       @validators = [Carnival::PresenterValidators::FieldValidator]
@@ -18,10 +15,6 @@ module Carnival
       @validators.each do |validator|
         validator.new(self).validates
       end
-    end
-
-    def base_query
-      @base_query
     end
 
     def presenter_name
@@ -35,30 +28,33 @@ module Carnival
 
     @@actions = {}
     def self.action(name, params = {})
-      @@actions[presenter_class_name] = {} if @@actions[presenter_class_name].nil?
+      @@actions[presenter_class_name] ||= {}
       @@actions[presenter_class_name][name] = Carnival::Action.new(name, params)
     end
 
     @@batch_actions = {}
     def self.batch_action(name, params = {})
-      @@batch_actions[presenter_class_name] = {} if @@batch_actions[presenter_class_name].nil?
+      @@batch_actions[presenter_class_name] ||= {}
       @@batch_actions[presenter_class_name][name] = Carnival::BatchAction.new(self.new({}), name, params)
     end
 
     def has_batch_actions?
-      return false if @@batch_actions[presenter_class_name].nil?
-      @@batch_actions[presenter_class_name].keys.size > 0
+      if @@batch_actions[presenter_class_name].present?
+        @@batch_actions[presenter_class_name].keys.size > 0
+      else
+        false
+      end
     end
 
     @@items_per_page = {}
     def self.items_per_page(per_page)
-      @@items_per_page[presenter_class_name] = {} if @@items_per_page[presenter_class_name].nil?
+      @@items_per_page[presenter_class_name] ||= {}
       @@items_per_page[presenter_class_name][:items_per_page] = per_page
     end
 
     def items_per_page
-      @@items_per_page[presenter_class_name] = {} if @@items_per_page[presenter_class_name].nil?
-      unless @@items_per_page[presenter_class_name].present? and @@items_per_page[presenter_class_name][:items_per_page].present? and @@items_per_page[presenter_class_name][:items_per_page] > 0
+      @@items_per_page[presenter_class_name] ||= {}
+      unless @@items_per_page[presenter_class_name][:items_per_page].present? and @@items_per_page[presenter_class_name][:items_per_page] > 0
         @@items_per_page[presenter_class_name][:items_per_page] = Carnival::Config.items_per_page
       end
       @@items_per_page[presenter_class_name][:items_per_page]
@@ -77,9 +73,7 @@ module Carnival
     end
 
     def index_as
-      index_as = @@index_as[presenter_class_name]
-      index_as = :table if index_as.nil?
-      index_as
+      @@index_as[presenter_class_name] ||= :table
     end
 
     def actions
@@ -106,7 +100,6 @@ module Carnival
     @@fields = {}
     @@scopes = {}
     @@forms = {}
-    @@presenters = []
 
     def scopes
       @@scopes[presenter_class_name] || {}
@@ -195,7 +188,7 @@ module Carnival
     end
 
     def table_name
-      model_class.send("table_name")
+      model_class.table_name
     end
 
     def searchable_fields
@@ -299,8 +292,11 @@ module Carnival
 
     def relation_field?(field_name)
       field = get_field(field_name)
-      return false if field.nil?
-      field.specified_association? or @klass_service.relation?(field.name)
+      if field.present?
+        field.specified_association? or @klass_service.relation?(field.name)
+      else
+        false
+      end
     end
 
     def get_association(association)
@@ -445,9 +441,7 @@ module Carnival
     end
 
     def self.instantiate_element(container, klass, name, params)
-      @@presenters << presenter_class_name unless @@presenters.include?(presenter_class_name)
-
-      container[presenter_class_name] = {} if container[presenter_class_name].nil?
+      container[presenter_class_name] ||= {}
       container[presenter_class_name][name] = klass.new(name, params)
     end
 
