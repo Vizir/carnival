@@ -5,7 +5,7 @@
         %th
           %input{id: 'toggle-all-batch-actions-items',type: 'checkbox',disabled: 'disabled'}
       - @thead_renderer.columns.each do |column|
-        - if ( @presenter.before_field(column[:field], params[:action]))
+        - if ( @presenter.render_action?(column[:field], params[:action]))
           %th{"onclick" => "javascript:#{column[:sort_function]}",  "class" => "#{column[:class]}"}= translate_field(presenter, column[:field])
       %th.buttons
   %tbody
@@ -15,7 +15,7 @@
           %td
             =check_box_tag(:batch_action_item, record.id, false, class: 'batch_action_items')
         - @presenter.fields_for_action(:index).each do |key, field|
-          - if ( @presenter.before_field(field, params[:action]))
+          - if ( @presenter.render_action?(field, params[:action]))
             = list_cel(@presenter, key,record, false).html_safe
         %td
           = list_buttons(@presenter, record).html_safe

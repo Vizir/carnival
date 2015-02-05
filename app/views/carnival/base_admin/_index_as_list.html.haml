@@ -7,7 +7,7 @@
             =check_box_tag(:batch_action_item, record.id, false, class: 'batch_action_items')
         %div{class: "#{presenter.has_batch_actions? ? 'col-md-9' : 'col-md-10' }"}
           - @presenter.fields_for_action(:index).each do |key, field|
-            - if ( @presenter.before_field(field, params[:action]))
+            - if ( @presenter.render_action?(field, params[:action]))
               = list_attr(@presenter, key,record, false).html_safe
         .col-md-2
           = list_buttons(@presenter, record).html_safe

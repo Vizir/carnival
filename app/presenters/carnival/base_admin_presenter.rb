@@ -219,11 +219,11 @@ module Carnival
       joins
     end
 
-    def before_field(field, action = nil)
+    def render_field?(field, action = nil)
       return true
     end
 
-    def before_action(record_action, action = nil)
+    def render_action?(record_action, action = nil)
       return true
     end
 
@@ -326,7 +326,7 @@ module Carnival
       if relation_field?(field.to_sym) then :relation
       elsif type == :date || type == :datetime then type
       elsif type == :number || type == :float then :number
-      elsif type == :integer and model_class.const_defined? field.upcase then :enum
+      elsif type == :integer and model_class.const_defined? field.upcase and field != :id then :enum
       else type
       end
     end
@@ -346,13 +346,12 @@ module Carnival
       field = get_field(field)
       return nil if !relation_field?(field)
       relation_name = get_related_class_for_field(field)
-      controller_path = "#{extract_namespace.downcase}/#{relation_name}"
       related = record.send(field.association_name)
       unless related.nil?
         if is_one_to_one_relation?(field)
-          params = {:controller => controller_path, :action => :show, :id => related.id}
+          params = {:controller =>  "#{extract_namespace.downcase}/#{relation_name}", :action => :show, :id => related.id}
         else
-          params = {:controller => controller_path, :action => :index, :advanced_search => make_relation_advanced_query_url_options(field.name, record)}
+          params = {:controller => "#{extract_namespace.downcase}/#{get_association_from_field(field)}", :action => :index, :advanced_search => make_relation_advanced_query_url_options(field.name, record)}
         end
         params = params.merge(:only_path => true)
         return generate_route_path params
@@ -362,9 +361,12 @@ module Carnival
     end
 
     def get_related_class_for_field (field_name)
-      field = get_field(field_name)
-      relation_name = field.specified_association? ? field.association_name : field.name
-      get_related_class(relation_name)
+      get_related_class get_association_from_field(field_name)
+    end
+
+    def get_association_from_field(field)
+      field = get_field(field)
+      field.specified_association? ? field.association_name : field.name
     end
 
     def get_related_class relation_name
@@ -466,13 +468,7 @@ module Carnival
     end
 
     def generate_route_path params
-      path = nil
-      begin
-        path = url_for params
-      rescue
-
-      end
-      path
+      url_for(params) rescue nil
     end
 
     def self.presenter_class_name
