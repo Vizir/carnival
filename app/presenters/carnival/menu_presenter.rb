@@ -2,8 +2,8 @@
 module Carnival
   class MenuPresenter #< Carnival::MenuPresenter
     
-    def initialize(current_user)
-      @current_user = current_user
+    def initialize(controller)
+      @controller = controller
     end
 
     def before_menu (menu_label)
