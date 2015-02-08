@@ -35,3 +35,19 @@ Before rendering an action, Carnival calls the '''.render_action?'''method on pr
     true
   end
 ```
+
+
+## Dependent Selects
+
+This feature is used when you have dependent selects like Country, State and City to fill an Address or a Location, because Cities Select only can be filled withe the oprions when a State is selected, and the State when de Country is selected, to implement this kind of behavior in a form, just use the option :depends_on in the dependent field with the symbol of the dependency, follows an example bellow:
+
+```ruby
+field :country,
+      :actions => [:index, :csv, :pdf, :new, :edit, :show]
+field :state,
+      :actions => [:index, :csv, :pdf, :new, :edit, :show]
+      :depends_on => :country
+field :city,
+      :actions => [:index, :csv, :pdf, :new, :edit, :show]
+      :depends_on => :state
+```
