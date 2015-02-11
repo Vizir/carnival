@@ -5,7 +5,7 @@
         .row
           .col-md-12
             - @presenter.fields_for_action(:index).each do |key, field|
-              - if ( @presenter.render_action?(field, params[:action]))
+              - if ( @presenter.render_field?(field, :index))
                 = grid_attr(@presenter, key,record, false).html_safe
         .row
           -if presenter.has_batch_actions?
