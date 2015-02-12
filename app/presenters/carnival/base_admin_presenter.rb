@@ -292,8 +292,7 @@ module Carnival
     end
 
     def model_class
-      return full_model_name.classify.constantize if Object.const_defined? full_model_name.classify
-      nil 
+      full_model_name.classify.constantize rescue NameError nil
     end
 
     def relation_field?(field_name)
@@ -479,7 +478,7 @@ module Carnival
       end
     end
 
-    def current_user 
+    def current_user
       return @controller.current_user if @controller.respond_to?(:current_user)
       nil
     end
