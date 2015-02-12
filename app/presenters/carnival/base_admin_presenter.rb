@@ -219,7 +219,7 @@ module Carnival
       return true
     end
 
-    def render_action?(record_action, action = nil)
+    def render_action?(record, record_action, action = nil)
       return true
     end
 

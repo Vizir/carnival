@@ -8,7 +8,7 @@
   - @presenter.form_for(:show).lines.each do |line|
     .row
       - line.each do |field|
-        - if ( @presenter.render_action?(field, params[:action]))
+        - if ( @presenter.render_field?(field, params[:action]))
           .wrapper_show{class: "col-md-#{field.size}"}
             - if show_view(@presenter, field.name)
               = render partial: show_view(@presenter, field.name), locals: { model: @model, model_name: @presenter.full_model_name, field_name: field.name  }
