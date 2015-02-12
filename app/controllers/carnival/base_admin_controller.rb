@@ -3,6 +3,7 @@ module Carnival
     respond_to :html, :json
     layout "carnival/admin"
     before_action :instantiate_presenter
+    helper_method :back_or_model_path
 
     def home
     end
@@ -67,14 +68,14 @@ module Carnival
 
     def create
       create! do |success, failure|
-        success.html { redirect_to @presenter.model_path(:index), :notice => I18n.t("messages.created") }
+        success.html { redirect_to back_or_model_path, :notice => I18n.t("messages.created") }
         failure.html { instantiate_model and render 'new' }
       end
     end
 
     def update
       update! do |success, failure|
-        success.html { redirect_to @presenter.model_path(:index), :notice => I18n.t("messages.updated") }
+        success.html { redirect_to back_or_model_path, :notice => I18n.t("messages.updated") }
         failure.html { instantiate_model and render 'edit' }
       end
     end
@@ -126,5 +127,10 @@ module Carnival
         ''
       end
     end
+
+    def back_or_model_path
+      params[:HTTP_REFERER] || @presenter.model_path(:index)
+    end
+
   end
 end

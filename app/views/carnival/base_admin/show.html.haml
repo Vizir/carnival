@@ -2,7 +2,7 @@
 .gray_border.with_margin_bottom
   %h1= t("#{@presenter.model_name}.show", default: t('carnival.show'))
   .action_back
-    = link_to t('back'), index_path, class: 'voltar carnival-action-button'
+    = link_to t('back'), request.env['HTTP_REFERER'], class: 'voltar carnival-action-button'
 
 .show-content
   - @presenter.form_for(:show).lines.each do |line|

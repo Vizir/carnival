@@ -2,5 +2,5 @@
 .gray_border.with_margin_bottom
   %h1= t("#{@presenter.model_name}.edit", default: t('carnival.edit'))
   .action_back
-    = link_to t('back'), index_path, class: 'voltar carnival-action-button'
+    = link_to t('back'), request.env['HTTP_REFERER'], class: 'voltar carnival-action-button'
 = render '/carnival/shared/form/form', button: t('update'), model_object: @model, presenter: @presenter, :url => @presenter.model_path(:show, :id => @model.id), :action => :edit
