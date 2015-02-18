@@ -3,7 +3,7 @@ By [Vizir](http://vizir.com.br/).
 
 ![Vizir Logo](http://vizir.com.br/wp-content/themes/vizir/images/logo.png)
 
-Carnival is an easy-to-use and extensible Rails Engine to speed up the development of data management interfaces.
+Carnival is an easy-to-use and extensible Rails Engine to speed up the development of data management interfaces..
 
 When you use Carnival you'll benefit from a set of features already done. If you need to change anything, you can write your own version of the code, using real Ruby code in Rails standard components without worrying about a specific syntax or DSL.
 
