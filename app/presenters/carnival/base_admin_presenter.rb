@@ -339,7 +339,7 @@ module Carnival
           if field_param["value"] == "nil"
             where_clause = "#{full_column_query} is null"
           else
-            where_clause = "#{full_column_query} = #{advanced_search_field_value_for_query(field_param["value"])}"
+            where_clause = "#{full_column_query} = '#{advanced_search_field_value_for_query(field_param["value"])}'"
           end
         when "like"
           where_clause = "#{full_column_query} like '%#{field_param["value"]}%'"
