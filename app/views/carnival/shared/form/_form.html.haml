@@ -63,7 +63,7 @@
 
   function removeNestedFormElement(element){
     $(element).parent().parent().hide();
-    $(element).parents("li").find(".destroy").val("1");
+    $(element).parents("li:first").find(".destroy").val("1");
   }
 
   function toggleNestedForm(element){
