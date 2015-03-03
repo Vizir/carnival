@@ -3,5 +3,5 @@
   %h1= t("#{@presenter.model_name}.new", default: t('carnival.new'))
   .action_back
     - # TODO add buttons to the form in presenter
-    = link_to t('back'), index_path, class: 'voltar carnival-action-button' if @presenter
+    = link_to t('back'), request.env['HTTP_REFERER'], class: 'voltar carnival-action-button' if @presenter
 = render '/carnival/shared/form/form', button: t('create'), model_object: @model, presenter: @presenter, :url => @presenter.model_path(:create), :action => :new

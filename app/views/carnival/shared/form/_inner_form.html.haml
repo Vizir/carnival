@@ -3,6 +3,8 @@
     %ul
       - model_object.errors.full_messages.each do |msg|
         %li= msg
+.row
+  = hidden_field_tag 'HTTP_REFERER', request.env['HTTP_REFERER']
 - presenter.form_for(action).lines.each do |line|
   .row
     - line.each do |field|
