@@ -292,7 +292,7 @@ module Carnival
     end
 
     def model_class
-      full_model_name.classify.constantize rescue NameError nil
+      full_model_name.classify.constantize rescue nil
     end
 
     def relation_field?(field_name)
