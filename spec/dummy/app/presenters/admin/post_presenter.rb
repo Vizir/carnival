@@ -6,4 +6,5 @@ class Admin::PostPresenter < Carnival::BaseAdminPresenter
   action :new
   action :show
   action :edit
+  action :destroy
 end
