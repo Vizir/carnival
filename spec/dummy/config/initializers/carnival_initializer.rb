@@ -1,22 +1,14 @@
 Carnival.configure do |config|
   Rails.application.config.assets.precompile += %w( carnival/* )
   config.menu = {
-    admin: {
-      label: 'aaa',
-      class: 'ssss',
-      link: 'ddd',
-      subs: [
-        {
-          label: 'menu.testes',
-          class: 'tst',
-          link: '/admin/testes'
-        },
-        {
-          label: '55555',
-          class: '66666',
-          link: '777777'
-        }
-      ]
+    administration: {
+      label: 'administration',
+      link: '/admin/customers',
+      class: 'administracao',
+      subs: [{
+        label: 'posts',
+        link: '/admin/posts'
+      }]
     }
   }
 
