@@ -1,7 +1,7 @@
 module Carnival
   class BaseAdminController < InheritedResources::Base
     respond_to :html, :json
-    layout "carnival/admin"
+    layout 'carnival/admin'
     before_action :instantiate_presenter
     helper_method :back_or_model_path
 
@@ -15,7 +15,7 @@ module Carnival
       @model_object = model_class.find(params[:id])
     end
 
-    def presenter_name field
+    def presenter_name(field)
       field_name =  field.split('/').last
       carnival_mount = Carnival::Config.mount_at
       "#{carnival_mount}/#{field_name.singularize}_presenter".classify.constantize
@@ -35,51 +35,41 @@ module Carnival
         end
         format.csv do
           @records = @query_service.records_without_pagination
-          render :csv => @model.model_name.human
+          render csv: @model.model_name.human
         end
         format.pdf do
           @records = @query_service.records_without_pagination
           @thead_renderer = Carnival::TheadRenderer.new @presenter.fields_for_action(:index), @query_form.sort_column, @query_form.sort_direction
-          render :pdf => t("activerecord.attributes.#{@presenter.full_model_name}.pdf_name") , :template => 'carnival/base_admin/index.pdf.haml',  :show_as_html => params[:debug].present?
+          render pdf: t("activerecord.attributes.#{@presenter.full_model_name}.pdf_name"), template: 'carnival/base_admin/index.pdf.haml',  show_as_html: params[:debug].present?
         end
       end
     end
 
-    def show
-      show! do
-        instantiate_model
-      end
-    end
-
-    def new
-      new! do
-        instantiate_model
-      end
-    end
-
-    def edit
-      edit! do
-        instantiate_model
+    [:show, :new, :edit].each do |action|
+      define_method action do
+        send("#{action}!") do
+          instantiate_model
+        end
       end
     end
 
     def create
       create! do |success, failure|
-        success.html { redirect_to back_or_model_path, :notice => I18n.t("messages.created") }
-        failure.html { instantiate_model and render 'new' }
+        success.html { redirect_to back_or_model_path, notice: I18n.t('messages.created') }
+        failure.html { instantiate_model && render('new') }
       end
     end
 
     def update
       update! do |success, failure|
-        success.html { redirect_to back_or_model_path, :notice => I18n.t("messages.updated") }
-        failure.html { instantiate_model and render 'edit' }
+        success.html { redirect_to back_or_model_path, notice: I18n.t('messages.updated') }
+        failure.html { instantiate_model && render('edit') }
       end
     end
 
     def load_dependent_select_options
-      presenter = params[:presenter].constantize.send(:new, :controller => self)
-      model = presenter.relation_model(params[:field].gsub("_id", "").to_sym)
+      presenter = params[:presenter].constantize.send(:new, controller: self)
+      model = presenter.relation_model(params[:field].gsub('_id', '').to_sym)
       @options = model.list_for_select(add_empty_option: true, query: ["#{params[:dependency_field]} = ?", params[:dependency_value]])
       render layout: nil
     end
@@ -87,14 +77,14 @@ module Carnival
     def load_select_options
       model_name = params[:model_name]
       search_field = params[:search_field]
-      presenter = params[:presenter_name].constantize.send(:new, :controller => self)
+      presenter = params[:presenter_name].constantize.send(:new, controller: self)
       model = presenter.relation_model(model_name.to_sym)
       list = []
       model.where("#{search_field} like '%#{params[:q]}%'").each do |elem|
-        list << {id: elem.id, text: elem.send(search_field.to_sym)}
+        list << { id: elem.id, text: elem.send(search_field.to_sym) }
       end
 
-      render :json => list
+      render json: list
     end
 
     protected
@@ -117,7 +107,7 @@ module Carnival
     end
 
     def extract_namespace
-      module_class_split = self.class.to_s.split("::")
+      module_class_split = self.class.to_s.split('::')
       if module_class_split.size > 1
         module_class_split[0]
       else
@@ -128,6 +118,5 @@ module Carnival
     def back_or_model_path
       params[:HTTP_REFERER] || @presenter.model_path(:index)
     end
-
   end
 end
