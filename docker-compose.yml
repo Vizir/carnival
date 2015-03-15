@@ -10,7 +10,7 @@ db:
 
 web:
   build: docker/development_image/
-  command: cd /app/test/carnival-sample-application && bundle exec rails s --pid=/tmp/server.pid
+  command: cd /app/spec/dummy/ && bundle exec rails s --pid=/tmp/server.pid
   environment:
     BUNDLE_APP_CONFIG: /app/.bundle
     VIRTUAL_HOST: web.carnival.dev
