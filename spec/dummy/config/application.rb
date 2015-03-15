@@ -7,6 +7,7 @@ require "carnival"
 
 module Carnival
   class Application < Rails::Application
+    console { config.console = Pry }
   end
 end
 

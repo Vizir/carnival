@@ -1,0 +1,25 @@
+en:
+
+  carnival:
+    show: View
+    new: New
+    edit: Edit
+    destroy: Delete
+    errors:
+      invalid_field:  "The actions '%{actions}' are invalid for field '%{field}' for presenter '%{presenter}'"
+
+  nested_form:
+    open: Open
+    close: Close
+    new: Create New
+    add_option: Add
+    new_subtitle: New
+    existing_option: Existing Options
+    existing_option_title: Options
+    choose_an_option: Choose an option
+  minimize: Minimize
+  paginate_first: First
+  paginate_previous: « Previous
+  paginate_next: Next »
+  paginate_last: Last
+  paginate_total: Total

@@ -1,0 +1,23 @@
+db:
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+  hostname: exitus-mysql
+  image: centurylink/mysql
+  ports:
+    - 3306
+  volumes:
+    - .data:/var/lib/mysql
+
+web:
+  command: cd /app/test/carnival-sample-application && bundle exec rails s --pid=/tmp/server.pid
+  environment:
+    BUNDLE_APP_CONFIG: /app/.bundle
+    VIRTUAL_HOST: web.carnival.dev
+  image: rails:4.1.8
+  links:
+    - db
+  ports:
+    - 3000
+  volumes:
+    - .:/app
+  working_dir: /app
