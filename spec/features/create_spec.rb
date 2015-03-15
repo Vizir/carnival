@@ -9,7 +9,7 @@ feature 'User creates a new model' do
     fill_in 'post_content', with: 'A new admin engine'
     # status
 
-    expect { click_on 'Create' }.to change { Post.count }.by(1)
+    expect { click_on 'Create' }.to change { Post.count }.from(0).to(1)
   end
 
   scenario 'incompletely' do

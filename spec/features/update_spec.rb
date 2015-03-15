@@ -10,7 +10,7 @@ feature 'User updates an exisint model' do
     click_on 'Edit'
     fill_in 'post_title', with: new_title
 
-    expect { click_on 'Update' }.to change { Post.count }.by(0)
+    expect { click_on 'Update' }.to_not change { Post.count }
     expect(page).to have_content new_title
   end
 
@@ -20,7 +20,7 @@ feature 'User updates an exisint model' do
     click_on 'Edit'
     fill_in 'post_title', with: ''
 
-    expect { click_on 'Update' }.to change { Post.count }.by(0)
+    expect { click_on 'Update' }.to_not change { Post.count }
     expect(page).to have_text('Title can\'t be blank')
   end
 end
