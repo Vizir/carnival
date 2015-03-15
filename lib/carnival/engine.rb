@@ -1,5 +1,6 @@
 module Carnival
   class Engine < ::Rails::Engine
+    require 'jquery-rails'
     config.generators do |g|
       g.test_framework :rspec
       g.test_framework :rspec, fixture: false
