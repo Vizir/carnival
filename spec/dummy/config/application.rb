@@ -7,6 +7,8 @@ require "carnival"
 
 module Carnival
   class Application < Rails::Application
+    config.i18n.available_locales = :en
+    config.i18n.default_locale = :en
     console { config.console = Pry }
   end
 end
