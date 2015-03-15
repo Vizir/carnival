@@ -1,13 +1,15 @@
 ENV["RAILS_ENV"] ||= 'test'
 require 'spec_helper'
 require File.expand_path("../dummy/config/environment", __FILE__)
-require 'rspec/rails'
-require 'factory_girl_rails'
 require 'byebug'
 require 'capybara-webkit'
-ActiveRecord::Migration.maintain_test_schema!
+require 'factory_girl_rails'
+require 'rspec/rails'
+require 'simplecov'
 
+ActiveRecord::Migration.maintain_test_schema!
 Capybara.javascript_driver = :webkit
+SimpleCov.start { add_filter 'vendor/' }
 
 class ActiveRecord::Base
   mattr_accessor :shared_connection
