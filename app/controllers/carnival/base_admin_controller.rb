@@ -5,9 +5,6 @@ module Carnival
     before_action :instantiate_presenter
     helper_method :back_or_model_path
 
-    def home
-    end
-
     def table_items
       nil
     end
