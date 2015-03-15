@@ -5,18 +5,6 @@ module Carnival
     before_action :instantiate_presenter
     helper_method :back_or_model_path
 
-    def render_inner_form
-      @presenter = presenter_name(params[:field]).new controller: self
-      model_class = params[:field].classify.constantize
-      @model_object = model_class.find(params[:id])
-    end
-
-    def presenter_name(field)
-      field_name =  field.split('/').last
-      carnival_mount = Carnival::Config.mount_at
-      "#{carnival_mount}/#{field_name.singularize}_presenter".classify.constantize
-    end
-
     def index
       @query_form = QueryFormCreator.create(@presenter, params)
       @model = @presenter.model_class
@@ -62,6 +50,12 @@ module Carnival
       end
     end
 
+    def render_inner_form
+      @presenter = presenter_name(params[:field]).new controller: self
+      model_class = params[:field].classify.constantize
+      @model_object = model_class.find(params[:id])
+    end
+
     def load_dependent_select_options
       presenter = params[:presenter].constantize.send(:new, controller: self)
       model = presenter.relation_model(params[:field].gsub('_id', '').to_sym)
@@ -83,6 +77,12 @@ module Carnival
     end
 
     protected
+
+    def presenter_name(field)
+      field_name =  field.split('/').last
+      carnival_mount = Carnival::Config.mount_at
+      "#{carnival_mount}/#{field_name.singularize}_presenter".classify.constantize
+    end
 
     def table_items
       @presenter.model_class
