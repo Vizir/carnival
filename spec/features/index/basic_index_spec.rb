@@ -1,15 +1,14 @@
 require 'rails_helper'
 
-feature 'User sees existing posts' do
-  let!(:posts) { create_pair(:post) }
+feature 'User sees existing todos' do
+  let!(:todos) { create_pair(:todo) }
 
   scenario 'successfully' do
-    visit admin_posts_path
+    visit admin_todos_path
 
-    posts.each do |post|
-      expect(page).to have_selector('td', text: post.id)
-      expect(page).to have_selector('td', text: post.title)
-      expect(page).to have_no_selector('td', text: post.content)
+    todos.each do |todo|
+      expect(page).to have_selector('td', text: todo.id)
+      expect(page).to have_selector('td', text: todo.title)
     end
   end
 end
