@@ -14,7 +14,7 @@ module Carnival
       respond_to do |format|
         format.html do
           @records = @query_service.get_query
-          @paginator = Carnival::Paginator.new @query_form.page, @query_service.page_count
+          @paginator = Paginator.new @query_form.page, @query_service.page_count
         end
         format.csv do
           @records = @query_service.records_without_pagination
