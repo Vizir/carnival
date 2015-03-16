@@ -3,6 +3,15 @@ module Carnival
   class BaseAdminPresenter
     include Rails.application.routes.url_helpers
 
+    @@index_as = {}
+    @@actions = {}
+    @@batch_actions = {}
+    @@items_per_page = {}
+    @@model_names = {}
+    @@fields = {}
+    @@scopes = {}
+    @@forms = {}
+
     def initialize(params)
       @controller = params[:controller]
 
@@ -24,18 +33,15 @@ module Carnival
       self.class.to_s
     end
 
-    @@index_as = {}
     def self.index_as(type)
       @@index_as[presenter_class_name] = type
     end
 
-    @@actions = {}
     def self.action(name, params = {})
       @@actions[presenter_class_name] ||= {}
       @@actions[presenter_class_name][name] = Carnival::Action.new(name, params)
     end
 
-    @@batch_actions = {}
     def self.batch_action(name, params = {})
       @@batch_actions[presenter_class_name] ||= {}
       @@batch_actions[presenter_class_name][name] = Carnival::BatchAction.new(self.new({}), name, params)
@@ -49,7 +55,6 @@ module Carnival
       end
     end
 
-    @@items_per_page = {}
     def self.items_per_page(per_page)
       @@items_per_page[presenter_class_name] ||= {}
       @@items_per_page[presenter_class_name][:items_per_page] = per_page
@@ -92,11 +97,6 @@ module Carnival
     def has_action?(action)
       @@actions[presenter_class_name].present? && @@actions[presenter_class_name][action].present?
     end
-
-    @@model_names = {}
-    @@fields = {}
-    @@scopes = {}
-    @@forms = {}
 
     def scopes
       @@scopes[presenter_class_name] || {}
