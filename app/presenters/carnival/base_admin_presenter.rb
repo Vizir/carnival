@@ -125,12 +125,15 @@ module Carnival
     end
 
     def form_for(action)
-      form = Carnival::Form.new(action)
-      form =  @@forms[presenter_class_name][action] if @@forms[presenter_class_name].present? and  @@forms[presenter_class_name][action].present?
+      if @@forms[presenter_class_name].present? &&
+         @@forms[presenter_class_name][action].present?
+        form =  @@forms[presenter_class_name][action]
+      else
+        form = Carnival::Form.new(action)
+      end
       form.fields = fields_for_action(action)
       form
     end
-
 
     def model_name
       if @@model_names[presenter_class_name].nil?
@@ -237,8 +240,8 @@ module Carnival
 
     def default_scope
       return if scopes.empty?
-      default_scope = @@scopes[presenter_class_name].values.find(&:default?)
-      default_scope || @@scopes[presenter_class_name].values.first
+      @@scopes[presenter_class_name].values.find(&:default?) ||
+        @@scopes[presenter_class_name].values.first
     end
 
     def default_sortable_field
@@ -395,11 +398,12 @@ module Carnival
     end
 
     protected
+
     def make_relation_advanced_query_url_options(field, record)
       relation_model = @klass_service.get_association(field).klass.name.pluralize.underscore.split("/").last
       relation_field = @klass_service.get_association(field).foreign_key
       relation_value = record.id
-      {"#{relation_model}.#{relation_field}" => relation_value}
+      { "#{relation_model}.#{relation_field}" => relation_value }
     end
 
     def filter_actions(default_actions, target)
@@ -427,7 +431,7 @@ module Carnival
     end
 
     def is_namespaced?
-      self.class.to_s.split("::").size > 0
+      self.class.to_s.split('::').size > 0
     end
 
     def extract_namespace
