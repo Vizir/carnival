@@ -459,10 +459,5 @@ module Carnival
     def generate_route_path(params)
       url_for(params) rescue nil
     end
-
-    def current_user
-      return @controller.current_user if @controller.respond_to?(:current_user)
-      nil
-    end
   end
 end
