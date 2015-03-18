@@ -50,7 +50,8 @@
         %select{"onchange" => "javascript:Carnival.sortIndexList(this)"}
           - @thead_renderer.columns.each do |column|
             - if column[:sort_function] != ''
-              %option{ :selected => column[:name] == @query_form.sort_column , :data => {column_name: "#{column[:name]}", sort_dir: "#{column[:sort_dir]}"} ,  "class" => "#{column[:class]}"}= translate_field(presenter, column[:field])
+              %option{ :selected => column[:name] == @query_form.sort_column && 'asc' == @query_form.sort_direction, :data => {column_name: "#{column[:name]}", sort_dir: "asc"} ,  "class" => "#{column[:class]}"}= "#{translate_field(presenter, column[:field])} - &#9650;".html_safe
+              %option{ :selected => column[:name] == @query_form.sort_column && 'desc' == @query_form.sort_direction, :data => {column_name: "#{column[:name]}", sort_dir: "desc"} ,  "class" => "#{column[:class]}"}= "#{translate_field(presenter, column[:field])} - &#9660;".html_safe
 
 - if @records.any?
 
@@ -69,7 +70,7 @@
       = link_to t('download_as_csv'), presenter.model_path(:index, {:format => 'csv'}.merge(params)), :class => "carnival-action-button pdf" if presenter.has_action?(:csv)
       = link_to t('download_as_pdf'), presenter.model_path(:index, {:format => 'pdf'}.merge(params)), :class => "carnival-action-button csv" if presenter.has_action?(:pdf)
 
-- else 
+- else
   .empty-result
     %h1
       = t('no_results')

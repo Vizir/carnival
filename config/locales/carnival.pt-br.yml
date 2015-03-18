@@ -26,7 +26,9 @@ pt-BR:
     updated: Alterado com sucesso!
     select: Selecione
   minimize: Minimizar
-  sort_by: Ordenar por
+  sort_by: Ordenar po
+  asc: Crescente
+  desc: Decrescente
   download_as_csv: Baixar como CSV
   download_as_pdf: Baixar como PDF
   no_results: Não foram encontrados resultados
@@ -257,4 +259,3 @@ pt-BR:
         even: "precisa ser par"
     models:
       admin_user: Usuário Administrador
-

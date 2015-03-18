@@ -23,3 +23,6 @@ en:
   paginate_next: Next »
   paginate_last: Last
   paginate_total: Total
+  sort_by: Sort by
+  asc: Crescent
+  desc: Decrescent
