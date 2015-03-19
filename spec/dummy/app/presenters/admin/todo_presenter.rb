@@ -11,6 +11,10 @@ class Admin::TodoPresenter < Carnival::BaseAdminPresenter
         advanced_search: { operator: :equal },
         as: :carnival_enum
 
+  scope :todo, default: true
+  scope :doing
+  scope :done
+
   action :new
   action :show
   action :edit
