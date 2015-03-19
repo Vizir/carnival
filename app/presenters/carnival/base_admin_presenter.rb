@@ -205,11 +205,9 @@ module Carnival
     end
 
     def join_tables
-      joins = []
-      @@fields[presenter_class_name].each do |key, field|
-        joins << field.association_name if relation_field? key.to_sym
+      @@fields[presenter_class_name].map do |key, field|
+        field.association_name if relation_field? key.to_sym
       end
-      joins
     end
 
     def render_field?(field, action = nil)
