@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20150316021645) do
 
   create_table "todos", force: true do |t|
     t.string   "title"
+    t.integer  "status",     default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
