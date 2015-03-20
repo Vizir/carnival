@@ -1,16 +1,8 @@
 # -*- encoding : utf-8 -*-
 module Carnival
   class BaseAdminPresenter
+    include Dsl
     include Rails.application.routes.url_helpers
-
-    @@index_as = {}
-    @@actions = {}
-    @@batch_actions = {}
-    @@items_per_page = {}
-    @@model_names = {}
-    @@fields = {}
-    @@scopes = {}
-    @@forms = {}
 
     def initialize(params)
       @controller = params[:controller]
@@ -33,31 +25,12 @@ module Carnival
       self.class.to_s
     end
 
-    def self.index_as(type)
-      @@index_as[presenter_class_name] = type
-    end
-
-    def self.action(name, params = {})
-      @@actions[presenter_class_name] ||= {}
-      @@actions[presenter_class_name][name] = Carnival::Action.new(name, params)
-    end
-
-    def self.batch_action(name, params = {})
-      @@batch_actions[presenter_class_name] ||= {}
-      @@batch_actions[presenter_class_name][name] = Carnival::BatchAction.new(self.new({}), name, params)
-    end
-
     def has_batch_actions?
       if @@batch_actions[presenter_class_name].present?
         @@batch_actions[presenter_class_name].keys.size > 0
       else
         false
       end
-    end
-
-    def self.items_per_page(per_page)
-      @@items_per_page[presenter_class_name] ||= {}
-      @@items_per_page[presenter_class_name][:items_per_page] = per_page
     end
 
     def items_per_page
@@ -243,13 +216,8 @@ module Carnival
     end
 
     def default_sortable_field
-      default_field = nil
-      @@fields[presenter_class_name].each do |key, field|
-        default_field = field if field.default_sortable?
-        break
-      end
-      default_field = @@fields[presenter_class_name].first[1] if default_field.nil?
-      default_field
+      @@fields[presenter_class_name].values.find(&:default_sortable?) ||
+        @@fields[presenter_class_name].values.first
     end
 
     def default_sort_direction
@@ -435,27 +403,6 @@ module Carnival
     def extract_namespace
       module_and_class = self.class.to_s.split('::')
       module_and_class.first || ''
-    end
-
-    def self.instantiate_element(container, klass, name, params)
-      container[presenter_class_name] ||= {}
-      container[presenter_class_name][name] = klass.new(name, params)
-    end
-
-    def self.scope(name, params = {})
-      instantiate_element(@@scopes, Carnival::Scope, name.to_sym, params)
-    end
-
-    def self.field(name, params = {})
-      instantiate_element(@@fields, Carnival::Field, name.to_sym, params)
-    end
-
-    def self.form(action, params = {})
-      instantiate_element(@@forms, Carnival::Form, name.to_sym, params)
-    end
-
-    def self.model_name(name)
-      @@model_names[presenter_class_name] = name
     end
 
     def generate_route_path(params)
