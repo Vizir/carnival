@@ -2,7 +2,7 @@
 - field = presenter.get_field(field)
 - if presenter.relation_field?(field)
   - if field.advanced_search_operator == :equal
-    = select_tag "advanced_search[#{field.name}]", options_for_select(presenter.get_association(field.association_name).klass.list_for_select(reverse: true, add_empty_option: true), value), "data-operator" => 'equal'
+    = select_tag "advanced_search[#{field.name}]", options_for_select(presenter.get_association(field.association_name).klass.list_for_search, value), "data-operator" => 'equal'
   - else
     = text_field_tag "advanced_search[#{field.name}]", value, "data-operator" => field.advanced_search_operator
 - else

@@ -49,7 +49,7 @@ module Carnival
               records = records.joins(related_model.split("/").last.pluralize.to_sym)
             end
             table = related_model.split("/").last.classify.constantize.table_name
-            column = "id" if column.nil? || field_param["operator"] == "equal"
+            column = "id" if column.nil?
           else
             table = @klass_service.table_name
             column = search_field
