@@ -34,6 +34,7 @@ pt-BR:
   no_results: Não foram encontrados resultados
   advanced_search: Busca
   select_an_option: Selecione uma opção
+  select_one_item: Selecione pelo menos um item
   without_country: Sem país
   without_state: Sem estado
   without_city: Sem cidade

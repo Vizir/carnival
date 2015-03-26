@@ -3,7 +3,7 @@
     %tr
       -if presenter.has_batch_actions?
         %th
-          %input{id: 'toggle-all-batch-actions-items',type: 'checkbox',disabled: 'disabled'}
+          %input{id: 'toggle-all-batch-actions-items',type: 'checkbox'}
       - @thead_renderer.columns.each do |column|
         - if ( @presenter.render_field?(column[:field], :index))
           %th{"onclick" => "javascript:#{column[:sort_function]}",  "class" => "#{column[:class]}"}= translate_field(presenter, column[:field])
