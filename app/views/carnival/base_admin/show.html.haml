@@ -1,19 +1,21 @@
 - index_path = caminho_modelo(:index)
-- item = instance_variable_get("@#{@model_presenter.model_name}")
 .gray_border.with_margin_bottom
-  %h1= t("#{@model_presenter.model_name}.show", default: t('carnival.show'))
-.action_back
-  = link_to t('back'), index_path, class: 'back_link'
+  %h1= t("#{@presenter.model_name}.show", default: t('carnival.show'))
+  .action_back
+    = link_to t('back'), request.env['HTTP_REFERER'], class: 'voltar carnival-action-button'
 
 .show-content
-  - @model_presenter.form_for(:show).lines.each do |line|
+  - @presenter.form_for(:show).lines.each do |line|
     .row
       - line.each do |field|
-        .wrapper_show{class: "col-md-#{field.size}"}
-          %label="#{t("activerecord.attributes.#{@model_presenter.full_model_name}.#{field.name}")}:"
-          .value
-            - if show_as_list @model_presenter,field.name
-              = render 'carnival/shared/show/show_as_list', items: item.send(field.name.to_s)
+        - if ( @presenter.render_field?(field, params[:action]))
+          .wrapper_show{class: "col-md-#{field.size}"}
+            - if show_view(@presenter, field.name)
+              = render partial: show_view(@presenter, field.name), locals: { model: @model, model_name: @presenter.full_model_name, field_name: field.name  }
             - else
-              = field_to_show @model_presenter,field.name,item
-
+              %label="#{translate_field(@presenter, field)}:"
+              .value
+                - if show_as_list @presenter,field.name
+                  = render 'carnival/shared/show/show_as_list', items: @model.send(field.name.to_s)
+                - else
+                  = field_to_show @presenter, field.name, @model

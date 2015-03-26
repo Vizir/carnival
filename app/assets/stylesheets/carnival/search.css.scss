@@ -1,0 +1,155 @@
+/********************* SEARCH BASE STYLE ******************* START */
+
+.xdsoft_datetimepicker.xdsoft_noselect {
+  z-index: 99999999999;
+}
+
+#advanced_search_toggler{
+  padding: 0px 10px 0px 30px;
+}
+
+#advanced_search_toggler:before{
+  position: absolute;
+  content: '';
+  display: block;
+  width: 25px;
+  height: 25px;
+  background: url(image_path('carnival/sprites.png')) -375px 547px;
+  left: 0px;
+  top: 0px;
+  background-size: 400px;
+}
+
+.advanced-search{
+  position: relative;
+}
+
+.advanced-search .action a{
+  margin: 8px 8px 0px 0px;
+}
+
+.advanced-search input {
+  height: 28px;
+}
+
+.advanced-search .datepicker {
+  width: 112px;
+  padding: 4px 2px !important;
+  margin-left: 10px;
+  background-image: url(image_path('carnival/cal.png')) !important;
+  background-repeat: no-repeat;
+  background-position-x: 87px !important;
+  background-position-y: 5px !important;
+  height: 27px;}
+
+.advanced-search #advanced_search_form{
+  display: none;
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-top: 26px;
+  float: left;
+  width: 270px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  margin-bottom: 0px;
+  position: absolute;
+  border-radius: 0px 3px 3px 3px;
+  background: #fafafa;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+  z-index: 999999999;
+}
+
+.advanced-search .chosen-container{
+  width: 170px !important;
+}
+
+.advanced-search .chosen-container *{
+  transition:all 0s ease !important;
+}
+
+/********************* SEARCH BASE STYLE ******************* END */
+
+/************************ SEARCH TAGS ********************** START */
+
+.advanced-search-tags{
+  width: 30%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  float: left;
+  height: 28px;
+  transition: all 0.3s ease;
+}
+
+.advanced-search-tags.explode1:hover{
+  height: 61px;  
+}
+
+.advanced-search-tags.explode2:hover{
+  height: 122px;  
+}
+
+.advanced-search-tags.explode3:hover{
+  height: 183px;  
+}
+.advanced-search-tag{
+  font-size: 13px;
+  padding: 0px 25px 0px 10px;
+  float: left;
+  background: #e0e0e0;
+  color: #333;
+  line-height: 26px;
+  border: 1px solid rgba(0, 0, 0, 0.21);
+  opacity: 0.6;
+  border-radius: 3px;
+  margin: 0px 0px 5px 5px;
+  transition: all 0.3s ease;
+}
+
+.advanced-search-tag a{
+  color: #555;
+  position: relative;
+  text-decoration: none !important;
+  opacity: 0.6;
+  transition: all 0.2s ease;
+}
+
+.advanced-search-tag a:hover{
+  opacity: 1;
+  color: #000;
+}
+
+.advanced-search-tag a:before{
+  content: 'x';
+  position: absolute;
+  right: -20px;
+  background: #afafaf;
+  height: 15px;
+  width: 15px;
+  line-height: 15px;
+  top: 1px;
+  color: #222;
+  border-radius: 100px;
+  text-align: center;
+  font-size: 10px;
+}
+
+/************************ SEARCH TAGS ********************** END */
+
+.as-form-overlay {
+  position: fixed;
+  z-index: 9999;
+  background: rgba(255, 255, 255, 0);
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
+
+.select2-search {
+  z-index: 9999999999999 !important;
+}
+
+.select2-drop {
+  z-index: 99999999999 !important;
+}

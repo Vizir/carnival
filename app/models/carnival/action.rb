@@ -1,38 +1,60 @@
 module Carnival
   class Action
     include Rails.application.routes.url_helpers
-    PARTIAL_DEFAULT = "/carnival/shared/action_default"
-    PARTIAL_DELETE = "/carnival/shared/action_delete"
-    PARTIAL_REMOTE = "/carnival/shared/action_remote"
+    PARTIAL_DEFAULT = :default
+    PARTIAL_DELETE = :delete
+    PARTIAL_REMOTE = :remote
 
-    def initialize(presenter, name, params={})
-      @presenter = presenter
+    def initialize(name, params={})
       @name = name
       @params = params
       @partial = default_partial
       @path = params[:path] if params[:path].present?
+      @controller = params[:controller]
+      @route_name = params[:route_name]
     end
 
-    def path(extra_params={})
+    def path(presenter, extra_params={})
       if @path.nil?
-        params = {controller: @presenter.controller_name, action: @name}
+        params = {controller: @controller || presenter.controller_name, action: @name}
+      elsif !@path[:controller].nil?
+        params = @path
       else
         params = {path: @path}
       end
       params = params.merge(extra_params) if extra_params.present?
       params = params.merge(:only_path => true)
-      url_for(params)
+      if @route_name
+        Rails.application.routes.url_helpers.send(@route_name, params)
+      else
+        url_for(params)
+      end
+    end
+
+    def show(record)
+      return true if !params[:show_func]
+      return true if !record.respond_to? params[:show_func]
+      record.send params[:show_func]
     end
 
     def partial
       @partial
     end
 
+    def params
+      @params
+    end
+
     def name
       @name
     end
 
+    def remote?
+      @params[:remote]
+    end
+
     def target
+      return :record if @params[:target].nil?
       @params[:target]
     end
 
@@ -41,7 +63,7 @@ module Carnival
         PARTIAL_DEFAULT
       elsif @name == :destroy
         PARTIAL_DELETE
-      elsif @params[:remote]
+      elsif remote?
         PARTIAL_REMOTE
       else
         PARTIAL_DEFAULT

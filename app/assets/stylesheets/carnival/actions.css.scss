@@ -1,0 +1,146 @@
+/************************ ACTIONS BASE STYLES *********************** STAR */
+
+.carnival-action-link, .carnival-action-button{
+  display: block;
+  -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
+  text-align: center;
+  border-right: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.carnival-action-link{
+  font-size: 11px;
+  padding: 2px 6px 0px 6px;
+  float: right;
+}
+
+.carnival-action-button{
+  font-size: 13px;
+  padding: 0px 10px 0px;
+  float: left;
+  background: white;
+  background: -webkit-linear-gradient(-90deg, #fff, #f0f0f0);
+  background: -moz-linear-gradient(-90deg, #fff, #f0f0f0);
+  background: linear, -90deg, white, #f0f0f0;
+  color: #333;
+  line-height: 27px;
+  border: 1px solid rgba(0, 0, 0, 0.21);
+  opacity: 0.7;
+}
+
+.carnival-action-link:hover, .carnival-action-button:hover{
+  text-decoration: none !important;
+  opacity: 1;
+}
+
+/************************ ACTIONS BASE STYLES *********************** END */
+
+/********************** ACTIONS SPECIFIC STYLES ********************* START */
+
+.add{
+  background: url(image_path('carnival/novo.png')) 41px -38px;
+  font-size: 14px !important;
+  padding: 1px 10px 0px 28px;
+  color: #fff;
+  line-height: 25px;
+  float: right;
+}
+
+.add:hover{
+  background: url(image_path('carnival/novo.png')) 41px -38px;
+}
+
+.voltar{
+  background: url(image_path('carnival/voltar.png')) 42px -38px;
+  font-size: 14px !important;
+  padding: 1px 10px 0px 28px;
+  color: #fff;
+  line-height: 25px;
+  float: right;
+}
+
+.voltar:hover{
+  background: url(image_path('carnival/voltar.png')) 42px -38px;
+}
+
+.novo, .search-submit{
+  background: #007ae1;
+  color: #fff;
+}
+
+.novo:hover, .search-submit:hover{
+  background: #007ae1;
+  color: #fff;
+}
+
+.remover{
+  background: #d63e30;
+  color: #fff;
+}
+
+.remover:hover{
+  background: #d63e30;
+  color: #fff;
+}
+
+.apagar{
+  color: #d63e30;
+}
+
+.apagar:hover{
+  background: #d63e30;
+  color: #fff;
+}
+
+.editar{
+  color:#007ae1;
+}
+
+.editar:hover{
+  background:#007ae1;
+  color:#fff;
+}
+
+.visualizar{
+  color: #5F6374;
+}
+
+.visualizar:hover{
+  background: #5F6374;
+  color:#fff;
+}
+
+.pdf, .csv{
+  padding: 0px 10px 0px 25px;
+  position: relative;
+}
+
+.pdf:before, .csv:before{
+  content: '';
+  display: block;
+  width: 25px;
+  height: 25px;
+  background: url(image_path('carnival/sprites.png'));
+  background-size: 400px;
+  position: absolute;
+  left: 7px;
+  top: 6px;
+}
+
+.pdf:before{
+  background-position: -279px -502px;
+}
+
+.csv:before{
+  background-position: -101px -50px;
+}
+
+.carnival-action-button.blue{
+  background:#007ae1;
+  color:#fff;
+}
+
+
+/********************** ACTIONS SPECIFIC STYLES ********************* START */

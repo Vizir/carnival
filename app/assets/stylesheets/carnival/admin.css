@@ -1,14 +1,23 @@
 /*
  *= require_self
- *= require carnival/vizir-grid.css
- *= require carnival/datatable.css
+ *= require carnival/structure.css
+ *= require carnival/header.css
+ *= require carnival/menu.css
+ *= require carnival/footer.css
+ *= require carnival/forms.css
+ *= require carnival/actions.css
+ *= require carnival/carnival-table.css
+ *= require carnival/carnival-list.css
+ *= require carnival/carnival-grid.css
+ *= require carnival/period.css
+ *= require carnival/listing-tools.css
+ *= require carnival/search.css
+ *= require carnival/scope.css
+ *= require carnival/pagination.css
+ *= require carnival/modal.css
+ *= require carnival/grid.css
  *= require carnival/jquery.noty.css
- *= require carnival/chosen.css
  *= require carnival/colorbox.css
- *= require carnival/formframe.css
- *= require carnival/main.css
  *= require carnival/select2.css
- *= require carnival/jquery-ui-1.8.11.custom
- *= require carnival/perfect-scrollbar-0.4.6.min
- *= require carnival/jquery.fancybox
+ *= require carnival/external/jquery.datetimepicker.css
 */

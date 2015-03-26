@@ -61,7 +61,6 @@ module Carnival
       end
       if nil_values > 0
         nil_column_size = 12 - (line_size / nil_values)
-        puts nil_column_size
         line.each do |column|
           column.size = nil_column_size if not column.size.present?
         end

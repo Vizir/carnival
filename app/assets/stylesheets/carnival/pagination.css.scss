@@ -1,0 +1,28 @@
+.table-paginate, .table-download-links{
+  margin-left: -3px;
+  position: relative;
+  margin-top: 20px;
+  float: right;
+}
+
+.table-paginate span{
+  float: left;
+}
+
+.table-download-links{
+  float: left;
+}
+
+.table-paginate a, .table-download-links a{
+  margin: -5px 4px 0 0;
+}
+
+.carnival-selected-page-button a{
+  background: url(image_path('carnival/novo.png')) repeat scroll left top transparent;
+  border: 1px solid rgba(42, 97, 152, 0.48);
+  color: #fff;
+}
+
+.table-download-links{
+  width: 50%;
+}

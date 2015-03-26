@@ -1,40 +1,40 @@
 $(document).ready(function(){
-  $("#advanced_search_toggler, ul#advanced_search_form").mouseover(function(e){
-    $("#advanced_search_form").show();
+  $("#advanced_search_toggler").click(function(e){
+    $('body').append('<div class="as-form-overlay">')
+    $("#advanced_search_toggler").toggleClass('is-opened')
+    $("#advanced_search_form").toggle();
+    $(".as-form-overlay").click(function(e){
+      $(".as-form-overlay").remove();
+      $("#advanced_search_form").hide();
+      $(".select2-drop").hide();      
+      return false
+    });
+    return false
   });
 
-  $("#advanced_search_toggler, ul#advanced_search_form").mouseout(function(e){
-    $("#advanced_search_form").hide();
-  });
 
   $("#search_button").click(function(e){
     e.preventDefault();
+
     var queryParams = [];
-    $(".advanced_search input").each(function(){
-      if($(this).attr("type") == "checkbox")
-        queryParams.push(generateQueryParam($(this).attr("name"), $(this).data("type"), $(this).data("operator"), $(this).is(":checked")));
-      else if ($(this).attr("type") == "text" && $(this).val() != "")
-        queryParams.push(generateQueryParam($(this).attr("name"), $(this).data("type"), $(this).data("operator"), $(this).val()));
-    });
-    $(".advanced_search select").each(function(){
-      if($(this).val() != "-1")
-        queryParams.push(generateQueryParam($(this).attr("name"), $(this).data("type"), $(this).data("operator"), $(this).val()));
-    });
-    $(".table").first().data("advancedquery", "{" + queryParams.join(", ") + "}");
-    var dataTable = $(".table").dataTable();
-    dataTable.fnReloadAjax(generateDataSource($(".table")));
+
+    Carnival.submitIndexForm();
   });
 
   $("#clear_button").click(function(e){
     e.preventDefault();
     $($(this).parent().parent().parent()).trigger("reset")
-    $(".table").first().data("advancedquery", "");
-    $(".dataTables_filter input[type=text]").val("");
-    var dataTable = $(".table").dataTable();
-    dataTable.fnReloadAjax(generateDataSource($(".table")));
+    $("#advanced_search_form input").each(function(){
+      var inputValue = $(this).val();
+      $(this).val('');
+    });
+
+    $("#advanced_search_form select").each(function(){
+      var inputValue = $(this).val();
+      $(this).val('');
+    });
+    Carnival.submitIndexForm();
   });
 });
 
-function generateQueryParam(field, association, operator, value){
-  return '"' + field + '":{"operator":"' + operator + '", "value":"' + value + '", "type":"' + association + '"}'
-}
+

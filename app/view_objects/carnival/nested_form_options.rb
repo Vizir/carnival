@@ -18,6 +18,14 @@ module Carnival
       @field
     end
 
+    def presenter
+      @presenter 
+    end
+
+    def model
+      @model 
+    end
+
     def field_name
       @field.name
     end
@@ -38,8 +46,16 @@ module Carnival
       @model.class.name.underscore.gsub('/', '_')
     end
 
+    def field_class_file_name
+      @presenter.get_related_class @field.name.to_sym
+    end
+
+    def controller_to_field
+      @presenter.controller_to_field @field 
+    end
+
     def field_name_identifier
-      self.field_name.singularize.to_sym
+      self.field_name.to_s.singularize.to_sym
     end
 
     def option_name
@@ -73,6 +89,7 @@ module Carnival
         props = {}
         id = self.option_id(item)
         props[:id] = "#{id}_select_option"
+        props[:data] = {:id => item.id}
         props[:disabled] = self.model_has_this_item?(item.id)
         options << [item.to_label, id, props]
       end
@@ -85,8 +102,8 @@ module Carnival
 
     def scope_column_name
       scope = @field.nested_form_scope
-      return nil if !@model.reflections[scope]
-      fkey = @model.reflections[scope].foreign_key
+      return nil if scope.blank? or !@model.class.reflections[scope]
+      fkey = @model.class.reflections[scope].foreign_key
     end
 
     def scopeJSFunction

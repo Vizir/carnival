@@ -1,10 +1,110 @@
 // add/remove dynamic fields
+var Carnival = {}
 String.prototype.unescapeHtml = function () {
     var temp = document.createElement("div");
     temp.innerHTML = this;
     var result = temp.childNodes[0].nodeValue;
     temp.removeChild(temp.firstChild);
     return result;
+}
+
+Carnival.remoteFunction = function(url, successCallback, errorCallback, method, data, showOverlay){
+  if(!data)
+    data = {};
+  var ajaxParams = {
+    url: url,
+    type: method,
+    data: data,
+    success: function(data, status, jqXHR){
+      Carnival.callFunc(successCallback, data);
+    },
+    error: function(jqXHR, status, error){
+      Carnival.callFunc(errorCallback, data);
+    },
+    complete: function(jqXHR, status){
+    }
+  };
+
+  if(showOverlay)
+    showModalOverlay();
+
+  $.ajax(ajaxParams);
+}
+
+Carnival.callFunc = function(functionName, data){
+  var func = window[functionName];
+  if(func)
+  {
+    if(typeof func === 'function')
+    {
+      func(data);
+    }
+  }else{
+    if(console && console.warn)
+      console.warn('The funcion ' + functionName + ' was not implemented')
+  }
+}
+
+Carnival.submitIndexForm = function(){
+  $("#advanced_search_form input").each(function(){
+    var inputValue = $(this).val();
+
+    if(inputValue == "____/__/__")
+      $(this).val('');
+  });
+
+  $("#advanced_search_form select").each(function(){
+    var inputValue = $(this).val();
+
+    if(inputValue == "-1")
+      $(this).val('');
+  });
+  var form = $('.carnival-index-form').find('form')
+  form.submit();
+}
+
+Carnival.setIndexPageParam = function(name, value){
+  var form = $('.carnival-index-form').find('form')
+  form.find('input[name='+name+']').val(value);
+}
+
+Carnival.getIndexPageParam = function(name){
+  var form = $('.carnival-index-form').find('form')
+  return form.find('input[name='+name+']').val();
+}
+
+Carnival.removeAdvancedSearch = function(key){
+  var input = $("[name='advanced_search["+key+"]']");
+  input.val('');
+  Carnival.submitIndexForm()
+}
+
+Carnival.reloadIndexPage = function(){
+  Carnival.setIndexPageParam('page', 1);
+  Carnival.submitIndexForm()
+}
+
+Carnival.setIndexPageParamAndReload = function(name, value){
+  Carnival.setIndexPageParam(name, value);
+  Carnival.reloadIndexPage();
+}
+
+Carnival.sortColumn = function(column, direction){
+  Carnival.setIndexPageParam('sort_column', column);
+  Carnival.setIndexPageParam('sort_direction', direction);
+  Carnival.reloadIndexPage();
+}
+
+Carnival.goToPage = function(page){
+  Carnival.setIndexPageParam('page', page);
+  Carnival.submitIndexForm()
+}
+
+Carnival.sortIndexList = function(elem){
+  var selectedOption = $(elem).find('option:selected');
+  var columnName = $(selectedOption).data('columnName');
+  var sortDir = $(selectedOption).data('sortDir');
+  Carnival.sortColumn(columnName, sortDir);
 }
 
 function removeFields(link) {
@@ -32,8 +132,17 @@ function markActive(){
 // page load functions
 
 var pageLoad = function(){
-  $('ul.menu').clone().appendTo('div.menu.short');
 
+  width = 0;
+
+  $('.advanced-search-tag').each(function(){
+    width += $(this).outerWidth();
+    var explodeLevel = Math.floor(width/$('.advanced-search-tags').width());
+    if(explodeLevel >= 1)
+      $(this).parent().addClass('explode'+ explodeLevel);
+  })
+
+  $('ul.menu').clone().appendTo('div.menu.short');
 
   $('.dropdown_main_menu_sublevel').hide(0);
 
@@ -52,8 +161,8 @@ var pageLoad = function(){
     return false
   })
 
-  $('.dataTables_info').insertAfter('.dataTables_paginate');
-  $(".chosen").chosen({no_results_text: "Nenhum resultado encontrado", disable_search_threshold: 5});
+
+  $(".carnival-select").select2({width: '100%'});
   $(".popup").click(function(e){
     e.preventDefault()
     var url = $(this).attr('href')
@@ -94,16 +203,49 @@ var pageLoad = function(){
 
 // form load functions
 
+function setupDateFields(){
+  var dateOptions = {
+    format: 'Y/m/d',
+    mask: true,
+    timepicker: false
+  };
+  var dateTimeOptions = $.extend({}, dateOptions, { timepicker: true, format: 'Y/m/d H:i'})
+
+  $(".datepicker").datetimepicker(dateOptions);
+  $(".datetimepicker").datetimepicker(dateTimeOptions);
+}
+
 var formLoad = function(){
-  $(".datepicker").datepicker({
-    dateFormat: 'yy-mm-dd'
+  setupDateFields();
+  $('select').select2({width: '100%'});
+  $('input.previewable').change(function() {
+    var that = $( this );
+    var reader = new FileReader();
+    var img = $(this).siblings('img.previewable');
+
+    reader.onload = function(e) {
+      var val = e.target.result;
+      img.attr('src', val);
+    }
+
+    if (this.files && this.files[0]) {
+      reader.readAsDataURL(this.files[0]);
+    } else {
+      img.attr('src', '');
+    }
   });
-  $('.chosen').chosen();
-  $(".chosen-container").css({width:$(".chosen-container").parent().css("width")})
   selectRemote();
 }
 
 $(document).ready(function(){
   pageLoad();
   formLoad();
+
+
+  $('a').each(function(){this_=$(this);if(this_.hasClass() == false){this_.addClass('link')}})
+
+  $('*[data-carnival-show-overlay=true]').on('ajax:beforeSend', function(xhr, settings) {
+    showModalOverlay();
+  });
+
 });

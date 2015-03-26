@@ -22,6 +22,12 @@ module Carnival::ModelHelper
       select
     end
 
+    def list_for_search
+      select = []
+      select << ['', '']
+      select.concat all.collect{|c|[c.to_label, c.to_label]}
+    end
+
     def list_for_checkbox
       list = []
       all.each {|object| list << [object.id, object.to_label] }

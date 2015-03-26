@@ -8,6 +8,7 @@ Vagrant.configure("2") do |config|
   end
   config.vm.network :private_network, ip: "192.168.33.11"
   config.vm.network :forwarded_port, guest: 3000, host: 3021
+  config.vm.network :forwarded_port, guest: 22, host: 3022
   config.vm.provision :puppet do |puppet|
     puppet.module_path = "vagrant/modules"
     puppet.manifests_path = "vagrant/manifests"

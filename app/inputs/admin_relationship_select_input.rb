@@ -1,7 +1,7 @@
 class AdminRelationshipSelectInput < SimpleForm::Inputs::CollectionSelectInput
-  def input
+  def input(wrapper_options)
     super
-    input_html_options[:class] << ' chosen'
+    input_html_options[:class] << ' carnival-select'
     if input_html_options[:data][:depends_on].nil?
       collection = @builder.object.class.name.constantize.reflect_on_association(attribute_name.to_sym).klass.name.constantize.list_for_select
     else
@@ -15,7 +15,7 @@ class AdminRelationshipSelectInput < SimpleForm::Inputs::CollectionSelectInput
     end
 
     @builder.collection_select(
-      "#{@builder.object.class.name.constantize.reflections[attribute_name.to_sym].foreign_key}",
+      "#{HashWithIndifferentAccess.new(@builder.object.class.name.constantize.reflections)[attribute_name.to_sym].foreign_key}",
       collection,
       :first, :last,
       {prompt: I18n.t("#{@builder.object.class.to_s.gsub(/^.*::/, '').downcase}.lista_#{attribute_name}.selecione", default: I18n.t("messages.select"))},

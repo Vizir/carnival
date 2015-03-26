@@ -1,75 +1,18 @@
-
 - scopes = presenter.scopes
-- scopes_counters = presenter.scopes_counters
 - if scopes.present? && scopes.size > 0
   - params["data-scope"] = presenter.default_scope.name
   %ul.scopes
     - scopes.each do |key, scope|
-      %li.scope{:class => "#{presenter.default_scope == scope ? 'selected' : ''}"}
-        %a{:class => "datatables-scope filters", :data => {:scope => "#{scope.name}"}}
-          = t("#{presenter.model_name}.scope.#{scope.name}")
-          %span.count= "(#{scopes_counters[scope.name]})"
+      - unless scope.hidden?(controller)
+        %li.scope{:class => "#{selected_scope.to_sym == key ? 'selected' : ''}"}
+          %a{:class => "carnival-scope carnival-action-button", :data => {:scope => "#{scope.name}"}}
+            = t("#{presenter.model_name.underscore}.scope.#{scope.name}")
+            %span.count (#{scopes_total[scope.name]})
 
 :javascript
   $(document).ready(function(){
-    $(".datatables-scope").click(function(){
-      $(".table").first().data("scope", $(this).data("scope"));
-      var dataTable = $(".table").dataTable();
-      dataTable.fnReloadAjax(generateDataSource($(".table")));
-      $(".scopes li").removeClass("selected");
-      $(this).parent().addClass("selected");
+    $(".carnival-scope").click(function(){
+      var scope = $(this).data("scope")
+      Carnival.setIndexPageParamAndReload('scope', scope);
     });
-
-    $.fn.dataTableExt.oApi.fnReloadAjax = function ( oSettings, sNewSource, fnCallback, bStandingRedraw )
-    {
-      if ( sNewSource !== undefined && sNewSource !== null ) {
-          oSettings.sAjaxSource = sNewSource;
-      }
-
-      // Server-side processing should just call fnDraw
-      if ( oSettings.oFeatures.bServerSide ) {
-          this.fnDraw();
-          return;
-      }
-
-      this.oApi._fnProcessingDisplay( oSettings, true );
-      var that = this;
-      var iStart = oSettings._iDisplayStart;
-      var aData = [];
-
-      this.oApi._fnServerParams( oSettings, aData );
-
-      oSettings.fnServerData.call( oSettings.oInstance, oSettings.sAjaxSource, aData, function(json) {
-          /* Clear the old information from the table */
-          that.oApi._fnClearTable( oSettings );
-
-          /* Got the data - add it to the table */
-          var aData =  (oSettings.sAjaxDataProp !== "") ?
-              that.oApi._fnGetObjectDataFn( oSettings.sAjaxDataProp )( json ) : json;
-
-          for ( var i=0 ; i<aData.length ; i++ )
-          {
-              that.oApi._fnAddData( oSettings, aData[i] );
-          }
-
-          oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
-
-          that.fnDraw();
-
-          if ( bStandingRedraw === true )
-          {
-              oSettings._iDisplayStart = iStart;
-              that.oApi._fnCalculateEnd( oSettings );
-              that.fnDraw( false );
-          }
-
-          that.oApi._fnProcessingDisplay( oSettings, false );
-
-          /* Callback user function - for event handlers etc */
-          if ( typeof fnCallback == 'function' && fnCallback !== null )
-          {
-              fnCallback( oSettings );
-          }
-      }, oSettings );
-    };
   });

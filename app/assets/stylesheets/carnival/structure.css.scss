@@ -1,0 +1,240 @@
+*{outline:none;}
+
+@font-face {
+  font-family: 'OpenSansRegular';
+  src: url(image_path('fonts/opensans-regular-webfont.eot'));
+  src: url(image_path('fonts/opensans-regular-webfont.eot?#iefix')) format('embedded-opentype'),
+       url(image_path('fonts/opensans-regular-webfont.woff')) format('woff'),
+       url(image_path('fonts/opensans-regular-webfont.ttf')) format('truetype'),
+       url(image_path('fonts/opensans-regular-webfont.svg#OpenSansRegular')) format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'OpenSansSemibold';
+  src: url(image_path('fonts/opensans-semibold-webfont.eot'));
+  src: url(image_path('fonts/opensans-semibold-webfont.eot?#iefix')) format('embedded-opentype'),
+       url(image_path('fonts/opensans-semibold-webfont.woff')) format('woff'),
+       url(image_path('fonts/opensans-semibold-webfont.ttf')) format('truetype'),
+       url(image_path('fonts/opensans-semibold-webfont.svg#OpenSansSemibold')) format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+body, html{
+  margin:0;
+  padding:0;
+  font-size:14px;
+  line-height:22px;
+  color:#666;
+  overflow-y: auto !important;
+  height: 100%;
+}
+
+*{
+  font-family: 'OpenSansRegular', sans-serif !important;
+}
+
+.link{
+  color: #007ae1;
+}
+
+li{list-style: none;}
+a{text-decoration:none;}
+
+.carnival-wrapper{
+  width: 100%;
+  height: 100%;
+}
+
+#content #left_menu_wrapper{
+  float: left;
+  min-height:600px;
+  width: 199px;
+  background-color: #E3E8EC;
+  box-shadow: 0 0 1px #FFFFFF inset;
+  -webkit-box-shadow: 0 0 1px #FFFFFF inset;
+  -moz-box-shadow: 0 0 1px #FFFFFF inset;
+}
+
+#content.without_menu{
+  width: 100% !important;
+}
+
+#content{
+  width: 77%;
+  position:relative;
+  float:left;
+  background-color: #fff;
+  min-height:600px;
+  padding-left:22%;
+}
+
+#content.menu-opened{
+width: 93%;
+position: relative;
+float: left;
+background-color: #fff;
+min-height: 600px;
+padding-left: 5.2%;
+}
+
+#main_column_wrapper{
+  padding: 20px 0 50px;
+  width: 100%;
+}
+
+#main_column{
+  padding-top: 0px;
+  padding-right:0;
+  padding-left:0;
+  width: 100%;
+}
+
+#main_column a:hover{
+  text-decoration: underline;
+}
+
+h1.title{
+  background: url(image_path("title_bg.png")) repeat scroll 0 0 transparent;
+  float: left;
+  display:block;
+  height: 26px;
+  width:100%;
+  margin:0px 0px 20px -20px;
+  padding:10px 0px 0px 20px;
+  font-size:11px;
+  font-weight:bold;
+  text-transform:uppercase;
+  color:#142e53;
+  z-index:1;
+  display:none !important;
+}
+
+h2.title{
+  position:relative;
+  float: left;
+  display:inline;
+  height: 55px;
+  width:auto;
+  margin:2px 0px 0px 0px;
+  padding:10px 0px 0px 20px;
+  font-size:20px;
+  font-weight:normal;
+  text-transform:uppercase;
+  color:#142e53;
+  line-height:24px;
+}
+
+.email_error{
+  color:red;
+  margin-left: 330px;
+}
+
+.inline-errors{
+  display:inline;
+  color:#CB3425;
+}
+
+.choices-group input[type="radio"]{float: left;}
+
+.inline-hints{
+  float: right;
+  font-style: italic;
+  margin-right: 94px;
+  margin-top: 0;
+}
+
+a.confirm, a.cancel{
+  color: white !important;
+  opacity: 0.8;
+  width: 50%;
+  position: relative;
+}
+
+.confirm span, .cancel span{
+  display: block;
+  font-size: 10px;
+  font-weight: bold;
+  margin: 0 auto;
+  opacity: 1;
+  padding: 5px;
+  text-align: center;
+  z-index: 100;
+}
+
+.item{
+  float: left;
+  width: 100%;
+  margin-top: 10px;
+}
+
+#content_wrapper{
+  margin: -61px auto 0;
+  padding: 61px 0 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  margin-top: 0px;
+}
+
+.chosen-container{
+  margin-bottom: 10px;
+}
+
+.wrapper_show label{
+  float: left;
+  font-weight: bolder;
+  margin-right: 10px;
+}
+
+.clearfix {
+  clear: both;
+  display: block;
+  padding-bottom: 30px;
+}
+
+.empty-result{
+  margin-top: 50px;
+  margin-bottom: 50px;
+  text-align: center;
+  float: left;
+  width: 100%;
+}
+
+.empty-result h1{
+  font-size:38px;
+  margin-top:50px
+}
+
+.empty-result h4{
+  color:#666;
+  margin-top:10px;
+  font-weight:normal;
+}
+
+.empty-result span{
+  display: inline;
+}
+
+.empty-result a {
+  display: inline;
+  margin-top: 30px;
+  padding-right: 40px;
+  padding-left: 40px;
+  font-weight: bold;
+  float: none;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  margin-left: 10px;
+  text-transform: uppercase;
+}

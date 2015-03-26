@@ -1,0 +1,17 @@
+.sorter{
+  float: right;
+  min-width: 250px;
+  margin: 0 10px 0 0;
+  border-right: 1px dotted #c0c0c0;
+}
+
+.sorter .label{
+  float: left;
+  margin-top: 4px;
+  margin-right: 5px;
+}
+
+.sorter .select-container{
+  width: 60%;
+  float: left;
+}

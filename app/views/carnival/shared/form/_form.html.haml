@@ -1,5 +1,5 @@
-= simple_form_for(model_object, :url => url, :html => {:class => 'formframe container-fluid'}) do |f|
-  = render "carnival/shared/form/inner_form", button: button, model_object: model_object, model_presenter: model_presenter, :url => url, :action => action, :f => f
+= simple_form_for(model_object, :url => url, :html => {:class => 'carnival-form container-fluid'}) do |f|
+  = render "carnival/shared/form/inner_form", button: button, model_object: model_object, presenter: presenter, :url => url, :action => action, :f => f
 
   .submit_button
     = f.submit button, disable_with: t('please_wait'), class: 'submit'
@@ -16,23 +16,43 @@
     $(".nested-form-subtitle").hide();
   });
 
-  function createNewForm(selector, form){
+  function createNewForm(selector, form, target){
     $(".nested-form-subtitle").show();
 
     newForm = $(nestedForms[form]).clone().wrap("<div>").parent();
+    $(newForm).find(".select2-container").remove();
+    $(newForm).find("select").removeClass("select2-offscreen");
     $(newForm).find("select").show();
-    $(newForm).find(".chosen-container").remove();
 
     newForm = $(newForm).html()
-    var last_index = $(selector + " li").length
-    newForm = newForm.replace(/([_a-zA-Z]+_attributes_)\d+(_[a-zA-Z]+)/g, "$1" + last_index + "$2");
-    newForm = newForm.replace(/([_a-zA-Z]+\[[_a-zA-Z]+_attributes\]\[)\d+(\]\[[_a-zA-Z]+\])/g, "$1" + last_index + "$2");
-    $(selector).append(newForm);
-    $(selector).find(".chosen").chosen();
-    var lastFormAdded = $(selector).find(".nested-form-list-item").last();
+    var container = $(target).parents("." + form).find(selector);
+    var last_index = container.children("li").length;
+    newForm = replaceInputIndexes(newForm, form, container, last_index);
+
+    container.append(newForm);
+    container.find("li:last")[0].scrollIntoView(true)
+    container.find("li:last .carnival-select").select2({width: '100%'});
+
+    setupDateFields();
+    var lastFormAdded = container.find(".nested-form-list-item").last();
     lastFormAdded.find('.select2-remote').each(function(){
       addSelect2ToField(this);
     });
+  }
+
+  function replaceInputIndexes(newForm, form, container, index){
+    newForm = newForm.replace(new RegExp("(_" + form + "_attributes_)\\d+(_[a-zA-Z]+)", "g"), "$1" + index + "$2");
+    newForm = newForm.replace(new RegExp("(\\[" + form + "_attributes\\]\\[)\\d+(\\]\\[[a-zA-Z_]+\\])", "g"), "$1" + index + "$2");
+
+    if (container.parents('.nested-form-list').length){
+      var parent = container.parents('.nested-form-list');
+      var parentForm = getFormName(parent.children(":first"));
+      var parentIndex = container.parents('li').index();
+
+      newForm = replaceInputIndexes(newForm, parentForm, parent, parentIndex);
+    }    
+
+    return newForm;
   }
 
   function getFormName(element){
@@ -42,7 +62,8 @@
   }
 
   function removeNestedFormElement(element){
-    $(element).parent().parent().remove();
+    $(element).parent().parent().hide();
+    $(element).parents("li:first").find(".destroy").val("1");
   }
 
   function toggleNestedForm(element){
@@ -61,19 +82,10 @@
     $('#'+id+'_options').hide();
     $('#'+id).attr('checked', false);
     $('#'+id+'_select_option').prop('disabled', false);
-    $('#'+selectId).trigger("chosen:updated");
+    //$('#'+selectId).trigger("chosen:updated");
   }
 
-  function addOption(selectId){
-    var option = $('#'+selectId).val();
-    if(option == -1)
-      return;
-    $('#'+option+'_options').show();
-    $('#'+option).prop('checked', true);
-    $('#'+option+'_select_option').prop('disabled', true);
-    $('#'+selectId).val(-1);
-    $('#'+selectId).trigger("chosen:updated");
-  }
+
 
   function getNestedFormOptions(params){
     $('#nested_form_options_'+params['field_name']).html();
@@ -95,13 +107,13 @@
     });
   }
 
-  function updateDependentFormSelectHtml(value, field, dependentField){
+  function updateDependentFormSelectHtml(load_dependent_path, presenter, value, field, dependentField){
     if(value != ""){
-      $.ajax("#{model_presenter.load_dependent_select_options_path}/#{model_presenter.presenter_name}/" + dependentField + "/" + field + "/" + value)
+      $.ajax(load_dependent_path + "/" + presenter + "/" + dependentField + "/" + field + "/" + value)
         .done(function(data){
-          var selector = ".field-" + dependentField.replace("_id", "");
+          var selector = "select.field-" + dependentField.replace("_id", "");
           $(selector).html(data);
-          $(selector).trigger("chosen:updated");
+          //$(selector).trigger("chosen:updated");
         })
         .error(function(err, data){
           console.log("updateDependentFormSelectHtml ajax error " + err);
@@ -119,4 +131,3 @@
       create_option: function(){createNewForm('.nested-form-list.'+params['field_name'], params['field_name'])}
     });
   }
-

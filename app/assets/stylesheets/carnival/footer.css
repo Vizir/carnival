@@ -1,0 +1,31 @@
+.carnival-footer-wrapper{
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  height:auto;
+  float: left;
+  position: relative;
+  clear: both;
+  display: block;
+  margin-top: -61px;
+  background: #eee;
+  z-index: 9999;
+  border-top: 1px solid #cfcfcf;
+  min-height: 60px;
+}
+
+.carnival-footer{
+}
+
+.carnival-footer-title{
+  height: 15px;
+  margin: 18px auto 0;
+  width: 329px;
+}
+
+.carnival-footer-logo{
+  float: right;
+  height: 45px;
+  width: 48px;
+  margin-top: -33px;
+}

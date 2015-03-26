@@ -1,0 +1,6 @@
+- csv = CSV.generate do |csv|
+  - @records.each do |record|
+    - csv << @presenter.fields_for_action(:csv).map do |key, field|
+      - field_value_and_type(@presenter, key,record)[:value]
+
+= raw csv
