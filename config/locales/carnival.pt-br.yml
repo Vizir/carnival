@@ -27,11 +27,14 @@ pt-BR:
     select: Selecione
   minimize: Minimizar
   sort_by: Ordenar por
+  asc: Crescente
+  desc: Decrescente
   download_as_csv: Baixar como CSV
   download_as_pdf: Baixar como PDF
   no_results: Não foram encontrados resultados
   advanced_search: Busca
   select_an_option: Selecione uma opção
+  select_one_item: Selecione pelo menos um item
   without_country: Sem país
   without_state: Sem estado
   without_city: Sem cidade
@@ -257,4 +260,3 @@ pt-BR:
         even: "precisa ser par"
     models:
       admin_user: Usuário Administrador
-

@@ -61,6 +61,8 @@ module Carnival
             when "equal"
               if field_param["value"] == "nil"
                 where_clause = "#{full_column_query} is null"
+              elsif field_param["value"].match(/^\d+$/)
+                where_clause = "#{full_column_query} = #{field_param["value"]}"
               else
                 where_clause = "lower(#{full_column_query}) = '#{advanced_search_field_value_for_query(field_param["value"])}'"
               end

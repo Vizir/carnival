@@ -30,7 +30,7 @@
   opacity: 0.7;
 }
 
-.carnival-action-link:hover, .carnival-action-button:hover{
+.carnival-action-link:hover, .carnival-action-button:hover, .batch_action_button:hover{
   text-decoration: none !important;
   opacity: 1;
 }
@@ -142,5 +142,19 @@
   color:#fff;
 }
 
+
+.batch_action_button{
+  padding: 1px 15px 0px;
+  background: #007AE1;
+  color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.21);
+  border-radius: 2px;
+  opacity: 0.7;
+  float: right;
+  margin-left: 10px;
+  font-size: 14px;
+  line-height: 25px;  
+  cursor: pointer;
+}
 
 /********************** ACTIONS SPECIFIC STYLES ********************* START */
