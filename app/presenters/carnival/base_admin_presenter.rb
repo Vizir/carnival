@@ -433,7 +433,6 @@ module Carnival
       end
     end
 
-<<<<<<< HEAD
     def parse_advanced_search_field search_field, field_param, records
       return records if not field_param["value"].present?
       return records if field_param["value"] == ""
@@ -486,8 +485,6 @@ module Carnival
         "#{value}"
       end
     end
-=======
->>>>>>> master
 
     def is_namespaced?
       self.class.to_s.split("::").size > 0
