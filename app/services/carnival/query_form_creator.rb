@@ -21,7 +21,7 @@ module Carnival
       if date_filter_field.present?
         query_form.date_period_label = date_filter_field.default_date_filter if query_form.date_period_label.nil?
         query_form.date_period_from = date_filter_field.date_filter_periods[query_form.date_period_label].first if query_form.date_period_from.nil?
-        query_form.date_period_to = date_filter_field.date_filter_periods[query_form.date_period_label].first if query_form.date_period_to.nil?
+        query_form.date_period_to = date_filter_field.date_filter_periods[query_form.date_period_label].last if query_form.date_period_to.nil?
       end
 
       query_form
