@@ -87,7 +87,7 @@ module Carnival
     end
 
     def includes_relations(records)
-      if @should_include_relation and @presenter.join_tables.size > 0 
+      if @should_include_relation and @presenter.join_tables.size > 0
         records.includes(*@presenter.join_tables)
       else
         records
