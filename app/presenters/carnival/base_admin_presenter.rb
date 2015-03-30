@@ -433,59 +433,6 @@ module Carnival
       end
     end
 
-    def parse_advanced_search_field search_field, field_param, records
-      return records if not field_param["value"].present?
-      return records if field_param["value"] == ""
-
-      if relation_field?(search_field.to_sym)
-        related_model = model_class.reflect_on_association(search_field.to_sym).klass.name.underscore
-        foreign_key = model_class.reflect_on_association(search_field.to_sym).foreign_key
-        if model_class.reflect_on_association(search_field.to_sym).macro == :belongs_to
-          records = records.joins(related_model.split("/").last.to_sym)
-        else
-          records = records.joins(related_model.split("/").last.pluralize)
-        end
-        table = related_model.split("/").last.pluralize
-        column = "id"
-      else
-        table = table_name
-        column = search_field
-      end
-      full_column_query = "#{table}.#{column}"
-      where_clause = nil
-
-      case field_param["operator"]
-        when "equal"
-          if field_param["value"] == "nil"
-            where_clause = "#{full_column_query} is null"
-          else
-            where_clause = "#{full_column_query} = '#{advanced_search_field_value_for_query(field_param["value"])}'"
-          end
-        when "like"
-          where_clause = "#{full_column_query} like '%#{field_param["value"]}%'"
-        when "greater_than"
-          where_clause = "#{full_column_query} >= '#{field_param["value"]}'"
-        when "less_than"
-          where_clause = "#{full_column_query} <= '#{field_param["value"]}'"
-        when "between"
-          where_clause = "#{full_column_query} between '#{field_param["value"]}' and '#{field_param["value2"]}'"
-        else
-          where_clause = "#{full_column_query} = #{advanced_search_field_value_for_query(field_param["value"])}"
-      end
-      records = records.where(where_clause) if where_clause.present?
-      records
-    end
-
-    def advanced_search_field_value_for_query(value)
-      if "true" == value.downcase
-        return "'t'"
-      elsif "false" == value.downcase
-        return "'f'"
-      else
-        "#{value}"
-      end
-    end
-
     def is_namespaced?
       self.class.to_s.split("::").size > 0
     end
