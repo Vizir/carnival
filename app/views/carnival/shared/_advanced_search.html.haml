@@ -8,10 +8,11 @@
       .search_field
         .label
           - label_field = presenter.get_field(field)
+          - default_label = t("activerecord.attributes.#{presenter.full_model_name}.#{key}")
           - if presenter.relation_field?(label_field)
-            = label_tag key, t("activerecord.attributes.#{label_field.name}")
+            = label_tag key, t("activerecord.attributes.#{label_field.name}", default: default_label)
           - else
-            = label_tag key, t("activerecord.attributes.#{presenter.full_model_name}.#{key}")
+            = label_tag key, default_label
         .field
           = render '/carnival/shared/advanced_search_field', :field => field, :presenter => presenter, :value => value
   %li.search_item
