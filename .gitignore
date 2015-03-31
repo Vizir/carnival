@@ -20,3 +20,4 @@ spec/dummy/tmp/
 *.swp
 *.orig
 coverage
+tags

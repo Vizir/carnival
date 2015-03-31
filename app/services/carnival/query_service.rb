@@ -1,7 +1,7 @@
 module Carnival
   class QueryService
-
     attr_accessor :total_records
+
     def initialize(model, presenter, query_form)
       @model = model
       @presenter = presenter
@@ -24,6 +24,10 @@ module Carnival
       includes_relations(records)
     end
 
+    def page_count
+      (total_records / @presenter.items_per_page.to_f).ceil
+    end
+
     def records_without_pagination
       scope_query records_without_pagination_and_scope
     end
@@ -34,16 +38,14 @@ module Carnival
 
     def scopes_number
       records = records_without_pagination_and_scope
-      scopes = {}
-      @presenter.scopes.each do |key, index|
-        scopes[key] = scope_query(records, key).size
-      end
-      scopes
+      @presenter.scopes.keys.map do |key|
+        [key, scope_query(records, key).size]
+      end.to_h
     end
 
     def scope_query(records, scope = @query_form.scope)
-      if(scope.present? && scope.to_sym != :all)
-        records = records.send(scope)
+      if scope.present? && scope.to_sym != :all
+        records.send(scope)
       else
         records
       end
@@ -51,7 +53,7 @@ module Carnival
 
     def date_period_query(records)
       date_filter_field = @presenter.date_filter_field
-      if(date_filter_field.present? && @query_form.date_period_from.present? && @query_form.date_period_from != "" && @query_form.date_period_to.present? && @query_form.date_period_to != "")
+      if date_filter_field.present? && @query_form.date_period_from.present? && @query_form.date_period_from != "" && @query_form.date_period_to.present? && @query_form.date_period_to != ""
         records.where("#{@presenter.table_name}.#{date_filter_field.name} between ? and ?", "#{@query_form.date_period_from} 00:00:00", "#{@query_form.date_period_to} 23:59:59")
       else
         records
@@ -103,6 +105,5 @@ module Carnival
     def sort_direction
       @query_form.sort_direction
     end
-
   end
 end

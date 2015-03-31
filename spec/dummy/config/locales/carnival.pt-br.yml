@@ -1,0 +1,260 @@
+pt-BR:
+
+  carnival:
+    show: Visualizar
+    new: Novo
+    edit: Editar
+    destroy: Apagar
+    errors:
+      invalid_field:  "As actions '%{actions}' não são válidas para o campo '%{field}' do presenter '%{presenter}'"
+
+  nested_form:
+    open: Abrir
+    close: Fechar
+    new: Criar Novo
+    add_option: Adicionar
+    new_subtitle: Novos
+    existing_option: Opções Existentes
+    existing_option_title: Opções
+    choose_an_option: Escolha uma opção
+
+  menu:
+    dashboard: Dashboard
+    admin_user: Usuários administradores
+  messages:
+    created: Criado com sucesso!
+    updated: Alterado com sucesso!
+    select: Selecione
+  minimize: Minimizar
+  sort_by: Ordenar por
+  download_as_csv: Baixar como CSV
+  download_as_pdf: Baixar como PDF
+  no_results: Não foram encontrados resultados
+  advanced_search: Busca
+  select_an_option: Selecione uma opção
+  without_country: Sem país
+  without_state: Sem estado
+  without_city: Sem cidade
+  search: Busca
+  clear: Limpar
+  login: Entrar
+  logout: Sair
+  edit: Editar
+  send: Enviar
+  create: Criar
+  delete: Apagar
+  remove: Remover
+  destroy: Apagar
+  details: Detalhes
+  view: Ver
+  please_wait: Aguarde...
+  are_you_sure: Você tem certeza que deseja apagar?
+  are_you_sure_block: Você tem certeza que deseja bloquear?
+  are_you_sure_unblock: Você tem certeza que deseja desbloquear?
+  select: Selecione
+  search: Buscar
+  previous: Anterior
+  next: Próxima
+  update: Atualizar
+  new: Adicionar
+  back: Voltar
+  save: Salvar
+  yyes: Sim
+  nno: Não
+  from: De
+  to: Até
+  master_user: SafeGuard Admin
+  blocked: Bloqueado
+  unblocked: Desbloqueado
+  was: foi
+  of: de
+  by: por
+  at: às
+  new_support: Abrir solicitação de suporte
+  batch_actions: Operações em Lote
+  paginate_first: Primeira
+  paginate_previous: « Anterior
+  paginate_next: Próxima »
+  paginate_last: Última
+  paginate_total: Total
+  data_tables:
+    first: Primeira
+    last: Última
+    next: Próxima
+    previous: Anterior
+    row_counter: Mostrando _START_ a _END_ de _TOTAL_ entradas
+    row_counter_empty: Mostrando de 0 até 0 de 0 registros
+    table_empty: Não há registros para exibir
+    rows_filtered: (filtrando de _MAX_)
+    rows_postfix:
+    rows_per_page: Exibir _MENU_ registros
+    processing: Processando
+    search:
+    zero_records: Não há registros para exibir
+  date_filter:
+    today: Hoje
+    yesterday: Ontem
+    this_week: Esta semana
+    last_week: Semana passada
+    this_month: Este mês
+    last_month: Mês passado
+    this_year: Este ano
+    last_year: Ano passado
+
+
+  # formatos de data e hora
+  date:
+    formats:
+      default: "%d/%m/%Y"
+      short: "%d de %B"
+      long: "%d de %B de %Y"
+      only_day: "%d"
+
+    day_names: [Domingo, Segunda, Terça, Quarta, Quinta, Sexta, Sábado]
+    abbr_day_names: [Dom, Seg, Ter, Qua, Qui, Sex, Sáb]
+    month_names: [~, Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro]
+    abbr_month_names: [~, Jan, Fev, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov, Dez]
+    order:
+      - :day
+      - :month
+      - :year
+
+  time:
+    formats:
+      default: "%A, %d de %B de %Y, %H:%M hs"
+      time: "%H:%M hs"
+      short: "%d/%m, %H:%M hs"
+      long: "%A, %d de %B de %Y, %H:%M hs"
+      only_second: "%S"
+      datetime:
+        formats:
+          default: "%Y-%m-%dT%H:%M:%S%Z"
+    am: ''
+    pm: ''
+
+  # date helper distanci em palavras
+  datetime:
+    distance_in_words:
+      half_a_minute: 'meio minuto'
+      less_than_x_seconds:
+        one: 'menos de 1 segundo'
+        other: 'menos de %{count} segundos'
+
+      x_seconds:
+        one: '1 segundo'
+        other: '%{count} segundos'
+
+      less_than_x_minutes:
+        one: 'menos de um minuto'
+        other: 'menos de %{count} minutos'
+
+      x_minutes:
+        one: '1 minuto'
+        other: '%{count} minutos'
+
+      about_x_hours:
+        one: 'aproximadamente 1 hora'
+        other: 'aproximadamente %{count} horas'
+
+      x_days:
+        one: '1 dia'
+        other: '%{count} dias'
+
+      about_x_months:
+        one: 'aproximadamente 1 mês'
+        other: 'aproximadamente %{count} meses'
+
+      x_months:
+        one: '1 mês'
+        other: '%{count} meses'
+
+      about_x_years:
+        one: 'aproximadamente 1 ano'
+        other: 'aproximadamente %{count} anos'
+
+      over_x_years:
+        one: 'mais de 1 ano'
+        other: 'mais de %{count} anos'
+
+  # numeros
+  number:
+    format:
+      precision: 3
+      separator: ','
+      delimiter: '.'
+    currency:
+      format:
+        unit: 'R$'
+        precision: 2
+        format: '%u %n'
+        separator: ','
+        delimiter: '.'
+    percentage:
+      format:
+        delimiter: '.'
+    precision:
+      format:
+        delimiter: '.'
+    human:
+      format:
+        precision: 1
+        delimiter: '.'
+  support:
+    array:
+      sentence_connector: "e"
+      skip_last_comma: true
+
+  default_columns: &default_columns
+    created_at: Criado em
+    updated_at: Atualizado em
+    id: ID
+
+  admin_user:
+    name: Nome
+    lista: Usuários administradores
+    admin: Administrador
+    account_name: Contaform
+    notification: Notificação
+    <<: *default_columns
+
+  # Active Record
+  activerecord:
+    attributes:
+      carnival/admin_user:
+        avatar: Foto
+        current_sign_in_at: Acesso atual em
+        email: E-mail
+        id: Código
+        last_sign_in_at: Último acesso em
+        name: Nome
+        photo: Foto
+        sign_in_count: Total de acessos
+    errors:
+      template:
+        header:
+          one: "Não pôde ser salvo: 1 erro"
+          other: "Não pôde ser salvo: %{count} erros."
+        body: "Por favor, cheque os seguintes campos:"
+      messages:
+        inclusion: "não está incluso na lista"
+        exclusion: "não está disponível"
+        invalid: "não é válido"
+        confirmation: "não bate com a confirmação"
+        accepted: "precisa ser aceito"
+        empty: "não pode ser vazio"
+        blank: "não pode ser vazio"
+        too_long: "é muito longo (não mais do que %{count} caracteres)"
+        too_short: "é muito curto (não menos do que %{count} caracteres)"
+        wrong_length: "não é do tamanho correto (precisa ter %{count} caracteres)"
+        taken: "não está disponível"
+        not_a_number: "não é um número"
+        greater_than: "precisa ser maior do que %{count}"
+        greater_than_or_equal_to: "precisa ser maior ou igual a %{count}"
+        equal_to: "precisa ser igual a %{count}"
+        less_than: "precisa ser menor do que %{count}"
+        less_than_or_equal_to: "precisa ser menor ou igual a %{count}"
+        odd: "precisa ser ímpar"
+        even: "precisa ser par"
+    models:
+      admin_user: Usuário Administrador
+

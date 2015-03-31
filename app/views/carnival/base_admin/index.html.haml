@@ -69,6 +69,5 @@
       = t('no_results')
     %h4
       %span
-        Adicionar novo registro
       - presenter.actions_for_page.each do |key, action|
         = render '/carnival/shared/action_default', :label=>t("#{presenter.model_name}.#{action.name}", default: t("carnival.#{action.name}")), :path=> action.path(presenter)
