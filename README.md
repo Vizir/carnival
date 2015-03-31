@@ -1,5 +1,7 @@
 # Carnival
 
+[![Join the chat at https://gitter.im/Vizir/carnival](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Vizir/carnival?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 By
 [![Vizir Logo](http://vizir.com.br/wp-content/themes/vizir/images/logo.png)](http://vizir.com.br/)
 
