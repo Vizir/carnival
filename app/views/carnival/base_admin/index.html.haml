@@ -10,7 +10,7 @@
   .batch-operations
     - batch_operation_actions = []
     - presenter.batch_actions.each do |key, item|
-      = button_to item.to_label, item.path(presenter), {:method => :post, :class => "batch_action_button"}
+      %span= link_to item.to_label, item.path(presenter), :class => "batch_action_button", remote: true, data: {'carnival-show-overlay' => true}
   :javascript
     $(document).ready(function(){
       Carnival.batchActionInitialize("#{t('select_one_item')}");
