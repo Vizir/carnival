@@ -6,16 +6,16 @@
 
 ## Defining if a field or action will be shown
 
-The presenter implements some conditional methods to verify if a action or field must be displayed. 
-If some additional information is needed, the following objects will be available on these render methods: 
-* current_user: the 'current_user' variable inside the controller context.  
-* @controller: the current controller of the application. 
+The presenter implements some conditional methods to verify if a action or field must be displayed.
+If some additional information is needed, the following objects will be available on these render methods:
+* current_user: the 'current_user' variable inside the controller context.
+* @controller: the current controller of the application.
 
 ### render_field? (field_name,action_name)
-Before rendering a field, Carnival calls the '''.render_field?''' method on presenter. If this method returns a false value, the field wil not be displayed. 
+Before rendering a field, Carnival calls the '''.render_field?''' method on presenter. If this method returns a false value, the field wil not be displayed.
 
-* field_name: name of the field that will be rendered. 
-* action_name: name of the controller action that is being executed ("index", "edit", "new" ...) 
+* field_name: name of the field that will be rendered.
+* action_name: name of the controller action that is being executed ("index", "edit", "new" ...)
 
 ```ruby
   def render_field?(field, action)
@@ -24,11 +24,11 @@ Before rendering a field, Carnival calls the '''.render_field?''' method on pres
   end
 ```
 ### render_action? (record, record_action, action_name)
-Before rendering an action, Carnival calls the '''.render_action?'''method on presenter. If this method returns a false value, the field wil not be displayed.   
+Before rendering an action, Carnival calls the '''.render_action?'''method on presenter. If this method returns a false value, the field wil not be displayed.
 
 * record: the record that will be rendered
-* record_action: name of the action that will be rendered. 
-* action_name: name of the controller action that is being executed ("index", "edit", "new" ...) 
+* record_action: name of the action that will be rendered.
+* action_name: name of the controller action that is being executed ("index", "edit", "new" ...)
 
 ```ruby
   def render_action?(record, record_action, action)
@@ -44,11 +44,11 @@ This feature is used when you have dependent selects like Country, State and Cit
 
 ```ruby
 field :country,
-      :actions => [:index, :csv, :pdf, :new, :edit, :show]
+      :actions => [:index, :csv, :new, :edit, :show]
 field :state,
-      :actions => [:index, :csv, :pdf, :new, :edit, :show]
+      :actions => [:index, :csv, :new, :edit, :show]
       :depends_on => :country
 field :city,
-      :actions => [:index, :csv, :pdf, :new, :edit, :show]
+      :actions => [:index, :csv, :new, :edit, :show]
       :depends_on => :state
 ```

@@ -63,7 +63,7 @@ module Admin
     layout 'carnival/admin'
 
     # ...
-    
+
     private
 
     def permitted_params
@@ -75,7 +75,7 @@ end
 
 ### Presenter
 
-All the "magic" of Carnival happens at Presenter. Each model managed under Carnival Admin will have a presenter associated to it. The presenter describes how the model's attributes will be presented. 
+All the "magic" of Carnival happens at Presenter. Each model managed under Carnival Admin will have a presenter associated to it. The presenter describes how the model's attributes will be presented.
 
 ```ruby
 module Admin
@@ -123,7 +123,7 @@ config.menu = {
       }
     ]
   },
-  
+
   # ...
 }
 ```
@@ -211,7 +211,6 @@ It can be easily integrated with gems that you are already used to use.
   - Custom Css Cel
   - Delete
   - CSV Export
-  - PDF Export
 
 * Edit form
   - Create new
