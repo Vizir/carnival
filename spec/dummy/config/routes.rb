@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :posts
     resources :todos
+    resources :todo_lists
   end
 
   root to: 'admin/todos#index'
