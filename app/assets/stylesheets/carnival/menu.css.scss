@@ -97,6 +97,9 @@ display: block;
   text-indent: -99999px !important;
 }
 
+ul.menu li.minify{
+  cursor: pointer;
+}
 
 ul.menu a.actived{
   color: #0088CC !important;
@@ -329,6 +332,3 @@ ul.menu .dropdown_main_menu_sublevel li a{
   background-repeat:no-repeat;
 }
 
-a.btn_usuario.sublevel.link{
-  display: none !important;
-}
