@@ -402,7 +402,7 @@ module Carnival
 
     def extract_namespace
       module_and_class = self.class.to_s.split('::')
-      module_and_class.first || ''
+      module_and_class.size > 1 ? module_and_class.first : ''
     end
 
     def generate_route_path(params)
