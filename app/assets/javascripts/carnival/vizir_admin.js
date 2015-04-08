@@ -185,20 +185,27 @@ var pageLoad = function(){
   });
 
   var $lefty = $('div.menu.full');
-  $lefty.animate({
-    marginLeft: '-20%'
-  }, 100);
+  $lefty.hide();
 
   $('.minify').on("click", function(){
     var $lefty = $('div.menu.full');
-    $lefty.animate({
-      marginLeft: parseInt($lefty.css('margin-left'),10) == 0 ?
-       -$lefty.outerWidth()-2:
-        0
-    }, 100);
-    setTimeout("$('div.menu.short').fadeToggle(100)", 0)
-    setTimeout("$('#content').toggleClass('menu-opened')", 0)
-  })
+    var shouldHideExpandedMenu = (parseInt($lefty.css('margin-left'),10) == 0);
+
+    if(shouldHideExpandedMenu){
+      $lefty.animate({
+        marginLeft: (-$lefty.outerWidth() - 2)
+      }, 100);
+      setTimeout("$('div.menu.full').hide()", 100);
+    }
+    else{
+      $lefty.show();
+      $lefty.animate({
+        marginLeft: 0
+      }, 100);
+    }
+    setTimeout("$('div.menu.short').fadeToggle(100)", 0);
+    setTimeout("$('#content').toggleClass('menu-opened')", 0);
+  });
 };
 
 // form load functions
