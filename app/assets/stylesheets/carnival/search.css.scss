@@ -83,15 +83,15 @@
 }
 
 .advanced-search-tags.explode1:hover{
-  height: 61px;  
+  height: 61px;
 }
 
 .advanced-search-tags.explode2:hover{
-  height: 122px;  
+  height: 122px;
 }
 
 .advanced-search-tags.explode3:hover{
-  height: 183px;  
+  height: 183px;
 }
 .advanced-search-tag{
   font-size: 13px;
@@ -105,6 +105,10 @@
   border-radius: 3px;
   margin: 0px 0px 5px 5px;
   transition: all 0.3s ease;
+}
+
+.advanced-search-tag span{
+  float: left;
 }
 
 .advanced-search-tag a{

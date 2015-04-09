@@ -26,6 +26,7 @@
     - if params[key.to_s].present? && params[key.to_s] != "undefined"
       - value =  params[key.to_s]
       %li.advanced-search-tag
-        = t("activerecord.attributes.#{presenter.full_model_name}.#{key}")
-        = ": #{value}"
+        = t("activerecord.attributes.#{presenter.full_model_name}.#{key.to_s.gsub('.', '_')}")
+        %span
+          = ": #{value}"
         %a{:href => "javascript:Carnival.removeAdvancedSearch('"+key.to_s+"')"}
