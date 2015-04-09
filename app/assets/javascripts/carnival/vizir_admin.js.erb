@@ -225,8 +225,19 @@ function setupDateFields(){
 
   var dateTimeOptions = $.extend({}, dateOptions, { timepicker: true, mask: true, format: dateFormat + ' H:i'} );
 
-  $(".datepicker").datetimepicker(dateOptions);
-  $(".datetimepicker").datetimepicker(dateTimeOptions);
+  function addPicker(elem, options){
+    var value = $(elem).val();
+    $(elem).datetimepicker(options);
+    if(value)
+      $(elem).val(value);
+  }
+
+  $(".datepicker").each(function(){
+    addPicker(this, dateOptions);
+  });
+  $(".datetimepicker").each(function(){
+    addPicker(this, dateTimeOptions);
+  });
 }
 
 var formLoad = function(){
