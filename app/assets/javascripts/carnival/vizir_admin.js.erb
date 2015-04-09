@@ -1,6 +1,8 @@
 // add/remove dynamic fields
 var Carnival = {
-  config: {}
+  config: {
+    dateFormat: "<%= I18n.t('date.formats.default').gsub('%', '') %>"
+  }
 };
 
 String.prototype.unescapeHtml = function () {
@@ -214,9 +216,14 @@ var pageLoad = function(){
 // form load functions
 
 function setupDateFields(){
-  var dateOptions =  Carnival.config.dateOptions;
+  var dateFormat = Carnival.config.dateFormat;
+  var dateOptions = {
+      format: dateFormat,
+      mask: true,
+      timepicker: false
+  };
 
-  var dateTimeOptions = $.extend({}, { timepicker: true, mask: true, format: 'Y/m/d H:i'}, dateOptions )
+  var dateTimeOptions = $.extend({}, dateOptions, { timepicker: true, mask: true, format: dateFormat + ' H:i'} );
 
   $(".datepicker").datetimepicker(dateOptions);
   $(".datetimepicker").datetimepicker(dateTimeOptions);
