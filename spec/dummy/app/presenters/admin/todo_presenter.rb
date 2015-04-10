@@ -11,6 +11,9 @@ class Admin::TodoPresenter < Carnival::BaseAdminPresenter
         advanced_search: { operator: :equal },
         as: :carnival_enum
 
+  field :created_at,
+        date_filter: true, date_filter_default: :this_year,
+        actions: [:index]
   field :todo_list,
         actions: [:new, :edit]
 

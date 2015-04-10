@@ -54,7 +54,9 @@ module Carnival
     def date_period_query(records)
       date_filter_field = @presenter.date_filter_field
       if date_filter_field.present? && @query_form.date_period_from.present? && @query_form.date_period_from != "" && @query_form.date_period_to.present? && @query_form.date_period_to != ""
-        records.where("#{@presenter.table_name}.#{date_filter_field.name} between ? and ?", "#{@query_form.date_period_from} 00:00:00", "#{@query_form.date_period_to} 23:59:59")
+        from = DateTime.parse(@query_form.date_period_from).beginning_of_day
+        to = DateTime.parse(@query_form.date_period_to).end_of_day
+        records.where(@presenter.date_filter_field.name.to_sym => [from..to])
       else
         records
       end
