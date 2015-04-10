@@ -206,6 +206,8 @@ module Carnival
       elsif nested_in.class == model_object.send(field.name).class ||
             nested_in.class.name.underscore.split('/').last == field.name
         false
+      else
+        true
       end
     end
 
