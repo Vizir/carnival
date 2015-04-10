@@ -66,6 +66,7 @@ module Carnival
         }
       end
     end
+
     def default_sortable?
       @params[:sortable] && @params[:sortable].class == Hash && @params[:sortable][:default] == true
     end
@@ -157,8 +158,8 @@ module Carnival
     end
 
     def sort_name
-      return @params[:related_to].to_s if @params[:related_to].present? 
-      @name.to_s 
+      return @params[:related_to].to_s if @params[:related_to].present?
+      @name.to_s
     end
 
     private

@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :todo do
     sequence(:title) { |n| "Titlte #{n}" }
+    todo_list
 
     trait :todo do
       status :todo

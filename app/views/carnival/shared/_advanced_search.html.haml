@@ -8,11 +8,11 @@
       .search_field
         .label
           - label_field = presenter.get_field(field)
-          - default_label = t("activerecord.attributes.#{presenter.full_model_name}.#{key}")
+          - translation_prefix = "activerecord.attributes.#{presenter.full_model_name}"
           - if presenter.relation_field?(label_field)
-            = label_tag key, t("activerecord.attributes.#{label_field.name}", default: default_label)
+            = label_tag key, t("#{translation_prefix}.#{key.to_s.gsub('.', '_')}")
           - else
-            = label_tag key, default_label
+            = label_tag key, t("#{translation_prefix}.#{key}")
         .field
           = render '/carnival/shared/advanced_search_field', :field => field, :presenter => presenter, :value => value
   %li.search_item
@@ -26,6 +26,7 @@
     - if params[key.to_s].present? && params[key.to_s] != "undefined"
       - value =  params[key.to_s]
       %li.advanced-search-tag
-        = t("activerecord.attributes.#{presenter.full_model_name}.#{key}")
-        = ": #{value}"
+        %span
+          = t("activerecord.attributes.#{presenter.full_model_name}.#{key.to_s.gsub('.', '_')}")
+          = ": #{value}"
         %a{:href => "javascript:Carnival.removeAdvancedSearch('"+key.to_s+"')"}

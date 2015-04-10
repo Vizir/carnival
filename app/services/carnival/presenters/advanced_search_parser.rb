@@ -41,13 +41,12 @@ module Carnival
           end
 
           if @klass_service.relation? search_field.to_sym
-            related_model = @klass_service.get_related_class(search_field.to_sym).name.underscore
-            foreign_key = @klass_service.get_foreign_key(search_field.to_sym)
             if @klass_service.is_a_belongs_to_relation?(search_field.to_sym)
-              records = records.joins(related_model.split("/").last.to_sym)
+              records = records.joins(search_field.split("/").last.to_sym)
             else
-              records = records.joins(related_model.split("/").last.pluralize.to_sym)
+              records = records.joins(search_field.split("/").last.pluralize.to_sym)
             end
+            related_model = @klass_service.get_related_class(search_field.to_sym).name.underscore
             table = related_model.split("/").last.classify.constantize.table_name
             column = "id" if column.nil?
           else
