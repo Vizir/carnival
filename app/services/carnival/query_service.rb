@@ -18,7 +18,6 @@ module Carnival
     def records_without_pagination_and_scope
       records = @model
       records = date_period_query(records)
-      records = search_query(records)
       records = advanced_search_query(records)
       records = order_query(records)
       includes_relations(records)
@@ -57,18 +56,6 @@ module Carnival
         from = DateTime.parse(@query_form.date_period_from).beginning_of_day
         to = DateTime.parse(@query_form.date_period_to).end_of_day
         records.where(@presenter.date_filter_field.name.to_sym => [from..to])
-      else
-        records
-      end
-    end
-
-    def search_query(records)
-      if @query_form.search_term.present? and @presenter.searchable_fields.size > 0
-        filters = @presenter.searchable_fields.map do |key, field|
-          " #{key.to_s} like :search"
-        end
-        records = includes_relations(records) if @should_include_relation
-        records.where(filters.join(" or "), search: "%#{@query_form.search_term}%")
       else
         records
       end
