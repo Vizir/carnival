@@ -60,7 +60,7 @@
 
     .table-download-links
       - params = @query_form.to_hash
-      - link_to t('download_as_csv'), presenter.model_path(:index, { format: 'csv' }.merge(params)), class: 'carnival-action-button csv' if presenter.has_action?(:csv)
+      = link_to t('download_as_csv'), presenter.model_path(:index, { format: 'csv' }.merge(params)), class: 'carnival-action-button csv' if presenter.has_action?(:csv)
 
 - else
   .empty-result
