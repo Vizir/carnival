@@ -84,11 +84,6 @@ package { 'libpq-dev':
   require => Package['postgresql-client']
 }
 
-package { 'wkhtmltopdf':
-  ensure => installed,
-  require => Package['libmysqlclient15-dev']
-}
-
 package { 'xvfb':
   ensure => installed,
   require => Package['libmysqlclient15-dev']

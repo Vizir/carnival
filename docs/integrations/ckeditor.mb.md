@@ -20,8 +20,8 @@ Ex.
 ```ruby
 
   field :bio,
-    actions: [:index, :new, :edit, :show, :csv, :pdf],
-    as: :ckeditor, 
+    actions: [:index, :new, :edit, :show, :csv],
+    as: :ckeditor,
     input_html: { ckeditor: {toolbar: 'Full'} }
 
 ```

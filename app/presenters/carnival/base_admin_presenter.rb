@@ -379,7 +379,7 @@ module Carnival
       return actions unless @@actions[presenter_class_name]
 
       @@actions[presenter_class_name].each do |key, action|
-        if default_actions.include?(key) || (action.target == target && key != :new && key != :csv && key != :pdf)
+        if default_actions.include?(key) || (action.target == target && key != :new && key != :csv)
           actions[key] = action
         end
       end

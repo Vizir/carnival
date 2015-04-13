@@ -20,10 +20,6 @@ module Carnival
           @records = @query_service.records_without_pagination
           render csv: @model.model_name.human
         end
-        format.pdf do
-          @records = @query_service.records_without_pagination
-          render pdf: t("activerecord.attributes.#{@presenter.full_model_name}.pdf_name"), template: 'carnival/base_admin/index.pdf.haml',  show_as_html: params[:debug].present?
-        end
       end
     end
 
