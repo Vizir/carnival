@@ -1,3 +1,6 @@
+.gray_border.with_margin_bottom.header
+  %h1= t("#{@presenter.model_name}.index", default: t('carnival.index'))
+
 - special_scope =  params[:special_scope]
 - presenter = @presenter
 - params = {:class => "carnival-#{presenter.index_as}"}
