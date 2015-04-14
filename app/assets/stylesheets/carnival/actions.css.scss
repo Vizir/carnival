@@ -112,12 +112,12 @@
   color:#fff;
 }
 
-.pdf, .csv{
+.csv{
   padding: 0px 10px 0px 25px;
   position: relative;
 }
 
-.pdf:before, .csv:before{
+.csv:before{
   content: '';
   display: block;
   width: 25px;
@@ -127,10 +127,6 @@
   position: absolute;
   left: 7px;
   top: 6px;
-}
-
-.pdf:before{
-  background-position: -279px -502px;
 }
 
 .csv:before{
@@ -153,7 +149,7 @@
   float: right;
   margin-left: 10px;
   font-size: 14px;
-  line-height: 25px;  
+  line-height: 25px;
   cursor: pointer;
 }
 
