@@ -7,7 +7,8 @@
       - @thead_renderer.columns.each do |column|
         - if ( @presenter.render_field?(column[:field], :index))
           %th{"onclick" => "javascript:#{column[:sort_function]}",  "class" => "#{column[:class]}"}= translate_field(presenter, column[:field])
-      %th.buttons
+      - if @presenter.actions_for_record.any?
+        %th.buttons
   %tbody
     - @records.each do |record|
       %tr
@@ -17,5 +18,6 @@
         - @presenter.fields_for_action(:index).each do |key, field|
           - if ( @presenter.render_field?(field, :index))
             = list_cel(@presenter, key,record, false).html_safe
-        %td
-          = list_buttons(@presenter, record).html_safe
+        - if @presenter.actions_for_record.any?
+          %td
+            = list_buttons(@presenter, record).html_safe
