@@ -9,8 +9,11 @@
   $(document).ready(function(){
     nestedForm = $(".nested-form-list .form-new-association").each(function(index, element){
       nestedForms[getFormName(element)] = element;
-      element.remove();
     });
+
+    for (var element in nestedForms) {
+      nestedForms[element].remove();
+    }
 
     $(".existing-options").hide();
     $(".nested-form-subtitle").hide();
@@ -50,7 +53,7 @@
       var parentIndex = container.parents('li').index();
 
       newForm = replaceInputIndexes(newForm, parentForm, parent, parentIndex);
-    }    
+    }
 
     return newForm;
   }
