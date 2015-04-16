@@ -1,4 +1,4 @@
-/********************* TABLE BASE STYEL ********************* START */
+/********************* TABLE BASE STYLE ********************* START */
 
 .carnival-table{
   border-collapse: collapse;
@@ -86,11 +86,14 @@
 
 }
 
-/*********************** TABLE BASE STYEL ********************* END */
+/*********************** TABLE BASE STYLE ********************* END */
 
 /*********************** TABLE BATCHING ********************** START */
 
-.batching { padding-left: 10px !important; }
+.batching {
+  padding-left: 10px !important;
+  width: 36px;
+}
 
 /*********************** TABLE BATCHING ********************* END */
 
