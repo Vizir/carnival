@@ -9,7 +9,6 @@ module Carnival
       @path = params[:path] if params[:path].present?
     end
 
-
     def params
       @params
     end
@@ -19,7 +18,7 @@ module Carnival
     end
 
     def to_label
-      I18n.t("#{@presenter.model_name}.#{name}") 
+      I18n.t("#{@presenter.model_name}.#{name}")
     end
 
   end

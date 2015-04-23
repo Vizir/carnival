@@ -180,15 +180,19 @@ module Carnival
     end
 
     def list_buttons(presenter, record)
-      presenter.actions_for_record.map do |_, record_action|
-        next unless presenter.render_action?(record, record_action, params[:action])
-        next unless record_action.show(record)
-        if record_action.remote?
-          button_action_remote(record_action, presenter, record)
-        else
-          button_action(record_action, presenter, record)
-        end
-      end.inject(:+)
+      if presenter.actions_for_record.any?
+        presenter.actions_for_record.map do |_, record_action|
+          next unless presenter.render_action?(record, record_action, params[:action])
+          next unless record_action.show(record)
+          if record_action.remote?
+            button_action_remote(record_action, presenter, record)
+          else
+            button_action(record_action, presenter, record)
+          end
+        end.inject(:+)
+      else
+        ""
+      end
     end
 
     def button_action(action, presenter, record)
