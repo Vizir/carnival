@@ -207,13 +207,13 @@ module Carnival
       label =  t("#{presenter.model_name}.#{action.name}", default: t("carnival.#{action.name}"))
       path = action.path(presenter, id: record.id)
 
-      params.reverse_merge(success: "#{action.name}_success_callback",
-                           error: "#{action.name}_error_callback",
-                           show_overlay: true)
+      success_callback = params[:success] || "#{action.name}_success_callback"
+      error_callback = params[:error] || "#{action.name}_error_callback"
+      params[:show_overlay] = params[:show_overlay].presence || false
 
-      remote_function = "Carnival.remoteFunction('#{path}', '#{params[:success]}', '#{params[:error]}', '#{params[:method]}', {} ,#{params[:show_overlay]})"
+      remote_function = "Carnival.remoteFunction('#{path}', '#{success_callback}', '#{error_callback}', '#{params[:method]}', {} , #{params[:show_overlay]})"
 
-      link_to_function label, remote_function, class: 'carnival-action-link editar'
+      link_to label, "javascript: #{remote_function}", class: 'carnival-action-link editar'
     end
   end
 end
