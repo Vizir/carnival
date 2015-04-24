@@ -41,7 +41,7 @@ module Carnival
           end
 
           if @klass_service.relation? search_field.to_sym
-            if @klass_service.is_a_belongs_to_relation?(search_field.to_sym)
+            if @klass_service.is_a_one_to_one_relation?(search_field.to_sym)
               records = records.joins(search_field.split("/").last.to_sym)
             else
               records = records.joins(search_field.split("/").last.pluralize.to_sym)
