@@ -1,5 +1,5 @@
 .gray_border.with_margin_bottom.header
-  %h1= t("#{@presenter.model_name}.index", default: t('carnival.index'))
+  %h1= @presenter.model_class.model_name.human(default: t('carnival.index'))
 
 - special_scope =  params[:special_scope]
 - presenter = @presenter
