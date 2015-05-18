@@ -11,9 +11,7 @@
       nestedForms[getFormName(element)] = element;
     });
 
-    for (var element in nestedForms) {
-      nestedForms[element].remove();
-    }
+    $(".nested-form-list .form-new-association:last-child").remove();
 
     $(".existing-options").hide();
     $(".nested-form-subtitle").hide();

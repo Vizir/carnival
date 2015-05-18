@@ -1,12 +1,16 @@
 module Carnival
   class KlassService
-
+    ONE_TO_ONE_RELATION_TYPES = [:has_one, :belongs_to]
     def initialize(klass)
       @klass = klass
     end
 
     def relation? sym
       !get_association(sym).nil?
+    end
+
+    def is_a_one_to_one_relation?(sym)
+      relation_type(sym).try(:in?, ONE_TO_ONE_RELATION_TYPES)
     end
 
     def relation_type sym
