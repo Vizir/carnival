@@ -189,7 +189,7 @@ module Carnival
           else
             button_action(record_action, presenter, record)
           end
-        end.inject(:+)
+        end.reject(&:nil?).inject(:+)
       else
         ""
       end
