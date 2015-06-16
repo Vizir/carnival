@@ -2,22 +2,22 @@
 
 @font-face {
   font-family: 'OpenSansRegular';
-  src: url(image_path('fonts/opensans-regular-webfont.eot'));
-  src: url(image_path('fonts/opensans-regular-webfont.eot?#iefix')) format('embedded-opentype'),
-       url(image_path('fonts/opensans-regular-webfont.woff')) format('woff'),
-       url(image_path('fonts/opensans-regular-webfont.ttf')) format('truetype'),
-       url(image_path('fonts/opensans-regular-webfont.svg#OpenSansRegular')) format('svg');
+  src: url(font-path('carnival/opensans-regular-webfont.eot'));
+  src: url(font-path('carnival/opensans-regular-webfont.eot?#iefix')) format('embedded-opentype'),
+       url(font-path('carnival/opensans-regular-webfont.woff')) format('woff'),
+       url(font-path('carnival/opensans-regular-webfont.ttf')) format('truetype'),
+       url(font-path('carnival/opensans-regular-webfont.svg#OpenSansRegular')) format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'OpenSansSemibold';
-  src: url(image_path('fonts/opensans-semibold-webfont.eot'));
-  src: url(image_path('fonts/opensans-semibold-webfont.eot?#iefix')) format('embedded-opentype'),
-       url(image_path('fonts/opensans-semibold-webfont.woff')) format('woff'),
-       url(image_path('fonts/opensans-semibold-webfont.ttf')) format('truetype'),
-       url(image_path('fonts/opensans-semibold-webfont.svg#OpenSansSemibold')) format('svg');
+  src: url(font-path('carnival/opensans-semibold-webfont.eot'));
+  src: url(font-path('carnival/opensans-semibold-webfont.eot?#iefix')) format('embedded-opentype'),
+       url(font-path('carnival/opensans-semibold-webfont.woff')) format('woff'),
+       url(font-path('carnival/opensans-semibold-webfont.ttf')) format('truetype'),
+       url(font-path('carnival/opensans-semibold-webfont.svg#OpenSansSemibold')) format('svg');
   font-weight: normal;
   font-style: normal;
 }
