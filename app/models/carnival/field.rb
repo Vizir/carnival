@@ -158,7 +158,6 @@ module Carnival
     end
 
     def sort_name
-      return @params[:related_to].to_s if @params[:related_to].present?
       @name.to_s
     end
 

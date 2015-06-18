@@ -29,21 +29,24 @@
   ```ruby
     :sortable => true
   ```
-  
+
+#### :partial_name
+  - Define the partial to be used to render the field value, this parameter must be used with the ```as: :partial```, because it's only checked when the field is defined to rendered ```as: :partial```
+
 #### :as
-  - Define the type of the render that will be used to render the field. If the type passed as parameter to SimpleForm, as a type of Input. The only exception is the :partial parameter that is explained below. 
-  
+  - Define the type of the render that will be used to render the field. If the type passed as parameter to SimpleForm, as a type of Input. The only exception is the :partial parameter that is explained below.
+
   ##### as: :partial
-  Instead of rendereing a field, Carnival fill search for a partial with the field name. The following declaration inside AuthorsPresenter
-  
+  Instead of rendereing a field, Carnival will render a partial instead of the default field render, the name of the partial to be rendered must be defined in the ```:partial_name``` parameter. The following declaration inside AuthorsPresenter
+
 ```ruby
-    field :custom_partial, actions: [:edit], as: :partial 
+    field :field_name, actions: [:edit], as: :partial, partial_name: "custom_partial"
   ```
-  Carnival will try to render the partial '_custom_partial.html.haml' inside /app/views/authors. 
-  To be more useful the following objects are available to the called partial: 
-  * record: available to all partials, it represents de current record being displayed. 
+  Carnival will try to render the partial '_custom_partial.html.haml' inside /app/views/authors.
+  To be more useful the following objects are available to the called partial:
+  * record: available to all partials, it represents de current record being displayed.
   * f: when a new or edit action is being rendered, the 'f' object will contain the current form being rendered.
-  
+
 
 ## Relations
 ### Many relations

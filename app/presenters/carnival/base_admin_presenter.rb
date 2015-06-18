@@ -344,6 +344,17 @@ module Carnival
       end
     end
 
+    def translate_field field_name
+      field = get_field(field_name)
+      if field.specified_association?
+        related_class = model_class.reflect_on_association(field.association_name).klass
+        related_class.human_attribute_name(field.association_field_name)
+      else
+        field_key = field.name_for_translation
+        model_class.human_attribute_name field_key
+      end
+    end
+
     protected
 
     def make_relation_advanced_query_url_options(field, record)
