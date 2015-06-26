@@ -296,7 +296,7 @@ module Carnival
       end
     end
 
-    def get_related_class_for_field (field_name)
+    def get_related_class_for_field(field_name)
       get_related_class get_association_from_field(field_name)
     end
 
@@ -317,16 +317,16 @@ module Carnival
       @advanced_search_parser.parse_advanced_search @@fields[presenter_class_name], records, search_syntax
     end
 
-    def presenter_to_field field, record
-      "#{extract_namespace}::#{field.name.to_s.singularize.classify}Presenter".constantize.send("new")
+    def presenter_to_field(field, _record)
+      "#{extract_namespace}::#{field.name.to_s.singularize.classify}Presenter".constantize.new
     end
 
-    def presenter_to_field_sym field
-      "#{extract_namespace}::#{field.to_s.singularize.classify}Presenter".constantize.send("new")
+    def presenter_to_field_sym(field)
+      "#{extract_namespace}::#{field.to_s.singularize.classify}Presenter".constantize.new
     end
 
-    def controller_to_field field
-      "#{extract_namespace}::#{field.name.to_s.classify.pluralize}Controller".constantize.send("new")
+    def controller_to_field(field)
+      "#{extract_namespace}::#{field.name.to_s.classify.pluralize}Controller".constantize.new
     end
 
     def load_dependent_select_options_path
