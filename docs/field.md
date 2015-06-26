@@ -29,22 +29,28 @@
   ```ruby
     :sortable => true
   ```
-  
+
 #### :as
-  - Define the type of the render that will be used to render the field. If the type passed as parameter to SimpleForm, as a type of Input. The only exception is the :partial parameter that is explained below. 
-  
+  - Define the type of the render that will be used to render the field. If the type passed as parameter to SimpleForm, as a type of Input. The only exception is the :partial parameter that is explained below.
+
   ##### as: :partial
   Instead of rendereing a field, Carnival fill search for a partial with the field name. The following declaration inside AuthorsPresenter
-  
-```ruby
-    field :custom_partial, actions: [:edit], as: :partial 
-  ```
-  Carnival will try to render the partial '_custom_partial.html.haml' inside /app/views/authors. 
-  To be more useful the following objects are available to the called partial: 
-  * record: available to all partials, it represents de current record being displayed. 
-  * f: when a new or edit action is being rendered, the 'f' object will contain the current form being rendered.
-  
 
+```ruby
+    field :custom_partial, actions: [:edit], as: :partial
+  ```
+  Carnival will try to render the partial '_custom_partial.html.haml' inside /app/views/authors.
+  To be more useful the following objects are available to the called partial:
+  * record: available to all partials, it represents de current record being displayed.
+  * f: when a new or edit action is being rendered, the 'f' object will contain the current form being rendered.
+
+#### :presenter
+If the field is a relation specifies a different presenter class for the field
+(in case the infered type does not match your needs)
+Example:
+```ruby
+field 'user.name', presenter: 'Users::BasicUserPresenter'
+```
 ## Relations
 ### Many relations
 #### has\_many and has\_and\_belongs\_to\_many

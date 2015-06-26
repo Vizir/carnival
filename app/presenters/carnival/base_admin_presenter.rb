@@ -4,15 +4,13 @@ module Carnival
     include Dsl
     include Rails.application.routes.url_helpers
 
-    def initialize(params)
-      @controller = params[:controller]
+    def initialize
+      return unless model_class.present?
 
-      if model_class.present?
-        @klass_service = KlassService.new model_class
-        @advanced_search_parser = Presenters::AdvancedSearchParser.new(@klass_service)
-        @validators = [Carnival::PresenterValidators::FieldValidator]
-        validates
-      end
+      @klass_service = KlassService.new model_class
+      @advanced_search_parser = Presenters::AdvancedSearchParser.new(@klass_service)
+      @validators = [Carnival::PresenterValidators::FieldValidator]
+      validates
     end
 
     def validates
@@ -110,10 +108,10 @@ module Carnival
 
     def model_name
       if @@model_names[presenter_class_name].nil?
-        self.class.to_s.split("::").last().gsub("Presenter", "").underscore
+        self.class.to_s.split('::').last.gsub('Presenter', '').underscore
       else
-        if @@model_names[presenter_class_name].include?("/")
-          @@model_names[presenter_class_name].split("/").last
+        if @@model_names[presenter_class_name].include?('/')
+          @@model_names[presenter_class_name].split('/').last
         else
           @@model_names[presenter_class_name]
         end
@@ -121,13 +119,13 @@ module Carnival
     end
 
     def model_params(params)
-      params.select{|key, value| key != "action" && key != "controller"}
+      params.select { |key, _| key != 'action' && key != 'controller' }
     end
 
-    def model_path(action, extra_params=nil)
-      params = {controller: controller_name, action: action}
-      params = params.merge(extra_params) if extra_params.present?
-      params = params.merge(:only_path => true)
+    def model_path(action, extra_params = {})
+      params = extra_params.reverse_merge(
+        controller: controller_name, action: action
+      ).merge(only_path: true)
       url_for(params)
     end
 
@@ -148,15 +146,14 @@ module Carnival
     end
 
     def controller_class_name
-      @controller.class.name
+      "#{controller_name}_controller".classify
     end
 
     def controller_name
-      namespace = extract_namespace
-      if namespace.present?
-        "#{extract_namespace.downcase}/#{@controller.controller_name}"
+      if is_namespaced?
+        "#{extract_namespace}/#{controller_resource_name}".underscore
       else
-        @controller.controller_name
+        controller_resource_name
       end
     end
 
@@ -299,7 +296,7 @@ module Carnival
       end
     end
 
-    def get_related_class_for_field (field_name)
+    def get_related_class_for_field(field_name)
       get_related_class get_association_from_field(field_name)
     end
 
@@ -320,20 +317,16 @@ module Carnival
       @advanced_search_parser.parse_advanced_search @@fields[presenter_class_name], records, search_syntax
     end
 
-    def presenter_to_field field, record
-      "#{extract_namespace}::#{field.name.to_s.singularize.classify}Presenter".constantize.send("new", :controller => controller_to_field(field))
+    def presenter_to_field(field, _record)
+      "#{extract_namespace}::#{field.name.to_s.singularize.classify}Presenter".constantize.new
     end
 
-    def presenter_to_field_sym field
-      "#{extract_namespace}::#{field.to_s.singularize.classify}Presenter".constantize.send("new", :controller => controller_to_field_sym(field))
+    def presenter_to_field_sym(field)
+      "#{extract_namespace}::#{field.to_s.singularize.classify}Presenter".constantize.new
     end
 
-    def controller_to_field field
-      "#{extract_namespace}::#{field.name.to_s.classify.pluralize}Controller".constantize.send("new")
-    end
-
-    def controller_to_field_sym field
-      "#{extract_namespace}::#{field.to_s.classify.pluralize}Controller".constantize.send("new")
+    def controller_to_field(field)
+      "#{extract_namespace}::#{field.name.to_s.classify.pluralize}Controller".constantize.new
     end
 
     def load_dependent_select_options_path
@@ -385,13 +378,20 @@ module Carnival
       self.class.presenter_class_name
     end
 
+    def controller_resource_name
+      presenter_class_name
+        .demodulize
+        .gsub('Presenter', '')
+        .underscore
+        .pluralize
+    end
+
     def is_namespaced?
-      self.class.to_s.split('::').size > 0
+      extract_namespace.present?
     end
 
     def extract_namespace
-      module_and_class = self.class.to_s.split('::')
-      module_and_class.size > 1 ? module_and_class.first : ''
+      self.class.to_s.deconstantize
     end
 
     def generate_route_path(params)
