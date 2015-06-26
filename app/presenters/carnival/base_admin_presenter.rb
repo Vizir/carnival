@@ -151,9 +151,9 @@ module Carnival
 
     def controller_name
       if is_namespaced?
-        "#{extract_namespace.downcase}/#{controller_resource_name}"
+        "#{extract_namespace}/#{controller_resource_name}".underscore
       else
-        controller_resouce_name
+        controller_resource_name
       end
     end
 
