@@ -4,15 +4,13 @@ module Carnival
     include Dsl
     include Rails.application.routes.url_helpers
 
-    def initialize(params)
-      @controller = params[:controller]
+    def initialize
+      return unless model_class.present?
 
-      if model_class.present?
-        @klass_service = KlassService.new model_class
-        @advanced_search_parser = Presenters::AdvancedSearchParser.new(@klass_service)
-        @validators = [Carnival::PresenterValidators::FieldValidator]
-        validates
-      end
+      @klass_service = KlassService.new model_class
+      @advanced_search_parser = Presenters::AdvancedSearchParser.new(@klass_service)
+      @validators = [Carnival::PresenterValidators::FieldValidator]
+      validates
     end
 
     def validates
@@ -148,15 +146,14 @@ module Carnival
     end
 
     def controller_class_name
-      @controller.class.name
+      "#{controller_name}_controller".classify
     end
 
     def controller_name
-      namespace = extract_namespace
-      if namespace.present?
-        "#{extract_namespace.downcase}/#{@controller.controller_name}"
+      if is_namespaced?
+        "#{extract_namespace.downcase}/#{controller_resource_name}"
       else
-        @controller.controller_name
+        controller_resouce_name
       end
     end
 
@@ -321,19 +318,15 @@ module Carnival
     end
 
     def presenter_to_field field, record
-      "#{extract_namespace}::#{field.name.to_s.singularize.classify}Presenter".constantize.send("new", :controller => controller_to_field(field))
+      "#{extract_namespace}::#{field.name.to_s.singularize.classify}Presenter".constantize.send("new")
     end
 
     def presenter_to_field_sym field
-      "#{extract_namespace}::#{field.to_s.singularize.classify}Presenter".constantize.send("new", :controller => controller_to_field_sym(field))
+      "#{extract_namespace}::#{field.to_s.singularize.classify}Presenter".constantize.send("new")
     end
 
     def controller_to_field field
       "#{extract_namespace}::#{field.name.to_s.classify.pluralize}Controller".constantize.send("new")
-    end
-
-    def controller_to_field_sym field
-      "#{extract_namespace}::#{field.to_s.classify.pluralize}Controller".constantize.send("new")
     end
 
     def load_dependent_select_options_path
@@ -385,13 +378,20 @@ module Carnival
       self.class.presenter_class_name
     end
 
+    def controller_resource_name
+      presenter_class_name
+        .demodulize
+        .gsub('Presenter', '')
+        .downcase
+        .pluralize
+    end
+
     def is_namespaced?
-      self.class.to_s.split('::').size > 0
+      extract_namespace.present?
     end
 
     def extract_namespace
-      module_and_class = self.class.to_s.split('::')
-      module_and_class.size > 1 ? module_and_class.first : ''
+      self.class.to_s.deconstantize
     end
 
     def generate_route_path(params)

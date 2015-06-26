@@ -88,7 +88,7 @@ module Carnival
     end
 
     def instantiate_presenter
-      @presenter = carnival_presenter_class.new controller: self
+      @presenter = carnival_presenter_class.new
     end
 
     def carnival_presenter_class
