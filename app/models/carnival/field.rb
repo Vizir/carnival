@@ -162,6 +162,10 @@ module Carnival
       @name.to_s
     end
 
+    def presenter_class
+      @params[:presenter]
+    end
+
     private
 
     def get_association_and_field
