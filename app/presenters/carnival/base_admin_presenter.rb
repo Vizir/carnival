@@ -344,6 +344,14 @@ module Carnival
       end
     end
 
+    def render_field(field_name, record)
+      renderer_for(field_name).render_field(record)
+    end
+
+    def renderer_for(field_name)
+      FieldRenderers::RendererCreator.create_field_renderer(self, field_name)
+    end
+
     protected
 
     def make_relation_advanced_query_url_options(field, record)
