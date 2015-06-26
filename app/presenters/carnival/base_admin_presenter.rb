@@ -108,10 +108,10 @@ module Carnival
 
     def model_name
       if @@model_names[presenter_class_name].nil?
-        self.class.to_s.split("::").last().gsub("Presenter", "").underscore
+        self.class.to_s.split('::').last.gsub('Presenter', '').underscore
       else
-        if @@model_names[presenter_class_name].include?("/")
-          @@model_names[presenter_class_name].split("/").last
+        if @@model_names[presenter_class_name].include?('/')
+          @@model_names[presenter_class_name].split('/').last
         else
           @@model_names[presenter_class_name]
         end
@@ -119,13 +119,13 @@ module Carnival
     end
 
     def model_params(params)
-      params.select{|key, value| key != "action" && key != "controller"}
+      params.select { |key, _| key != 'action' && key != 'controller' }
     end
 
-    def model_path(action, extra_params=nil)
-      params = {controller: controller_name, action: action}
-      params = params.merge(extra_params) if extra_params.present?
-      params = params.merge(:only_path => true)
+    def model_path(action, extra_params = {})
+      params = extra_params.reverse_merge(
+        controller: controller_name, action: action
+      ).merge(only_path: true)
       url_for(params)
     end
 
@@ -382,7 +382,7 @@ module Carnival
       presenter_class_name
         .demodulize
         .gsub('Presenter', '')
-        .downcase
+        .underscore
         .pluralize
     end
 
