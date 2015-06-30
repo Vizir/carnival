@@ -12,18 +12,7 @@ module Carnival::FieldRenderers
     protected
 
     def related_presenter
-      if field.presenter_class.present?
-        field.presenter_class.constantize.new
-      else
-        infer_presenter
-      end
-    end
-
-    def infer_presenter
-      related_presenter_name =
-        @presenter.get_related_class(field.association_name)
-        .gsub(/.*[(::)\/]/, '')
-      @presenter.presenter_to_field_sym(related_presenter_name)
+      @presenter.related_presenter(field)
     end
 
     def field
