@@ -54,7 +54,8 @@ Carnival.submitIndexForm = function(){
   $("#advanced_search_form input").each(function(){
     var inputValue = $(this).val();
 
-    if(inputValue == "____/__/__")
+    // If has no integer, i.e an empty strings
+    if(inputValue.match(/\d+/) === null)
       $(this).val('');
   });
 
