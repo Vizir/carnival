@@ -22,7 +22,7 @@ module Carnival
 
       def batch_action(name, params = {})
         class_variable_get('@@batch_actions')[presenter_class_name] ||= {}
-        class_variable_get('@@batch_actions')[presenter_class_name][name] = Carnival::BatchAction.new(self.new({}), name, params)
+        class_variable_get('@@batch_actions')[presenter_class_name][name] = Carnival::BatchAction.new(self.new, name, params)
       end
 
       def items_per_page(per_page)
