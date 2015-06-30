@@ -317,6 +317,15 @@ module Carnival
       @advanced_search_parser.parse_advanced_search @@fields[presenter_class_name], records, search_syntax
     end
 
+    def related_presenter(field)
+      field = get_field(field)
+      if field.presenter_class.present?
+        field.presenter_class.constantize.new
+      else
+        infer_presenter(field)
+      end
+    end
+
     def presenter_to_field(field, _record)
       "#{extract_namespace}::#{field.name.to_s.singularize.classify}Presenter".constantize.new
     end
@@ -346,6 +355,13 @@ module Carnival
     end
 
     protected
+
+    def infer_presenter(field)
+      related_presenter_name =
+        get_related_class(field.association_name)
+        .gsub(/.*[(::)\/]/, '')
+      presenter_to_field_sym(related_presenter_name)
+    end
 
     def make_relation_advanced_query_url_options(field, record)
       relation_model = @klass_service.get_association(field).klass.name.pluralize.underscore.split("/").last
