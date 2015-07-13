@@ -52,11 +52,14 @@ Carnival.callFunc = function(functionName, data){
 
 Carnival.submitIndexForm = function(){
   $("#advanced_search_form input").each(function(){
-    var inputValue = $(this).val();
+    var $input = $(this);
+    var inputValue = $input.val();
 
-    // If has no integer, i.e an empty strings
-    if(inputValue.match(/\d+/) === null)
-      $(this).val('');
+    // [Date Inputs] If has no integer, i.e an empty strings
+    if($input.attr('class') && $input.attr('class').search('date') >= 0){
+      if(inputValue.match(/\d+/) === null)
+        $input.val('');
+    }
   });
 
   $("#advanced_search_form select").each(function(){
