@@ -345,6 +345,20 @@ module Carnival
 
     def renderer_for(field_name)
       FieldRenderers::RendererCreator.create_field_renderer(self, field_name)
+<<<<<<< HEAD
+=======
+    end
+    
+    def translate_field field_name
+      field = get_field(field_name)
+      if field.specified_association?
+        related_class = model_class.reflect_on_association(field.association_name.to_sym).klass
+        related_class.human_attribute_name(field.association_field_name)
+      else
+        field_key = field.name_for_translation
+        model_class.human_attribute_name field_key
+      end
+>>>>>>> master
     end
 
     protected
