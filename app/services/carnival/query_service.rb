@@ -37,7 +37,6 @@ module Carnival
 
     def scopes_number
       records = records_without_pagination_and_scope
-
       Hash[@presenter.scopes.keys.map do |key|
         [key, scope_query(records, key).size]
       end]

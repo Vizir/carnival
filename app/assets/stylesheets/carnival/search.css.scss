@@ -156,3 +156,16 @@
 .select2-drop {
   z-index: 99999999999 !important;
 }
+
+.advanced-search button{
+  background: #007ae1;
+  color: #fff;
+  margin-top: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.21);
+  border-radius: 2px;
+  padding: 0px 15px;
+}
+
+.advanced-search button:hover{
+  color: #fff
+}

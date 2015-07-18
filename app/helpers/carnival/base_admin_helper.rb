@@ -86,7 +86,7 @@ module Carnival
 
     def field_to_show(presenter, field_name, record, show_only_values=false)
       if presenter.fields[field_name].params[:as] == :partial
-        raw(render field_name.to_s, record: record)
+        raw(render presenter.fields[field_name].params[:partial_name], record: record)
       else
         rendered = field_value_and_type presenter, field_name, record
         field_type = rendered[:field_type]
@@ -141,9 +141,7 @@ module Carnival
     end
 
     def translate_field(presenter, field_name)
-      field = presenter.get_field(field_name)
-      field_key = field.name_for_translation
-      presenter.model_class.human_attribute_name field_key
+      presenter.translate_field(field_name)
     end
 
     def list_cel(presenter, field, record, only_render_fields)
