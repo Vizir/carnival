@@ -88,7 +88,7 @@ module Carnival
     end
 
     def instantiate_presenter
-      @presenter = carnival_presenter_class.new controller: self
+      @presenter = carnival_presenter_class.new
     end
 
     def carnival_presenter_class
@@ -101,12 +101,7 @@ module Carnival
     end
 
     def extract_namespace
-      module_class_split = self.class.to_s.split('::')
-      if module_class_split.size > 1
-        module_class_split[0]
-      else
-        ''
-      end
+      self.class.name.deconstantize
     end
 
     def back_or_model_path

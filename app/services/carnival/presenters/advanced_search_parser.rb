@@ -46,7 +46,9 @@ module Carnival
             else
               records = records.joins(search_field.split("/").last.pluralize.to_sym)
             end
-            table = @klass_service.get_related_class(search_field.to_sym).table_name
+            related_model = @klass_service.get_related_class(search_field.to_sym).name.underscore
+            related_model.gsub!(Carnival::Config.mount_at, '') if Carnival::Config.mount_at.present?
+            table = related_model.camelize.constantize.table_name
             column = "id" if column.nil?
           else
             table = @klass_service.table_name

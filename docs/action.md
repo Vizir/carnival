@@ -29,6 +29,20 @@
     - Error Callback
     - default\_value: '[name_of_action]_error_callback'
 
+
+#### :hide_if
+  - Your actions can have custom visibility, for example if you want show it only for an admin_user, for that you must specify a hide if, options when defining the action. This must be a proc or a lambda, if it returns true the action will not be shown.
+
+  - The hide_if Proc/lambda is executed in the controller action, so you have access to all of the controller variables and the @record variable is injected in the action, so you can make conditions using the record data.
+
+  -Following is an example of how to define a custom action visibility:
+  ``` ruby
+    action  :remove_from_blacklist,
+            :remote => true,
+            :method => 'POST',
+            :hide_if => proc { @record.blacklisted && @current_admin_user.current_account_id == @record.account_id }
+  ```
+
 ## Examples:
 
 ### Custom Action

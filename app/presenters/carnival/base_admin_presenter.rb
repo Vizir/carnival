@@ -4,15 +4,13 @@ module Carnival
     include Dsl
     include Rails.application.routes.url_helpers
 
-    def initialize(params)
-      @controller = params[:controller]
+    def initialize
+      return unless model_class.present?
 
-      if model_class.present?
-        @klass_service = KlassService.new model_class
-        @advanced_search_parser = Presenters::AdvancedSearchParser.new(@klass_service)
-        @validators = [Carnival::PresenterValidators::FieldValidator]
-        validates
-      end
+      @klass_service = KlassService.new model_class
+      @advanced_search_parser = Presenters::AdvancedSearchParser.new(@klass_service)
+      @validators = [Carnival::PresenterValidators::FieldValidator]
+      validates
     end
 
     def validates
@@ -110,10 +108,10 @@ module Carnival
 
     def model_name
       if @@model_names[presenter_class_name].nil?
-        self.class.to_s.split("::").last().gsub("Presenter", "").underscore
+        self.class.to_s.split('::').last.gsub('Presenter', '').underscore
       else
-        if @@model_names[presenter_class_name].include?("/")
-          @@model_names[presenter_class_name].split("/").last
+        if @@model_names[presenter_class_name].include?('/')
+          @@model_names[presenter_class_name].split('/').last
         else
           @@model_names[presenter_class_name]
         end
@@ -121,13 +119,13 @@ module Carnival
     end
 
     def model_params(params)
-      params.select{|key, value| key != "action" && key != "controller"}
+      params.select { |key, _| key != 'action' && key != 'controller' }
     end
 
-    def model_path(action, extra_params=nil)
-      params = {controller: controller_name, action: action}
-      params = params.merge(extra_params) if extra_params.present?
-      params = params.merge(:only_path => true)
+    def model_path(action, extra_params = {})
+      params = extra_params.reverse_merge(
+        controller: controller_name, action: action
+      ).merge(only_path: true)
       url_for(params)
     end
 
@@ -148,15 +146,14 @@ module Carnival
     end
 
     def controller_class_name
-      @controller.class.name
+      "#{controller_name}_controller".classify
     end
 
     def controller_name
-      namespace = extract_namespace
-      if namespace.present?
-        "#{extract_namespace.downcase}/#{@controller.controller_name}"
+      if is_namespaced?
+        "#{extract_namespace}/#{controller_resource_name}".underscore
       else
-        @controller.controller_name
+        controller_resource_name
       end
     end
 
@@ -299,7 +296,7 @@ module Carnival
       end
     end
 
-    def get_related_class_for_field (field_name)
+    def get_related_class_for_field(field_name)
       get_related_class get_association_from_field(field_name)
     end
 
@@ -320,20 +317,18 @@ module Carnival
       @advanced_search_parser.parse_advanced_search @@fields[presenter_class_name], records, search_syntax
     end
 
-    def presenter_to_field field, record
-      "#{extract_namespace}::#{field.name.to_s.singularize.classify}Presenter".constantize.send("new", :controller => controller_to_field(field))
+    def related_presenter(field, _not_used = nil)
+      field = get_field(field)
+      if field.presenter_class.present?
+        field.presenter_class.constantize.new
+      else
+        infer_presenter(field)
+      end
     end
+    alias_method :presenter_to_field, :related_presenter
 
-    def presenter_to_field_sym field
-      "#{extract_namespace}::#{field.to_s.singularize.classify}Presenter".constantize.send("new", :controller => controller_to_field_sym(field))
-    end
-
-    def controller_to_field field
-      "#{extract_namespace}::#{field.name.to_s.classify.pluralize}Controller".constantize.send("new")
-    end
-
-    def controller_to_field_sym field
-      "#{extract_namespace}::#{field.to_s.classify.pluralize}Controller".constantize.send("new")
+    def controller_to_field(field)
+      "#{extract_namespace}::#{field.name.to_s.classify.pluralize}Controller".constantize.new
     end
 
     def load_dependent_select_options_path
@@ -344,6 +339,7 @@ module Carnival
       end
     end
 
+<<<<<<< HEAD
     def translate_field field_name
       field = get_field(field_name)
       if field.specified_association?
@@ -353,9 +349,24 @@ module Carnival
         field_key = field.name_for_translation
         model_class.human_attribute_name field_key
       end
+=======
+    def render_field(field_name, record)
+      renderer_for(field_name).render_field(record)
+    end
+
+    def renderer_for(field_name)
+      FieldRenderers::RendererCreator.create_field_renderer(self, field_name)
+>>>>>>> master
     end
 
     protected
+
+    def infer_presenter(field)
+      related_presenter_name =
+        get_related_class(field.association_name)
+        .gsub(/.*[(::)\/]/, '')
+      "#{extract_namespace}::#{related_presenter_name.singularize.classify}Presenter".constantize.new
+    end
 
     def make_relation_advanced_query_url_options(field, record)
       relation_model = @klass_service.get_association(field).klass.name.pluralize.underscore.split("/").last
@@ -388,13 +399,20 @@ module Carnival
       self.class.presenter_class_name
     end
 
+    def controller_resource_name
+      presenter_class_name
+        .demodulize
+        .gsub('Presenter', '')
+        .underscore
+        .pluralize
+    end
+
     def is_namespaced?
-      self.class.to_s.split('::').size > 0
+      extract_namespace.present?
     end
 
     def extract_namespace
-      module_and_class = self.class.to_s.split('::')
-      module_and_class.size > 1 ? module_and_class.first : ''
+      self.class.to_s.deconstantize
     end
 
     def generate_route_path(params)

@@ -14,7 +14,6 @@ Gem::Specification.new do |s|
   s.description = 'Carnival is an easy-to-use and extensible Rails Engine to speed the development of data management interfaces. When you use Carnival you can benefit from made features that are already done. If you need to change anything, you can write your own version of the method, using real Ruby code without worrying about the syntax of the engine.'
 
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.rdoc']
-  s.test_files = Dir['spec/**/*']
 
   s.add_dependency 'rails', '>= 4.0'
 
