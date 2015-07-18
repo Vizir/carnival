@@ -13,6 +13,16 @@ module Carnival
     #  @name.to_s
     #end
 
+    def hidden?(record, controller)
+      if @params.has_key?(:hide_if)
+        block = @params[:hide_if]
+        controller.instance_variable_set(:@record, record)
+        controller.instance_eval(&block)
+      else
+        false
+      end
+    end
+
     def specified_association?
       not get_association_and_field[:association].nil?
     end

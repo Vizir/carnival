@@ -347,8 +347,8 @@ module Carnival
     def translate_field field_name
       field = get_field(field_name)
       if field.specified_association?
-        related_class = model_class.reflect_on_association(field.association_name).klass
-        related_class.human_attribute_name(field.association_field_name)
+        related_class = model_class.reflect_on_association(field.association_name.to_sym).klass
+        related_class.human_attribute_name(field.association_field_name.to_sym)
       else
         field_key = field.name_for_translation
         model_class.human_attribute_name field_key

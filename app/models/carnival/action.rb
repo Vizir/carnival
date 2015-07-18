@@ -31,6 +31,16 @@ module Carnival
       end
     end
 
+    def hidden?(record, controller)
+      if @params.has_key?(:hide_if)
+        block = @params[:hide_if]
+        controller.instance_variable_set(:@record, record)
+        controller.instance_eval(&block)
+      else
+        false
+      end
+    end
+
     def show(record)
       return true if !params[:show_func]
       return true if !record.respond_to? params[:show_func]
