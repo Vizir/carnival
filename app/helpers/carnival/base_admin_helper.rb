@@ -106,7 +106,10 @@ module Carnival
     end
 
     def field_value_and_type(presenter, field_name, record)
-      presenter.render_field(field_name, record)
+      renderer = FieldRenderers::RendererCreator
+                 .create_field_renderer(presenter, field_name)
+
+      renderer.render_field(record)
     end
 
     def is_image?(field_type, value)
@@ -141,7 +144,9 @@ module Carnival
     end
 
     def translate_field(presenter, field_name)
-      presenter.translate_field(field_name)
+      field = presenter.get_field(field_name)
+      field_key = field.name_for_translation
+      presenter.model_class.human_attribute_name field_key
     end
 
     def list_cel(presenter, field, record, only_render_fields)
