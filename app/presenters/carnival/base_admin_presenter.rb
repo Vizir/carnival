@@ -345,8 +345,6 @@ module Carnival
 
     def renderer_for(field_name)
       FieldRenderers::RendererCreator.create_field_renderer(self, field_name)
-<<<<<<< HEAD
-=======
     end
     
     def translate_field field_name
@@ -358,7 +356,6 @@ module Carnival
         field_key = field.name_for_translation
         model_class.human_attribute_name field_key
       end
->>>>>>> master
     end
 
     protected
