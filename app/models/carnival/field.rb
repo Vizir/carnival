@@ -9,10 +9,6 @@ module Carnival
       validate
     end
 
-    #def name
-    #  @name.to_s
-    #end
-
     def hidden?(record, controller)
       if @params.has_key?(:hide_if)
         block = @params[:hide_if]
