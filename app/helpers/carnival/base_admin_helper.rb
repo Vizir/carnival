@@ -198,7 +198,7 @@ module Carnival
       if presenter.actions_for_record.any?
         presenter.actions_for_record.map do |_, record_action|
           next unless presenter.render_action?(record, record_action, params[:action])
-          next unless record_action.hidden?(record, controller)
+          next if record_action.hidden?(record, controller)
           if record_action.remote?
             button_action_remote(record_action, presenter, record)
           else
