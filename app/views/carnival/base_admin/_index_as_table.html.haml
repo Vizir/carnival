@@ -5,8 +5,9 @@
         %th.batching
           %input{id: 'toggle-all-batch-actions-items',type: 'checkbox'}
       - @thead_renderer.columns.each do |column|
-        - if ( @presenter.render_field?(column[:field], :index))
-          %th{"onclick" => "javascript:#{column[:sort_function]}",  "class" => "#{column[:class]}"}= translate_field(presenter, column[:field])
+        - unless hide_column?(column[:field], @records, controller)
+          - if ( @presenter.render_field?(column[:field], :index))
+            %th{"onclick" => "javascript:#{column[:sort_function]}",  "class" => "#{column[:class]}"}= translate_field(presenter, column[:field])
       - if @presenter.actions_for_record.any?
         %th.buttons
   %tbody
@@ -16,8 +17,12 @@
           %td
             =check_box_tag(:batch_action_item, record.id, false, class: 'batch_action_items')
         - @presenter.fields_for_action(:index).each do |key, field|
-          - if ( @presenter.render_field?(field, :index))
-            = list_cel(@presenter, key,record, false).html_safe
+          - unless field.hidden?(record, controller)
+            - if ( @presenter.render_field?(field, :index))
+              = list_cel(@presenter, key,record, false).html_safe
+          - else
+            - unless hide_column?(field, @records, controller)
+              = empty_cel(@presenter, key,record, false).html_safe
         - if @presenter.actions_for_record.any?
           %td
-            = list_buttons(@presenter, record).html_safe
+            = list_buttons(@presenter, record).try(:html_safe)

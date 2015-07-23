@@ -1,5 +1,5 @@
 - presenter.actions_for_record.each do |key, action|
-  - if action.show(record)
+  - unless action.hide?(record)
     - if action.remote?
       = render action.partial, :path => action.path(presenter, :id => record.id), :name => action.name, :params => action.params, :label => t("#{presenter.model_name}.#{action.name}", default: t("carnival.#{action.name}"))
     - else

@@ -5,9 +5,10 @@
         .row
           .col-md-12
             - @presenter.fields_for_action(:index).each do |key, field|
-              - if ( @presenter.render_field?(field, :index))
-                = grid_attr(@presenter, key,record, false).html_safe
+              - unless field.hidden?(record, controller)
+                - if ( @presenter.render_field?(field, :index))
+                  = grid_attr(@presenter, key,record, false).html_safe
         .row
           -if presenter.has_batch_actions?
             =check_box_tag(:batch_action_item, record.id, false, class: 'batch_action_items')
-          = list_buttons(@presenter, record).html_safe
+          = list_buttons(@presenter, record).try(:html_safe)

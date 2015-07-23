@@ -30,22 +30,41 @@
     :sortable => true
   ```
 
-#### :partial_name
-  - Define the partial to be used to render the field value, this parameter must be used with the ```as: :partial```, because it's only checked when the field is defined to rendered ```as: :partial```
-
 #### :as
   - Define the type of the render that will be used to render the field. If the type passed as parameter to SimpleForm, as a type of Input. The only exception is the :partial parameter that is explained below.
 
-  ##### as: :partial
+##### as: :partial
   Instead of rendereing a field, Carnival will render a partial instead of the default field render, the name of the partial to be rendered must be defined in the ```:partial_name``` parameter. The following declaration inside AuthorsPresenter
 
-```ruby
-    field :field_name, actions: [:edit], as: :partial, partial_name: "custom_partial"
+  ```ruby
+      field :field_name, actions: [:edit], as: :partial, partial_name: "custom_partial"
   ```
+
+  Instead of rendereing a field, Carnival fill search for a partial with the field name. The following declaration inside AuthorsPresenter
+
+#### :partial_name
+  - Define the partial to be used to render the field value, this parameter must be used with the ```as: :partial```, because it's only checked when the field is defined to rendered ```as: :partial```
+  
   Carnival will try to render the partial '_custom_partial.html.haml' inside /app/views/authors.
   To be more useful the following objects are available to the called partial:
+  
   * record: available to all partials, it represents de current record being displayed.
   * f: when a new or edit action is being rendered, the 'f' object will contain the current form being rendered.
+
+#### :hide_if
+  - Your fields can have custom visibility, for example if you want show it only for an admin_user,
+for that you must specify a hide_if, options when defining the field. This must be a proc or a
+lambda, if it returns true the field will not be shown.
+
+  - The hide_if Proc/lambda is executed in the controller field, so you have access to all of the controller variables and the @record variable is injected in the field, so you can make conditions using the record data.
+
+  -Following is an example of how to define a custom field visibility:
+  ``` ruby
+      field "account.name",
+            :actions => [:index, :show, :csv],
+            :sortable => false,
+            :hide_if => proc { @record.blacklisted && @current_admin_user.current_account_id == @record.account_id }
+  ```
 
 #### :presenter
 If the field is a relation specifies a different presenter class for the field
