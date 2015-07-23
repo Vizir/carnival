@@ -7,15 +7,19 @@ $(document).ready(function(){
       $(".as-form-overlay").remove();
       $("#advanced_search_form").hide();
       $(".select2-drop").hide();
-      return false
+      return false;
     });
-    return false
+    return false;
   });
 
 
-  $(".carnival-index-form form").submit(function(e){
-    Carnival.cleanIndexForm();
-  })
+  $("#search_button").click(function(e){
+    e.preventDefault();
+
+    var queryParams = [];
+
+    Carnival.submitIndexForm();
+  });
 
   $("#clear_button").click(function(e){
     e.preventDefault();
@@ -32,3 +36,5 @@ $(document).ready(function(){
     Carnival.submitIndexForm();
   });
 });
+
+
