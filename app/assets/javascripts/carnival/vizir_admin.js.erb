@@ -51,10 +51,6 @@ Carnival.callFunc = function(functionName, data){
 }
 
 Carnival.submitIndexForm = function(){
-  $(".carnival-index-form form").submit();
-}
-
-Carnival.cleanIndexForm = function(){
   $("#advanced_search_form input").each(function(){
     var $input = $(this);
     var inputValue = $input.val();
@@ -72,6 +68,8 @@ Carnival.cleanIndexForm = function(){
     if(inputValue == "-1")
       $(this).val('');
   });
+  var form = $('.carnival-index-form').find('form')
+  form.submit();
 }
 
 Carnival.setIndexPageParam = function(name, value){
