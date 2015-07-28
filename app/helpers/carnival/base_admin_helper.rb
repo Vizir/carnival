@@ -106,10 +106,7 @@ module Carnival
     end
 
     def field_value_and_type(presenter, field_name, record)
-      renderer = FieldRenderers::RendererCreator
-                 .create_field_renderer(presenter, field_name)
-
-      renderer.render_field(record)
+      presenter.render_field(field_name, record)
     end
 
     def is_image?(field_type, value)
