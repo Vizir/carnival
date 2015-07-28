@@ -1,5 +1,7 @@
 module Carnival
   class BaseAdminController < InheritedResources::Base
+    include ActionController::Live
+
     respond_to :html, :json
     layout 'carnival/admin'
     before_action :instantiate_presenter
@@ -12,14 +14,8 @@ module Carnival
       @thead_renderer = TheadRenderer.new @presenter.fields_for_action(:index), @query_form.sort_column, @query_form.sort_direction
 
       respond_to do |format|
-        format.html do
-          @records = @query_service.get_query
-          @paginator = Paginator.new @query_form.page, @query_service.page_count
-        end
-        format.csv do
-          @records = @query_service.records_without_pagination
-          render csv: @model.model_name.human
-        end
+        format.html { index_for_html }
+        format.csv { index_for_csv }
       end
     end
 
@@ -72,6 +68,31 @@ module Carnival
     end
 
     protected
+
+    def index_for_html
+      @records = @query_service.get_query
+      @paginator = Paginator.new @query_form.page, @query_service.page_count
+    end
+
+    def index_for_csv
+      records = @query_service.records_without_pagination
+      records_per_chunk = @presenter.csv_records_per_chunk
+      begin
+        records.find_each(batch_size: records_per_chunk) do |record|
+          response.stream.write csv_for_record(record)
+        end
+      ensure
+        response.stream.close
+      end
+    end
+
+    def csv_for_record(record)
+      CSV.generate do |csv|
+        csv << @presenter.fields_for_action(:csv).keys.map do |field|
+          @presenter.render_field(field, record)[:value]
+        end
+      end
+    end
 
     def presenter_name(field)
       field_name =  field.split('/').last
