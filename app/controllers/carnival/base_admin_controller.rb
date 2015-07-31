@@ -1,7 +1,5 @@
 module Carnival
   class BaseAdminController < InheritedResources::Base
-    include ActionController::Live
-
     respond_to :html, :json
     layout 'carnival/admin'
     before_action :instantiate_presenter
@@ -75,23 +73,10 @@ module Carnival
     end
 
     def index_for_csv
-      records = @query_service.records_without_pagination
-      records_per_chunk = @presenter.csv_records_per_chunk
-      begin
-        records.find_each(batch_size: records_per_chunk) do |record|
-          response.stream.write csv_for_record(record)
-        end
-      ensure
-        response.stream.close
-      end
-    end
-
-    def csv_for_record(record)
-      CSV.generate do |csv|
-        csv << @presenter.fields_for_action(:csv).keys.map do |field|
-          @presenter.render_field(field, record)[:value]
-        end
-      end
+      csv_string = @query_service.records_without_pagination.map do |record|
+        @presenter.csv_for_record(record)
+      end.join('')
+      send_data(csv_string)
     end
 
     def presenter_name(field)
