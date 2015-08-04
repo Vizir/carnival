@@ -86,7 +86,7 @@ module Carnival
 
     def field_to_show(presenter, field_name, record, show_only_values=false)
       if presenter.fields[field_name].params[:as] == :partial
-        raw(render presenter.fields[field_name].params[:partial_name], record: record)
+        raw(render presenter.fields[field_name].partial_name, record: record)
       else
         rendered = field_value_and_type presenter, field_name, record
         field_type = rendered[:field_type]

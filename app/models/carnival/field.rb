@@ -171,6 +171,10 @@ module Carnival
       @params[:presenter]
     end
 
+    def partial_name
+      @params[:partial_name] || name.to_s
+    end
+
     private
 
     def get_association_and_field
