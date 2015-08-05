@@ -3,6 +3,8 @@ $(document).ready(function(){
     $('body').append('<div class="as-form-overlay">')
     $("#advanced_search_toggler").toggleClass('is-opened')
     $("#advanced_search_form").toggle();
+    $('#advanced_search_form').find('input').focus();
+
     $(".as-form-overlay").click(function(e){
       $(".as-form-overlay").remove();
       $("#advanced_search_form").hide();
