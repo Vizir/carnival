@@ -3,7 +3,7 @@ $(document).ready(function(){
     $('body').append('<div class="as-form-overlay">')
     $("#advanced_search_toggler").toggleClass('is-opened')
     $("#advanced_search_form").toggle();
-    $('#advanced_search_form').find('input').focus();
+    $($('#advanced_search_form').find('input')[0]).focus();
 
     $(".as-form-overlay").click(function(e){
       $(".as-form-overlay").remove();
@@ -14,6 +14,15 @@ $(document).ready(function(){
     return false;
   });
 
+
+  $('#advanced_search_form').find('input').keypress(function(e){
+
+    if(e.which === 13){
+      e.preventDefault();
+      var queryParams = [];
+      Carnival.submitIndexForm();
+    }
+  });
 
   $("#search_button").click(function(e){
     e.preventDefault();
