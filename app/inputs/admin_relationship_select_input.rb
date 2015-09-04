@@ -3,7 +3,7 @@ class AdminRelationshipSelectInput < SimpleForm::Inputs::CollectionSelectInput
     super
     input_html_options[:class] << ' carnival-select'
     if input_html_options[:data][:depends_on].nil?
-      collection = @builder.object.class.name.constantize.reflect_on_association(attribute_name.to_sym).klass.name.constantize.list_for_select(add_empty_option: true)
+      collection = @builder.object.class.name.constantize.reflect_on_association(attribute_name.to_sym).klass.name.constantize.list_for_select
     else
       depends_on =  @builder.object.class.name.constantize.reflect_on_association(input_html_options[:data][:depends_on]).foreign_key
       depends_on_value = @builder.object.send(depends_on.to_s)
