@@ -175,6 +175,10 @@ module Carnival
       @params[:partial_name] || name.to_s
     end
 
+    def add_empty_option
+      @params[:add_empty_option].present? && @params[:add_empty_option]
+    end
+
     private
 
     def get_association_and_field

@@ -11,6 +11,7 @@
 - options[:input_html][:class] = "field-#{field.name}"
 - options[:input_html][:data] = {}
 - options[:input_html][:data][:presenter_name] = presenter.presenter_name
+- options[:input_html][:data][:add_empty_option] = field.add_empty_option
 
 - if options[:as].is_a? Hash
   - options[:input_html][:data][:carnival_options] = options[:as].first[1]
