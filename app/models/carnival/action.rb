@@ -41,6 +41,10 @@ module Carnival
       end
     end
 
+    def data
+      @params[:data]
+    end
+
     def show(record)
       return true if !params[:show_func]
       return true if !record.respond_to? params[:show_func]

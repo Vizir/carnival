@@ -215,7 +215,7 @@ module Carnival
       path = action.path(presenter, id: record.id)
 
       if action.default_partial == :default
-        link_to label, path, class: "carnival-action-link #{label.parameterize}"
+        link_to label, path, class: "carnival-action-link #{label.parameterize}", data: action.data
       elsif action.default_partial == :delete
         link_to label, path, class: 'carnival-action-link apagar', method: :delete, data: { confirm: I18n.t('are_you_sure') }
       end
