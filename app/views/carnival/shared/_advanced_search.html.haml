@@ -7,7 +7,7 @@
     %li.search_item
       .search_field
         .label
-          = label_tag key, presenter.translate_field(field)
+          = label_tag key, I18n.t("carnival.advanced_search_label.#{presenter.model_name}.#{field.name}", default: presenter.translate_field(field))
         .field
           = render '/carnival/shared/advanced_search_field', :field => field, :presenter => presenter, :value => value
   %li.search_item
