@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Carnival
   class BaseAdminPresenter
+    DEFAULT_CSV_RECORDS_PER_CHUNK = 500
     include Dsl
     include Rails.application.routes.url_helpers
 
@@ -346,7 +347,7 @@ module Carnival
     def renderer_for(field_name)
       FieldRenderers::RendererCreator.create_field_renderer(self, field_name)
     end
-    
+
     def translate_field field_name
       field = get_field(field_name)
       if field.specified_association?
@@ -355,6 +356,19 @@ module Carnival
       else
         field_key = field.name_for_translation
         model_class.human_attribute_name field_key
+      end
+    end
+
+    def csv_records_per_chunk
+      @@csv_records_per_chunk[presenter_class_name] ||
+        DEFAULT_CSV_RECORDS_PER_CHUNK
+    end
+
+    def csv_for_record(record)
+      CSV.generate do |csv|
+        csv << fields_for_action(:csv).keys.map do |field|
+          render_field(field, record)[:value]
+        end
       end
     end
 

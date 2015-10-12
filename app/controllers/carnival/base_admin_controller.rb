@@ -12,14 +12,8 @@ module Carnival
       @thead_renderer = TheadRenderer.new @presenter.fields_for_action(:index), @query_form.sort_column, @query_form.sort_direction
 
       respond_to do |format|
-        format.html do
-          @records = @query_service.get_query
-          @paginator = Paginator.new @query_form.page, @query_service.page_count
-        end
-        format.csv do
-          @records = @query_service.records_without_pagination
-          render csv: @model.model_name.human
-        end
+        format.html { index_for_html }
+        format.csv { index_for_csv }
       end
     end
 
@@ -72,6 +66,18 @@ module Carnival
     end
 
     protected
+
+    def index_for_html
+      @records = @query_service.get_query
+      @paginator = Paginator.new @query_form.page, @query_service.page_count
+    end
+
+    def index_for_csv
+      csv_string = @query_service.records_without_pagination.map do |record|
+        @presenter.csv_for_record(record)
+      end.join('')
+      send_data(csv_string)
+    end
 
     def presenter_name(field)
       field_name =  field.split('/').last

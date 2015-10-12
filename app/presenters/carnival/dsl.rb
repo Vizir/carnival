@@ -4,7 +4,7 @@ module Carnival
 
     included do
       [:index_as, :actions, :batch_actions, :items_per_page,
-       :model_names, :fields, :scopes, :forms]
+       :model_names, :fields, :scopes, :forms, :csv_records_per_chunk]
         .each do |variable_name|
         class_variable_set("@@#{variable_name}", {})
       end
@@ -44,6 +44,10 @@ module Carnival
 
       def model_name(name)
         class_variable_get('@@model_names')[presenter_class_name] = name
+      end
+
+      def csv_records_per_chunk(records_per_chunk)
+        class_variable_get('@@csv_records_per_chunk')[presenter_class_name] = records_per_chunk
       end
 
       def instantiate_element(container, klass, name, params)
