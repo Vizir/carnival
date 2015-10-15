@@ -30,6 +30,7 @@ $(document).ready(function(){
     var queryParams = [];
 
     Carnival.submitIndexForm();
+    Carnival.reloadIndexPage();
   });
 
   $("#clear_button").click(function(e){
@@ -47,5 +48,3 @@ $(document).ready(function(){
     Carnival.submitIndexForm();
   });
 });
-
-
