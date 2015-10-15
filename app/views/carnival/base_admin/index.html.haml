@@ -50,27 +50,28 @@
             - if column[:sort_function] != ''
               %option{ :selected => column[:name] == @query_form.sort_column && 'asc' == @query_form.sort_direction, :data => {column_name: "#{column[:name]}", sort_dir: "asc"} ,  "class" => "#{column[:class]}"}= "#{translate_field(presenter, column[:field])} - &#9650;".html_safe
               %option{ :selected => column[:name] == @query_form.sort_column && 'desc' == @query_form.sort_direction, :data => {column_name: "#{column[:name]}", sort_dir: "desc"} ,  "class" => "#{column[:class]}"}= "#{translate_field(presenter, column[:field])} - &#9660;".html_safe
-- if presenter.index_as
+
+- if @records.any?
+
   = render "index_as_#{presenter.index_as}", :params => params, presenter: presenter
+
+  .carnival-footer-tools
+
+    .table-paginate
+      - @paginator.pages.each do |page_hash|
+        %span{class: page_hash[:css_class]}
+          = link_to(t(page_hash[:label]), page_hash[:js_function], :class => "carnival-action-button")
+      = "#{t('paginate_total')}: #{@query_service.total_records}"
+
+    .table-download-links
+      - params = @query_form.to_hash
+      = link_to t('download_as_csv'), presenter.model_path(:index, { format: 'csv' }.merge(params)), class: 'carnival-action-button csv' if presenter.has_action?(:csv)
+
 - else
-  - if @records.any?
-    .carnival-footer-tools
-
-      .table-paginate
-        - @paginator.pages.each do |page_hash|
-          %span{class: page_hash[:css_class]}
-            = link_to(t(page_hash[:label]), page_hash[:js_function], :class => "carnival-action-button")
-        = "#{t('paginate_total')}: #{@query_service.total_records}"
-
-      .table-download-links
-        - params = @query_form.to_hash
-        = link_to t('download_as_csv'), presenter.model_path(:index, { format: 'csv' }.merge(params)), class: 'carnival-action-button csv' if presenter.has_action?(:csv)
-
-  - else
-    .empty-result
-      %h1
-        = t('no_results')
-      %h4
-        %span
-        - presenter.actions_for_page.each do |key, action|
-          = render '/carnival/shared/action_default', :label=>t("#{presenter.model_name}.#{action.name}", default: t("carnival.#{action.name}")), :path=> action.path(presenter)
+  .empty-result
+    %h1
+      = t('no_results')
+    %h4
+      %span
+      - presenter.actions_for_page.each do |key, action|
+        = render '/carnival/shared/action_default', :label=>t("#{presenter.model_name}.#{action.name}", default: t("carnival.#{action.name}")), :path=> action.path(presenter)
