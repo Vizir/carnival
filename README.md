@@ -48,6 +48,17 @@ When you use Carnival you'll benefit from a set of features already done. If you
   - Custom partial view
   - Show as list
 
+## Additional Docs
+
+You can find more detailed docs in the links below:
+
+- [Action](docs/action.md)
+- [Controller](docs/controller.md)
+- [Field](docs/field.md)
+- [Presenter](docs/presenter.md)
+- [Scope](docs/scope.md)
+
+
 ## How it works
 
 It provides a managing infra-structure for your application.
@@ -232,16 +243,5 @@ It can be easily integrated with gems that you are already used to use.
 * [Paperclip](docs/integrations/paperclip.md)
 
 
-
 * Menu
   - Customize Order, route, text, label and class
-
-## Additional Docs
-
-You can find more detailed docs in the links below:
-
-- [Action](docs/action.md)
-- [Controller](docs/controller.md)
-- [Field](docs/field.md)
-- [Presenter](docs/presenter.md)
-- [Scope](docs/scope.md)
