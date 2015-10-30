@@ -174,7 +174,7 @@ config.menu = {
 
 ### Custom Views
 
-Carnival permits that you specify some partials for your page, you just need just add your partial in the `app/views/carnival/extra_header.html.haml`.
+Carnival permits that you specify some partials for your page, you just need add your partial in the `app/views/carnival/extra_header.html.haml`.
 
 Possible Partials:
 
@@ -234,7 +234,7 @@ It can be easily integrated with gems that you are already used to use.
 
 #### Rich Text Editor
 
-* [CKEditor](docs/integrations/ckeditor.md)
+* [CKEditor](docs/integrations/ckeditor.mb.md)
 
 #### File upload
 
