@@ -4,8 +4,12 @@ By
 [![Vizir Logo](http://vizir.com.br/wp-content/themes/vizir/images/logo.png)](http://vizir.com.br/)
 
 Carnival is an easy-to-use and extensible Rails Engine to speed up the development of data management interfaces.
+It provides a managing infra-structure for your application.
 
 When you use Carnival you'll benefit from a set of features already done. If you need to change anything, you can write your own version of the code, using real Ruby code in Rails standard components without worrying about a specific syntax or DSL.
+
+* How it works
+ - Carnival works with Rails 4.0 onwards.
 
 ## Features
 
@@ -58,12 +62,6 @@ You can find more detailed docs in the links below:
 - [Presenter](docs/presenter.md)
 - [Scope](docs/scope.md)
 
-
-## How it works
-
-It provides a managing infra-structure for your application.
-
-Carnival works with Rails 4.0 onwards.
 
 ## Getting started
 
