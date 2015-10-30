@@ -52,6 +52,9 @@ When you use Carnival you'll benefit from a set of features already done. If you
   - Custom partial view
   - Show as list
 
+* Menu
+  - Customize Order, route, text, label and class
+
 ## Additional Docs
 
 You can find more detailed docs in the links below:
@@ -244,6 +247,3 @@ It can be easily integrated with gems that you are already used to use.
 
 * [Paperclip](docs/integrations/paperclip.md)
 
-
-* Menu
-  - Customize Order, route, text, label and class
