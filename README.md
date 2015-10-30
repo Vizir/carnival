@@ -15,6 +15,39 @@ When you use Carnival you'll benefit from a set of features already done. If you
 * Nice default layout, ready to use;
 * New and Edit forms are easily configured. If you do not like, you can write your own views.
 
+## Detailed features
+
+* Index List
+  - Ordering by any column
+  - Scope
+  - Advanced Search
+  - Custom Links
+  - Remote Actions
+  - Custom Actions
+  - Batch Operations
+  - Custom Css Cel
+  - Delete
+  - CSV Export
+
+* Edit form
+  - Create new
+  - Update existent
+  - Nested Form
+  - Associate an existent
+  - Create new
+  - Update
+  - Delete
+  - ImagePreview
+  - Relation select (Autocomplete)
+  - Grid config (field order and size)
+  - Select Enum
+
+* Show
+  - Grid config (field order and size)
+  - Relation links
+  - Custom partial view
+  - Show as list
+
 ## How it works
 
 It provides a managing infra-structure for your application.
@@ -198,38 +231,7 @@ It can be easily integrated with gems that you are already used to use.
 
 * [Paperclip](docs/integrations/paperclip.md)
 
-## Detailed features list
 
-* Index List
-  - Ordering by any column
-  - Scope
-  - Advanced Search
-  - Custom Links
-  - Remote Actions
-  - Custom Actions
-  - Batch Operations
-  - Custom Css Cel
-  - Delete
-  - CSV Export
-
-* Edit form
-  - Create new
-  - Update existent
-  - Nested Form
-  - Associate an existent
-  - Create new
-  - Update
-  - Delete
-  - ImagePreview
-  - Relation select (Autocomplete)
-  - Grid config (field order and size)
-  - Select Enum
-
-* Show
-  - Grid config (field order and size)
-  - Relation links
-  - Custom partial view
-  - Show as list
 
 * Menu
   - Customize Order, route, text, label and class
