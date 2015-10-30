@@ -75,7 +75,7 @@ Run `bundle install`.
 
 Then, execute `rails generate carnival:install` to generate the initializer.
 
-## Basic Usage
+### Basic Usage
 
 Carnival started relying only on MVC model. As we developed it, we realized that a Presenter would better describe our models. We used the presenter to avoid fat models to emerge on our design.
 
@@ -99,6 +99,8 @@ It is also a commom Controller, with some minor differences:
 * Uses the default admin layout: `layout 'carnival/admin'`
 * When creating or editing data, you should configure the permitted params.
 
+See more [Controller](docs/controller.md)
+
 ```ruby
 module Admin
   class CompaniesController < Carnival::BaseAdminController
@@ -118,6 +120,8 @@ end
 ### Presenter
 
 All the "magic" of Carnival happens at Presenter. Each model managed under Carnival Admin will have a presenter associated to it. The presenter describes how the model's attributes will be presented.
+
+See more [Presenter](docs/presenter.md)
 
 ```ruby
 module Admin
