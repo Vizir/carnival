@@ -365,7 +365,8 @@ module Carnival
     end
 
     def csv_for_record(record)
-      CSV.generate do |csv|
+      CSV.generate(headers: :first_row) do |csv|
+        csv << fields_for_action(:csv).keys
         csv << fields_for_action(:csv).keys.map do |field|
           render_field(field, record)[:value]
         end
