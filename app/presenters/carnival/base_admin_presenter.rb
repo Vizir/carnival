@@ -372,6 +372,12 @@ module Carnival
       end
     end
 
+    def csv_for_header
+      CSV.generate(headers: :first_row) do |csv|
+        csv << fields_for_action(:csv).keys
+      end
+    end
+
     protected
 
     def infer_presenter(field)
