@@ -4,8 +4,12 @@ By
 [![Vizir Logo](http://vizir.com.br/wp-content/themes/vizir/images/logo.png)](http://vizir.com.br/)
 
 Carnival is an easy-to-use and extensible Rails Engine to speed up the development of data management interfaces.
+It provides a managing infra-structure for your application.
 
 When you use Carnival you'll benefit from a set of features already done. If you need to change anything, you can write your own version of the code, using real Ruby code in Rails standard components without worrying about a specific syntax or DSL.
+
+* How it works
+ - Carnival works with Rails 4.0 onwards.
 
 ## Features
 
@@ -15,11 +19,52 @@ When you use Carnival you'll benefit from a set of features already done. If you
 * Nice default layout, ready to use;
 * New and Edit forms are easily configured. If you do not like, you can write your own views.
 
-## How it works
+## Detailed features
 
-It provides a managing infra-structure for your application.
+* Index List
+  - Ordering by any column
+  - Scope
+  - Advanced Search
+  - Custom Links
+  - Remote Actions
+  - Custom Actions
+  - Batch Operations
+  - Custom Css Cel
+  - Delete
+  - CSV Export
 
-Carnival works with Rails 4.0 onwards.
+* Edit form
+  - Create new
+  - Update existent
+  - Nested Form
+  - Associate an existent
+  - Create new
+  - Update
+  - Delete
+  - ImagePreview
+  - Relation select (Autocomplete)
+  - Grid config (field order and size)
+  - Select Enum
+
+* Show
+  - Grid config (field order and size)
+  - Relation links
+  - Custom partial view
+  - Show as list
+
+* Menu
+  - Customize Order, route, text, label and class
+
+## Additional Docs
+
+You can find more detailed docs in the links below:
+
+- [Action](docs/action.md)
+- [Controller](docs/controller.md)
+- [Field](docs/field.md)
+- [Presenter](docs/presenter.md)
+- [Scope](docs/scope.md)
+
 
 ## Getting started
 
@@ -33,7 +78,7 @@ Run `bundle install`.
 
 Then, execute `rails generate carnival:install` to generate the initializer.
 
-## Basic Usage
+### Basic Usage
 
 Carnival started relying only on MVC model. As we developed it, we realized that a Presenter would better describe our models. We used the presenter to avoid fat models to emerge on our design.
 
@@ -57,6 +102,8 @@ It is also a commom Controller, with some minor differences:
 * Uses the default admin layout: `layout 'carnival/admin'`
 * When creating or editing data, you should configure the permitted params.
 
+See more [Controller](docs/controller.md)
+
 ```ruby
 module Admin
   class CompaniesController < Carnival::BaseAdminController
@@ -76,6 +123,8 @@ end
 ### Presenter
 
 All the "magic" of Carnival happens at Presenter. Each model managed under Carnival Admin will have a presenter associated to it. The presenter describes how the model's attributes will be presented.
+
+See more [Presenter](docs/presenter.md)
 
 ```ruby
 module Admin
@@ -132,7 +181,7 @@ config.menu = {
 
 ### Custom Views
 
-Carnival permits that you specify some partials for your page, you just need just add your partial in the `app/views/carnival/extra_header.html.haml`.
+Carnival permits that you specify some partials for your page, you just need add your partial in the `app/views/carnival/extra_header.html.haml`.
 
 Possible Partials:
 
@@ -192,54 +241,9 @@ It can be easily integrated with gems that you are already used to use.
 
 #### Rich Text Editor
 
-* [CKEditor](docs/integrations/ckeditor.md)
+* [CKEditor](docs/integrations/ckeditor.mb.md)
 
 #### File upload
 
 * [Paperclip](docs/integrations/paperclip.md)
 
-## Detailed features list
-
-* Index List
-  - Ordering by any column
-  - Scope
-  - Advanced Search
-  - Custom Links
-  - Remote Actions
-  - Custom Actions
-  - Batch Operations
-  - Custom Css Cel
-  - Delete
-  - CSV Export
-
-* Edit form
-  - Create new
-  - Update existent
-  - Nested Form
-  - Associate an existent
-  - Create new
-  - Update
-  - Delete
-  - ImagePreview
-  - Relation select (Autocomplete)
-  - Grid config (field order and size)
-  - Select Enum
-
-* Show
-  - Grid config (field order and size)
-  - Relation links
-  - Custom partial view
-  - Show as list
-
-* Menu
-  - Customize Order, route, text, label and class
-
-## Additional Docs
-
-You can find more detailed docs in the links below:
-
-- [Action](docs/action.md)
-- [Controller](docs/controller.md)
-- [Field](docs/field.md)
-- [Presenter](docs/presenter.md)
-- [Scope](docs/scope.md)
