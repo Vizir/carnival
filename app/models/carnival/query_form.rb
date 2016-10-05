@@ -13,7 +13,10 @@ module Carnival
       @sort_column = params[:sort_column]
       @sort_direction = params[:sort_direction]
 
-      @advanced_search = params[:advanced_search] || {}
+      @advanced_search =
+        params[:advanced_search].try(:to_unsafe_h) ||
+        params[:advanced_search].try(:to_h) ||
+        {}
       @page = (params[:page] || 1).to_i
     end
 
