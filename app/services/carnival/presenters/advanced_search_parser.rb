@@ -31,7 +31,7 @@ module Carnival
 
       private
         def parse_advanced_search_field search_field, field_param, records
-          return records if not field_param["value"].present?
+          return records unless field_param["value"].present?
           return records if field_param["value"] == ""
 
           if search_field.is_a?(String) && search_field.include?('.')
@@ -53,14 +53,15 @@ module Carnival
             column = search_field
           end
           
-          records.where(where_clause(field_param, column))
+          records.where(where_clause(field_param, table, column))
         end
 
-        def where_clause(field_param, column)
-          arel_table = @klass_service.klass.arel_table
+        def where_clause(field_param, table, column)
+          arel_table = Arel::Table.new(table)
           operator = field_param['operator']
           value = field_param['value']
           value2 = field_param['value2']
+
           case operator
           when 'equal'
             if value == 'nil'
