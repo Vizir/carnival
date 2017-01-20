@@ -1,7 +1,7 @@
 # Carnival
 
 By
-[![Vizir Logo](http://vizir.com.br/wp-content/themes/vizir/images/logo.png)](http://vizir.com.br/)
+[![Vizir Logo](http://vizirsite.wpengine.com/wp-content/uploads/2016/06/logo_software_studio.png)](http://vizir.com.br/)
 
 Carnival is an easy-to-use and extensible Rails Engine to speed up the development of data management interfaces.
 It provides a managing infra-structure for your application.
