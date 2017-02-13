@@ -51,12 +51,11 @@ end
 
 ### Custom visibility
 
-Your scopes can have custom visibility, for example if you want show it only for an admin_user,
-for that you must specify a hide_if, options when defining the scope. This must be a proc or a
-lambda, if it returns true the scope will not be shown.
-This is executed in the controller binding, so you have access to everything the current controller has
-Following is an example of how to define a custom scope visibility:
+Your scopes can have custom visibility, if you want for instance to show them only to an admin_user. To do that you must specify a `hide_if` option when defining the scope. This must be a proc or a lambda and if it returns `true` the scope will not be shown.
+This is executed in the controller binding, so you have access to everything the current controller has.
+
+Example:
 ``` ruby
-scope :all, hide_if: proc { !current_user.admin?  }
-scope :subset, hide_if: -> { !current_user.has_role('role')?  }
+scope :all, hide_if: proc { !current_user.admin? }
+scope :subset, hide_if: -> { !current_user.has_role?('role') }
 ```
