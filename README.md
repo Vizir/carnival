@@ -28,7 +28,7 @@ When you use Carnival you'll benefit from a set of features out-of-the-box. If y
   - Remote Actions
   - Custom Actions
   - Batch Operations
-  - Custom Css Cel
+  - Custom CSS Cell
   - Delete
   - CSV Export
 
@@ -37,8 +37,6 @@ When you use Carnival you'll benefit from a set of features out-of-the-box. If y
   - Update existent
   - Nested Form
   - Associate an existent
-  - Create new
-  - Update
   - Delete
   - ImagePreview
   - Relation select (Autocomplete)
