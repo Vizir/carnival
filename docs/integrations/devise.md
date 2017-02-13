@@ -14,11 +14,9 @@ end
   
 ## Customize Header to add CurrentUser info and SignOut link
 
-Create a partial "carnival/_extra_header.html.haml(erb)" in you views folder
+Create a partial "carnival/_extra_header.html.haml(erb)" in your views folder
 
-Ex.
-
-![Extra Header Partial](https://dl.dropboxusercontent.com/u/2134454/cdn/carnival/carnival-extra-header-sample-file.png)
+E.g. ![Extra Header Partial](https://dl.dropboxusercontent.com/u/2134454/cdn/carnival/carnival-extra-header-sample-file.png)
 
 Sample content:
 ```ruby
@@ -32,6 +30,5 @@ Sample content:
       = image_tag "", :class => "default"
 ``` 
 
-Rendered Header:
-![Extra Header Rendered](https://dl.dropboxusercontent.com/u/2134454/cdn/carnival/carnival-extra-header-rendered.png)
+Rendered Header: ![Extra Header Rendered](https://dl.dropboxusercontent.com/u/2134454/cdn/carnival/carnival-extra-header-rendered.png)
 
