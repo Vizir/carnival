@@ -3,7 +3,7 @@
 Install and configure following the [Paperclip installation instructions](https://github.com/thoughtbot/paperclip#installation)
 
 ## Configure migration to use Paperclip
-Configure the migration to use Paperclip for a specific field, in the example bellow Paperclip will be used to upload a file to `image` attribute.
+Configure the migration to use Paperclip for a specific field, in the example below Paperclip will be used to upload a file to `image` attribute.
 
 
 ```ruby
@@ -18,7 +18,7 @@ Configure the migration to use Paperclip for a specific field, in the example be
 
 
 ## Configure model to use Paperclip
-Configure the model to use Paperclip for a specific field, in the example bellow Paperclip will be used to upload a file to `image` attribute.
+Configure the model to use Paperclip for a specific field, in the example below Paperclip will be used to upload a file to `image` attribute.
 
 
 ```ruby
@@ -33,8 +33,8 @@ end
 
 ```
 
-## Configure Presenter to use admin_previewable_input
-In your presenter use the admin_previewable_file input to handle the field configures with paperclip.
+## Configure Presenter to use admin_previewable_file
+In your presenter use the admin_previewable_file input to handle the field configured with Paperclip.
 
 ```ruby
 
@@ -45,11 +45,11 @@ In your presenter use the admin_previewable_file input to handle the field confi
 
 Example of the rendered edit form:
 
-![Upload With paperclip](https://dl.dropboxusercontent.com/u/2134454/cdn/carnival/carnival-paperclip-upload.png)
+![Upload With Paperclip](https://dl.dropboxusercontent.com/u/2134454/cdn/carnival/carnival-paperclip-upload.png)
 
-## Full functional Sample Application
+## Fully functional Sample Application
 
-### Sourcecode
+### Source Code
 * [Carnivel Sample Application on Github](https://github.com/Vizir/carnival-sample-application)
 * Sample Presenter source code using the Paperclip Integration - [Photo Presenter](https://github.com/Vizir/carnival-sample-application/blob/master/app/presenters/photo_presenter.rb)
 

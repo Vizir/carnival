@@ -1,8 +1,8 @@
 # action
 
-  Define the actions of the presenter. The Carnival Gem has 4 default actions => [:show, :edit, :destroy, :new]
+  Define the actions of the presenter. The Carnival gem has 4 default actions => [:show, :edit, :destroy, :new]
 
-## Parametes:
+## Parameters
 
   - target
     - [:page, :record]
@@ -15,9 +15,11 @@
   - remote
     - boolean
 
-  The parameters below are only valid for actions remotes:
+### Parameters for remote actions
 
-  - method:
+The following are valid only for remote actions:
+
+  - method
     - Method used in the Request
     - default\_value: 'GET'
 
@@ -31,11 +33,12 @@
 
 
 #### :hide_if
-  - Your actions can have custom visibility, for example if you want show it only for an admin_user, for that you must specify a hide if, options when defining the action. This must be a proc or a lambda, if it returns true the action will not be shown.
 
-  - The hide_if Proc/lambda is executed in the controller action, so you have access to all of the controller variables and the @record variable is injected in the action, so you can make conditions using the record data.
+  - Your actions can have custom visibility, if you want for instance to show them only to an admin_user. To do that you must specify a `hide_if` option when defining the action. This must be a proc or a lambda and if it returns `true` the scope will not be shown.
 
-  -Following is an example of how to define a custom action visibility:
+  - The `hide_if` proc/lambda is executed in the controller action, so you have access to all of the controller variables and the @record variable is injected in the action, so you can make conditions using the record data.
+
+Example:
   ``` ruby
     action  :remove_from_blacklist,
             :remote => true,
