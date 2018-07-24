@@ -6,8 +6,6 @@
 # Since it requires class postgresql::server, we assume to run all commands as the
 # postgresql user against the local postgresql server.
 #
-# TODO: support an array of privileges for "grant"; currently only supports a single
-#  privilege, which is pretty useless unless that privilege is "ALL"
 #
 # Parameters:
 #   [*title*]       - postgresql database name.
@@ -45,7 +43,6 @@ define postgresql::db (
   include postgresql::params
 
   postgresql::database { $name:
-    # TODO: ensure is not yet supported
     #ensure    => present,
     charset    => $charset,
     tablespace => $tablespace,
@@ -57,7 +54,6 @@ define postgresql::db (
 
   if ! defined(Postgresql::Database_user[$user]) {
     postgresql::database_user { $user:
-      # TODO: ensure is not yet supported
       #ensure         => present,
       password_hash   => $password,
       #provider       => 'postgresql',
