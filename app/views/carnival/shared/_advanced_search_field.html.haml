@@ -7,7 +7,7 @@
     = text_field_tag "advanced_search[#{field.name}]", value, "data-operator" => field.advanced_search_operator
 - else
   - if presenter.field_type(field.name) == :boolean
-    = select_tag "advanced_search[#{field.name}]", options_for_select([['',''],['true', 'true'],['false', 'false']], value)
+    = select_tag "advanced_search[#{field.name}]", options_for_select([['',''],[t('yyes'), true],[t('nno'), false]], value)
   - elsif presenter.field_type(field.name) == :datetime
     = text_field_tag "advanced_search[#{field.name}]", value, "data-operator" => field.advanced_search_operator, :class => "datepicker"
   - else
