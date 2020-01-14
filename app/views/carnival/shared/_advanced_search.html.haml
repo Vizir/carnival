@@ -23,5 +23,11 @@
       %li.advanced-search-tag
         %span
           = presenter.translate_field(field)
-          = ": #{value}"
+          - if presenter.field_type(field.name) == :boolean
+            - if value.to_s.downcase == 'true'
+              = t('yyes')
+            - else
+              = t('nno')
+          - else
+            = ": #{value}"
         %a{:href => "javascript:Carnival.removeAdvancedSearch('"+key.to_s+"')"}

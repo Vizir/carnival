@@ -52,7 +52,7 @@ module Carnival
             table = @klass_service.table_name
             column = search_field
           end
-          
+
           records.where(where_clause(field_param, table, column))
         end
 
@@ -87,11 +87,7 @@ module Carnival
         end
 
         def advanced_search_field_value_for_query(value)
-          if "true" == value.downcase
-            return "'t'"
-          elsif "false" == value.downcase
-            return "'f'"
-          end
+
 
           value.downcase
         end
