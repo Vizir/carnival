@@ -31,7 +31,7 @@ module Carnival
 
       private
         def parse_advanced_search_field search_field, field_param, records
-          return records if not field_param["value"].present?
+          return records unless field_param["value"].present?
           return records if field_param["value"] == ""
 
           if search_field.is_a?(String) && search_field.include?('.')
@@ -52,31 +52,38 @@ module Carnival
             table = @klass_service.table_name
             column = search_field
           end
-          full_column_query = "#{table}.#{column}"
-          where_clause = nil
+          
+          records.where(where_clause(field_param, table, column))
+        end
 
-          case field_param["operator"]
-            when "equal"
-              if field_param["value"] == "nil"
-                where_clause = "#{full_column_query} is null"
-              elsif field_param["value"].match(/^\d+$/)
-                where_clause = "#{full_column_query} = #{field_param["value"]}"
-              else
-                where_clause = "lower(#{full_column_query}) = '#{advanced_search_field_value_for_query(field_param["value"])}'"
-              end
-            when "like"
-              where_clause = "lower(#{full_column_query}) like '%#{field_param["value"].downcase}%'"
-            when "greater_than"
-              where_clause = "#{full_column_query} >= '#{field_param["value"]}'"
-            when "less_than"
-              where_clause = "#{full_column_query} <= '#{field_param["value"]}'"
-            when "between"
-              where_clause = "#{full_column_query} between '#{field_param["value"]}' and '#{field_param["value2"]}'"
+        def where_clause(field_param, table, column)
+          arel_table = Arel::Table.new(table)
+          operator = field_param['operator']
+          value = field_param['value']
+          value2 = field_param['value2']
+
+          case operator
+          when 'equal'
+            if value == 'nil'
+              arel_table[column].eq(nil)
+            elsif value.match(/^\d+$/)
+              arel_table[column].eq(value)
             else
-              where_clause = "#{full_column_query} = #{advanced_search_field_value_for_query(field_param["value"])}"
+              arel_table.lower(arel_table[column]).eq("#{advanced_search_field_value_for_query(value)}")
+            end
+          when 'like'
+            arel_table.lower(arel_table[column]).matches("%#{value.downcase}%")
+          when 'greater_than'
+            arel_table[column].gteq(value)
+          when 'less_than'
+            arel_table[column].lteq(value)
+          when 'between'
+            Arel::Nodes::Between.new(
+              arel_table[column], Arel::Nodes::And.new([value, value2])
+            )
+          else
+            arel_table[column].eq("#{advanced_search_field_value_for_query(value)}")
           end
-          records = records.where(where_clause) if where_clause.present?
-          records
         end
 
         def advanced_search_field_value_for_query(value)
@@ -84,12 +91,10 @@ module Carnival
             return "'t'"
           elsif "false" == value.downcase
             return "'f'"
-          else
-            "#{value.downcase}"
           end
+
+          value.downcase
         end
-
-
     end
   end
 end
