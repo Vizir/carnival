@@ -24,12 +24,12 @@
               = render '/carnival/shared/form/inner_form', button: t('update'), model_object: inner_form.object, presenter: nested_presenter, :nested_in => model_object, :f => inner_form, :action => action
 
   - else
-    - model_object.send("build_#{field.name}")
+    - if action == :new
+      - model_object.send("build_#{field.name}")
     = f.simple_fields_for field.name.to_sym do |inner_form|
-      - if inner_form.object.id.nil? and inner_form.object.errors.size == 0
-        %li.nested-form-list-item{:class => "#{inner_form.object.id.nil? and inner_form.object.errors.size == 0 ? 'form-new-association' : 'form-existent-association'}" }
-          .nested-form-list-item-actions
-          = inner_form.input :id, :as => :hidden
-          = inner_form.input :_destroy, :as => :hidden, :input_html => {:class => "destroy"} if field.nested_form_allow_destroy?
-          - nested_presenter = presenter.presenter_to_field(field, inner_form.object)
-          = render '/carnival/shared/form/inner_form', button: t('update'), model_object: inner_form.object, presenter: nested_presenter, :nested_in => model_object, :f => inner_form, :action => action
+      %li.nested-form-list-item{:class => "#{inner_form.object.id.nil? and inner_form.object.errors.size == 0 ? 'form-new-association' : 'form-existent-association'}" }
+        .nested-form-list-item-actions
+        = inner_form.input :id, :as => :hidden
+        = inner_form.input :_destroy, :as => :hidden, :input_html => {:class => "destroy"} if field.nested_form_allow_destroy?
+        - nested_presenter = presenter.presenter_to_field(field, inner_form.object)
+        = render '/carnival/shared/form/inner_form', button: t('update'), model_object: inner_form.object, presenter: nested_presenter, :nested_in => model_object, :f => inner_form, :action => action
