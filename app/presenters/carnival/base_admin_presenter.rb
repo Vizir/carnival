@@ -374,7 +374,9 @@ module Carnival
 
     def csv_for_header
       CSV.generate(headers: :first_row) do |csv|
-        csv << fields_for_action(:csv).keys
+        csv << fields_for_action(:csv).keys.map do |field|
+          model_class.human_attribute_name field
+        end
       end
     end
 
